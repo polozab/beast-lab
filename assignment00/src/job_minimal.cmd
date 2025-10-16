@@ -18,5 +18,5 @@
 
 # embed your test codes in the section below. This will run on the allocated node, and in this example it runs on milan2.
 hostname
-lscpui
+lscpu
 
