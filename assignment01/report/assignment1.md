@@ -52,7 +52,7 @@ This is due to the fact that small anomalies through for example other system pr
 
 ### ii)
 
-Additionally to setting the repetition count to a number that the timing test lasts at least the specified minimal time, it also serves as a warm-up. This eradicates inaccuracies from cache cold misses and ensures threads are already allocated to one resource.
+Additionally to setting the repetition count to a number that the timing test lasts at least the specified minimal time, it also serves as a warm-up. This eradicates inaccuracies from cache cold misses and ensures threads are already pinned down.
 
 ### iii)
 
