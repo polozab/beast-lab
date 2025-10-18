@@ -2,18 +2,20 @@
 
 ## a) Floating Point Operations per Iteration
 
-Each iteration of consists of 2 floating point operations. If we unpack the statement we can clearly spot both operation:
+Each iteration consists of 2 floating point operations. If we unpack the statement we can clearly spot both operation:
 
 ```
 A[i] = (B[i] + (C[i] * D[i]))
 ```
-The first one being the multiplication of *C + D* and the second being th addition with *B*. As storing and loading of floating point numbers doesn't count as a floating point operation the assignment to *A* is not considered.
+The first one being the multiplication of *C + D* and the second being the addition with *B*. As storing and loading of floating point numbers doesn't count as a floating point operation the assignment to *A* is not considered.
 
-Thus to calculate the floating point operations per second FLOPs we just measure:
-
-```
-FLOPs = (2N) / seconds_needed
-```
+> **Do we need the following part?**
+>
+>Thus to calculate the floating point operations per second FLOPs we just measure: 
+>
+>```
+>FLOPs = (2N) / seconds_needed
+>```
 
 ## b) Conversion to bandwidth utilization
 ### i) TODO: CACHE SIZE
@@ -33,9 +35,9 @@ Thus we can just multiply the FLOPs with 16 to get the memory utilization in byt
 
 ### ii)
 
-In write allocate the CPU does an extra memory transfer if the desired address can not be found in the cache yet. It then loads in the entire cache line first, overwriting it with the value in cache. Finally if the cache line get evicted the expected memory transfer happens.
+In write allocate the CPU does an extra memory transfer if the desired address can not be found in the cache yet. It then loads in the entire cache line first, overwriting it with the value in cache. Finally if the cache line gets evicted the expected memory transfer happens.
 
-This means when using write allocate we get an additional memory transfer from th loading of the cache line into the cache. Thus a better estimation for the factor would be 20.
+This means when using write allocate we get an additional memory transfer from the loading of the cache line into the cache. Thus a better estimation for the factor would be 20.
 
 ```
 8 bytes * 5 transfers = 40 bytes
