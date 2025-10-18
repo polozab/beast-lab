@@ -19,6 +19,7 @@ The first one being the multiplication of *C + D* and the second being the addit
 
 ## b) Conversion to bandwidth utilization
 ### i) TODO: CACHE SIZE
+If the vector fits entirely into the L1 cache a bandwidth measurement would not be possible.
 Each value of the vectors *B, C, D* needs to be loaded from memory, while storing the result in the value of *A* also writes to the memory. As double preciscion floating point numbers take up 8 Bytes and we need 4 memory accesses, 32 Bytes get transferred each iteration.
 
 ```
