@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
 
         // warm-up and set number of repetitions
         size_t rep = 1U;
-        while (triad(N, rep) < min_duration && rep < SIZE_MAX / 2) {
+        while (triad(N, rep) < min_duration && rep < __SIZE_MAX__ / 2) {
             rep *= 2;
         }
 
