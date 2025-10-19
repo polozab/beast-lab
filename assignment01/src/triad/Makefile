@@ -1,6 +1,6 @@
 SHELL:=/bin/bash
 HOSTNAME:=$(shell hostname)
-BIN:=triad-$(HOSTNAME)
+BIN:=triad
 NMAX?=26
 
 CC?=gcc
