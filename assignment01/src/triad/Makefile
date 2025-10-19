@@ -7,11 +7,11 @@ CC?=gcc
 CFLAGS?=-fopenmp -Ofast -march=native
 
 SOURCES := $(wildcard *.c)
-BINS := $(patsubst %.c,%,$(SOURCES))
+BINS := $(patsubst %.c,%.bin,$(SOURCES))
 
 all: $(BINS)
 
-%: %.c Makefile
+%.bin: %.c Makefile
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $< $(LDLIBS) -o $@
 
 $(BIN): triad.c Makefile
