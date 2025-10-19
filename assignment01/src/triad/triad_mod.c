@@ -103,9 +103,9 @@ int main(int argc, char *argv[])
 
     printf("%s,%s,%s,%s\n", "N", "GFLOPS", "Repetitions", "Threads");
 
-    int max_num_threads = omp_get_max_threads();
+    int max_num_threads = omp_get_max_threads() * 4;
 
-    for (size_t num_threads = 1; num_threads <= max_num_threads; num_threads += 1) {
+    for (size_t num_threads = 1; num_threads <= max_num_threads; num_threads += 2) {
 
         // set the OpenMP thread count
         omp_set_num_threads(num_threads);
