@@ -103,29 +103,33 @@ int main(int argc, char *argv[])
 
     printf("%s,%s,%s,%s\n", "N", "GFLOPS", "Repetitions", "Threads");
 
-    int num_threads = omp_get_max_threads();
+    int max_num_threads = omp_get_max_threads();
 
-    for (size_t N = N_min; N <= N_max; N *= 2) {
-        allocate_vectors(N, aligned);
-        initialize_vectors(N);
+    for (size_t num_threads = 1; N <= max_num_threads; N += 1) {
+
+        // set the OpenMP thread count
+        omp_set_num_threads(num_threads);
+
+        allocate_vectors(N_max, aligned);
+        initialize_vectors(N_max);
 
         // warm-up and set number of repetitions
         size_t rep = 1U;
-        while (triad(N, rep) < min_duration && rep < __SIZE_MAX__ / 2) {
+        while (triad(N_max, rep) < min_duration && rep < __SIZE_MAX__ / 2) {
             rep *= 2;
         }
 
         // actual measurement
-        double time = triad(N, rep);
+        double time = triad(N_max, rep);
 
-        assert(verify(N));
+        assert(verify(N_max));
         free_vectors();
 
         // flop calculation
-        double num_flops = 2.0 * N * rep;
+        double num_flops = 2.0 * N_max * rep;
         double gflops    = (num_flops / time) * 1.0e-9;
 
-        printf("%zu,%.2f,%zu,%d\n", N, gflops, rep, num_threads);
+        printf("%zu,%.2f,%zu,%d\n", N_max, gflops, rep, num_threads);
     }
     return EXIT_SUCCESS;
 }
