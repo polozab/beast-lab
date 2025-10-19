@@ -4,7 +4,7 @@ BIN:=triad-$(HOSTNAME)
 NMAX?=26
 
 CC?=gcc
-CFLAGS?=-fopenmp -O3 -march=native
+CFLAGS?=-fopenmp -Ofast -march=native
 
 all: $(BIN)
 
