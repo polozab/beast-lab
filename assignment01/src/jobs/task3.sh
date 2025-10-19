@@ -30,14 +30,14 @@ done
 echo "Executing strong scale test..."
 export OMP_NUM_THREADS=1
 export OMP_PROC_BIND="spread"
-../triad/triad_mod.bin 29 1 > "task3a_triad_mod_spread.csv"
+../triad/triad_mod.bin 29 1 > "task3b_triad_mod_spread.csv"
 
 echo "Executing strong scale test with close thread pinning..."
 export OMP_NUM_THREADS=1
 export OMP_PROC_BIND="close"
-../triad/triad_mod.bin 29 1 > "task3a_triad_mod_close.csv"
+../triad/triad_mod.bin 29 1 > "task3b_triad_mod_close.csv"
 
 echo "Executing strong scale test with sequential initialization..."
 export OMP_NUM_THREADS=1
 export OMP_PROC_BIND="spread"
-../triad/triad_mod_seq-init.bin 29 1 > "task3a_triad_mod_seq-init.csv"
+../triad/triad_mod_seq-init.bin 29 1 > "task3b_triad_mod_seq-init.csv"
