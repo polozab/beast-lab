@@ -6,7 +6,13 @@ NMAX?=26
 CC?=gcc
 CFLAGS?=-fopenmp -Ofast -march=native
 
-all: $(BIN)
+SOURCES := $(wildcard *.c)
+BINS := $(patsubst %.c,%,$(SOURCES))
+
+all: $(BINS)
+
+%: %.c Makefile
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $< $(LDLIBS) -o $@
 
 $(BIN): triad.c Makefile
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $< $(LDLIBS) -o $@
@@ -16,4 +22,4 @@ run: $(BIN)
 	./$(BIN) $(NMAX)
 
 clean:
-	$(RM) $(BIN)
+	$(RM) $(BINS)
