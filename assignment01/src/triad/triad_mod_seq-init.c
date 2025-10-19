@@ -102,7 +102,7 @@ int main(int argc, char *argv[])
 
     printf("%s,%s,%s,%s\n", "N", "GFLOPS", "Repetitions", "Threads");
 
-    int max_num_threads = omp_get_max_threads() * 4;
+    int max_num_threads = omp_get_max_threads() * 2;
 
     for (size_t num_threads = 1; num_threads <= max_num_threads; num_threads *= 2) {
 
