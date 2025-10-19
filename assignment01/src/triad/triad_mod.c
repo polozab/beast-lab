@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
 
     int max_num_threads = omp_get_max_threads();
 
-    for (size_t num_threads = 1; N <= max_num_threads; N += 1) {
+    for (size_t num_threads = 1; num_threads <= max_num_threads; num_threads += 1) {
 
         // set the OpenMP thread count
         omp_set_num_threads(num_threads);
