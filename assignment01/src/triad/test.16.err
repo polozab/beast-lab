@@ -1,0 +1,2 @@
+make: *** empty variable name.  Stop.
+/var/spool/slurmd/job00016/slurm_script: line 27: ./triad.c: Permission denied
