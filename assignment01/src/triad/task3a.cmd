@@ -20,6 +20,8 @@
 
 # embed your test codes in the section below. This will run on the allocated node, and in this example it runs on milan2.
 
+module load gcc/13.2.0-gcc-7.5.0-kv6jgtu
+
 make clean
 make
 
