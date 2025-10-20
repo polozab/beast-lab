@@ -6,7 +6,7 @@
 #SBATCH -o ./%x.%j.out
 #SBATCH -e ./%x.%j.err
 #Initial working directory (also --chdir):
-#SBATCH -D ./Group-101/assignment01/src/triad
+#SBATCH -D ./Group-101/assignment01/src/triad/newTest
 #Notification and type
 #SBATCH --time=00:10:00
 #SBATCH --no-requeue
@@ -24,4 +24,4 @@ module load gcc/14.2.0-gcc-13.2.0-57z6vik
 export OMP_NUM_THREADS=1 OMP_PROC_BIND=spread
 echo "Test 1 default gcc\n"
 make CC=gcc CFLAGS = "-fopenmp" -B
-./triad.c 26 > test1.csv
+.././triad.c 26 > test1.csv
