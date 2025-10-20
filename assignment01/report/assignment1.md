@@ -1,5 +1,5 @@
 # Assignment 1 - General Questions
-
+# 1.
 ## a) Floating Point Operations per Iteration
 
 Each iteration consists of 2 floating point operations. If we unpack the statement we can clearly spot both operation:
@@ -92,3 +92,12 @@ The initialization should be parallelized to make optimal use of the NUMA Domain
 Instead, if we run the initialization in parallel, too. We allocate the vector entries in the same NUMA domain where we later perform the triad operation. This can lead to better performance as accesses to memory are physically shorter, leading to less idle time.
 
 This is due to the use of the same scheduling strategy for both initialization and actual operation. Even tho the for loops live in completely separate thread teams the deterministic scheduling of OpenMP ensures that the threads get allocated identically both times.
+
+# 2
+## (a)
+![plot](plots/myplot.png)
+Cach sizes:
+- L1: 7.5 MiB (combined)
+- L2: 192 MiB
+- L3: 210 MiB (~220*10^3KiB)
+As can be seen in the plot performance significantly drops at theses sizes which indicates that the vectors no longer fit into the respective cache.
