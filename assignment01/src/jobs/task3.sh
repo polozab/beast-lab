@@ -10,7 +10,7 @@
 #Initial working directory (also --chdir):
 #SBATCH -D ./
 #Notification and type
-#SBATCH --time=00:05:00
+#SBATCH --time=00:10:00
 #SBATCH --no-requeue
 #SBATCH --export=NONE
 #SBATCH --get-user-env
@@ -19,6 +19,8 @@
 #SBATCH --nodes=1
 
 # embed your test codes in the section below. This will run on the allocated node, and in this example it runs on milan2.
+
+echo "$PWD"
 
 for t in 1 16 24 32 48 64 96 128 192; do
   printf -v t_padded '%03d' "$t"
