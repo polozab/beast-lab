@@ -1,4 +1,4 @@
-# Assignment 1 - General Questions
+# Task 1 - General Questions
 
 ## a) Floating Point Operations per Iteration
 
