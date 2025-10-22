@@ -1,6 +1,6 @@
 # Task 3 - Parallel Performance
 
-We are working on the SAP3 system. It has 4 NUMA domains and 96 physical cores with 2 hardware threads each. However of the 4 available NUMA nodes only 2 are used, which means that we effectively only have 2 NUMA domains.
+We are working on the SAP3 system. It has 4 NUMA domains and 96 physical cores divided between 2 sockets with 2 hardware threads each. However of the 4 available NUMA nodes only 2 are used, which means that we effectively only have 2 NUMA domains.
 
 ## a) Different thread counts in comparison to the vector length
 
