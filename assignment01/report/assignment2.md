@@ -1,4 +1,4 @@
-# 2
+# Task 2 - Sequential Performance
 The following table summarizes the different configurations used for the measurements:
   |Name|Compiler Flags|Memory Allocation|
   -----|--------------|------------------|

@@ -2,7 +2,7 @@
 
 We are working on the SAP3 system. It has 4 NUMA domains and 96 physical cores divided between 2 sockets with 2 hardware threads each. However of the 4 available NUMA nodes only 2 are used, which means that we effectively only have 2 NUMA domains.
 
-## a) Different thread counts in comparison to the vector length
+## (a) Different thread counts in comparison to the vector length
 
 ![Plot - different thread counts](assignment3_a.png)
 
@@ -38,7 +38,7 @@ When we look at the plots of the different thread numbers we can spot that power
 
 When looking at the two drops at 10⁵ and 10⁷ we can also clearly observe the memory hierarchy in this system. Both drop happen due to the necessity of accessing a larger but substantially slower cache. This is caused by the increasing size of the vector which than doesn't fits entirely into the higher level cache anymore. Beyond a specific vector length around 10⁷ we can spot that the performance of all thread counts approach that of a single thread. This can be explained due to the memory link being fully utilized which means that independent of positioning all thread compete for the same bandwidth. The advantage we get through utilizing different NUMA domains and using local caches on the cores gets mitigated as to much data needs to be transferred to and from memory.
 
-## b) Strong scaling experiment
+## (b) Strong scaling experiment
 
 ![Plot - strong scaling test](assignment3_b.png)
 
