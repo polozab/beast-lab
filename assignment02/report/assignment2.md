@@ -44,9 +44,11 @@ This instruction calculates the partial sum by taking
 | 6     | kji     | 194      |
 
 **TODO:**
+- Peform full runs for everything
 - Huge performance improvement (doubling)
 - C, B access continuos
 - A static for inner loop (no column jumps necessary)
 - In assembly more extensive use of SVE (with code example)
+- Explain why gets faster for ikj
 
 ## d)
