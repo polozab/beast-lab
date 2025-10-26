@@ -1,10 +1,16 @@
 CXX?=c++
-CXXFLAGS?=-Wall -Wextra -Ofast -march=native -std=c++17 -fopenmp -fstrict-aliasing
+CXXFLAGS?=-Wall -Wextra -O3 -march=native -ffast-math -fstrict-aliasing -fopenmp -std=c++17
 
-all: assignment
+SRCS := $(wildcard *.cpp)
+OBJS := $(SRCS:.cpp=.out)
 
-assignment:
-	$(CXX) $(CXXFLAGS) -o $@ assignment.cpp
+all: $(OBJS)
+
+assignment: $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+%.out: %.cpp
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 clean:
-	rm -f assignment
+	rm -f $(OBJS)
