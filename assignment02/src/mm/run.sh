@@ -1,7 +1,7 @@
 #! /usr/bin/sh
 
 CMD_GCC="-std=c++17 -o assignment assignment.cpp"
-CMF_CC="-lstdc++ -o assignment assignment.cpp"
+CMD_CC="-lstdc++ -o assignment assignment.cpp"
 
 ## a) Compiler flags
 
