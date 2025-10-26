@@ -59,7 +59,7 @@ cc -O3 -march=armv8 -ffast-math -fstrict-aliasing -fopenmp $CMD_CC
 #./assignment > ./data/cc/o3_native_fast-math_strict-aliasing_fopenmp.out
 #./assignment >> ./data/cc/o3_native_fast-math_strict-aliasing_fopenmp.out
 
-cc -Ofast -march=native $CMD_GCC
+cc -Ofast -march=armv8 $CMD_GCC
 #./assignment > ./data/cc/ofast_native.out
 #./assignment >> ./data/cc/ofast_native_.out
 
