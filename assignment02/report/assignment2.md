@@ -33,3 +33,20 @@ When taking a look at the disassembled object dump, you can the spot FADDA SVE v
 This instruction calculates the partial sum by taking 
 
 ## c)
+
+|       | Order   | MFLOPs   |
+|-------|---------|----------|
+| **1** | **ikj** | **5140** |
+| 2     | kij     | 4587     |
+| 3     | jik     | 2796     |
+| **4** | **ijk** | **2628** |
+| 5     | jki     | 649      |
+| 6     | kji     | 194      |
+
+**TODO:**
+- Huge performance improvement (doubling)
+- C, B access continuos
+- A static for inner loop (no column jumps necessary)
+- In assembly more extensive use of SVE (with code example)
+
+## d)
