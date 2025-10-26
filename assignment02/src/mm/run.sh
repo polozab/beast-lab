@@ -2,12 +2,11 @@
 
 CMD_GCC="-std=c++17 -o assignment assignment.cpp"
 CMF_CC="-lstdc++ -o assignment assignment.cpp"
-module load cce/11.0.0
-module load gcc
 
 ## a) Compiler flags
 
 ### CXX
+module load gcc
 
 $CXX -O3 $CMD_GCC
 #./assignment > ./data/cxx/o3.out
@@ -38,6 +37,7 @@ $CXX -O3 $CMD_GCC
 #./assignment >> ./data/cxx/o3.out
 
 ### CC
+module load cce/11.0.0
 
 cc -O3 $CMD_CC
 #./assignment > ./data/cc/o3.out
