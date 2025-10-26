@@ -2,14 +2,14 @@ CXX?=c++
 CXXFLAGS?=-Wall -Wextra -O3 -march=native -ffast-math -fstrict-aliasing -fopenmp -std=c++17
 
 SRCS := $(wildcard *.cpp)
-OBJS := $(SRCS:.cpp=.out)
+OBJS := $(SRCS:.cpp=.o)
 
 all: $(OBJS)
 
 assignment: $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-%.out: %.cpp
+%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 clean:
