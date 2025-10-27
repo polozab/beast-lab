@@ -1,5 +1,5 @@
 CXX?=c++
-CXXFLAGS?=-Wall -Wextra -O3 -march=native -ffast-math -fstrict-aliasing -fopenmp -std=c++17
+CXXFLAGS?=-O3 -march=native -ffast-math -fstrict-aliasing -fopenmp -std=c++17
 
 SRCS := $(wildcard *.cpp)
 OBJS := $(SRCS:.cpp=.out)
