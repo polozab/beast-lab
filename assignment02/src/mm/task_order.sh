@@ -15,7 +15,7 @@
 #SBATCH --export=NONE
 #SBATCH --get-user-env
 #SBATCH --partition=cs #milan sap gh cs
-#SBATCH --nodelist=cs1 #sap4 gh3 cs7
+#SBATCH --nodelist=cs7 #sap4 gh3 cs7
 #SBATCH --nodes=1
 
 # embed your test codes in the section below. This will run on the allocated node, and in this example it runs on milan2.
