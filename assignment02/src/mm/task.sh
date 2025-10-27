@@ -22,11 +22,10 @@
 
 module load gcc
 
-make clean
 make
 
 rm -rf "./data"
 mkdir -p "./data"
 
-./assignment_ijk.out > "./data/ijk.csv"
+stdbuf --output=L ./assignment_ikj.out | tee ./data/ikj.txt
 
