@@ -6,9 +6,8 @@
 
 // use a 1d array to guarantee a dense and sequential memory layout
 #define TWO_D_ACCESS(row, col, width) ((width) * (row) + (col))
-#define TILE_SIZE 8
 
-double mm(int N, int REP, double expected_result) {
+double mm(int N, int TILE_SIZE, int REP, double expected_result) {
 
   int padded_N = ((N + TILE_SIZE - 1) / TILE_SIZE) * TILE_SIZE;
   printf("Overhead: %d, ", ((N + TILE_SIZE - 1) / TILE_SIZE) * TILE_SIZE - N);
@@ -107,52 +106,61 @@ double mm(int N, int REP, double expected_result) {
 }
 
 int main(int argc, char* argv[]) {
+
+  // get tile size
+  int tile_size = 10;
+  if (argc > 1) {
+    if (sscanf(argv[1], "%d", &tile_size) != 1) {
+      return -1;
+    }
+  }
+
   // ugly hardcoded stuff
   double mf;
 
-  mf = mm(100, 3200, 702147.857);
+  mf = mm(100, tile_size, 3200, 702147.857);
   printf("MFLOPS(N=%4d): %.3f\n", 100, mf);
 
-  mf = mm(200, 1600, 1211484.385);
+  mf = mm(200, tile_size, 1600, 1211484.385);
   printf("MFLOPS(N=%4d): %.3f\n", 200, mf);
 
-  mf = mm(300, 800, -212360.190);
+  mf = mm(300, tile_size, 800, -212360.190);
   printf("MFLOPS(N=%4d): %.3f\n", 300, mf);
 
-  mf = mm(400, 400, -257987.574);
+  mf = mm(400, tile_size, 400, -257987.574);
   printf("MFLOPS(N=%4d): %.3f\n", 400, mf);
 
-  mf = mm(500, 200, -115630.730);
+  mf = mm(500, tile_size, 200, -115630.730);
   printf("MFLOPS(N=%4d): %.3f\n", 500, mf);
 
-  mf = mm(600, 100, -92905.739);
+  mf = mm(600, tile_size, 100, -92905.739);
   printf("MFLOPS(N=%4d): %.3f\n", 600, mf);
 
-  mf = mm(700, 60, -49174.596);
+  mf = mm(700, tile_size, 60, -49174.596);
   printf("MFLOPS(N=%4d): %.3f\n", 700, mf);
 
-  mf = mm(800, 40, 102953.727);
+  mf = mm(800, tile_size, 40, 102953.727);
   printf("MFLOPS(N=%4d): %.3f\n", 800, mf);
 
-  mf = mm(900, 20, 55208.396);
+  mf = mm(900, tile_size, 20, 55208.396);
   printf("MFLOPS(N=%4d): %.3f\n", 900, mf);
 
-  mf = mm(1000, 10, -9100.239);
+  mf = mm(1000, tile_size, 10, -9100.239);
   printf("MFLOPS(N=%4d): %.3f\n", 1000, mf);
 
-  mf = mm(1100, 5, 19076.488);
+  mf = mm(1100, tile_size, 5, 19076.488);
   printf("MFLOPS(N=%4d): %.3f\n", 1100, mf);
 
-  mf = mm(1300, 2, -4334.610);
+  mf = mm(1300, tile_size, 2, -4334.610);
   printf("MFLOPS(N=%4d): %.3f\n", 1300, mf);
 
-  mf = mm(1500, 1, 1062.209);
+  mf = mm(1500, tile_size, 1, 1062.209);
   printf("MFLOPS(N=%4d): %.3f\n", 1500, mf);
 
-  mf = mm(1700, 1, -2689.469);
+  mf = mm(1700, tile_size, 1, -2689.469);
   printf("MFLOPS(N=%4d): %.3f\n", 1700, mf);
 
-  mf = mm(1900, 1, 9179.534);
+  mf = mm(1900, tile_size, 1, 9179.534);
   printf("MFLOPS(N=%4d): %.3f\n", 1900, mf);
  
   return 0;
