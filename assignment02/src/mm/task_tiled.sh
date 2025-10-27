@@ -28,8 +28,8 @@ make
 rm -rf "./data/tiled"
 mkdir -p "./data/tiled"
 
-stdbuf --output=L ./assignment_ijk_tiled.out 10 | tee ./data/tiled/tiled_10.txt
-stdbuf --output=L ./assignment_ijk_tiled.out 20 | tee ./data/tiled/tiled_20.txt
-stdbuf --output=L ./assignment_ikj.out 48 | tee ./data/tiled/tiled_48.txt
-stdbuf --output=L ./assignment_ikj.out 50 | tee ./data/tiled/tiled_50.txt
-stdbuf --output=L ./assignment_ikj.out 52 | tee ./data/tiled/tiled_52.txt
+stdbuf --output=L ./assignment_ikj_tiled.out 10 | tee ./data/tiled/tiled_10.txt
+stdbuf --output=L ./assignment_ikj_tiled.out 20 | tee ./data/tiled/tiled_20.txt
+stdbuf --output=L ./assignment_ikj_tiled.out 48 | tee ./data/tiled/tiled_48.txt
+stdbuf --output=L ./assignment_ikj_tiled.out 50 | tee ./data/tiled/tiled_50.txt
+stdbuf --output=L ./assignment_ikj_tiled.out 52 | tee ./data/tiled/tiled_52.txt
