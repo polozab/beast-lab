@@ -6,27 +6,39 @@
 
 // use a 1d array to guarantee a dense and sequential memory layout
 #define TWO_D_ACCESS(row, col, width) ((width) * (row) + (col))
-#define TILE_SIZE 10
+#define TILE_SIZE 8
 
 double mm(int N, int REP, double expected_result) {
+
+  int padded_N = ((N + TILE_SIZE - 1) / TILE_SIZE) * TILE_SIZE;
+  printf("Overhead: %d, ", ((N + TILE_SIZE - 1) / TILE_SIZE) * TILE_SIZE - N);
 
   //////////////////////////////////////////////////////////////////////////
   // ALLOCATION
   /////////////////////////////////////////////////////////////////////////
 
-  double * a = (double *) malloc(N*N*sizeof(double));
-  double * b = (double *) malloc(N*N*sizeof(double));
-  double * c = (double *) malloc(N*N*sizeof(double));
+  double * a = (double *) malloc(padded_N*padded_N*sizeof(double));
+  double * b = (double *) malloc(padded_N*padded_N*sizeof(double));
+  double * c = (double *) malloc(padded_N*padded_N*sizeof(double));
 
   //////////////////////////////////////////////////////////////////////////
   // INIT
   /////////////////////////////////////////////////////////////////////////
 
-  for(int i = 0; i < N*N; ++i){
-    a[i] = 0;
-    // initialize with something so the compiler/cpu cannot optimize 0*0=0
-    b[i] = atan(i);
-    c[i] = cos(i);
+  for (int i = 0; i < padded_N; i++)
+  {
+    for (int j = 0; j < padded_N; j++)
+    {
+      a[TWO_D_ACCESS(i, j, padded_N)] = 0.0;
+      if (i<N && j<N) {
+        b[TWO_D_ACCESS(i,j,padded_N)] = atan(TWO_D_ACCESS(i,j,N));
+        c[TWO_D_ACCESS(i,j,padded_N)] = cos(TWO_D_ACCESS(i,j,N));
+      }
+      else {
+        b[TWO_D_ACCESS(i,j,padded_N)] = 0.0;
+        c[TWO_D_ACCESS(i,j,padded_N)] = 0.0;
+      }
+    }
   }
 
   //////////////////////////////////////////////////////////////////////////
@@ -34,10 +46,10 @@ double mm(int N, int REP, double expected_result) {
   /////////////////////////////////////////////////////////////////////////
   
   for( int r=0; r<REP; ++r ) {
-    for( int i=0; i<N; i++ ) {
-      for( int k=0; k<N; k++ ) {
-        for( int j=0; j<N; j++ ) {
-          a[TWO_D_ACCESS(i, j, N)] += b[TWO_D_ACCESS(i, k, N)] * c[TWO_D_ACCESS(k, j, N)];
+    for( int i=0; i<padded_N; i++ ) {
+      for( int k=0; k<padded_N; k++ ) {
+        for( int j=0; j<padded_N; j++ ) {
+          a[TWO_D_ACCESS(i, j, padded_N)] += b[TWO_D_ACCESS(i, k, padded_N)] * c[TWO_D_ACCESS(k, j, padded_N)];
         }
       }
     }
@@ -48,31 +60,35 @@ double mm(int N, int REP, double expected_result) {
   /////////////////////////////////////////////////////////////////////////
 
   auto t0 = std::chrono::high_resolution_clock::now();
-  {
-    for( int r=0; r<REP; ++r ) {
-      for (int i=0; i<N; i+=TILE_SIZE ) {
-        for (int j=0; j<N; j +=TILE_SIZE ) {
-          for (int k=0; k<N; k+=TILE_SIZE ) {
-            for (int ii=i; ii<i+TILE_SIZE; ii++ ) {
-              int min = std::min(N, k + TILE_SIZE);
-              for (int kk=k; kk<min; kk++) {
-                for (int jj=j; jj<j+TILE_SIZE; jj++) {
-                  a[TWO_D_ACCESS(ii, jj, N)] += b[TWO_D_ACCESS(ii, kk, N)] * c[TWO_D_ACCESS(kk, jj, N)];
-                } 
-              } 
-            } 
-          } 
-        } 
-      } 
+
+  for( int r=0; r<REP; ++r ) {
+    for( int i=0; i<N; i+=TILE_SIZE ) {
+      for( int k=0; k<N; k+=TILE_SIZE ) {
+        for( int j=0; j<N; j+=TILE_SIZE ) {
+          for(int ii=0; ii<TILE_SIZE; ++ii) {
+            for(int kk=0; kk<TILE_SIZE; ++kk) {
+              for(int jj=0; jj<TILE_SIZE; ++jj) {
+                a[TWO_D_ACCESS(i+ii, j+jj, padded_N)] += b[TWO_D_ACCESS(i+ii, k+kk, padded_N)] * c[TWO_D_ACCESS(k+kk, j+jj, padded_N)];
+              }
+            }
+          }
+        }
+      }
     }
   }
+
   auto t1 = std::chrono::high_resolution_clock::now();
 
   // simple correctness check
   double array_sum = 0;
-  for( int i=0; i<N*N; ++i ) {
-    array_sum += a[i];
+  for (int i = 0; i < N; i++)
+  {
+    for (int j = 0; j < N; j++)
+    {
+      array_sum += a[TWO_D_ACCESS(i,j, padded_N)];
+    }
   }
+  
   // verify expected result. accounting for possibly system dependent float rounding errors
   if(std::abs(array_sum - expected_result) > 0.1){
     printf("Wrong result for N=%4d. expected %.3f but got %.3f. Aborting...\n", N, expected_result, array_sum);
@@ -93,7 +109,7 @@ double mm(int N, int REP, double expected_result) {
 int main(int argc, char* argv[]) {
   // ugly hardcoded stuff
   double mf;
-  
+
   mf = mm(100, 3200, 702147.857);
   printf("MFLOPS(N=%4d): %.3f\n", 100, mf);
 
