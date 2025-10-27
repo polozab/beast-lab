@@ -6,7 +6,7 @@
 
 // use a 1d array to guarantee a dense and sequential memory layout
 #define TWO_D_ACCESS(row, col, width) ((width) * (row) + (col))
-#define TILE_SIZE 50
+#define TILE_SIZE 10
 
 double mm(int N, int REP, double expected_result) {
 
@@ -48,21 +48,22 @@ double mm(int N, int REP, double expected_result) {
   /////////////////////////////////////////////////////////////////////////
 
   auto t0 = std::chrono::high_resolution_clock::now();
-  for( int r=0; r<REP; ++r ) {
+  {
     for( int r=0; r<REP; ++r ) {
-      for( int i=0; i<N; i+=TILE_SIZE ) {
-        for( int k=0; k<N; k+=TILE_SIZE ) {
-          for( int j=0; j<N; j+=TILE_SIZE ) {
-            for(int ii=0; ii<TILE_SIZE; ++ii) {
-              for(int kk=0; kk<TILE_SIZE; ++kk) {
-                for(int jj=0; jj<TILE_SIZE; ++jj) {
-                  a[TWO_D_ACCESS(i+ii, j+jj, N)] += b[TWO_D_ACCESS(i+ii, k+kk, N)] * c[TWO_D_ACCESS(k+kk, j+jj, N)];
-                }
-              }
-            }
-          }
-        }
-      }
+      for (int i=0; i<N; i+=TILE_SIZE ) {
+        for (int j=0; j<N; j +=TILE_SIZE ) {
+          for (int k=0; k<N; k+=TILE_SIZE ) {
+            for (int ii=i; ii<i+TILE_SIZE; ii++ ) {
+              int min = std::min(N, k + TILE_SIZE);
+              for (int kk=k; kk<min; kk++) {
+                for (int jj=j; jj<j+TILE_SIZE; jj++) {
+                  a[TWO_D_ACCESS(ii, jj, N)] += b[TWO_D_ACCESS(ii, kk, N)] * c[TWO_D_ACCESS(kk, jj, N)];
+                } 
+              } 
+            } 
+          } 
+        } 
+      } 
     }
   }
   auto t1 = std::chrono::high_resolution_clock::now();
