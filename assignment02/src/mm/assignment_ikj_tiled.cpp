@@ -6,7 +6,7 @@
 
 // use a 1d array to guarantee a dense and sequential memory layout
 #define TWO_D_ACCESS(row, col, width) ((width) * (row) + (col))
-#define TILE_SIZE 10
+#define TILE_SIZE 50
 
 double mm(int N, int REP, double expected_result) {
 
