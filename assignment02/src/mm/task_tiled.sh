@@ -3,7 +3,7 @@
 # submit via sbatch job_minimal.cmd
 # Job Name and Files (also --job-name)
 
-#SBATCH -J task3a
+#SBATCH -J task_tiled
 #Output and error (also --output, --error):
 #SBATCH -o ./%x.%j.out
 #SBATCH -e ./%x.%j.err
@@ -22,10 +22,14 @@
 
 module load gcc
 
+make clean
 make
 
-rm -rf "./data"
-mkdir -p "./data"
+rm -rf "./data/tiled"
+mkdir -p "./data/tiled"
 
-stdbuf --output=L ./assignment_ikj.out | tee ./data/ikj.txt
-
+stdbuf --output=L ./assignment_ijk_tiled.out 10 | tee ./data/tiled/tiled_10.txt
+stdbuf --output=L ./assignment_ijk_tiled.out 20 | tee ./data/tiled/tiled_20.txt
+stdbuf --output=L ./assignment_ikj.out 48 | tee ./data/tiled/tiled_48.txt
+stdbuf --output=L ./assignment_ikj.out 50 | tee ./data/tiled/tiled_50.txt
+stdbuf --output=L ./assignment_ikj.out 52 | tee ./data/tiled/tiled_52.txt
