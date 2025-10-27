@@ -28,6 +28,6 @@ make
 rm -rf "./data/order"
 mkdir -p "./data/order"
 
-stdbuf --output=L ./assignment_ijk_tiled.out | tee ./data/order/ijk.txt
-stdbuf --output=L ./assignment_ijk_tiled.out | tee ./data/order/jik.txt
+stdbuf --output=L ./assignment_ijk.out | tee ./data/order/ijk.txt
+stdbuf --output=L ./assignment_jik.out | tee ./data/order/jik.txt
 stdbuf --output=L ./assignment_ikj.out | tee ./data/order/ikj.txt
