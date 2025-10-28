@@ -25,11 +25,14 @@ void init_vectors(double * a, double * b, double * c, int N, int padded_N) {
   }
 }
 
-double mm(int N, int TILE_SIZE) {
+struct return_info
+{
+  double mflops;
+  int repetition;
+};
 
-  TILE_SIZE = std::min(N, TILE_SIZE);
-  int padded_N = ((N + TILE_SIZE - 1) / TILE_SIZE) * TILE_SIZE;
-  printf("Overhead: %d, ", padded_N - N);
+
+return_info mm(int N, int TILE_SIZE, int padded_N) {
 
   //////////////////////////////////////////////////////////////////////////
   // ALLOCATION
@@ -73,7 +76,7 @@ double mm(int N, int TILE_SIZE) {
 
   }
 
-  printf("Repetions: %d, ", rep);
+  //printf("Repetions: %d, ", rep);
 
   //////////////////////////////////////////////////////////////////////////
   // DETERMINE Expected value
@@ -100,7 +103,7 @@ double mm(int N, int TILE_SIZE) {
     }
   }
 
-  printf("Expected value: %.3f\n", expected_result);
+  //printf("Expected value: %.3f\n", expected_result);
 
   //////////////////////////////////////////////////////////////////////////
   // WARM UP
@@ -184,7 +187,11 @@ double mm(int N, int TILE_SIZE) {
   double dur = std::chrono::duration_cast<dsec>(t1-t0).count();
 
   double mflop = 2.0*(double)padded_N*(double)padded_N*(double)padded_N*(double)rep*1.0e-6;
-  return mflop/dur;
+
+  return_info ri = {mflop / dur, rep};
+
+  return ri;
+
 }
 
 int main(int argc, char* argv[]) {
@@ -203,15 +210,19 @@ int main(int argc, char* argv[]) {
     }
   }
 
-  double mf;
+  printf("N, N_padded, Tiles, Threads, Repetitions, MFLOPS\n");
 
   size_t max_num_threads = omp_get_max_threads() * 4;
 
   for (size_t num_threads = 1; num_threads <= max_num_threads; num_threads *= 2) {
 
     omp_set_num_threads(num_threads);
-    mf = mm(matrix_size, tile_size);
-    printf("MFLOPS(N=%4d): %.3f\n", 100, mf);
+
+    tile_size = std::min(matrix_size, tile_size);
+    int padded_N = ((matrix_size + tile_size - 1) / tile_size) * tile_size;
+
+    return_info rf = mm(matrix_size, tile_size, padded_N);
+    printf("%d, %d, %d, %ld, %d, %f\n", matrix_size, padded_N, tile_size, num_threads, rf.repetition, rf.mflops);
 
   }
  
