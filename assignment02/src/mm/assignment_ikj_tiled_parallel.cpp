@@ -29,6 +29,7 @@ struct return_info
 {
   double mflops;
   int repetition;
+  double array_sum;
 };
 
 
@@ -76,40 +77,9 @@ return_info mm(int N, int TILE_SIZE, int padded_N) {
 
   }
 
-  //printf("Repetions: %d, ", rep);
-
-  //////////////////////////////////////////////////////////////////////////
-  // DETERMINE Expected value
-  /////////////////////////////////////////////////////////////////////////
-
-  init_vectors(a, b, c, N, padded_N);
-  
-  for( int r=0; r<rep*2; r++ ) {
-    for( int i=0; i<padded_N; i++ ) {
-      for( int k=0; k<padded_N; k++ ) {
-        for( int j=0; j<padded_N; j++ ) {
-          a[TWO_D_ACCESS(i, j, padded_N)] += b[TWO_D_ACCESS(i, k, padded_N)] * c[TWO_D_ACCESS(k, j, padded_N)];
-        }
-      }
-    }
-  }
-
-  double expected_result = 0;
-  for (int i = 0; i < N; i++)
-  {
-    for (int j = 0; j < N; j++)
-    {
-      expected_result += a[TWO_D_ACCESS(i,j, padded_N)];
-    }
-  }
-
-  //printf("Expected value: %.3f\n", expected_result);
-
   //////////////////////////////////////////////////////////////////////////
   // WARM UP
   /////////////////////////////////////////////////////////////////////////
-
-  init_vectors(a, b, c, N, padded_N);
   
   #pragma omp parallel
   {
@@ -172,13 +142,6 @@ return_info mm(int N, int TILE_SIZE, int padded_N) {
       array_sum += a[TWO_D_ACCESS(i,j, padded_N)];
     }
   }
-  
-  // verify expected result. accounting for possibly system dependent float rounding errors
-  if(std::abs(array_sum - expected_result) > 0.1){
-    printf("Wrong result for N=%4d. expected %.3f but got %.3f. Aborting...\n", N, expected_result, array_sum);
-    exit(EXIT_FAILURE);
-  }
-  //printf("Solution(N=%4d): %.3f\n", N, array_sum);
 
   free((void *) a);
   free((void *) b);
@@ -188,7 +151,7 @@ return_info mm(int N, int TILE_SIZE, int padded_N) {
 
   double mflop = 2.0*(double)padded_N*(double)padded_N*(double)padded_N*(double)rep*1.0e-6;
 
-  return_info ri = {mflop / dur, rep};
+  return_info ri = {mflop / dur, rep, array_sum};
 
   return ri;
 
