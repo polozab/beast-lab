@@ -1,0 +1,219 @@
+// put your working code in here to use the test_script.sh and CI
+
+#include <chrono>
+#include <math.h>
+#include <cstdio>
+#include <omp.h>
+
+// use a 1d array to guarantee a dense and sequential memory layout
+#define TWO_D_ACCESS(row, col, width) ((width) * (row) + (col))
+
+void init_vectors(double * a, double * b, double * c, int N, int padded_N) {
+  for (int i = 0; i < padded_N; i++) {
+    for (int j = 0; j < padded_N; j++)
+    {
+      a[TWO_D_ACCESS(i, j, padded_N)] = 0.0;
+      if (i<N && j<N) {
+        b[TWO_D_ACCESS(i,j,padded_N)] = atan(TWO_D_ACCESS(i,j,N));
+        c[TWO_D_ACCESS(i,j,padded_N)] = cos(TWO_D_ACCESS(i,j,N));
+      }
+      else {
+        b[TWO_D_ACCESS(i,j,padded_N)] = 0.0;
+        c[TWO_D_ACCESS(i,j,padded_N)] = 0.0;
+      }
+    }
+  }
+}
+
+double mm(int N, int TILE_SIZE) {
+
+  TILE_SIZE = std::min(N, TILE_SIZE);
+  int padded_N = ((N + TILE_SIZE - 1) / TILE_SIZE) * TILE_SIZE;
+  printf("Overhead: %d, ", padded_N - N);
+
+  //////////////////////////////////////////////////////////////////////////
+  // ALLOCATION
+  /////////////////////////////////////////////////////////////////////////
+
+  double * a = (double *) malloc(padded_N*padded_N*sizeof(double));
+  double * b = (double *) malloc(padded_N*padded_N*sizeof(double));
+  double * c = (double *) malloc(padded_N*padded_N*sizeof(double));
+
+
+  //////////////////////////////////////////////////////////////////////////
+  // DETERMINE REPETITIONS
+  /////////////////////////////////////////////////////////////////////////
+
+  init_vectors(a, b, c, N, padded_N);
+
+  int rep = 2;
+  double wDur;
+
+  while (true) {
+
+    auto w0 = std::chrono::high_resolution_clock::now();
+
+    for( int r=0; r<rep; ++r ) {
+      for( int i=0; i<padded_N; i++ ) {
+        for( int k=0; k<padded_N; k++ ) {
+          for( int j=0; j<padded_N; j++ ) {
+            a[TWO_D_ACCESS(i, j, padded_N)] += b[TWO_D_ACCESS(i, k, padded_N)] * c[TWO_D_ACCESS(k, j, padded_N)];
+          }
+        }
+      }
+    }
+
+    auto w1 = std::chrono::high_resolution_clock::now();
+
+    using dsec = std::chrono::duration<double>;
+    wDur = std::chrono::duration_cast<dsec>(w1-w0).count();
+
+    if (wDur > 1.0) break;
+    rep *= 2;
+
+  }
+
+  printf("Repetions: %d, ", rep);
+
+  //////////////////////////////////////////////////////////////////////////
+  // DETERMINE Expected value
+  /////////////////////////////////////////////////////////////////////////
+
+  init_vectors(a, b, c, N, padded_N);
+  
+  for( int r=0; r<rep*2; r++ ) {
+    for( int i=0; i<padded_N; i++ ) {
+      for( int k=0; k<padded_N; k++ ) {
+        for( int j=0; j<padded_N; j++ ) {
+          a[TWO_D_ACCESS(i, j, padded_N)] += b[TWO_D_ACCESS(i, k, padded_N)] * c[TWO_D_ACCESS(k, j, padded_N)];
+        }
+      }
+    }
+  }
+
+  double expected_result = 0;
+  for (int i = 0; i < N; i++)
+  {
+    for (int j = 0; j < N; j++)
+    {
+      expected_result += a[TWO_D_ACCESS(i,j, padded_N)];
+    }
+  }
+
+  printf("Expected value: %.3f\n", expected_result);
+
+  //////////////////////////////////////////////////////////////////////////
+  // WARM UP
+  /////////////////////////////////////////////////////////////////////////
+
+  init_vectors(a, b, c, N, padded_N);
+  
+  #pragma omp parallel
+  {
+    for( int r=0; r<rep; ++r ) {
+
+      #pragma omp for collapse(2)
+      for( int i=0; i<N; i+=TILE_SIZE ) {
+        for( int j=0; j<N; j+=TILE_SIZE ) {
+          for( int k=0; k<N; k+=TILE_SIZE ) {
+            for(int ii=0; ii<TILE_SIZE; ++ii) {
+              for(int kk=0; kk<TILE_SIZE; ++kk) {
+                for(int jj=0; jj<TILE_SIZE; ++jj) {
+                  a[TWO_D_ACCESS(i+ii, j+jj, padded_N)] += b[TWO_D_ACCESS(i+ii, k+kk, padded_N)] * c[TWO_D_ACCESS(k+kk, j+jj, padded_N)];
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+  //////////////////////////////////////////////////////////////////////////
+  // MATRIX MULTIPLICATION KERNELS
+  /////////////////////////////////////////////////////////////////////////
+
+  auto t0 = std::chrono::high_resolution_clock::now();
+
+  #pragma omp parallel
+  {
+    for( int r=0; r<rep; ++r ) {
+
+      #pragma omp for collapse(2)
+      for( int i=0; i<N; i+=TILE_SIZE ) {
+        for( int j=0; j<N; j+=TILE_SIZE ) {
+          for( int k=0; k<N; k+=TILE_SIZE ) {
+            for(int ii=0; ii<TILE_SIZE; ++ii) {
+              for(int kk=0; kk<TILE_SIZE; ++kk) {
+                for(int jj=0; jj<TILE_SIZE; ++jj) {
+                  a[TWO_D_ACCESS(i+ii, j+jj, padded_N)] += b[TWO_D_ACCESS(i+ii, k+kk, padded_N)] * c[TWO_D_ACCESS(k+kk, j+jj, padded_N)];
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+  auto t1 = std::chrono::high_resolution_clock::now();
+
+  // simple correctness check
+  double array_sum = 0;
+  for (int i = 0; i < N; i++)
+  {
+    for (int j = 0; j < N; j++)
+    {
+      array_sum += a[TWO_D_ACCESS(i,j, padded_N)];
+    }
+  }
+  
+  // verify expected result. accounting for possibly system dependent float rounding errors
+  if(std::abs(array_sum - expected_result) > 0.1){
+    printf("Wrong result for N=%4d. expected %.3f but got %.3f. Aborting...\n", N, expected_result, array_sum);
+    exit(EXIT_FAILURE);
+  }
+  //printf("Solution(N=%4d): %.3f\n", N, array_sum);
+
+  free((void *) a);
+  free((void *) b);
+  free((void *) c);
+  using dsec = std::chrono::duration<double>;
+  double dur = std::chrono::duration_cast<dsec>(t1-t0).count();
+
+  double mflop = 2.0*(double)padded_N*(double)padded_N*(double)padded_N*(double)rep*1.0e-6;
+  return mflop/dur;
+}
+
+int main(int argc, char* argv[]) {
+
+  // get optional matrix size and tile size
+  int matrix_size = 100;
+  int tile_size = 10;
+  if (argc > 1) {
+    if (sscanf(argv[1], "%d", &matrix_size) != 1) {
+      return -1;
+    }
+  }
+  if (argc > 2) {
+    if (sscanf(argv[2], "%d", &tile_size) != 1) {
+      return -1;
+    }
+  }
+
+  double mf;
+
+  size_t max_num_threads = omp_get_max_threads() * 4;
+
+  for (size_t num_threads = 1; num_threads <= max_num_threads; num_threads *= 2) {
+
+    omp_set_num_threads(num_threads);
+    mf = mm(matrix_size, tile_size);
+    printf("MFLOPS(N=%4d): %.3f\n", 100, mf);
+
+  }
+ 
+  return 0;
+}
