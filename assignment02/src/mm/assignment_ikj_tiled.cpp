@@ -9,8 +9,9 @@
 
 double mm(int N, int TILE_SIZE, int REP, double expected_result) {
 
+  TILE_SIZE = std::min(N, TILE_SIZE);
   int padded_N = ((N + TILE_SIZE - 1) / TILE_SIZE) * TILE_SIZE;
-  printf("Overhead: %d, ", ((N + TILE_SIZE - 1) / TILE_SIZE) * TILE_SIZE - N);
+  printf("Overhead: %d, ", padded_N - N);
 
   //////////////////////////////////////////////////////////////////////////
   // ALLOCATION
@@ -101,7 +102,7 @@ double mm(int N, int TILE_SIZE, int REP, double expected_result) {
   using dsec = std::chrono::duration<double>;
   double dur = std::chrono::duration_cast<dsec>(t1-t0).count();
 
-  double mflop = 2.0*(double)N*(double)N*(double)N*(double)REP*1.0e-6;
+  double mflop = 2.0*(double)padded_N*(double)padded_N*(double)padded_N*(double)REP*1.0e-6;
   return mflop/dur;
 }
 

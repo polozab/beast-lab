@@ -3,7 +3,7 @@
 # submit via sbatch job_minimal.cmd
 # Job Name and Files (also --job-name)
 
-#SBATCH -J task_tiled
+#SBATCH -J job_tiled_L1
 #Output and error (also --output, --error):
 #SBATCH -o ./%x.%j.out
 #SBATCH -e ./%x.%j.err
