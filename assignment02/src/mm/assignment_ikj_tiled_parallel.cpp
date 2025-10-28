@@ -172,6 +172,10 @@ int main(int argc, char* argv[]) {
       return -1;
     }
   }
+  else {
+    printf("Usage: %s [tile_size=%d] [matrix_size=%100]\n", argv[0], tile_size, matrix_size);
+    return -1;
+  }
 
   printf("N, N_padded, Tiles, Threads, Repetitions, MFLOPS\n");
 
