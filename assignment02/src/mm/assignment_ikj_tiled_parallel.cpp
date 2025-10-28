@@ -177,7 +177,7 @@ int main(int argc, char* argv[]) {
 
   printf("N, N_padded, Tiles, Threads, Repetitions, MFLOPS\n");
 
-  size_t max_num_threads = omp_get_max_threads() * 4;
+  size_t max_num_threads = omp_get_max_threads() * 8;
 
   for (size_t num_threads = 1; num_threads <= max_num_threads; num_threads *= 2) {
 
