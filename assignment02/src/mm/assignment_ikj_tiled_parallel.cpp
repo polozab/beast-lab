@@ -160,20 +160,18 @@ return_info mm(int N, int TILE_SIZE, int padded_N) {
 int main(int argc, char* argv[]) {
 
   // get optional matrix size and tile size
-  int tile_size = 10;
-  int matrix_size = 100;
-  if (argc > 1) {
+  int tile_size;
+  int matrix_size;
+  if (argc > 2) {
     if (sscanf(argv[1], "%d", &tile_size) != 1) {
       return -1;
     }
-  }
-  if (argc > 2) {
     if (sscanf(argv[2], "%d", &matrix_size) != 1) {
       return -1;
     }
   }
   else {
-    printf("Usage: %s [tile_size=%d] [matrix_size=%100]\n", argv[0], tile_size, matrix_size);
+    printf("Usage: %s <tile_size> <matrix_size>\n", argv[0]);
     return -1;
   }
 
