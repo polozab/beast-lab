@@ -19,7 +19,7 @@ g++ -Ofast -march=native -fopenmp -o assignment assignment.out
 The other clang c compiler was significantly slower. Also notably leaving out certain command arguments had an huge impact on performance.
 Especially *-ffast-math* which improved our performance from 399 to 2612 MFLOPs
 
-## b) **TODO**
+## b)
 
 When taking a look at the disassembled object dump, you can the spot *FADDA* SVE vector instruction being used in the most inner loop.
 
@@ -55,6 +55,7 @@ Additionally the access patterns of *A* and *B* just get flipped, which means th
 
 Applying our theoretical assumptions and comparing the results clearly shows, that this had an huge impact on performance:
 
+> PUT DATA HERE
 
 In addition the reordering allowed the compiler to be able to use the fully vectorized *FMAD* vector instruction.
 This essentially means that instead of just computing the partial sum for one element of the vector as a scalar result we now perform this operation on each element, directly updating the entire vector with one instruction.
@@ -72,6 +73,7 @@ This essentially means that instead of just computing the partial sum for one el
 
 **TODO:**
 - Copy in measurements
+- Update table from top
 
 ## d)
 
@@ -84,4 +86,7 @@ In addition choosing a tile size that allows us to fit 3 tiles into the L1 cache
 
 *TODO:*
  - Calculation for each tile size fitting into cache
+ - Put calculations in
  - Results for each option with neighboring values
+
+## e)
