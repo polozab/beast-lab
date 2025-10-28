@@ -25,11 +25,11 @@ module load gcc
 make clean
 make
 
-rm -rf "./data/tiled"
-mkdir -p "./data/tiled"
-
+#rm -rf "./data/tiled"
+#mkdir -p "./data/tiled"
+stdbuf --output=L ./assignment_ikj_tiled.out 1 | tee ./data/tiled/tiled_1.txt
+stdbuf --output=L ./assignment_ikj_tiled.out 5 | tee ./data/tiled/tiled_5.txt
 stdbuf --output=L ./assignment_ikj_tiled.out 10 | tee ./data/tiled/tiled_10.txt
-stdbuf --output=L ./assignment_ikj_tiled.out 20 | tee ./data/tiled/tiled_20.txt
-stdbuf --output=L ./assignment_ikj_tiled.out 48 | tee ./data/tiled/tiled_48.txt
-stdbuf --output=L ./assignment_ikj_tiled.out 50 | tee ./data/tiled/tiled_50.txt
-stdbuf --output=L ./assignment_ikj_tiled.out 52 | tee ./data/tiled/tiled_52.txt
+stdbuf --output=L ./assignment_ikj_tiled.out 30 | tee ./data/tiled/tiled_30.txt
+stdbuf --output=L ./assignment_ikj_tiled.out 40 | tee ./data/tiled/tiled_40.txt
+stdbuf --output=L ./assignment_ikj_tiled.out 3 | tee ./data/tiled/tiled_3.txt
