@@ -31,7 +31,7 @@ When taking a look at the disassembled object dump, you can the spot *FADDA* SVE
   400e28:       54ffff81        b.ne    400e18            ## Branching on loop cond
 ~~~
 
-However, we will see that through reordering the loops the compiler will be able to use a more effective vector instructions instead.
+However, we will see that by reordering the loops the compiler will be able to use a more effective vector instructions instead.
 
 ## c)
 
