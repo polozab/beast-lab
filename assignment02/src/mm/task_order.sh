@@ -29,5 +29,8 @@ rm -rf "./data/order"
 mkdir -p "./data/order"
 
 stdbuf --output=L ./assignment_ijk.out | tee ./data/order/ijk.txt
+stdbuf --output=L ./assignment_jkj.out | tee ./data/order/ikj.txt
 stdbuf --output=L ./assignment_jik.out | tee ./data/order/jik.txt
-stdbuf --output=L ./assignment_ikj.out | tee ./data/order/ikj.txt
+stdbuf --output=L ./assignment_jki.out | tee ./data/order/jki.txt
+stdbuf --output=L ./assignment_kij.out | tee ./data/order/kij.txt
+stdbuf --output=L ./assignment_kji.out | tee ./data/order/kji.txt

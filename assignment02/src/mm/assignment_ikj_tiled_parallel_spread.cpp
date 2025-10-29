@@ -81,11 +81,11 @@ return_info mm(int N, int TILE_SIZE, int padded_N) {
   // WARM UP
   /////////////////////////////////////////////////////////////////////////
   
-  #pragma omp parallel
+  #pragma omp parallel proc_bind(spread)
   {
     for( int r=0; r<rep; ++r ) {
 
-      #pragma omp for collapse(2)
+      #pragma omp for collapse(2) schedule(static) 
       for( int i=0; i<N; i+=TILE_SIZE ) {
         for( int j=0; j<N; j+=TILE_SIZE ) {
           for( int k=0; k<N; k+=TILE_SIZE ) {
@@ -109,11 +109,11 @@ return_info mm(int N, int TILE_SIZE, int padded_N) {
 
   auto t0 = std::chrono::high_resolution_clock::now();
 
-  #pragma omp parallel
+  #pragma omp parallel proc_bind(spread)
   {
     for( int r=0; r<rep; ++r ) {
 
-      #pragma omp for collapse(2)
+      #pragma omp for collapse(2) schedule(static)
       for( int i=0; i<N; i+=TILE_SIZE ) {
         for( int j=0; j<N; j+=TILE_SIZE ) {
           for( int k=0; k<N; k+=TILE_SIZE ) {
@@ -180,7 +180,7 @@ int main(int argc, char* argv[]) {
   printf("N, N_padded, Tiles, Threads, Repetitions, MFLOPS, Speedup\n");
 
   // Run baseline
-  
+
   omp_set_num_threads(1);
 
   tile_size = std::min(matrix_size, tile_size);
