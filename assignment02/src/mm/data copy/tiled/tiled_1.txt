@@ -1,0 +1,4 @@
+Overhead: 0, MFLOPS(N= 100): 81.464
+Overhead: 0, MFLOPS(N= 200): 81.391
+Overhead: 0, MFLOPS(N= 300): 81.311
+Overhead: 0, MFLOPS(N= 400): 81.381

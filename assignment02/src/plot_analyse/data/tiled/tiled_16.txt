@@ -1,0 +1,15 @@
+Overhead: 12, MFLOPS(N= 100): 2103.063
+Overhead: 8, MFLOPS(N= 200): 2092.210
+Overhead: 4, MFLOPS(N= 300): 2089.819
+Overhead: 0, MFLOPS(N= 400): 2088.470
+Overhead: 12, MFLOPS(N= 500): 1534.643
+Overhead: 8, MFLOPS(N= 600): 2082.509
+Overhead: 4, MFLOPS(N= 700): 2068.653
+Overhead: 0, MFLOPS(N= 800): 2073.124
+Overhead: 12, MFLOPS(N= 900): 2039.211
+Overhead: 8, MFLOPS(N=1000): 2005.702
+Overhead: 4, MFLOPS(N=1100): 1991.946
+Overhead: 12, MFLOPS(N=1300): 2022.969
+Overhead: 4, MFLOPS(N=1500): 2029.544
+Overhead: 12, MFLOPS(N=1700): 1987.751
+Overhead: 4, MFLOPS(N=1900): 1997.362
