@@ -90,3 +90,7 @@ In addition choosing a tile size that allows us to fit 3 tiles into the L1 cache
  - Results for each option with neighboring values
 
 ## e)
+
+
+# Acknowledgement
+In the implementation of the python script used to generate the plots generative AI like ChatGPT and Visual Studio Code Copilot were used to speed up the coding process.

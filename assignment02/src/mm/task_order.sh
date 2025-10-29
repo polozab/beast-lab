@@ -29,10 +29,15 @@ rm -rf "./data/order"
 mkdir -p "./data/order"
 
 echo "starting\n"
+echo "starting\n"
 stdbuf --output=L ./assignment_ijk.out | tee ./data/order/ijk.txt
 echo "fiinished fst\n"
 
+echo "fiinished fst\n"
+
 stdbuf --output=L ./assignment_jik.out | tee ./data/order/jik.txt
+echo "fiinished snd\n"
+
 echo "fiinished snd\n"
 
 stdbuf --output=L ./assignment_ikj.out | tee ./data/order/ikj.txt
