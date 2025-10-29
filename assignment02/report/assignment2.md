@@ -32,7 +32,6 @@ When taking a look at the disassembled object dump, you can the spot *FADDA* SVE
 ~~~
 
 However, we will see that through reordering the loops the compiler will be able to use a more effective vector instructions instead.
-Thus more operations can be done on the same data leading to better performance.
 
 ## c)
 
