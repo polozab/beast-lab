@@ -175,11 +175,25 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
-  printf("N, N_padded, Tiles, Threads, Repetitions, MFLOPS\n");
+  size_t max_num_threads = omp_get_max_threads() * 16;
 
-  size_t max_num_threads = omp_get_max_threads() * 8;
+  printf("N, N_padded, Tiles, Threads, Repetitions, MFLOPS, Speedup\n");
 
-  for (size_t num_threads = 1; num_threads <= max_num_threads; num_threads *= 2) {
+  // Run baseline
+  
+  omp_set_num_threads(1);
+
+  tile_size = std::min(matrix_size, tile_size);
+  int padded_N = ((matrix_size + tile_size - 1) / tile_size) * tile_size;
+
+  return_info rf = mm(matrix_size, tile_size, padded_N);
+  printf("%d, %d, %d, %ld, %d, %f, %f\n", matrix_size, padded_N, tile_size, (size_t)1, rf.repetition, rf.mflops, 1.0);
+
+  double baseline = rf.mflops;
+
+  // Run strong scaling
+
+  for (size_t num_threads = 2; num_threads <= max_num_threads; num_threads *= 2) {
 
     omp_set_num_threads(num_threads);
 
@@ -187,7 +201,9 @@ int main(int argc, char* argv[]) {
     int padded_N = ((matrix_size + tile_size - 1) / tile_size) * tile_size;
 
     return_info rf = mm(matrix_size, tile_size, padded_N);
-    printf("%d, %d, %d, %ld, %d, %f\n", matrix_size, padded_N, tile_size, num_threads, rf.repetition, rf.mflops);
+    double speedup = rf.mflops / baseline;
+
+    printf("%d, %d, %d, %ld, %d, %f, %f\n", matrix_size, padded_N, tile_size, num_threads, rf.repetition, rf.mflops, speedup);
 
   }
  
