@@ -157,9 +157,9 @@ This performance is expected because the code currently utilizes just a single c
 
 ### Parallelization comparison
 
-When looking at our parallelized performance we consider a tile size of 52 as previously mentioned. We archived a peak performance of **NNNNN** when running the benchmark with a matrix size of **NNNNN** and using **NNNN** Threads. This amounts to about PPPP% of the theoretically possible peak performance and has **SSSS** % speedup against the single-thread performance with identical parameters.
+When looking at our parallelized performance we consider a tile size of 52 as previously mentioned. We archived a peak performance of 148,296 GFLOP/s when running the benchmark with a matrix size of 800 and using 128 Threads. This amounts to a 40x speedup against the single-thread performance with identical parameters.
 
->> **Add values to parallel part**
+Because of time limitation we were unfortunate not able to perform further testing on other platforms, but it would be very interesting to see how the performance compares to other system architectures.
 
 # Acknowledgement
 In the implementation of the python script used to generate the plots generative AI like ChatGPT and Visual Studio Code Copilot were used to speed up the coding process.
