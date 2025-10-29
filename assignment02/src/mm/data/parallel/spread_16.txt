@@ -1,0 +1,3 @@
+N, N_padded, Tiles, Threads, Repetitions, MFLOPS, Speedup
+16, 16, 16, 1, 524288, 1032.921755, 1.000000
+16, 16, 16, 2, 524288, 982.936677, 0.951608
