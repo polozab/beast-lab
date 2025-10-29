@@ -114,11 +114,19 @@ For better readability we extracted the following plots:
 Our calculations indicated that the best tile size would be around 50 and whilst the actual measurements show that 52 is the best consistent tile size other tile sizes like 70 sometimes outperform this tile size however not consistently and they also underperform for certain sizes which is due to zero-padding of the matrices. The drop in performance always occurs when no padding is needed. One theory is that due to zero values being not as computationally expensive they could improve the throughput of operations and therefore increase the number of FLOPs. However as we are limited due to our group size limitation we didn't investigate this phenomenon further. Therefore we continued with a tile size of 52 in further measurements. 
 
 ## e)
+
+After performing several strong scaling benchmarks with different matrix sizes we can clearly see a reoccurring behavior in almost all cases. The speedup grows near exponentially until hitting a certain threshold. After this point the growth slows down until stagnating at max performance. Beyond this peak performance point the speedup degrades again.
+
+Noticeably the threshold point is delayed with growing matrix sizes and therefore the achievable speedup can get significantly higher. This also means that although we test for much higher thread counts as the system can provide physically, the scheduling can optimize the tiled matrix operation which leads to increased performance for larger matrix sizes. However for small matrix sizes the overhead of the scheduling is much larger than the actual benefit. Especially as we test with a tile size of 52 which is clamped down in case the matrix is actually smaller than this.
+
+
+> 
+
 ![plot](/assignment02/report/plots/all.png)
 ![plot](/assignment02/report/plots/small%20N.png)
 ![plot](/assignment02/report/plots/large%20N.png)
 
-
+Finally we could observer almost no difference in scaling between spread and close thread binding throughout all matrix sizes. This is due to the fact that the kernel is not memory-bound but instead compute-bound. Thus spreading the threads out to distribute the memory- and cache-use is not a deciding factor for performance, as the kernel operates 
 
 ## f)
 
@@ -144,9 +152,9 @@ This performance is expected because the code currently utilizes just a single c
 
 ### Parallelization comparison
 
-When looking at our parallelized performance we consider a tile size of 52 as previously mentioned. We archived a peak performance of NNNNN when running the benchmark with a matrix size of NNNNN and using NNNN Threads. This amounts to about PPPP% of the theoretically possible peak performance and has SSSS % speedup against the single-thread performance with identical parameters.
+When looking at our parallelized performance we consider a tile size of 52 as previously mentioned. We archived a peak performance of **NNNNN** when running the benchmark with a matrix size of **NNNNN** and using **NNNN** Threads. This amounts to about PPPP% of the theoretically possible peak performance and has **SSSS** % speedup against the single-thread performance with identical parameters.
 
-> todo parallel stuff
+> Add values to parallel part
 
 # Acknowledgement
 In the implementation of the python script used to generate the plots generative AI like ChatGPT and Visual Studio Code Copilot were used to speed up the coding process.
