@@ -43,11 +43,11 @@ To fix this problem we switch the ordering of *k* and *j*.
 Now *C* gets accessed sequentially in the innermost loop and only requiring a row jump after a full iteration of the second innermost loop.
 Additionally the access patterns of *A* and *B* just get flipped, which means that for this loop ordering all matrices get accessed in a cache-aware matter.
 
-Applying our theoretical assumptions and comparing the results clearly shows, that this had an huge impact on performance:
+Applying our theoretical assumptions and comparing the results clearly shows, that this has an huge impact on performance. Notably the *kji* loop order seams to result in similar even sometimes better performance. However due to time constraints we will only consider the proposed *ikj* order going forward. 
 
 ![plot](/assignment02/report/plots/loop_order_plot.png)
 
-In addition the reordering allowed the compiler to be able to use the fully vectorized *FMAD* vector instruction.
+Additionally the new *ikj* loop order allowed the compiler to be able to use the fully vectorized *FMAD* vector instruction in place of the *FADDA* vector instruction.
 This essentially means that instead of just computing the partial sum for one element of the vector as a scalar result we now perform this operation on each element, directly updating the entire vector with one instruction.
 
 ~~~
