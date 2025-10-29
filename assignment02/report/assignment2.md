@@ -36,7 +36,6 @@ Thus more operations can be done on the same data leading to better performance.
 
 ## c)
 
-
 When deciding which loop ordering would be beneficial for cache reusability we first took a look at the default ordering of *ijk*.
 In that case *B* gets accessed sequentially in the innermost loop, while *A* in the second innermost loop. 
 However we access a completely new row of *C* in each iteration of the innermost loop, which means that we potentially have to pull much more data. This is due to the matrix being saved as a one-dimensional array, leading to huge jumps when hooping between rows of a matrix.
@@ -65,52 +64,87 @@ This essentially means that instead of just computing the partial sum for one el
 
 ## d)
 
-To circumvent the limitation that the TILE_SIZE must be a multiple of N we decided to pad the matrix to the next multiple.
+### Padding of matrices
+
+To circumvent the limitation that the *TILE_SIZE t* must be a multiple of *N* we decided to pad the matrix to the next multiple.
 This padding is implemented by just filling up the remaining rows and columns with zeros and has no effect on the result of the matrix multiplication.
 However depending on the number of zero elements, this can have a significant impact on the overall execution time.
 In general we have to compromise execution time for potentially better cache reusability by getting the possibility to make fine adjustments to the tile size.
 During our testing we found out that having near zero overhead from padding is the best strategy.
 In addition choosing a tile size that allows us to fit 3 tiles into the L1 cache seems to gain the best performance over different matrix sizes.
 
+For a blocked matrix multiplication each thread must reuse one *t * t* tile of *A*, *B*, and *C* from the target cache level. With double-precision elements (8 bytes) the footprint of such a tile trio is
 
-For a blocked matrix multiplication each thread must reuse one `t × t` tile of `A`, `B`, and `C` from the target cache level.  With double-precision elements (8 bytes) the footprint of such a tile trio is
+~~~
+3 * t² * 8 bytes = 24 * t² bytes.
+~~~
 
-```
-3 · t² · 8 B = 24 · t² bytes.
-```
+### L1D
 
-- **L1D (64 KB per core):**  
-  `24 · t² ≤ 64 · 1024` ⇒ `t² ≤ 2730.7` ⇒ `t ≤ 52.2`.  Allowing a safety margin for temporaries, we target `t ≈ 48–52` for the innermost micro-kernel that should stay resident in L1.
-- **L2 (8 MB shared by 12 cores per CMG):**  
-  In theory, occupying the whole 8 MB would give `t ≤ 592`, but multiple cores operate concurrently.  Budgeting roughly 512–768 KB per active core yields  
-  `24 · t² ≤ 512 · 1024 … 768 · 1024` ⇒ `t ≤ 103 … 126`.  Thus we pick an outer blocking tile around `t ≈ 96–128` to fit comfortably in the CMG-local L2.
-- **L3:**  
-  A64FX has no separate L3; the 8 MB L2 is the last-level cache.  Beyond that size data streams from the on-package HBM2, so there is no additional cache-resident tile size to compute.
+The L1D cache consists of 64 KiB per core with that we get:
 
-These bounds align with the measurements: inner tiles near 48 keep the compute kernel L1-resident, while grouping work into tiles around 100–128 maximises reuse before spilling to memory.
+~~~
+24 * t² <= 64 * 1024 ==> t² <= 2731 ==> t <= 52
+~~~
 
+When considering a safety overhead the tile size should be around 48-52 so 3 tiles can stay in the L1 cache for one full run of the innermost loop.
+
+### L2
+
+One unit of L2 cache gets shared among 12 cores where each holds 8 MiB of space.
+When each of the 12 cores operate on the same L2 cache we get around 700 KiB of L2 cache per core, thus we get:
+
+~~~
+24 * t² <= 700 * 1024 ==> t² <= 29866 ==> t <= 172
+~~~
+
+Again, considering as safety margin we should choose the tile size to be 160-172 to fit all the tiles into the shared L2 cache.
+
+### L3 
+A64FX has no separate L3; the 8 MB L2 is the last-level cache before memory. Beyond that size data streams from the HBM2, so there is no additional tile size to compute.
+
+### Measurement results
 
 The following table shows the results of our measurements for different tile sizes
 ![plot](/assignment02/report/plots/Tiled_all.png)
 
-For better readability we extracted the following results:
+For better readability we extracted the following plots:
 ![plot](/assignment02/report/plots/Tiled_size_arg.png)
 
-Our calculations indicated that the best tilesize would be around 50 and whilst the actual measurements show that 52 is the best consistent tile size other tile sizes like 70 sometimes outperform this tile size however not consistently and they also underperform for certain sizes which is due to the overhead of the padding. The drop in performance corrolates to no padding needed so it can be seen that the padding improves the overall performance, we did not further investigate this phenomenom due to our group size limitation. Therefore we concentrate on tile size 52 as the best choice. 
+Our calculations indicated that the best tile size would be around 50 and whilst the actual measurements show that 52 is the best consistent tile size other tile sizes like 70 sometimes outperform this tile size however not consistently and they also underperform for certain sizes which is due to zero-padding of the matrices. The drop in performance always occurs when no padding is needed. One theory is that due to zero values being not as computationally expensive they could improve the throughput of operations and therefore increase the number of FLOPs. However as we are limited due to our group size limitation we didn't investigate this phenomenon further. Therefore we continued with a tile size of 52 in further measurements. 
 
 ## e)
 ![plot](/assignment02/report/plots/all.png)
 ![plot](/assignment02/report/plots/small%20N.png)
 ![plot](/assignment02/report/plots/large%20N.png)
 
+
+
 ## f)
 
-For the Fujitsu A64FX we assume one 512-bit SVE FMA per vector unit and clock cycle. A 512-bit vector holds eight double elements and each FMA produces two floating-point operations per element, so one vector unit can issue `8 × 2 = 16` FLOPs every cycle. With two SVE units per core running at 1.8 GHz the theoretical peak is
+### Theoretical peak
 
-- per core: `16 FLOPs/cycle × 2 units × 1.8·10⁹ cycles/s = 57.6 GFLOP/s`,
-- per 48-core socket: `57.6 GFLOP/s × 48 = 2.76 TFLOP/s`.
+For the Fujitsu A64FX we assume one 512-bit SVE FMA per vector unit and clock cycle. A 512-bit vector holds eight double elements and each FMA produces two floating-point operations per element, so one vector unit can issue *8 * 2 = 16* FLOPs every cycle. With two SVE units per core running at 1.8 GHz the performance per core is:
 
-Our best single-thread benchmark run (tiling with `t = 70`) delivers 6541 MFLOP/s for `N = 100` (`assignment02/src/mm/data/tiled/tiled_70.txt:1`), i.e. ≈6.54 GFLOP/s. Compared with the per-core peak this corresponds to about `6.54 / 57.6 ≈ 11.4 %`. Relative to the full-socket theoretical limit the same run reaches only `6.54 / 2764.8 ≈ 0.24 %`, which is expected because the code currently utilises just a single core. Achieving a larger share of the socket peak would require parallelising across cores and keeping all SVE pipelines busy.
+~~~
+16 FLOP/cycle * 2 units * 1,8 * 10⁹ cycles/s = 57,6 GFLOP/s
+~~~
+
+Now as the A64FX consist of 48 cores we get a theoretical peak performance of 2,76 TFLOP/s.
+
+### Single-thread comparison 
+
+Comparing this to our best single-thread benchmark run, which delivers 6541 MFLOP/s for a matrix size of N = 100 with a tile size of t = 70 we utilize only around 11% of the perak per-core performance. Relative to the full-socket theoretical limit the same run reaches only 0,24%:
+
+~~~
+6,54 / 57,6 = 11,4 % ==> 6,54 / 2764,8 = 0,24%
+~~~
+
+This performance is expected because the code currently utilizes just a single core. Achieving a larger share of the socket peak would require parallelizing across cores and keeping all SVE pipelines busy.
+
+### Parallelization comparison
+
+When looking at our parallelized performance we consider a tile size of 52 as previously mentioned. We archived a peak performance of NNNNN when running the benchmark with a matrix size of NNNNN and using NNNN Threads. This amounts to about PPPP% of the theoretically possible peak performance and has SSSS % speedup against the single-thread performance with identical parameters.
 
 > todo parallel stuff
 
