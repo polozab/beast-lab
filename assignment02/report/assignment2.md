@@ -116,14 +116,9 @@ Our calculations indicated that the best tile size would be around 50 and whilst
 
 After performing several strong scaling benchmarks with different matrix sizes we can clearly see a reoccurring behavior in almost all cases for larger matrix sizes. The speedup grows near exponentially until hitting a certain threshold. After this point the growth slows down until stagnating at max performance. Beyond this peak performance point the speedup degrades again.
 
->> **either add the new graph in addition or completely replace the old one, your call**
-
 ![plot](/assignment02/report/plots/all.png)
 
-Noticeably the threshold point is delayed with growing matrix sizes and therefore the achievable speedup can get significantly higher. This also means that although we test for much higher thread counts as the system can provide physically, the scheduling can optimize the tiled matrix operation effectively which leads to an additional increased in performance. This behavior gets even more consistent as the matrices get very large.
-
->> **is last part true???**
->> **replace following plot**
+Noticeably the threshold point is delayed with growing matrix sizes and therefore the achievable speedup can get significantly higher. This also means that although we test for much higher thread counts as the system can provide physically, the scheduling can optimize the tiled matrix operation effectively which leads to an additional increased in performance.
 
 ![plot](/assignment02/report/plots/large%20N.png)
 
