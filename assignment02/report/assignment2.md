@@ -161,8 +161,10 @@ When looking at our parallelized performance we consider a tile size of 52 as pr
 
 Because of time limitation we were unfortunate not able to perform further testing on other platforms, but it would be very interesting to see how the performance compares to other system architectures.
 
-# Acknowledgement
-In the implementation of the python script used to generate the plots generative AI like ChatGPT and Visual Studio Code Copilot were used to speed up the coding process.
+# Appendix
 
-# Disclaimer
-Due to our group size of only two members we decided to work on all tasks however not to dive in too deeply?
+## Disclaimer
+Given our smaller Group size we did not have the capacity to investigate every aspect of the assignment in depth. Therefore some explanations and analysis might be superficial and not cover all edge cases. We choose the most relevant parts to focus on and provide a concise report.
+
+## Deceleration of the use of generative AI
+Generative AI tools such as ChatGPT and GitHub Copilot were utilized during the implementation of the Python script used to generate the plots to accelerate the development process.
