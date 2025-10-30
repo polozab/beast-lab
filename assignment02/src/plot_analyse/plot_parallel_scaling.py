@@ -182,8 +182,6 @@ def main() -> None:
 
     fig, ax = plt.subplots(figsize=(8, 5))
 
-    scaling_cases.sort(key=lambda case: case.label.lower())
-
     for scase in scaling_cases:
         label = f"{scase.label} (N={scase.n_value}, {scase.binding})"
         ax.plot(
