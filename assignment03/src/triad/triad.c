@@ -130,12 +130,11 @@ int main(int argc, char *argv[])
     }
 
     fprintf(stderr, "N_max = %zu %s\n", N_max, aligned ? "" : "(unaligned memory)");
+    LIKWID_MARKER_INIT;
 
     printf("%s,%s,%s,%s\n", "N", "GFLOPS", "Repetitions", "Threads");
-
     int num_threads = omp_get_max_threads();
 
-    LIKWID_MARKER_INIT;
     for (size_t N = N_min; N <= N_max; N *= 2) {
         allocate_vectors(N, aligned);
         initialize_vectors(N);
