@@ -34,19 +34,32 @@ double triadReal(int N, size_t REP)
     }
     
     double begin = omp_get_wtime();
+
+    #pragma omp parallel
+    {
+        LIKWID_MARKER_START("REGION");
+    }
+
     #pragma omp parallel
     {
         
-        LIKWID_MARKER_START("REGION");
+        for (size_t r = 0; r < REP; ++r) {
 
-        for (size_t r = 0; r < REP; ++r)
             #pragma omp for schedule(static) nowait
-            for (int i = 0; i < N; ++i)
+            for (int i = 0; i < N; ++i) {
                 A[i] = B[i] + C[i] * D[i];
+            }
 
         }
+
+    }
+
+    
+    #pragma omp parallel
+    {
         LIKWID_MARKER_STOP("REGION");
-            
+    }
+    
     double end = omp_get_wtime();
 
     LIKWID_MARKER_CLOSE;
