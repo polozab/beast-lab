@@ -1,7 +1,8 @@
 CC?=gcc
 
+$(shell echo $(dir $(shell command -v likwid-perfctr)))
+
 LIKWID_BASE := $(shell dirname $(dir $(shell command -v likwid-perfctr)))
-$(shell echo $(LIKWID_BASE))
 
 CFLAGS ?= -fopenmp -O3 -ffast-math -march=native
 CPPFLAGS += -DLIKWID_PERFMON -I$(LIKWID_BASE)/include
