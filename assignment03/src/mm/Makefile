@@ -1,6 +1,7 @@
 CCX?=g++
 
-LIKWID_BASE := $( shell dirname $( dir $( shell command -v likwid - perfctr )))
+LIKWID_BASE_BASE := $(shell bash -lc 'command -v likwid-perfctr' 2>/dev/null)
+LIKWID_BASE := $(shell dirname $(dir $(LIKWID_BASE_BASE)))
 
 CFLAGS?=-fopenmp -O3 -ffast-math -march=native
 CPPFLAGS += -DLIKWID_PERFMON -I$(LIKWID_BASE)/include
