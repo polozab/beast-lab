@@ -25,30 +25,29 @@ double triad(int N, size_t REP)
 
 double triadReal(int N, size_t REP)
 {
+    char str[128];
+    sprintf(str, "Size-%d", 42);
 
-    LIKWID_MARKER_INIT;
     #pragma omp parallel
     {
         LIKWID_MARKER_THREADINIT;
-        LIKWID_MARKER_REGISTER("RegionName");
+        LIKWID_MARKER_REGISTER(str);
     }
 
     double begin = omp_get_wtime();
     #pragma omp parallel
     {
-        LIKWID_MARKER_START("RegionName");
+        LIKWID_MARKER_START(str);
 
         for (size_t r = 0; r < REP; ++r)
             #pragma omp for schedule(static) nowait
             for (int i = 0; i < N; ++i)
                 A[i] = B[i] + C[i] * D[i];
 
-        LIKWID_MARKER_STOP("RegionName");
+        LIKWID_MARKER_STOP(str);
     }
     
     double end = omp_get_wtime();
-
-    LIKWID_MARKER_CLOSE;
     return end - begin;
 
 }
@@ -136,6 +135,7 @@ int main(int argc, char *argv[])
 
     int num_threads = omp_get_max_threads();
 
+    LIKWID_MARKER_INIT;
     for (size_t N = N_min; N <= N_max; N *= 2) {
         allocate_vectors(N, aligned);
         initialize_vectors(N);
@@ -158,5 +158,7 @@ int main(int argc, char *argv[])
 
         printf("%zu,%.2f,%zu,%d\n", N, gflops, rep, num_threads);
     }
+    LIKWID_MARKER_CLOSE;
+
     return EXIT_SUCCESS;
 }
