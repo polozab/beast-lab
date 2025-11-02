@@ -1,9 +1,6 @@
 CC?=gcc
 
-$(info make PATH=$(PATH))
-$(info likwid=$(shell command -v likwid-perfctr 2>/dev/null || echo not-found))
-
-LIKWID_BASE_BASE := $(shell command -v likwid-perfctr)
+LIKWID_BAS_BASE := $(shell bash -lc 'command -v likwid-perfctr' 2>/dev/null)
 LIKWID_BASE := $(shell dirname $(dir $(LIKWID_BASE_BASE)))
 
 CFLAGS ?= -fopenmp -O3 -ffast-math -march=native
