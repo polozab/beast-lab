@@ -4,7 +4,7 @@ LIKWID_LIB:=$(dirname $(which likwid-perfctr))/../lib/"
 LIKWID_INCLUDE:=$(dirname $(which likwid-perfctr))/../include/"
 
 CFLAGS ?= -fopenmp -O3 -ffast-math -march=native -DLIKWID_PERFMON
-LDFLAGS += -L$LIKWID_LIB -I$LIKWID_INCLUDE 
+LDFLAGS += -L$(LIKWID_LIB) -I$(LIKWID_INCLUDE) 
 LDLIBS += -llikwid
 
 SRCS := $(wildcard *.c)
