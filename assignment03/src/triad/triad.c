@@ -35,7 +35,9 @@ double triadReal(int N, size_t REP)
     }
 
     #pragma omp parallel
-    LIKWID_MARKER_START("REGION");
+    {
+        LIKWID_MARKER_START("REGION");
+    }
 
     double begin = omp_get_wtime();
     #pragma omp parallel
@@ -51,7 +53,9 @@ double triadReal(int N, size_t REP)
     double end = omp_get_wtime();
             
     #pragma omp parallel
-    LIKWID_MARKER_STOP("REGION");
+    {
+        LIKWID_MARKER_STOP("REGION");
+    }
 
     LIKWID_MARKER_CLOSE;
 
