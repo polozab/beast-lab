@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+# include <likwid-marker.h>
 
 // pointers for vectors
 static double *restrict A, *restrict B, *restrict C, *restrict D;
@@ -24,15 +25,32 @@ double triad(int N, size_t REP)
 
 double triadReal(int N, size_t REP)
 {
-    double begin = omp_get_wtime();
-#pragma omp parallel
+
+    LIKWID_MARKER_INIT;
+    #pragma omp parallel
     {
+        LIKWID_MARKER_THREADINIT;
+        LIKWID_MARKER_REGISTER("RegionName");
+    }
+
+    double begin = omp_get_wtime();
+    #pragma omp parallel
+    {
+        LIKWID_MARKER_START("RegionName");
+
         for (size_t r = 0; r < REP; ++r)
-#pragma omp for schedule(static) nowait
+            #pragma omp for schedule(static) nowait
             for (int i = 0; i < N; ++i)
                 A[i] = B[i] + C[i] * D[i];
+
+        LIKWID_MARKER_STOP("RegionName");
     }
-    return omp_get_wtime() - begin;
+    
+    double end = omp_get_wtime();
+
+    LIKWID_MARKER_CLOSE;
+    return end - begin;
+
 }
 
 bool verify(int N)
