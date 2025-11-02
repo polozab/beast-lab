@@ -26,9 +26,10 @@ double triad(int N, size_t REP)
 double triadReal(int N, size_t REP)
 {
 
+    LIKWID_MARKER_INIT;
+
     #pragma omp parallel
     {
-        LIKWID_MARKER_THREADINIT;
         LIKWID_MARKER_REGISTER("REGION");
     }
     
@@ -47,6 +48,8 @@ double triadReal(int N, size_t REP)
         LIKWID_MARKER_STOP("REGION");
             
     double end = omp_get_wtime();
+
+    LIKWID_MARKER_CLOSE;
 
     return end - begin;
 
@@ -112,7 +115,7 @@ int main(int argc, char *argv[])
     bool   aligned      = true;
 
     if (argc != 2) {
-        fprintf(stderr, "Usage: %s <N> <Threads>\n", argv[0]);
+        fprintf(stderr, "Usage: %s <N>\n", argv[0]);
         fprintf(stderr, "    N         : vector length (2^N_max)\n");
         exit(EXIT_FAILURE);
     }
@@ -124,31 +127,27 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    printf("%s,%s,%s\n", "N", "GFLOPS", "Repetitions");
-
+    
     allocate_vectors(N, aligned);
     initialize_vectors(N);
-
+    
     // warm-up and set number of repetitions
     size_t rep = 1U;
     while (triad(N, rep) < min_duration && rep < __SIZE_MAX__ / 2) {
         rep *= 2;
     }
-
-    LIKWID_MARKER_INIT;
-
+    
     // actual measurement
     double time = triadReal(N, rep);
-
-    LIKWID_MARKER_CLOSE;
-
+    
     assert(verify(N));
     free_vectors();
-
+    
     // flop calculation
     double num_flops = 2.0 * N * rep;
     double gflops    = (num_flops / time) * 1.0e-9;
-
+    
+    printf("%s,%s,%s\n", "N", "GFLOPS", "Repetitions");
     printf("%zu,%.2f,%zu\n", N, gflops, rep);
 
     return EXIT_SUCCESS;
