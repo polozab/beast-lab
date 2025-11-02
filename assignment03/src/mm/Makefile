@@ -1,4 +1,4 @@
-CCX?=c++
+CXX?=c++
 
 LIKWID_BASE_BASE := $(shell bash -lc 'command -v likwid-perfctr' 2>/dev/null)
 LIKWID_BASE := $(shell dirname $(dir $(LIKWID_BASE_BASE)))
@@ -13,7 +13,7 @@ OBJS := $(SRCS:.cpp=.out)
 all: $(OBJS)
 
 %.out: %.cpp
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $<
+	$(CXX) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $<
 
 clean:
 	rm -f $(OBJS)
