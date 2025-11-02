@@ -28,8 +28,8 @@ double triadReal(int N, size_t REP)
 
     #pragma omp parallel
     {
-        LIKWID_MARKER_REGISTER("REGION");
         LIKWID_MARKER_THREADINIT;
+        LIKWID_MARKER_REGISTER("REGION");
     }
     
     double begin = omp_get_wtime();
