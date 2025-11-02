@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
     double min_duration = 1.0;
     bool   aligned      = true;
 
-    if (argc < 2 || argc > 3) {
+    if (argc != 2) {
         fprintf(stderr, "Usage: %s <N> <Threads>\n", argv[0]);
         fprintf(stderr, "    N         : vector length (2^N_max)\n");
         exit(EXIT_FAILURE);
@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    printf("%s,%s,%s,%s\n", "N", "GFLOPS", "Repetitions");
+    printf("%s,%s,%s\n", "N", "GFLOPS", "Repetitions");
 
     allocate_vectors(N, aligned);
     initialize_vectors(N);
