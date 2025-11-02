@@ -5,6 +5,8 @@ static double *restrict A, *restrict B, *restrict C, *restrict D;
 int main(int argc, char *argv[])
 {
 
+  long N = 1L >> 20;
+
   LIKWID_MARKER_INIT;
 
   #pragma omp parallel
