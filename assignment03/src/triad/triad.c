@@ -38,7 +38,7 @@ double triadReal(int N, size_t REP)
         LIKWID_MARKER_START("REGION");
 
         for (size_t r = 0; r < REP; ++r)
-            #pragma omp for schedule(static) nowait
+            #pragma omp for schedule(static)
             for (int i = 0; i < N; ++i)
                 A[i] = B[i] + C[i] * D[i];
 
