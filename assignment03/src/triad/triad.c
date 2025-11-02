@@ -26,6 +26,8 @@ double triad(int N, size_t REP)
 double triadReal(int N, size_t REP)
 {
 
+    LIKWID_MARKER_INIT;
+
     #pragma omp parallel
     {
         LIKWID_MARKER_THREADINIT;
@@ -46,6 +48,9 @@ double triadReal(int N, size_t REP)
     }
     
     double end = omp_get_wtime();
+
+    LIKWID_MARKER_CLOSE;
+
     return end - begin;
 
 }
@@ -110,9 +115,9 @@ int main(int argc, char *argv[])
     bool   aligned      = true;
 
     if (argc < 2 || argc > 3) {
-        fprintf(stderr, "Usage: %s <N> [Threads]\n", argv[0]);
+        fprintf(stderr, "Usage: %s <N> <Threads>\n", argv[0]);
         fprintf(stderr, "    N         : vector length (2^N_max)\n");
-        fprintf(stderr, "    Threads   : number of threads to be used (default number of cores)\n");
+        fprintf(stderr, "    Threads   : number of threads to be used\n");
         exit(EXIT_FAILURE);
     }
 
@@ -128,8 +133,6 @@ int main(int argc, char *argv[])
         fprintf(stderr, "Threads invalid / out of range\n");
         exit(EXIT_FAILURE);
     }
-
-    LIKWID_MARKER_INIT;
 
     printf("%s,%s,%s,%s\n", "N", "GFLOPS", "Repetitions", "Threads");
 
@@ -154,8 +157,6 @@ int main(int argc, char *argv[])
     double gflops    = (num_flops / time) * 1.0e-9;
 
     printf("%zu,%.2f,%zu,%d\n", N, gflops, rep, num_threads);
-    
-    LIKWID_MARKER_CLOSE;
 
     return EXIT_SUCCESS;
 }
