@@ -117,13 +117,13 @@ int main(int argc, char *argv[])
     }
 
     char *pEnd;
-    N = 1ULL << strtol(argv[1], &pEnd, 10);
+    long N = 1ULL << strtol(argv[1], &pEnd, 10);
     if (errno || N > __INT_MAX__) {
         fprintf(stderr, "N invalid / out of range\n");
         exit(EXIT_FAILURE);
     }
 
-    num_threads = strtol(argv[2], &pEnd, 10);
+    long num_threads = strtol(argv[2], &pEnd, 10);
     if (errno || N > __INT_MAX__) {
         fprintf(stderr, "Threads invalid / out of range\n");
         exit(EXIT_FAILURE);
