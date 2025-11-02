@@ -11,7 +11,6 @@ int main(int argc, char *argv[])
 
   #pragma omp parallel
   {
-      LIKWID_MARKER_THREADINIT;
       LIKWID_MARKER_REGISTER("REGION");
   }
 
@@ -26,13 +25,12 @@ int main(int argc, char *argv[])
       LIKWID_MARKER_STOP("REGION");
   }
 
-  LIKWID_MARKER_CLOSE;
-
   int res = 0;
-
+  
   for (int i = 0; i < N; ++i)
     res += A[i];
-
+  
+  LIKWID_MARKER_CLOSE;
   return res;
 
 }
