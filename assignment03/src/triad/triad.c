@@ -37,8 +37,8 @@ double triadReal(int N, size_t REP)
         
         LIKWID_MARKER_START("REGION");
 
-        
-            #pragma omp for schedule(static)
+        for (size_t r = 0; r < REP; ++r)
+            #pragma omp for schedule(static) nowait
             for (int i = 0; i < N; ++i)
                 A[i] = B[i] + C[i] * D[i];
 
@@ -134,7 +134,7 @@ int main(int argc, char *argv[])
 
     allocate_vectors(N, aligned);
     initialize_vectors(N);
-    omp_set_num_threads(num_threads);
+    //omp_set_num_threads(num_threads);
 
     // warm-up and set number of repetitions
     size_t rep = 1U;
