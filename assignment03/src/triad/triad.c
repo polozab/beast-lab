@@ -149,7 +149,7 @@ int main(int argc, char *argv[])
     double num_flops = 2.0 * N * rep;
     double gflops    = (num_flops / time) * 1.0e-9;
 
-    printf("%zu,%.2f,%zu,%d\n", N, gflops, rep, num_threads);
+    printf("%zu,%.2f,%zu,%d\n", N, gflops, rep, omp_get_thread_num());
 
     return EXIT_SUCCESS;
 }
