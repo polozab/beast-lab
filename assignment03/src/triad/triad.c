@@ -108,7 +108,7 @@ int main(int argc, char *argv[])
     // min. measurement time in seconds
     double min_duration = 1.0;
     bool   aligned      = true;
-    long   num_threads  = omp_get_num_threads();
+    int   num_threads  = omp_get_num_threads();
 
     if (argc < 2 || argc > 3) {
         fprintf(stderr, "Usage: %s <N> [Threads]\n", argv[0]);
@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    num_threads = strtol(argv[2], &pEnd, 10);
+    num_threads = (int)strtol(argv[2], &pEnd, 10);
     if (errno || N > __INT_MAX__) {
         fprintf(stderr, "Threads invalid / out of range\n");
         exit(EXIT_FAILURE);
