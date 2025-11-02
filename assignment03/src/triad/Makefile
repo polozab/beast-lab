@@ -1,7 +1,7 @@
 CC?=gcc
 
-LIKWID_LIB:=$(dirname $(which likwid-perfctr))/../lib/"
-LIKWID_INCLUDE:=$(dirname $(which likwid-perfctr))/../include/"
+LIKWID_LIB:=$(shell dirname $(which likwid-perfctr))/../lib/
+LIKWID_INCLUDE:=$(shell dirname $(which likwid-perfctr))/../include/
 
 CFLAGS ?= -fopenmp -O3 -ffast-math -march=native -DLIKWID_PERFMON
 LDFLAGS += -L$(LIKWID_LIB) -I$(LIKWID_INCLUDE) 
