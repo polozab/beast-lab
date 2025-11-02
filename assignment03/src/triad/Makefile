@@ -6,8 +6,8 @@ LIKWID_BASE:=$(shell dirname $(shell bash -lc 'command -v likwid-perfctr' 2>/dev
 LIKWID_LIB:=$(LIKWID_BASE)/../lib/
 LIKWID_INCLUDE:=$(LIKWID_BASE)/../include/
 
-CFLAGS ?= -fopenmp -O3 -ffast-math -march=native -DLIKWID_PERFMON
-LDFLAGS += -L$(LIKWID_LIB) -I$(LIKWID_INCLUDE) 
+CFLAGS ?= -fopenmp -O3 -ffast-math -march=native -DLIKWID_PERFMON -L$(LIKWID_LIB)
+LDFLAGS += -I$(LIKWID_INCLUDE) -Wl,-rpath,$(LIKWID_INCLUDE)
 LDLIBS += -llikwid
 
 SRCS := $(wildcard *.c)
