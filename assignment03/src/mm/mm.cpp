@@ -4,6 +4,7 @@
 #include <math.h>
 #include <cstdio>
 #include <omp.h>
+#include <likwid-marker.h>
 
 // use a 1d array to guarantee a dense and sequential memory layout
 #define TWO_D_ACCESS(row, col, width) ((width) * (row) + (col))
@@ -107,9 +108,22 @@ return_info mm(int N, int TILE_SIZE, int padded_N) {
   // MATRIX MULTIPLICATION KERNELS
   /////////////////////////////////////////////////////////////////////////
 
+  LIKWID_MARKER_INIT;
+
+  #pragma omp parallel
+  {
+    LIKWID_MARKER_THREADINIT;
+    LIKWID_MARKER_REGISTER("REGION");
+  }
+
   auto t0 = std::chrono::high_resolution_clock::now();
 
-  #pragma omp parallel proc_bind(close)
+  #pragma omp parallel
+  {
+    LIKWID_MARKER_START("REGION");
+  }
+
+  #pragma omp parallel
   {
     for( int r=0; r<rep; ++r ) {
 
@@ -131,7 +145,14 @@ return_info mm(int N, int TILE_SIZE, int padded_N) {
 
   }
 
+  #pragma omp parallel
+  {
+    LIKWID_MARKER_STOP("REGION");
+  }
+
   auto t1 = std::chrono::high_resolution_clock::now();
+
+  LIKWID_MARKER_CLOSE;
 
   // simple correctness check
   double array_sum = 0;
@@ -174,38 +195,15 @@ int main(int argc, char* argv[]) {
     printf("Usage: %s <tile_size> <matrix_size>\n", argv[0]);
     return -1;
   }
-
-  size_t max_num_threads = omp_get_max_threads() * 16;
-
-  printf("N, N_padded, Tiles, Threads, Repetitions, MFLOPS, Speedup\n");
-
-  // Run baseline
-
-  omp_set_num_threads(1);
-
+  
   tile_size = std::min(matrix_size, tile_size);
   int padded_N = ((matrix_size + tile_size - 1) / tile_size) * tile_size;
-
+  
   return_info rf = mm(matrix_size, tile_size, padded_N);
-  printf("%d, %d, %d, %ld, %d, %f, %f\n", matrix_size, padded_N, tile_size, (size_t)1, rf.repetition, rf.mflops, 1.0);
-
-  double baseline = rf.mflops;
-
-  // Run strong scaling
-
-  for (size_t num_threads = 2; num_threads <= max_num_threads; num_threads *= 2) {
-
-    omp_set_num_threads(num_threads);
-
-    tile_size = std::min(matrix_size, tile_size);
-    int padded_N = ((matrix_size + tile_size - 1) / tile_size) * tile_size;
-
-    return_info rf = mm(matrix_size, tile_size, padded_N);
-    double speedup = rf.mflops / baseline;
-
-    printf("%d, %d, %d, %ld, %d, %f, %f\n", matrix_size, padded_N, tile_size, num_threads, rf.repetition, rf.mflops, speedup);
-
-  }
+  
+  printf("N, N_padded, Tiles, Repetitions, MFLOPS\n");
+  printf("%d, %d, %d, %d, %f\n", matrix_size, padded_N, tile_size, rf.repetition, rf.mflops);
  
   return 0;
+
 }
