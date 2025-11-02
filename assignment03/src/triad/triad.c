@@ -111,10 +111,9 @@ int main(int argc, char *argv[])
     double min_duration = 1.0;
     bool   aligned      = true;
 
-    if (argc < 2 || argc > 3) {
+    if (argc != 2) {
         fprintf(stderr, "Usage: %s <N> <Threads>\n", argv[0]);
-        fprintf(stderr, "    N         : vector length (2^N_max)\n");
-        fprintf(stderr, "    Threads   : number of threads to be used\n");
+        fprintf(stderr, "N: vector length (2^N_max)\n");
         exit(EXIT_FAILURE);
     }
 
@@ -125,17 +124,10 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    long num_threads = strtol(argv[2], &pEnd, 10);
-    if (errno || N > __INT_MAX__) {
-        fprintf(stderr, "Threads invalid / out of range\n");
-        exit(EXIT_FAILURE);
-    }
-
     printf("%s,%s,%s,%s\n", "N", "GFLOPS", "Repetitions", "Threads");
 
     allocate_vectors(N, aligned);
     initialize_vectors(N);
-    //omp_set_num_threads(num_threads);
 
     // warm-up and set number of repetitions
     size_t rep = 1U;
