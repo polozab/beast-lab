@@ -4,14 +4,14 @@
 
 ## c)
 
-### sap3 **TODO**: Fix "./data/L3_T1_L3"
+### sap3
 
 **L1 Cache**: 48KB / 4 / 8 = 1,5KB = 1,46 KiB = 2^1 * 2^10 B = 2^11 B ==> N = 10
-**L2 Cache**: 2048 KB / 4 / 8 = 64KB = 62,5 KiB = 2^7 * 2^10 B = 2^16 B ==> N = 15
+**L2 Cache**: 2048 KB / 4 / 8 = 64KB = 62,5 KiB = 2^7 * 2^10 B = 2^17 B ==> N = 16
 **L3 Cache**: 105 MB / 4 / 8 = 3,28MB = 3,13 MiB = 2^2 * 2^20 B = 2^22 B ==> N = 21
 
 **L1 Cache (Multi)**: Unchanged as local ==> N = 10
-**L2 Cache (Multi)**: Unchanged as local ==> N = 15
+**L2 Cache (Multi)**: Unchanged as local ==> N = 16
 **L3 Cache (Multi)**: 105 MB / 4 / 8 / 48 = 68 KB = 66,41 KiB = 2^7 * 2^10 B = 2^17 B ==> N = 16
 
 | Size     | #Threads | FLOPS (MFLOP/s) | Memory BW (MB/s) | L3-L2 BW    | L2-L1 BW    |
