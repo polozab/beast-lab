@@ -21,7 +21,6 @@ module load likwid
 make clean
 make
 
-rm -r "./data"
 mkdir -p "./data"
 
 likwid-perfctr -C 0 -g FLOPS_DP -m ./triad.out 10 > "./data/FLOPS_T1_L1"

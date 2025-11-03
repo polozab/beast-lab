@@ -21,7 +21,6 @@ module load likwid
 make clean
 make
 
-rm -r "./data"
 mkdir -p "./data"
 
 likwid-perfctr -C 0 -g MEM -m ./triad.out 10 > "./data/MEM_T1_L1"
@@ -36,7 +35,7 @@ likwid-perfctr -C 0 -g L2 -m ./triad.out 29 > "./data/L2_T1_MEM"
 
 likwid-perfctr -C 0 -g L3 -m ./triad.out 10 > "./data/L3_T1_L1"
 likwid-perfctr -C 0 -g L3 -m ./triad.out 15 > "./data/L3_T1_L2"
-likwid-perfctr -C 0 -g L3 -m ./triad.out 16 > "./data/L3_T1_L3"
+likwid-perfctr -C 0 -g L3 -m ./triad.out 21 > "./data/L3_T1_L3"
 likwid-perfctr -C 0 -g L3 -m ./triad.out 29 > "./data/L3_T1_MEM"
 
 likwid-perfctr -C 0-95 -g MEM -m ./triad.out 10 > "./data/MEM_T96_L1"
