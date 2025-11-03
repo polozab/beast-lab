@@ -4,13 +4,13 @@ CPU type:	Intel SapphireRapids processor
 CPU clock:	2.10 GHz
 --------------------------------------------------------------------------------
 N,GFLOPS,Repetitions
-2097152,1.65,512
+2097152,1.64,512
 --------------------------------------------------------------------------------
 Region REGION, Group 1: L2
 +-------------------+------------+
 |    Region Info    | HWThread 0 |
 +-------------------+------------+
-| RDTSC Runtime [s] |   1.304025 |
+| RDTSC Runtime [s] |   1.305544 |
 |     call count    |          1 |
 +-------------------+------------+
 
@@ -18,20 +18,20 @@ Region REGION, Group 1: L2
 |         Event         | Counter |  HWThread 0 |
 +-----------------------+---------+-------------+
 |   INSTR_RETIRED_ANY   |  FIXC0  |  1879061000 |
-| CPU_CLK_UNHALTED_CORE |  FIXC1  |  4551807000 |
-|  CPU_CLK_UNHALTED_REF |  FIXC2  |  2734436000 |
-|     TOPDOWN_SLOTS     |  FIXC3  | 27310850000 |
-|    L1D_REPLACEMENT    |   PMC0  |   537061100 |
+| CPU_CLK_UNHALTED_CORE |  FIXC1  |  4556204000 |
+|  CPU_CLK_UNHALTED_REF |  FIXC2  |  2737079000 |
+|     TOPDOWN_SLOTS     |  FIXC3  | 27337230000 |
+|    L1D_REPLACEMENT    |   PMC0  |   537055400 |
 +-----------------------+---------+-------------+
 
 +-------------------------------+------------+
 |             Metric            | HWThread 0 |
 +-------------------------------+------------+
-|      Runtime (RDTSC) [s]      |     1.3040 |
-|      Runtime unhalted [s]     |     2.1676 |
-|          Clock [MHz]          |  3495.6145 |
-|              CPI              |     2.4224 |
-| L2D load bandwidth [MBytes/s] | 26358.3217 |
-| L2D load data volume [GBytes] |    34.3719 |
+|      Runtime (RDTSC) [s]      |     1.3055 |
+|      Runtime unhalted [s]     |     2.1697 |
+|          Clock [MHz]          |  3495.5672 |
+|              CPI              |     2.4247 |
+| L2D load bandwidth [MBytes/s] | 26327.3743 |
+| L2D load data volume [GBytes] |    34.3715 |
 +-------------------------------+------------+
 
