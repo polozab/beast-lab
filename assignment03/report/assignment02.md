@@ -6,6 +6,11 @@
 
 ### sap3
 
+~~~
+Compiler: gcc version 14.2.0 (Spack GCC)
+Flags:    gcc -fopenmp -O3 -ffast-math -march=native
+~~~
+
 **L1 Cache**: 48 KB / 4 / 8 = 1.5 KB = 1.46 KiB = 2^1 * 2^10 B = 2^11 B ==> N = 10
 **L2 Cache**: 2048 KB / 4 / 8 = 64 KB = 62.5 KiB = 2^7 * 2^10 B = 2^17 B ==> N = 16
 **L3 Cache**: 105 MB / 4 / 8 = 3.281 MB = 3.129 MiB = 2^2 * 2^20 B = 2^22 B ==> N = 21
@@ -27,6 +32,11 @@
 
 ### milan2
 
+~~~
+Compiler: gcc version 14.2.0 (Spack GCC)
+Flags:    gcc -fopenmp -O3 -ffast-math -march=native
+~~~
+
 **L1 Cache**: 32 KB / 4 / 8 = 1 KB = 0.977 KiB = 2^0 * 2^10 B = 2^10 B ==> N = 9
 **L2 Cache**: 512 KB / 4 / 8 = 16 KB = 15.625 KiB = 2^4 * 2^10 B = 2^14 B ==> N = 13
 **L3 Cache**: 96 MB / 4 / 8 = 3 MB = 2.861 MiB = 2^1 * 2^20 B = 2^21 B ==> N = 20
@@ -37,6 +47,12 @@
 
 ### gh3
 
+~~~
+Compiler: gcc version 14.2.0 (Spack GCC)
+Flags:    gcc -fopenmp -O3 -ffast-math -march=native
+~~~
+
+
 **L1 Cache**: 64 KB / 4 / 8 = 2 KB = 1.953 KiB = 2^1 * 2^10 B = 2^11 B ==> N = 10
 **L2 Cache**: 1024 KB / 4 / 8 = 32 KB = 31.25 KiB = 2^5 * 2^10 B = 2^15 B ==> N = 14
 **L3 Cache**: 114 MB / 4 / 8 = 3.5625 MB = 3.397 MiB = 2^2 * 2^20 B = 2^22 B ==> N = 21
@@ -46,6 +62,11 @@
 **L3 Cache (Multi)**: 114 MB / 4 / 8 / 72 = 0.049479 MB = 49.479 KB = 48 KiB = 2^5 * 2^10 B = 2^15 B ==> N = 15
 
 ### cs2
+
+~~~
+Compiler: gcc version 13.1.0 (Spack GCC)
+Flags:    gcc -fopenmp -O3 -ffast-math -march=native
+~~~
 
 **L1 Cache**: 64 KiB / 4 / 8 = 2 KiB = 2^1 * 2^10 B = 2^11 B ==> N = 10
 **L2 Cache**: 8 MiB / 4 / 8 = 0.25 MiB = 256 KiB = 2^8 * 2^10 B = 2^18 B ==> N = 17
