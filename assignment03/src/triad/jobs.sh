@@ -28,3 +28,8 @@ likwid-perfctr -C 0 -g FLOPS_DP -m ./triad.out 10 > "./data/FLOPS_T1_L1"
 likwid-perfctr -C 0 -g FLOPS_DP -m ./triad.out 15 > "./data/FLOPS_T1_L2"
 likwid-perfctr -C 0 -g FLOPS_DP -m ./triad.out 21 > "./data/FLOPS_T1_L3"
 likwid-perfctr -C 0 -g FLOPS_DP -m ./triad.out 29 > "./data/FLOPS_T1_MEM"
+
+likwid-perfctr -C 0-95 -g FLOPS_DP -m ./triad.out 10 > "./data/FLOPS_T96_L1"
+likwid-perfctr -C 0-95 -g FLOPS_DP -m ./triad.out 15 > "./data/FLOPS_T96_L2"
+likwid-perfctr -C 0-95 -g FLOPS_DP -m ./triad.out 16 > "./data/FLOPS_T96_L3"
+likwid-perfctr -C 0-95 -g FLOPS_DP -m ./triad.out 29 > "./data/FLOPS_T96_MEM"
