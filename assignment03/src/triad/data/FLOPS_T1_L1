@@ -1,0 +1,44 @@
+--------------------------------------------------------------------------------
+CPU name:	Intel(R) Xeon(R) CPU Max 9468
+CPU type:	Intel SapphireRapids processor
+CPU clock:	2.10 GHz
+--------------------------------------------------------------------------------
+N,GFLOPS,Repetitions
+1024,18.78,8388608
+--------------------------------------------------------------------------------
+Region REGION, Group 1: FLOPS_DP
++-------------------+------------+
+|    Region Info    | HWThread 0 |
++-------------------+------------+
+| RDTSC Runtime [s] |   0.914863 |
+|     call count    |          1 |
++-------------------+------------+
+
++------------------------------------------+---------+-------------+
+|                   Event                  | Counter |  HWThread 0 |
++------------------------------------------+---------+-------------+
+|             INSTR_RETIRED_ANY            |  FIXC0  | 15124670000 |
+|           CPU_CLK_UNHALTED_CORE          |  FIXC1  |  3102801000 |
+|           CPU_CLK_UNHALTED_REF           |  FIXC2  |  1918937000 |
+|               TOPDOWN_SLOTS              |  FIXC3  | 18616810000 |
+| FP_ARITH_INST_RETIRED_128B_PACKED_DOUBLE |   PMC0  |           0 |
+|    FP_ARITH_INST_RETIRED_SCALAR_DOUBLE   |   PMC1  |          12 |
+| FP_ARITH_INST_RETIRED_256B_PACKED_DOUBLE |   PMC2  |  4294967000 |
+| FP_ARITH_INST_RETIRED_512B_PACKED_DOUBLE |   PMC3  |           0 |
++------------------------------------------+---------+-------------+
+
++----------------------+--------------+
+|        Metric        |  HWThread 0  |
++----------------------+--------------+
+|  Runtime (RDTSC) [s] |       0.9149 |
+| Runtime unhalted [s] |       1.4776 |
+|      Clock [MHz]     |    3395.4732 |
+|          CPI         |       0.2051 |
+|     DP [MFLOP/s]     |   18778.6216 |
+|   AVX DP [MFLOP/s]   |   18778.6216 |
+|  AVX512 DP [MFLOP/s] |            0 |
+|   Packed [MUOPS/s]   |    4694.6554 |
+|   Scalar [MUOPS/s]   | 1.311672e-05 |
+|  Vectorization ratio |     100.0000 |
++----------------------+--------------+
+
