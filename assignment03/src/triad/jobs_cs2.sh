@@ -12,7 +12,7 @@
 #SBATCH --export=NONE
 #SBATCH --get-user-env
 #SBATCH --partition=cs #milan sap gh cs
-#SBATCH --nodelist=cs3 #sap4 gh3 cs7
+#SBATCH --nodelist=cs7 #sap4 gh3 cs7
 #SBATCH --nodes=1
 
 module load gcc-13.1.0-gcc-8.4.1-djjcsay
