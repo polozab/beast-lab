@@ -26,7 +26,7 @@ BASE="./data/cs2"
 rm -r "$BASE"
 mkdir -p "$BASE"
 
-$CC -v > "$BASE/_compiler.txt"
+stdbuf --output=L $CC -v | tee "$BASE/_compiler.txt"
 
 likwid-perfctr -C 0 -g FLOPS_DP -m ./triad.out 10 > "$BASE/FLOPS_T1_L1.txt"
 likwid-perfctr -C 0 -g FLOPS_DP -m ./triad.out 17 > "$BASE/FLOPS_T1_L2.txt"
