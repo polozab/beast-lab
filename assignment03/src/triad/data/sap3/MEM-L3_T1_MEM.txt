@@ -1,0 +1,72 @@
+--------------------------------------------------------------------------------
+CPU name:	Intel(R) Xeon(R) CPU Max 9468
+CPU type:	Intel SapphireRapids processor
+CPU clock:	2.10 GHz
+--------------------------------------------------------------------------------
+N,GFLOPS,Repetitions
+536870912,1.14,2
+--------------------------------------------------------------------------------
+Region REGION, Group 1: MEM
++-------------------+------------+
+|    Region Info    | HWThread 0 |
++-------------------+------------+
+| RDTSC Runtime [s] |   1.889093 |
+|     call count    |          1 |
++-------------------+------------+
+
++-----------------------+----------+-------------+
+|         Event         |  Counter |  HWThread 0 |
++-----------------------+----------+-------------+
+|   INSTR_RETIRED_ANY   |   FIXC0  |  1879061000 |
+| CPU_CLK_UNHALTED_CORE |   FIXC1  |  6583605000 |
+|  CPU_CLK_UNHALTED_REF |   FIXC2  |  3955006000 |
+|     TOPDOWN_SLOTS     |   FIXC3  | 39501090000 |
+|      CAS_COUNT_RD     |  MBOX0C0 |   201606600 |
+|      CAS_COUNT_WR     |  MBOX0C1 |    67464520 |
+|      CAS_COUNT_RD     |  MBOX1C0 |           0 |
+|      CAS_COUNT_WR     |  MBOX1C1 |           0 |
+|      CAS_COUNT_RD     |  MBOX2C0 |           0 |
+|      CAS_COUNT_WR     |  MBOX2C1 |           0 |
+|      CAS_COUNT_RD     |  MBOX3C0 |           0 |
+|      CAS_COUNT_WR     |  MBOX3C1 |           0 |
+|      CAS_COUNT_RD     |  MBOX4C0 |           0 |
+|      CAS_COUNT_WR     |  MBOX4C1 |           0 |
+|      CAS_COUNT_RD     |  MBOX5C0 |           0 |
+|      CAS_COUNT_WR     |  MBOX5C1 |           0 |
+|      CAS_COUNT_RD     |  MBOX6C0 |   201605500 |
+|      CAS_COUNT_WR     |  MBOX6C1 |    67464990 |
+|      CAS_COUNT_RD     |  MBOX7C0 |           0 |
+|      CAS_COUNT_WR     |  MBOX7C1 |           0 |
+|      CAS_COUNT_RD     |  MBOX8C0 |      -      |
+|      CAS_COUNT_WR     |  MBOX8C1 |      -      |
+|      CAS_COUNT_RD     |  MBOX9C0 |      -      |
+|      CAS_COUNT_WR     |  MBOX9C1 |      -      |
+|      CAS_COUNT_RD     | MBOX10C0 |      -      |
+|      CAS_COUNT_WR     | MBOX10C1 |      -      |
+|      CAS_COUNT_RD     | MBOX11C0 |      -      |
+|      CAS_COUNT_WR     | MBOX11C1 |      -      |
+|      CAS_COUNT_RD     | MBOX12C0 |      -      |
+|      CAS_COUNT_WR     | MBOX12C1 |      -      |
+|      CAS_COUNT_RD     | MBOX13C0 |      -      |
+|      CAS_COUNT_WR     | MBOX13C1 |      -      |
+|      CAS_COUNT_RD     | MBOX14C0 |      -      |
+|      CAS_COUNT_WR     | MBOX14C1 |      -      |
+|      CAS_COUNT_RD     | MBOX15C0 |      -      |
+|      CAS_COUNT_WR     | MBOX15C1 |      -      |
++-----------------------+----------+-------------+
+
++-----------------------------------+------------+
+|               Metric              | HWThread 0 |
++-----------------------------------+------------+
+|        Runtime (RDTSC) [s]        |     1.8891 |
+|        Runtime unhalted [s]       |     3.1351 |
+|            Clock [MHz]            |  3495.6184 |
+|                CPI                |     3.5037 |
+|  Memory read bandwidth [MBytes/s] | 13660.2986 |
+|  Memory read data volume [GBytes] |    25.8056 |
+| Memory write bandwidth [MBytes/s] |  4571.2353 |
+| Memory write data volume [GBytes] |     8.6355 |
+|    Memory bandwidth [MBytes/s]    | 18231.5339 |
+|    Memory data volume [GBytes]    |    34.4411 |
++-----------------------------------+------------+
+

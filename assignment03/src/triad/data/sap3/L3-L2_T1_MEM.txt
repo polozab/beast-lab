@@ -1,0 +1,45 @@
+--------------------------------------------------------------------------------
+CPU name:	Intel(R) Xeon(R) CPU Max 9468
+CPU type:	Intel SapphireRapids processor
+CPU clock:	2.10 GHz
+--------------------------------------------------------------------------------
+N,GFLOPS,Repetitions
+536870912,1.12,2
+--------------------------------------------------------------------------------
+Region REGION, Group 1: L3
++-------------------+------------+
+|    Region Info    | HWThread 0 |
++-------------------+------------+
+| RDTSC Runtime [s] |   1.915755 |
+|     call count    |          1 |
++-------------------+------------+
+
++-------------------------+---------+-------------+
+|          Event          | Counter |  HWThread 0 |
++-------------------------+---------+-------------+
+|    INSTR_RETIRED_ANY    |  FIXC0  |  1879058000 |
+|  CPU_CLK_UNHALTED_CORE  |  FIXC1  |  6678043000 |
+|   CPU_CLK_UNHALTED_REF  |  FIXC2  |  4011744000 |
+|      TOPDOWN_SLOTS      |  FIXC3  | 40068260000 |
+|     L2_LINES_IN_ALL     |   PMC0  |   536955800 |
+|   L2_LINES_OUT_SILENT   |   PMC2  |      229202 |
+| L2_LINES_OUT_NON_SILENT |   PMC3  |   536719500 |
++-------------------------+---------+-------------+
+
++----------------------------------+------------+
+|              Metric              | HWThread 0 |
++----------------------------------+------------+
+|        Runtime (RDTSC) [s]       |     1.9158 |
+|       Runtime unhalted [s]       |     3.1801 |
+|            Clock [MHz]           |  3495.6148 |
+|                CPI               |     3.5539 |
+|   L3 load bandwidth [MBytes/s]   | 17938.1869 |
+|   L3 load data volume [GBytes]   |    34.3652 |
+|   L3 evict bandwidth [MBytes/s]  | 17930.2928 |
+|   L3 evict data volume [GBytes]  |    34.3500 |
+| Dropped CLs bandwidth [MBytes/s] |     7.6570 |
+| Dropped CLs data volume [GBytes] |     0.0147 |
+|      L3 bandwidth [MBytes/s]     | 35868.4796 |
+|      L3 data volume [GBytes]     |    68.7152 |
++----------------------------------+------------+
+
