@@ -4,13 +4,13 @@ CPU type:	Intel SapphireRapids processor
 CPU clock:	2.10 GHz
 --------------------------------------------------------------------------------
 N,GFLOPS,Repetitions
-2097152,1.47,512
+2097152,1.66,512
 --------------------------------------------------------------------------------
 Region REGION, Group 1: MEM
 +-------------------+------------+
 |    Region Info    | HWThread 0 |
 +-------------------+------------+
-| RDTSC Runtime [s] |   1.459398 |
+| RDTSC Runtime [s] |   1.295449 |
 |     call count    |          1 |
 +-------------------+------------+
 
@@ -18,11 +18,11 @@ Region REGION, Group 1: MEM
 |         Event         |  Counter |  HWThread 0 |
 +-----------------------+----------+-------------+
 |   INSTR_RETIRED_ANY   |   FIXC0  |  1879064000 |
-| CPU_CLK_UNHALTED_CORE |   FIXC1  |  5091919000 |
-|  CPU_CLK_UNHALTED_REF |   FIXC2  |  3058900000 |
-|     TOPDOWN_SLOTS     |   FIXC3  | 30550950000 |
-|      CAS_COUNT_RD     |  MBOX0C0 |     4609588 |
-|      CAS_COUNT_WR     |  MBOX0C1 |    22793440 |
+| CPU_CLK_UNHALTED_CORE |   FIXC1  |  4521492000 |
+|  CPU_CLK_UNHALTED_REF |   FIXC2  |  2716226000 |
+|     TOPDOWN_SLOTS     |   FIXC3  | 27128950000 |
+|      CAS_COUNT_RD     |  MBOX0C0 |      370058 |
+|      CAS_COUNT_WR     |  MBOX0C1 |     4129197 |
 |      CAS_COUNT_RD     |  MBOX1C0 |           0 |
 |      CAS_COUNT_WR     |  MBOX1C1 |           0 |
 |      CAS_COUNT_RD     |  MBOX2C0 |           0 |
@@ -33,8 +33,8 @@ Region REGION, Group 1: MEM
 |      CAS_COUNT_WR     |  MBOX4C1 |           0 |
 |      CAS_COUNT_RD     |  MBOX5C0 |           0 |
 |      CAS_COUNT_WR     |  MBOX5C1 |           0 |
-|      CAS_COUNT_RD     |  MBOX6C0 |     4626860 |
-|      CAS_COUNT_WR     |  MBOX6C1 |    22660010 |
+|      CAS_COUNT_RD     |  MBOX6C0 |      375242 |
+|      CAS_COUNT_WR     |  MBOX6C1 |     4072172 |
 |      CAS_COUNT_RD     |  MBOX7C0 |           0 |
 |      CAS_COUNT_WR     |  MBOX7C1 |           0 |
 |      CAS_COUNT_RD     |  MBOX8C0 |      -      |
@@ -58,15 +58,15 @@ Region REGION, Group 1: MEM
 +-----------------------------------+------------+
 |               Metric              | HWThread 0 |
 +-----------------------------------+------------+
-|        Runtime (RDTSC) [s]        |     1.4594 |
-|        Runtime unhalted [s]       |     2.4249 |
-|            Clock [MHz]            |  3495.4644 |
-|                CPI                |     2.7098 |
-|  Memory read bandwidth [MBytes/s] |   405.0524 |
-|  Memory read data volume [GBytes] |     0.5911 |
-| Memory write bandwidth [MBytes/s] |  1993.3019 |
-| Memory write data volume [GBytes] |     2.9090 |
-|    Memory bandwidth [MBytes/s]    |  2398.3543 |
-|    Memory data volume [GBytes]    |     3.5002 |
+|        Runtime (RDTSC) [s]        |     1.2954 |
+|        Runtime unhalted [s]       |     2.1532 |
+|            Clock [MHz]            |  3495.6101 |
+|                CPI                |     2.4062 |
+|  Memory read bandwidth [MBytes/s] |    36.8206 |
+|  Memory read data volume [GBytes] |     0.0477 |
+| Memory write bandwidth [MBytes/s] |   405.1781 |
+| Memory write data volume [GBytes] |     0.5249 |
+|    Memory bandwidth [MBytes/s]    |   441.9987 |
+|    Memory data volume [GBytes]    |     0.5726 |
 +-----------------------------------+------------+
 

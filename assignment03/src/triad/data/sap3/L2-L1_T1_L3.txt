@@ -10,7 +10,7 @@ Region REGION, Group 1: L2
 +-------------------+------------+
 |    Region Info    | HWThread 0 |
 +-------------------+------------+
-| RDTSC Runtime [s] |   1.310608 |
+| RDTSC Runtime [s] |   1.312169 |
 |     call count    |          1 |
 +-------------------+------------+
 
@@ -18,20 +18,20 @@ Region REGION, Group 1: L2
 |         Event         | Counter |  HWThread 0 |
 +-----------------------+---------+-------------+
 |   INSTR_RETIRED_ANY   |  FIXC0  |  1879061000 |
-| CPU_CLK_UNHALTED_CORE |  FIXC1  |  4574256000 |
-|  CPU_CLK_UNHALTED_REF |  FIXC2  |  2747922000 |
-|     TOPDOWN_SLOTS     |  FIXC3  | 27445540000 |
-|    L1D_REPLACEMENT    |   PMC0  |   537048200 |
+| CPU_CLK_UNHALTED_CORE |  FIXC1  |  4580507000 |
+|  CPU_CLK_UNHALTED_REF |  FIXC2  |  2751678000 |
+|     TOPDOWN_SLOTS     |  FIXC3  | 27482600000 |
+|    L1D_REPLACEMENT    |   PMC0  |   537071000 |
 +-----------------------+---------+-------------+
 
 +-------------------------------+------------+
 |             Metric            | HWThread 0 |
 +-------------------------------+------------+
-|      Runtime (RDTSC) [s]      |     1.3106 |
-|      Runtime unhalted [s]     |     2.1783 |
-|          Clock [MHz]          |  3495.5451 |
-|              CPI              |     2.4343 |
-| L2D load bandwidth [MBytes/s] | 26225.2976 |
-| L2D load data volume [GBytes] |    34.3711 |
+|      Runtime (RDTSC) [s]      |     1.3122 |
+|      Runtime unhalted [s]     |     2.1813 |
+|          Clock [MHz]          |  3495.6107 |
+|              CPI              |     2.4377 |
+| L2D load bandwidth [MBytes/s] | 26195.2111 |
+| L2D load data volume [GBytes] |    34.3725 |
 +-------------------------------+------------+
 
