@@ -1,5 +1,5 @@
 CC?=gcc
-SHELL := /bin/bash
+#SHELL := /bin/bash
 
 LIKWID_BASE:=$(shell dirname $(shell bash -lc 'command -v likwid-perfctr' 2>/dev/null))
 
