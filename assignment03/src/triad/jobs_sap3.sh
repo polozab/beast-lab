@@ -15,7 +15,7 @@
 #SBATCH --nodelist=sap3 #sap4 gh3 cs7
 #SBATCH --nodes=1
 
-module load gcc
+module load gcc/14.2.0-gcc-13.2.0-57z6vik
 module load likwid
 
 make clean
@@ -25,6 +25,8 @@ BASE="./data/sap3"
 
 rm -r "$BASE"
 mkdir -p "$BASE"
+
+$CC -v > "$BASE/_compiler.txt"
 
 likwid-perfctr -C 0 -g FLOPS_DP -m ./triad.out 10 > "$BASE/FLOPS_T1_L1.txt"
 likwid-perfctr -C 0 -g FLOPS_DP -m ./triad.out 16 > "$BASE/FLOPS_T1_L2.txt"
