@@ -4,36 +4,36 @@ CPU type:	AMD K19 (Zen3) architecture
 CPU clock:	2.20 GHz
 --------------------------------------------------------------------------------
 N,GFLOPS,Repetitions
-1048576,5.06,4096
+1048576,5.08,4096
 --------------------------------------------------------------------------------
 Region REGION, Group 1: L3
 +-------------------+------------+
 |    Region Info    | HWThread 0 |
 +-------------------+------------+
-| RDTSC Runtime [s] |   1.697698 |
+| RDTSC Runtime [s] |   1.689523 |
 |     call count    |          1 |
 +-------------------+------------+
 
 +-----------------------------+---------+------------+
 |            Event            | Counter | HWThread 0 |
 +-----------------------------+---------+------------+
-|       ACTUAL_CPU_CLOCK      |  FIXC1  |          0 |
-|        MAX_CPU_CLOCK        |  FIXC2  |          0 |
+|       ACTUAL_CPU_CLOCK      |  FIXC1  | 5939101000 |
+|        MAX_CPU_CLOCK        |  FIXC2  | 3717199000 |
 |     RETIRED_INSTRUCTIONS    |   PMC0  | 7516233000 |
-|     CPU_CLOCKS_UNHALTED     |   PMC1  | 5946269000 |
-|       L2_PF_HIT_IN_L3       |   PMC2  | 2009090000 |
-|       L2_PF_MISS_IN_L3      |   PMC3  |     126773 |
-| L2_CACHE_MISS_AFTER_L1_MISS |   PMC4  |  107875700 |
+|     CPU_CLOCKS_UNHALTED     |   PMC1  | 5930675000 |
+|       L2_PF_HIT_IN_L3       |   PMC2  | 2009348000 |
+|       L2_PF_MISS_IN_L3      |   PMC3  |      69351 |
+| L2_CACHE_MISS_AFTER_L1_MISS |   PMC4  |  107765700 |
 +-----------------------------+---------+------------+
 
 +-------------------------+------------+
 |          Metric         | HWThread 0 |
 +-------------------------+------------+
-|   Runtime (RDTSC) [s]   |     1.6977 |
-|   Runtime unhalted [s]  |          0 |
-|       Clock [MHz]       |      -     |
-|           CPI           |     0.7911 |
-| L3 bandwidth [MBytes/s] | 79810.3775 |
-| L3 data volume [GBytes] |   135.4939 |
+|   Runtime (RDTSC) [s]   |     1.6895 |
+|   Runtime unhalted [s]  |     2.6996 |
+|       Clock [MHz]       |  3515.0158 |
+|           CPI           |     0.7890 |
+| L3 bandwidth [MBytes/s] | 80199.9826 |
+| L3 data volume [GBytes] |   135.4997 |
 +-------------------------+------------+
 

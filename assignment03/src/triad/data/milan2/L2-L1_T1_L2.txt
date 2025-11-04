@@ -4,36 +4,36 @@ CPU type:	AMD K19 (Zen3) architecture
 CPU clock:	2.20 GHz
 --------------------------------------------------------------------------------
 N,GFLOPS,Repetitions
-8192,6.73,524288
+8192,7.01,524288
 --------------------------------------------------------------------------------
 Region REGION, Group 1: L2
 +-------------------+------------+
 |    Region Info    | HWThread 0 |
 +-------------------+------------+
-| RDTSC Runtime [s] |   1.275921 |
+| RDTSC Runtime [s] |   1.225864 |
 |     call count    |          1 |
 +-------------------+------------+
 
 +-------------------------------+---------+------------+
 |             Event             | Counter | HWThread 0 |
 +-------------------------------+---------+------------+
-|        ACTUAL_CPU_CLOCK       |  FIXC1  |          0 |
-|         MAX_CPU_CLOCK         |  FIXC2  |          0 |
+|        ACTUAL_CPU_CLOCK       |  FIXC1  | 4304767000 |
+|         MAX_CPU_CLOCK         |  FIXC2  | 2697057000 |
 |      RETIRED_INSTRUCTIONS     |   PMC0  | 7520394000 |
-|      CPU_CLOCKS_UNHALTED      |   PMC1  | 4467916000 |
-| REQUESTS_TO_L2_GRP1_ALL_NO_PF |   PMC2  | 2148390000 |
+|      CPU_CLOCKS_UNHALTED      |   PMC1  | 4299802000 |
+| REQUESTS_TO_L2_GRP1_ALL_NO_PF |   PMC2  | 2148328000 |
 |        L2_PF_HIT_IN_L2        |   PMC3  |          0 |
 +-------------------------------+---------+------------+
 
 +-------------------------------+-------------+
 |             Metric            |  HWThread 0 |
 +-------------------------------+-------------+
-|      Runtime (RDTSC) [s]      |      1.2759 |
-|      Runtime unhalted [s]     |           0 |
-|          Clock [MHz]          |      -      |
-|              CPI              |      0.5941 |
-|    L2 bandwidth [MBytes/s]    | 107762.9101 |
-|    L2 data volume [GBytes]    |    137.4970 |
+|      Runtime (RDTSC) [s]      |      1.2259 |
+|      Runtime unhalted [s]     |      1.9567 |
+|          Clock [MHz]          |   3511.3712 |
+|              CPI              |      0.5718 |
+|    L2 bandwidth [MBytes/s]    | 112160.0700 |
+|    L2 data volume [GBytes]    |    137.4930 |
 | Prefetch bandwidth [MBytes/s] |           0 |
 | Prefetch data volume [GBytes] |           0 |
 +-------------------------------+-------------+

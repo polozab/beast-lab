@@ -4,36 +4,36 @@ CPU type:	AMD K19 (Zen3) architecture
 CPU clock:	2.20 GHz
 --------------------------------------------------------------------------------
 N,GFLOPS,Repetitions
-536870912,1.84,2
+536870912,1.85,2
 --------------------------------------------------------------------------------
 Region REGION, Group 1: L3
 +-------------------+------------+
 |    Region Info    | HWThread 0 |
 +-------------------+------------+
-| RDTSC Runtime [s] |   1.165237 |
+| RDTSC Runtime [s] |   1.161720 |
 |     call count    |          1 |
 +-------------------+------------+
 
 +-----------------------------+---------+------------+
 |            Event            | Counter | HWThread 0 |
 +-----------------------------+---------+------------+
-|       ACTUAL_CPU_CLOCK      |  FIXC1  |          0 |
-|        MAX_CPU_CLOCK        |  FIXC2  |          0 |
-|     RETIRED_INSTRUCTIONS    |   PMC0  | 1879056000 |
-|     CPU_CLOCKS_UNHALTED     |   PMC1  | 4048267000 |
-|       L2_PF_HIT_IN_L3       |   PMC2  |      68528 |
-|       L2_PF_MISS_IN_L3      |   PMC3  |  351785600 |
-| L2_CACHE_MISS_AFTER_L1_MISS |   PMC4  |   25790120 |
+|       ACTUAL_CPU_CLOCK      |  FIXC1  | 4075152000 |
+|        MAX_CPU_CLOCK        |  FIXC2  | 2556057000 |
+|     RETIRED_INSTRUCTIONS    |   PMC0  | 1879057000 |
+|     CPU_CLOCKS_UNHALTED     |   PMC1  | 4061764000 |
+|       L2_PF_HIT_IN_L3       |   PMC2  |      69825 |
+|       L2_PF_MISS_IN_L3      |   PMC3  |  353788300 |
+| L2_CACHE_MISS_AFTER_L1_MISS |   PMC4  |   24645170 |
 +-----------------------------+---------+------------+
 
 +-------------------------+------------+
 |          Metric         | HWThread 0 |
 +-------------------------+------------+
-|   Runtime (RDTSC) [s]   |     1.1652 |
-|   Runtime unhalted [s]  |          0 |
-|       Clock [MHz]       |      -     |
-|           CPI           |     2.1544 |
-| L3 bandwidth [MBytes/s] | 20741.9022 |
-| L3 data volume [GBytes] |    24.1692 |
+|   Runtime (RDTSC) [s]   |     1.1617 |
+|   Runtime unhalted [s]  |     1.8523 |
+|       Clock [MHz]       |  3507.4920 |
+|           CPI           |     2.1616 |
+| L3 bandwidth [MBytes/s] | 20852.0219 |
+| L3 data volume [GBytes] |    24.2242 |
 +-------------------------+------------+
 
