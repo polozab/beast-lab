@@ -188,8 +188,10 @@ On the other side
 
 Looking at the CS2 and SAP3 system we can see that they use SVE and AVX vector instructions respectively. Epspecially SAP3 only uses vectorized double instruction in single-threaded applications. In addition, CS2 makes use of larger vector instruction focusing on 512 and 256 bit operations, while SAP3 did not use any AVX512 instructions according to likwid. The outstanding vectorization ratio on SAP3 in single-thread setting also drops to 83% when running on all cores simultaneously. While some cores maintain the 100% ratio other drop to 75%. We think this is due to vectors not fitting in exactly when distributing the workload among the threads.
 
-On the MILAN2 and GH3 system such events are unfortunately not given
+On the MILAN2 and GH3 system events that differentiate between scalar and vector operations are unfortunately not given directly, as they both increment on scalar and vector FLOP instruction.
 
-### iii) **TODO**
+### iii)
+
+As we mentioned beforehand, the per-thread performance decreases significantly when running on all cores in contrast to running sequentially on only one thread. 
 
 ### iv)
