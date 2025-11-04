@@ -18,6 +18,8 @@
 module load gcc-13.1.0-gcc-8.4.1-djjcsay
 module load likwid
 
+export LIKWID_BASE=/home/sw/aarch64/likwid/likwid-5.2.1-gcc-11.0.0/bin/likwid-perfctr
+
 make clean
 make
 
