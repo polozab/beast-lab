@@ -184,6 +184,8 @@ Flags:    gcc -fopenmp -O3 -ffast-math -march=native
 | > SUM L2 | 96       | 394.5104        | 8790.0748        | -        | 10051.3375 |
 | > SUM L3 | 96       | -               | -                | -        | -          |
 
+The results for parallel with 96 cores execution should be taken carefully as they appear to be incorrect or at lest incomplete. Especially the FLOPS/s results seem to be much to low. When taking a look at the reported data from likwid only one thread seemed to perform any calculation and the results also didn't match the software calculation, like in all other cases. Unfortunately we didn't find any solution for this and it was not possible to get likwid to report readings for other hardware threads.
+
 ## d)
 
 ### i)
@@ -208,4 +210,18 @@ One limiting factor could be that Triad is still a memory heavy kernel with low 
 Additionally, when operating on all cores in parallel power and heat could be another limitation. By Running every core simultaneously the processor could reach its power and heat dissipation limits which leads to throttling the clock rate, thus performance reduces. As we mentioned beforehand, the per-thread performance decreases significantly when running on all cores in comparison to running sequentially on only one thread. Additionally overhead from managing parallel execution such as distributing the workload could further reduce raw floating point performance.
 
 ### iv)
+
+The determine if the systems use write allocate we take a closer look at the floating point performance and main memory bandwidth for vector sizes larger than any cache fit. In that case we can estimate the memory bandwidth needed for every floating point of a triad operation and check how many transfers occur.
+
+For triad each iteration 3 vectors need to be loaded and 1 needs to be stored. Thus we get 32 bytes transferred per iteration with each iteration performing 2 FLOPS (one addition, one multiplication). That means we would expect a factor of 16 if no additional transfers occur. 
+
+On the other hand, if a system implements a write-allocate policy we would expect an additional load operation from the initial loading of the cache line. This would lead to 40 bytes getting transferred instead and getting a factor of 20.
+
+Appying this theory we get the following results:
+|            | Memory Bandwidth | GFLOPS/s  | Factor |                                                                                                                             |
+|------------|------------------|-----------|--------|-----------------------------------------------------------------------------------------------------------------------------|
+| **SAP3**   | 17934.8847       | 1118.2067 | 16.039 | No write-allocate as only four memory transfers happen                                                                      |
+| **MILAN2** | 37193.7068       | 1837.5122 | 20.241 | Write-allocate due to additional memory transfer                                                                            |
+| **GH3**    | 27666.5331       | 1617.5252 | 17.104 | No write-allocate as only four transfers happen. Although there seems to be at least some additional data being transferred |
+| **CS2**    | 54633.3129       | 2730.1585 | 20.011 | Write-allocate due to additional memory transfer                                                                            |
 
