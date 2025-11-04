@@ -3,4 +3,39 @@ CPU name:
 CPU type:	Nvidia Grace
 CPU clock:	0.00 GHz
 --------------------------------------------------------------------------------
+N,GFLOPS,Repetitions
+16384,7.20,262144
 --------------------------------------------------------------------------------
+Region REGION, Group 1: L2
++-------------------+------------+
+|    Region Info    | HWThread 0 |
++-------------------+------------+
+| RDTSC Runtime [s] |   1.192551 |
+|     call count    |          1 |
++-------------------+------------+
+
++------------------+---------+-------------+
+|       Event      | Counter |  HWThread 0 |
++------------------+---------+-------------+
+|   INST_RETIRED   |   PMC0  | 17181450000 |
+|    CPU_CYCLES    |   PMC1  |  3903638000 |
+| L1D_CACHE_REFILL |   PMC2  |   397403200 |
+|   L1D_CACHE_WB   |   PMC3  |       27818 |
+| L1I_CACHE_REFILL |   PMC4  |        1312 |
++------------------+---------+-------------+
+
++------------------------------------+------------+
+|               Metric               | HWThread 0 |
++------------------------------------+------------+
+|         Runtime (RDTSC) [s]        |     1.1926 |
+|                 CPI                |     0.2272 |
+|  L1D<-L2 load bandwidth [MBytes/s] | 85308.9044 |
+|  L1D<-L2 load data volume [GBytes] |   101.7352 |
+| L1D->L2 evict bandwidth [MBytes/s] |     5.9716 |
+| L1D->L2 evict data volume [GBytes] |     0.0071 |
+|  L1I<-L2 load bandwidth [MBytes/s] |     0.2816 |
+|  L1I<-L2 load data volume [GBytes] |     0.0003 |
+|    L1<->L2 bandwidth [MBytes/s]    | 85315.1576 |
+|    L1<->L2 data volume [GBytes]    |   101.7427 |
++------------------------------------+------------+
+
