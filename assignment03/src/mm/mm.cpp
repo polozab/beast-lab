@@ -31,6 +31,7 @@ struct return_info
   double mflops;
   int repetition;
   double array_sum;
+  double mflop;
 };
 
 
@@ -172,7 +173,7 @@ return_info mm(int N, int TILE_SIZE, int padded_N) {
 
   double mflop = 2.0*(double)padded_N*(double)padded_N*(double)padded_N*(double)rep*1.0e-6;
 
-  return_info ri = {mflop / dur, rep, array_sum};
+  return_info ri = {mflop / dur, rep, array_sum, mflop};
 
   return ri;
 
@@ -201,8 +202,8 @@ int main(int argc, char* argv[]) {
   
   return_info rf = mm(matrix_size, tile_size, padded_N);
   
-  printf("N, N_padded, Tiles, Repetitions, MFLOPS\n");
-  printf("%d, %d, %d, %d, %f\n", matrix_size, padded_N, tile_size, rf.repetition, rf.mflops);
+  printf("N, N_padded, Tiles, Repetitions, MFLOPS, Mflop\n");
+  printf("%d, %d, %d, %d, %f\n", matrix_size, padded_N, tile_size, rf.repetition, rf.mflops, rf.mflop);
  
   return 0;
 
