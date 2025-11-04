@@ -78,7 +78,7 @@ For that we followed a basic calculation:
 CACHE_SIZE / 4 vectors to fit / 8 bytes per double >= vector size (number of elements)
                                                    >= 2^N
 ~~~
-
+After we determined the vector sizes we ran the triad operation both for one thread (sequential) and for as many threads as cores were available on the system (parallel). This we repeated for each performance group we were interested in: (DP_)FLOPS/s, L2, L3, MEM
 
 ### sap3
 
@@ -177,11 +177,18 @@ Flags:    gcc -fopenmp -O3 -ffast-math -march=native
 
 ### i)
 
-In total our software-measured results for FLOPs/s were very accurate and reflect the results measured by likwid on all tested systems.
+Overall the results measured by likwid were expected. Single core performance was best for vector sizes that fit into L1 cache and decreased with increasing distance. In these cases cache and memory bandwidth accumulated at the cache levels above were the vectors could be fitted. E.g. for a vector size that fits all necessary data into the L3 cache the bandwidth between L3, L2 and L1 were used extensively, while the memory bandwidth was very low. Additionally, the memory bandwidth dissolves in direction to the CPU, so when all caches and memory are utilized load on the memory is highest while decreasing with L2 and L1. This means that we only see the highest L2 memory bandwidth utilization when main memory is not used for data and all caches fit into the L2 cache.
+
+When looking at the multi-threaded results the data shows not so clear cache boundaries for different sizes. Although the main memory is only significantly used when vectors do not fit into a cache, the lines between individual cache levels are much more blurry. In general the bandwidth between L1 and L2 is te most utilized one while L2-L3 is almost always following behind it with a lower utilization. Our first through was that we may have chosen a too large vector sizes as we just reused the single-threaded sizes. Maybe our assumption that multi-threading would not impact local caches was wrong and there is a significant data overhead when using multiple threads. A closer look at cache misses of the different levels would probably gives us the answer to this question. Unfortunately due to our limited time we will not investigated this further. Looking at the FLOPS/s performance also shows an interesting behavior. It seems that while Grace Hopper operates best at small vector sizes that fit into L1 cache, Epyc and Sapphire Rapids perform best at L2 and L3 cache fitting respectively. Maybe this behavior is also part due to vector sizes being to big for MILAN2 and SAP3 caches when running on all cores. At least we can clearly see a significant performance increscent in total when running on all cores compared to single-thread performance. This comes at the cost of per-thread performance which decreases substantially in multi-threaded situations.
+
+Looking at our software-measured results for FLOPS/s performance we notice that they closely match values calculated by likwid.
+On the other side
 
 ### ii)
 
-When looking at the percentage of AVX instruction used, we see 100% usage of vectorized instruction. The same also appies to the ARM based systems with ...
+Looking at the CS2 and SAP3 system we can see that they use SVE and AVX vector instructions respectively. Epspecially SAP3 only uses vectorized double instruction in single-threaded applications. In addition, CS2 makes use of larger vector instruction focusing on 512 and 256 bit operations, while SAP3 did not use any AVX512 instructions according to likwid. The outstanding vectorization ratio on SAP3 in single-thread setting also drops to 83% when running on all cores simultaneously. While some cores maintain the 100% ratio other drop to 75%. We think this is due to vectors not fitting in exactly when distributing the workload among the threads.
+
+On the MILAN2 and GH3 system such events are unfortunately not given
 
 ### iii) **TODO**
 
