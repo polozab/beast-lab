@@ -12,7 +12,7 @@
 #SBATCH --export=NONE
 #SBATCH --get-user-env
 #SBATCH --partition=milan #milan sap gh cs
-#SBATCH --nodelist=milan2 #sap4 gh3 cs7
+#SBATCH --nodelist=milan1 #sap4 gh3 cs7
 #SBATCH --nodes=1
 
 module load gcc/14.2.0-gcc-13.2.0-4wqwz2p
