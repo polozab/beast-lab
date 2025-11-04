@@ -194,8 +194,7 @@ Overall the results measured by likwid were expected. Single core performance wa
 
 When looking at the multi-threaded results the data shows not so clear cache boundaries for different sizes. Although the main memory is only significantly used when vectors do not fit into a cache, the lines between individual cache levels are much more blurry. In general the bandwidth between L1 and L2 is te most utilized one while L2-L3 is almost always following behind it with a lower utilization. Our first through was that we may have chosen a too large vector sizes as we just reused the single-threaded sizes. Maybe our assumption that multi-threading would not impact local caches was wrong and there is a significant data overhead when using multiple threads. A closer look at cache misses of the different levels would probably gives us the answer to this question. Unfortunately due to our limited time we will not investigated this further. Looking at the FLOPS/s performance also shows an interesting behavior. It seems that while Grace Hopper operates best at small vector sizes that fit into L1 cache, Epyc and Sapphire Rapids perform best at L2 and L3 cache fitting respectively. Maybe this behavior is also part due to vector sizes being to big for MILAN2 and SAP3 caches when running on all cores. At least we can clearly see a significant performance increscent in total when running on all cores compared to single-thread performance. This comes at the cost of per-thread performance which decreases substantially in multi-threaded situations.
 
-Looking at our software-measured results for FLOPS/s performance we notice that they closely match values calculated by likwid.
-On the other side
+Looking at our software-measured results for FLOPS/s performance we notice that they closely match values calculated by likwid. The same holds for our memory bandwidth estimation which we will examine in more detail further down the line.
 
 ### ii)
 
