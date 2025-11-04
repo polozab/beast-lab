@@ -192,6 +192,9 @@ On the MILAN2 and GH3 system events that differentiate between scalar and vector
 
 ### iii)
 
-As we mentioned beforehand, the per-thread performance decreases significantly when running on all cores in contrast to running sequentially on only one thread. 
+One limiting factor could be that Triad is still a memory heavy kernel with low arithmetic intensity. Even if we can fit all the data into the L1 cache, maintaining a compute bound performance is impossible when you have to transfer multiple vectors. This leads to a bandwidth bottleneck even at the L1D cache level, which is supposedly very fast already.
+
+Additionally, when operating on all cores in parallel power and heat could be another limitation. By Running every core simultaneously the processor could reach its power and heat dissipation limits which leads to throttling the clock rate, thus performance reduces. As we mentioned beforehand, the per-thread performance decreases significantly when running on all cores in comparison to running sequentially on only one thread. Additionally overhead from managing parallel execution such as distributing the workload could further reduce raw floating point performance.
 
 ### iv)
+
