@@ -203,7 +203,7 @@ int main(int argc, char* argv[]) {
   return_info rf = mm(matrix_size, tile_size, padded_N);
   
   printf("N, N_padded, Tiles, Repetitions, MFLOPS, Mflop\n");
-  printf("%d, %d, %d, %d, %f\n", matrix_size, padded_N, tile_size, rf.repetition, rf.mflops, rf.mflop);
+  printf("%d, %d, %d, %d, %f, %f\n", matrix_size, padded_N, tile_size, rf.repetition, rf.mflops, rf.mflop);
  
   return 0;
 

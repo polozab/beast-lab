@@ -1,6 +1,6 @@
 # Report on Task 1:
-## a)
-All four platform share some classes of predefined events such as:
+## a)![fig](plots/image.png)
+All four platform share the same basic classes of predefined events such as:
 
 | class | example of event |
 |-------|------------------|
@@ -18,12 +18,12 @@ To do a roofline analysis of the triad benchmark, we need to measure the achieve
 
 >> would need to measure the floating point operations and the memory bandwidth. Therefore, floating point related events like FP_ARITH_INST_RETIRED and memory related events like MEM_UOPS_RETIRED.LOAD and MEM_UOPS_RETIRED.STORE would be relevant. However, not all platforms provide these specific events, so we would need to find equivalent events or use other methods to estimate these metrics.
 
-## b)
+## b)![alt text](plots/image2.png)
 The following measurements were taken on the sap3 platform using the perf tool. 
 
 ![plot](plots/roofline_triads.png)
 
-> TODO: rename axis, add calculations
+> TODO: rename axis, add calculations, throw away N30
 > We used 128 Threads
 
 The values calculated by the perftool differ from those which are calculated internally due to overhead which is measured in perf but not internally like the initialization of the vectors and the verification of the results. All the points are underneath each other because the Arithmetic intensity is constant the points which are above the roofline ceiling fit complete inside the caches therefore they achieve higher performance than the roofline model predicts based on the main memory bandwidth.
