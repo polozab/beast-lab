@@ -1,7 +1,7 @@
 CC?=gcc
 #SHELL := /bin/bash
 
-LIKWID_BASE:=$(shell dirname $(shell bash -lc 'command -v likwid-perfctr' 2>/dev/null))
+LIKWID_BASE?=$(shell dirname $(shell bash -lc 'command -v likwid-perfctr' 2>/dev/null))
 
 LIKWID_LIB:=$(LIKWID_BASE)/../lib/
 LIKWID_INCLUDE:=$(LIKWID_BASE)/../include/
