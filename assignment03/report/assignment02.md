@@ -2,9 +2,83 @@
 
 ## b)
 
+In the following we will take a closer look at calculations done by likwid for the *SAP3* system.
+
+### FLOPS/s
+
+The FLOPS/s calculation is done using the following formular:
+
+~~~
+DP [MFLOP/s] = 1.0E-06*(FP_ARITH_INST_RETIRED_128B_PACKED_DOUBLE*2+FP_ARITH_INST_RETIRED_SCALAR_DOUBLE+FP_ARITH_INST_RETIRED_256B_PACKED_DOUBLE*4+FP_ARITH_INST_RETIRED_512B_PACKED_DOUBLE*8)/runtime
+~~~
+
+First we scale the result to MFLOPS by dividing with 10^6. The actual calculation is based on the finished (or retired) double FLOPS. For that we take the scalar and vectorized instructions and scale them according to how many doubles get processed with each. E.g. a scaler 64 bit double FLOP doesn't get scaled, while a 512 bit double FLOP gets scaled by 8. Thus we get all processed double FLOP which we then divide by the runtime of the measure region.
+
+The calculation uses the following events:
+
+  - FP_ARITH_INST_RETIRED_512B_PACKED_DOUBLE: finished 512 bit AVX vector double FLOPs
+  - FP_ARITH_INST_RETIRED_256B_PACKED_DOUBLE: finished 256 bit AVX vector double FLOPs
+  - FP_ARITH_INST_RETIRED_128B_PACKED_DOUBLE: finished 128 bit AVX vector double FLOPs
+  - FP_ARITH_INST_RETIRED_SCALAR_DOUBLE: finished scalar double FLOPs
+
+### Memory Bandwidth
+
+To calculate the (Main-)Memory bandwidth likwid uses the following formular:
+
+~~~
+Memory bandwidth [MBytes/s] = 1.0E-06*(SUM(CAS_COUNT_RD)+SUM(CAS_COUNT_WR))*64.0/runtime
+~~~
+
+First of all we again scale the result to Megabytes/s. After that the memory bandwidth gets calculated by simply summing the count of read and write operations sent to DRAM over every memory controller. At last we again divide by the runtime ov the measure region.
+
+The calculation uses the following events:
+
+  - CAS_COUNT_RD: count of read column address strobe signals
+  - CAS_COUNT_WR: count of write column address strobe signals
+  
+The column address strobe specifies which column contains the data needed after a row has been selected and is send by the processor to the DRAM chip.
+An important notice by likwid is that this event is only possible to measure on a per-socket level.
+
+### L1 <-> L2 Bandwidth
+
+To calculate the (load) bandwidth between the L1D and L2 cache the following formular is used:
+
+~~~
+L2D (load) bandwidth [MBytes/s] = 1.0E-06*L1D_REPLACEMENT*64.0/time
+~~~
+
+First we scale the result to Megabytes/s. The bandwidth is calculated by taking the number of cache line replacements in the L1D cache, which gets multiplied by the size of a L1D cache line (64 bytes). Finally we again divide this by the runtime of the region.
+However this only accounts for the read operations done when the L1 cache loads data from the L2 cache. Thus write backs from L1 to L2 which would also contribute to the memory bandwidth get ignored. likwid notices that there is currently no formular for calculating the number of write backs or the associated bandwidth needed for these write operations. We are therefor currently limited to only measure the read operations when calculating the bandwidth between L1D and L2 caches.
+
+It uses the L1D_REPLACEMENT event for measuring the number of cache line allocated or replaced during execution.
+
+### L2 <-> L3 Bandwidth
+
+Calculating the bandwidth between the L2 and L3 cache is done by using th following formular:
+
+~~~
+L3 bandwidth [MBytes/s] = 1.0E-06*(L2_LINES_IN_ALL+L2_LINES_OUT_NON_SILENT)*64/time
+~~~
+
+For the last time we first scale the result to Megabytes/s. To calculate the actual bandwidth we add up the number of allocated cache lines in the L2 cache and the number of modified cache lines evicted from the L2 cache. This number we, again, multiply by the length of one cache line (64 bytes). Finally we divide this by the runtime of the region to get the cache bandwidth used between L2 and L3 caches.
+
+The calculation is based on the following events:
+
+  - L2_LINES_IN_ALL: Number of allocated L2 cache lines
+  - L2_LINES_OUT_NON_SILENT: Number of modified cache lines evicted from L2 cache
+
+An important notice by likwid is that this also includes transfers which were caused by a write allocate load on a L2 cache miss.
+
 ## c)
 
-For our measurements we used the newest available version of gcc and the same compiler flags
+For our measurements we used the newest available version of gcc and the same compiler flags for all systems.
+First we tried to calculate an appropriate vector size to fit all necessary data into a specific cache level.
+For that we followed a basic calculation:
+~~~
+CACHE_SIZE / 4 vectors to fit / 8 bytes per double >= vector size (number of elements)
+                                                   >= 2^N
+~~~
+
 
 ### sap3
 
@@ -103,7 +177,7 @@ Flags:    gcc -fopenmp -O3 -ffast-math -march=native
 
 ### i)
 
-In total our software-measured results were very accurate and reflect the results measured by likwid on all systems.
+In total our software-measured results for FLOPs/s were very accurate and reflect the results measured by likwid on all tested systems.
 
 ### ii)
 
