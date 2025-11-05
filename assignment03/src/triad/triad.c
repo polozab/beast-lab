@@ -160,8 +160,9 @@ int main(int argc, char *argv[])
     double num_flops = 2.0 * N * rep;
     double gflops    = (num_flops / time) * 1.0e-9;
     
-    printf("%s,%s,%s\n", "N", "GFLOPS", "Repetitions");
-    printf("%zu,%.2f,%zu\n", N, gflops, rep);
+    
+    printf("%s,%s,%s,%s\n", "N", "GFLOPS", "Repetitions", "flop");
+    printf("%zu,%.2f,%zu,%.2f\n", N, gflops, rep, num_flops*1.0e-9);
 
     return EXIT_SUCCESS;
 }

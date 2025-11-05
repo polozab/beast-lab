@@ -2,3 +2,225 @@
 
 ## b)
 
+In the following we will take a closer look at calculations done by likwid for the *SAP3* system.
+
+### FLOPS/s
+
+The FLOPS/s calculation is done using the following formular:
+
+~~~
+DP [MFLOP/s] = 1.0E-06*(FP_ARITH_INST_RETIRED_128B_PACKED_DOUBLE*2+FP_ARITH_INST_RETIRED_SCALAR_DOUBLE+FP_ARITH_INST_RETIRED_256B_PACKED_DOUBLE*4+FP_ARITH_INST_RETIRED_512B_PACKED_DOUBLE*8)/runtime
+~~~
+
+First we scale the result to MFLOPS by dividing with 10^6. The actual calculation is based on the finished (or retired) double FLOPS. For that we take the scalar and vectorized instructions and scale them according to how many doubles get processed with each. E.g. a scaler 64 bit double FLOP doesn't get scaled, while a 512 bit double FLOP gets scaled by 8. Thus we get all processed double FLOP which we then divide by the runtime of the measure region.
+
+The calculation uses the following events:
+
+  - FP_ARITH_INST_RETIRED_512B_PACKED_DOUBLE: finished 512 bit AVX vector double FLOPs
+  - FP_ARITH_INST_RETIRED_256B_PACKED_DOUBLE: finished 256 bit AVX vector double FLOPs
+  - FP_ARITH_INST_RETIRED_128B_PACKED_DOUBLE: finished 128 bit AVX vector double FLOPs
+  - FP_ARITH_INST_RETIRED_SCALAR_DOUBLE: finished scalar double FLOPs
+
+### Memory Bandwidth
+
+To calculate the (Main-)Memory bandwidth likwid uses the following formular:
+
+~~~
+Memory bandwidth [MBytes/s] = 1.0E-06*(SUM(CAS_COUNT_RD)+SUM(CAS_COUNT_WR))*64.0/runtime
+~~~
+
+First of all we again scale the result to Megabytes/s. After that the memory bandwidth gets calculated by simply summing the count of read and write operations sent to DRAM over every memory controller. At last we again divide by the runtime ov the measure region.
+
+The calculation uses the following events:
+
+  - CAS_COUNT_RD: count of read column address strobe signals
+  - CAS_COUNT_WR: count of write column address strobe signals
+  
+The column address strobe specifies which column contains the data needed after a row has been selected and is send by the processor to the DRAM chip.
+An important notice by likwid is that this event is only possible to measure on a per-socket level.
+
+### L1 <-> L2 Bandwidth
+
+To calculate the (load) bandwidth between the L1D and L2 cache the following formular is used:
+
+~~~
+L2D (load) bandwidth [MBytes/s] = 1.0E-06*L1D_REPLACEMENT*64.0/time
+~~~
+
+First we scale the result to Megabytes/s. The bandwidth is calculated by taking the number of cache line replacements in the L1D cache, which gets multiplied by the size of a L1D cache line (64 bytes). Finally we again divide this by the runtime of the region.
+However this only accounts for the read operations done when the L1 cache loads data from the L2 cache. Thus write backs from L1 to L2 which would also contribute to the memory bandwidth get ignored. likwid notices that there is currently no formular for calculating the number of write backs or the associated bandwidth needed for these write operations. We are therefor currently limited to only measure the read operations when calculating the bandwidth between L1D and L2 caches.
+
+It uses the L1D_REPLACEMENT event for measuring the number of cache line allocated or replaced during execution.
+
+### L2 <-> L3 Bandwidth
+
+Calculating the bandwidth between the L2 and L3 cache is done by using th following formular:
+
+~~~
+L3 bandwidth [MBytes/s] = 1.0E-06*(L2_LINES_IN_ALL+L2_LINES_OUT_NON_SILENT)*64/time
+~~~
+
+For the last time we first scale the result to Megabytes/s. To calculate the actual bandwidth we add up the number of allocated cache lines in the L2 cache and the number of modified cache lines evicted from the L2 cache. This number we, again, multiply by the length of one cache line (64 bytes). Finally we divide this by the runtime of the region to get the cache bandwidth used between L2 and L3 caches.
+
+The calculation is based on the following events:
+
+  - L2_LINES_IN_ALL: Number of allocated L2 cache lines
+  - L2_LINES_OUT_NON_SILENT: Number of modified cache lines evicted from L2 cache
+
+An important notice by likwid is that this also includes transfers which were caused by a write allocate load on a L2 cache miss.
+
+## c)
+
+For our measurements we used the newest available version of gcc and the same compiler flags for all systems.
+First we tried to calculate an appropriate vector size to fit all necessary data into a specific cache level.
+For that we followed a basic calculation:
+~~~
+CACHE_SIZE / 4 vectors to fit / 8 bytes per double >= vector size (number of elements)
+                                                   >= 2^N
+~~~
+After we determined the vector sizes we ran the triad operation both for one thread (sequential) and for as many threads as cores were available on the system (parallel). This we repeated for each performance group we were interested in: (DP_)FLOPS/s, L2, L3, MEM
+
+### sap3
+
+~~~
+Compiler: gcc version 14.2.0 (Spack GCC)
+Flags:    gcc -fopenmp -O3 -ffast-math -march=native
+~~~
+
+  - **L1 Cache**: 48 KB / 4 / 8 = 1.5 KB = 1.46 KiB = 2^1 * 2^10 B = 2^11 B ==> N = 10
+  - **L2 Cache**: 2048 KB / 4 / 8 = 64 KB = 62.5 KiB = 2^7 * 2^10 B = 2^17 B ==> N = 16
+  - **L3 Cache**: 105 MB / 4 / 8 = 3.281 MB = 3.129 MiB = 2^2 * 2^20 B = 2^22 B ==> N = 21
+
+  - **L1 Cache (Multi)**: Unchanged as local ==> N = 10
+  - **L2 Cache (Multi)**: Unchanged as local ==> N = 16
+  - **L3 Cache (Multi)**: 105MB / 4 / 8 / 48 = 0.068359 MB = 68.359 KB = 66.41 KiB = 2^7 * 2^10 B = 2^17 B ==> N = 16
+
+| Size     | #Threads | FLOPS (MFLOP/s) | Memory BW (MB/s) | L3-L2 BW    | L2-L1 BW   |
+|----------|----------|-----------------|------------------|-------------|------------|
+| < L1     | 1        | 18792.3371      | 42.8359          | 0.1025      | 1.8873     |
+| > L1     | 1        | 3399.4238       | 44.2688          | 41331.4623  | 56533.6299 |
+| > L2     | 1        | 1663.8956       | 441.9987         | 52951.3745  | 26195.2111 |
+| > L3     | 1        | 1118.2067       | 17934.8847       | 36409.5351  | 18033.5804 |
+| < SUM L1 | 96       | 52789.1321      | 1631.0587        | 20777.0380  | 18199.0698 |
+| > SUM L1 | 96       | 341590.7250     | 1682.6038        | 18031.5534  | 20668.5580 |
+| > SUM L2 | 96       | 350588.4812     | 1452.4051        | 17499.1981  | 19913.4245 |
+| > SUM L3 | 96       | 5006.7430       | 125258.1201      | 152621.7798 | 78029.0008 |
+
+### milan2
+
+~~~
+Compiler: gcc version 14.2.0 (Spack GCC)
+Flags:    gcc -fopenmp -O3 -ffast-math -march=native
+~~~
+
+  - **L1 Cache**: 32 KB / 4 / 8 = 1 KB = 0.977 KiB = 2^0 * 2^10 B = 2^10 B ==> N = 9
+  - **L2 Cache**: 512 KB / 4 / 8 = 16 KB = 15.625 KiB = 2^4 * 2^10 B = 2^14 B ==> N = 13
+  - **L3 Cache**: 96 MB / 4 / 8 = 3 MB = 2.861 MiB = 2^1 * 2^20 B = 2^21 B ==> N = 20
+
+  - **L1 Cache (Multi)**: Unchanged as local ==> N = 9
+  - **L2 Cache (Multi)**: Unchanged as local ==> N = 13
+  - **L3 Cache (Multi)**: 96 MB / 4 / 8 / 8 = 0.375 MB = 375 KB = 366.211 KiB = 2^8 * 2^10 B = 2^18 B ==> N = 18
+
+| Size     | #Threads | FLOPS (MFLOP/s) | Memory BW (MB/s) | L3-L2 BW    | L2-L1 BW     |
+|----------|----------|-----------------|------------------|-------------|--------------|
+| < L1     | 1        | 17338.0800      | 212.3589         | 0.0930      | 1.3994       |
+| > L1     | 1        | 7009.0163       | 217.889          | 159.4738    | 112160.0700  |
+| > L2     | 1        | 5087.9138       | 328.9438         | 80199.9826  | 81524.8608   |
+| > L3     | 1        | 1837.5122       | 37193.7068       | 20852.0219  | 29667.2002   |
+| < SUM L1 | 96       | 876686.4024     | 455.5005         | 42094.4838  | 34971.2595   |
+| > SUM L1 | 96       | 1.387370e+06    | 459.1792         | 29.0984     | 44.3742      |
+| > SUM L2 | 96       | 613255.2799     | 9025.0515        | 56896.0060  | 9.278310e+06 |
+| > SUM L3 | 96       | 8297.3891       | 118454.5689      | 179082.2196 | 89936.9129   |
+
+### gh3
+
+~~~
+Compiler: gcc version 14.2.0 (Spack GCC)
+Flags:    gcc -fopenmp -O3 -ffast-math -march=native
+~~~
+
+  - **L1 Cache**: 64 KB / 4 / 8 = 2 KB = 1.953 KiB = 2^1 * 2^10 B = 2^11 B ==> N = 10
+  - **L2 Cache**: 1024 KB / 4 / 8 = 32 KB = 31.25 KiB = 2^5 * 2^10 B = 2^15 B ==> N = 14
+  - **L3 Cache**: 114 MB / 4 / 8 = 3.5625 MB = 3.397 MiB = 2^2 * 2^20 B = 2^22 B ==> N = 21
+
+  - **L1 Cache (Multi)**: Unchanged as local ==> N = 10
+  - **L2 Cache (Multi)**: Unchanged as local ==> N = 14
+  - **L3 Cache (Multi)**: 114 MB / 4 / 8 / 72 = 0.049479 MB = 49.479 KB = 48 KiB = 2^5 * 2^10 B = 2^15 B ==> N = 15
+
+| Size     | #Threads | FLOPS (MFLOP/s) | Memory BW (MB/s) | L3-L2 BW    | L2-L1 BW    |
+|----------|----------|-----------------|------------------|-------------|-------------|
+| < L1     | 1        | 9808.7074       | 791.6614         | 1.4163      | 1.4933      |
+| > L1     | 1        | 7112.0756       | 787.2121         | 4.4922      | 85315.1576  |
+| > L2     | 1        | 3964.7740       | 2255.9094        | 256316.4212 | 165126.4142 |
+| > L3     | 1        | 1617.5252       | 27666.5331       | 37972.4716  | 64715.6954  |
+| < SUM L1 | 96       | 318142.3843     | 587.4749         | 206692.0253 | 239873.0295 |
+| > SUM L1 | 96       | 279205.9027     | 565.1667         | 101415.3190 | 137930.8226 |
+| > SUM L2 | 96       | 305186.4285     | 557.3346         | 93848.2197  | 132536.8048 |
+| > SUM L3 | 96       | 14441.6739      | 236410.6024      | 292269.5583 | 592789.1713 |
+
+### cs2
+
+~~~
+Compiler: gcc version 13.1.0 (Spack GCC)
+Flags:    gcc -fopenmp -O3 -ffast-math -march=native
+~~~
+
+  - **L1 Cache**: 64 KiB / 4 / 8 = 2 KiB = 2^1 * 2^10 B = 2^11 B ==> N = 10
+  - **L2 Cache**: 8 MiB / 4 / 8 = 0.25 MiB = 256 KiB = 2^8 * 2^10 B = 2^18 B ==> N = 17
+  - **L3 Cache**: No L3 cache
+
+  - **L1 Cache (Multi)**: Unchanged as local ==> N = 9
+  - **L2 Cache (Multi)**: 8 MiB / 4 / 8 / 12 = 21.2992 KiB = 2^5 * 2^10 B = 2^15 B ==> N = 15
+  - **L3 Cache (Multi)**: No L3 cache
+
+| Size     | #Threads | FLOPS (MFLOP/s) | Memory BW (MB/s) | L3-L2 BW | L2-L1 BW   |
+|----------|----------|-----------------|------------------|----------|------------|
+| < L1     | 1        | 8453.6713       | 0.0038           | -        | 1.1557     |
+| > L1     | 1        | 3851.4193       | 3.3169           | -        | 85991.1369 |
+| > L2     | 1        | 2730.1585       | 54633.3129       | -        | 60847.3989 |
+| > L3     | 1        | -               | -                | -        | -          |
+| < SUM L1 | 96       | 207.4045        | 93.5218          | -        | 792.9912   |
+| > SUM L1 | 96       | 3008.1906       | 557.4203         | -        | 1154.3173  |
+| > SUM L2 | 96       | 394.5104        | 8790.0748        | -        | 10051.3375 |
+| > SUM L3 | 96       | -               | -                | -        | -          |
+
+The results for parallel with 96 cores execution should be taken carefully as they appear to be incorrect or at lest incomplete. Especially the FLOPS/s results seem to be much to low. When taking a look at the reported data from likwid only one thread seemed to perform any calculation and the results also didn't match the software calculation, like in all other cases. Unfortunately we didn't find any solution for this and it was not possible to get likwid to report readings for other hardware threads.
+
+## d)
+
+### i)
+
+Overall the results measured by likwid were expected. Single core performance was best for vector sizes that fit into L1 cache and decreased with increasing distance. In these cases cache and memory bandwidth accumulated at the cache levels above were the vectors could be fitted. E.g. for a vector size that fits all necessary data into the L3 cache the bandwidth between L3, L2 and L1 were used extensively, while the memory bandwidth was very low. Additionally, the memory bandwidth dissolves in direction to the CPU, so when all caches and memory are utilized load on the memory is highest while decreasing with L2 and L1. This means that we only see the highest L2 memory bandwidth utilization when main memory is not used for data and all caches fit into the L2 cache.
+
+When looking at the multi-threaded results the data shows not so clear cache boundaries for different sizes. Although the main memory is only significantly used when vectors do not fit into a cache, the lines between individual cache levels are much more blurry. In general the bandwidth between L1 and L2 is te most utilized one while L2-L3 is almost always following behind it with a lower utilization. Our first through was that we may have chosen a too large vector sizes as we just reused the single-threaded sizes. Maybe our assumption that multi-threading would not impact local caches was wrong and there is a significant data overhead when using multiple threads. A closer look at cache misses of the different levels would probably gives us the answer to this question. Unfortunately due to our limited time we will not investigated this further. Looking at the FLOPS/s performance also shows an interesting behavior. It seems that while Grace Hopper operates best at small vector sizes that fit into L1 cache, Epyc and Sapphire Rapids perform best at L2 and L3 cache fitting respectively. Maybe this behavior is also part due to vector sizes being to big for MILAN2 and SAP3 caches when running on all cores. At least we can clearly see a significant performance increscent in total when running on all cores compared to single-thread performance. This comes at the cost of per-thread performance which decreases substantially in multi-threaded situations.
+
+Looking at our software-measured results for FLOPS/s performance we notice that they closely match values calculated by likwid. The same holds for our memory bandwidth estimation which we will examine in more detail further down the line.
+
+### ii)
+
+Looking at the CS2 and SAP3 system we can see that they use SVE and AVX vector instructions respectively. Epspecially SAP3 only uses vectorized double instruction in single-threaded applications. In addition, CS2 makes use of larger vector instruction focusing on 512 and 256 bit operations, while SAP3 did not use any AVX512 instructions according to likwid. The outstanding vectorization ratio on SAP3 in single-thread setting also drops to 83% when running on all cores simultaneously. While some cores maintain the 100% ratio other drop to 75%. We think this is due to vectors not fitting in exactly when distributing the workload among the threads.
+
+On the MILAN2 and GH3 system events that differentiate between scalar and vector operations are unfortunately not given directly, as they both increment on scalar and vector FLOP instruction.
+
+### iii)
+
+One limiting factor could be that Triad is still a memory heavy kernel with low arithmetic intensity. Even if we can fit all the data into the L1 cache, maintaining a compute bound performance is impossible when you have to transfer multiple vectors. This leads to a bandwidth bottleneck even at the L1D cache level, which is supposedly very fast already.
+
+Additionally, when operating on all cores in parallel power and heat could be another limitation. By Running every core simultaneously the processor could reach its power and heat dissipation limits which leads to throttling the clock rate, thus performance reduces. As we mentioned beforehand, the per-thread performance decreases significantly when running on all cores in comparison to running sequentially on only one thread. Additionally overhead from managing parallel execution such as distributing the workload could further reduce raw floating point performance.
+
+### iv)
+
+The determine if the systems use write allocate we take a closer look at the floating point performance and main memory bandwidth for vector sizes larger than any cache fit. In that case we can estimate the memory bandwidth needed for every floating point of a triad operation and check how many transfers occur.
+
+For triad each iteration 3 vectors need to be loaded and 1 needs to be stored. Thus we get 32 bytes transferred per iteration with each iteration performing 2 FLOPS (one addition, one multiplication). That means we would expect a factor of 16 if no additional transfers occur. 
+
+On the other hand, if a system implements a write-allocate policy we would expect an additional load operation from the initial loading of the cache line. This would lead to 40 bytes getting transferred instead and getting a factor of 20.
+
+Appying this theory we get the following results:
+|            | Memory Bandwidth | GFLOPS/s  | Factor |                                                                                                                             |
+|------------|------------------|-----------|--------|-----------------------------------------------------------------------------------------------------------------------------|
+| **SAP3**   | 17934.8847       | 1118.2067 | 16.039 | No write-allocate as only four memory transfers happen                                                                      |
+| **MILAN2** | 37193.7068       | 1837.5122 | 20.241 | Write-allocate due to additional memory transfer                                                                            |
+| **GH3**    | 27666.5331       | 1617.5252 | 17.104 | No write-allocate as only four transfers happen. Although there seems to be at least some additional data being transferred |
+| **CS2**    | 54633.3129       | 2730.1585 | 20.011 | Write-allocate due to additional memory transfer                                                                            |
+

@@ -76,7 +76,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--title",
-        default="Sapphire Rapids Roofline",
+        default="sap3 Roofline",
         help="Figure title.",
     )
 
@@ -119,8 +119,8 @@ def main() -> None:
     knee_ai = args.peak_gflops / args.bandwidth
    # ax.axvline(knee_ai, color="grey", linestyle="--", linewidth=1, label="Roofline knee")
 
-    ax.set_xlabel("Arithmetic intensity [FLOPs / byte]")
-    ax.set_ylabel("Performance [GFLOP/s]")
+    ax.set_xlabel("Arithmetic intensity [Flops / byte]")
+    ax.set_ylabel("GFLOPS")
     ax.set_title(args.title)
     ax.grid(which="both", linestyle="--", linewidth=0.1)
     ax.legend(bbox_to_anchor=(1, 0.5))

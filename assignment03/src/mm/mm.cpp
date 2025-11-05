@@ -172,7 +172,7 @@ return_info mm(int N, int TILE_SIZE, int padded_N) {
 
   double mflop = 2.0*(double)padded_N*(double)padded_N*(double)padded_N*(double)rep*1.0e-6;
 
-  return_info ri = {mflop / dur, rep, array_sum};
+  return_info ri = {mflop, rep, array_sum};
 
   return ri;
 
@@ -201,9 +201,10 @@ int main(int argc, char* argv[]) {
   
   return_info rf = mm(matrix_size, tile_size, padded_N);
   
-  printf("N, N_padded, Tiles, Repetitions, MFLOPS\n");
-  printf("%d, %d, %d, %d, %f\n", matrix_size, padded_N, tile_size, rf.repetition, rf.mflops);
+  printf("N, N_padded, Tiles, Repetitions, Mflop,\n");
+  printf("%d, %d, %d, %d, %f,\n", matrix_size, padded_N, tile_size, rf.repetition, rf.mflops,);
  
   return 0;
 
 }
+// this code is not nice 

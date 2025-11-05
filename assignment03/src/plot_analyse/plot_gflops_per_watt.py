@@ -1,270 +1,236 @@
 #!/usr/bin/env python3
 """
-Visualise energy efficiency (GFLOP/s per Watt) for Task 4 of assignment 03.
-
-Each input CSV is expected to contain at least these columns (header names are
-case-insensitive and may include underscores or spaces):
-
-    - Label (default column name: "Label"; override with --label-column)
-    - GFLOPS / MFLOPS / TFLOPS (auto-detected or via --gflops-column)
-    - Power / Watts (auto-detected or via --power-column)
-
-GFLOP/s values are converted automatically if the column uses MFLOPS or TFLOPS.
-Power values are assumed to be in Watts.
-
-Example:
-    python plot_gflops_per_watt.py measurements.csv --output gflops_per_watt.png
-    python plot_gflops_per_watt.py data/*.csv --sort-desc
+Plot GFLOP/W measurements for multiple devices across power states.
 """
-
-from __future__ import annotations
-
 import argparse
-import os
+from collections import OrderedDict
 from dataclasses import dataclass
-from typing import Iterable, List, Sequence, Tuple
+from typing import Iterable, List, Optional, Sequence, Tuple
 
 import matplotlib.pyplot as plt
-import pandas as pd
-
-
-GFLOPS_CANDIDATES = (
-    "gflops",
-    "gf/s",
-    "gigaflops",
-    "performance",
-    "throughput",
-    "mflops",
-    "tflops",
-)
-POWER_CANDIDATES = (
-    "power",
-    "power_w",
-    "watts",
-    "avg_power",
-    "package_power",
-    "socket_power",
-)
+import numpy as np
 
 
 @dataclass
-class EfficiencyPoint:
-    label: str
-    gflops: float
-    power_w: float
-
-    @property
-    def gflops_per_watt(self) -> float:
-        return self.gflops / self.power_w if self.power_w else float("nan")
+class EfficiencyRun:
+    device: str
+    state: str
+    gflops_per_watt: float
 
 
-def normalise_columns(columns: Sequence[str]) -> dict[str, str]:
-    """
-    Build a mapping from normalised (lowercase, stripped) names to the actual
-    column labels present in the CSV.
-    """
-    mapping: dict[str, str] = {}
-    for col in columns:
-        normalised = col.strip().lower().replace(" ", "_")
-        mapping[normalised] = col
-    return mapping
+DEFAULT_RUN_ARGUMENTS: Tuple[Tuple[str, str, str], ...] = (
+    ("milan2", "triad", "0.16619105199516324"),
+    ("milan2", "mm_small_N", "0.01954478860523322"),
+    ("milan2", "mm_large_N", "2.3278145716516265"),
+    ("cs2", "triad", "0.014810344827586207"),
+    ("cs2", "mm_small_N", "0.003686667206866953"),
+    ("cs2", "mm_large_N", "1.9140701352752372"),
+)
 
 
-def select_column(
-    mapping: dict[str, str],
-    explicit: str | None,
-    candidates: Iterable[str],
-    kind: str,
-) -> Tuple[str, str]:
-    """
-    Return the actual column name and its normalised key.
-    """
-    if explicit:
-        key = explicit.strip().lower().replace(" ", "_")
-        if key not in mapping:
+def parse_runs(raw_runs: Iterable[Sequence[str]]) -> List[EfficiencyRun]:
+    parsed: List[EfficiencyRun] = []
+    for device, state, value_str in raw_runs:
+        try:
+            gflops_per_watt = float(value_str)
+        except ValueError as exc:
             raise argparse.ArgumentTypeError(
-                f"Column '{explicit}' not found in input data for {kind}."
-            )
-        return mapping[key], key
-
-    for candidate in candidates:
-        key = candidate.strip().lower().replace(" ", "_")
-        if key in mapping:
-            return mapping[key], key
-
-    raise argparse.ArgumentTypeError(
-        f"Unable to locate a column for {kind}. "
-        f"Tried: {', '.join(candidates)}"
-    )
+                f"Could not parse GFLOP/W value for '{device} {state}': {exc}"
+            ) from exc
+        parsed.append(EfficiencyRun(device=device, state=state, gflops_per_watt=gflops_per_watt))
+    return parsed
 
 
-def load_points(
-    path: str,
-    label_col: str | None,
-    gflops_col: str | None,
-    power_col: str | None,
-) -> List[EfficiencyPoint]:
-    df = pd.read_csv(path, comment="#")
-    if df.empty:
-        raise RuntimeError(f"{path}: no rows to plot.")
+def collect_orders(runs: Sequence[EfficiencyRun]) -> Tuple[List[str], OrderedDict[str, dict]]:
+    """
+    Build ordered collections of devices and states to keep CLI order intact.
+    """
+    devices: List[str] = []
+    states: OrderedDict[str, dict[str, float]] = OrderedDict()
 
-    mapping = normalise_columns(df.columns)
+    for run in runs:
+        if run.device not in devices:
+            devices.append(run.device)
+        if run.state not in states:
+            states[run.state] = {}
+        states[run.state][run.device] = run.gflops_per_watt
 
-    # label column is optional; fall back to auto-generated labels.
-    label_key = label_col.strip().lower().replace(" ", "_") if label_col else "label"
-    label_available = label_key in mapping
+    return devices, states
 
-    gflops_actual, gflops_key = select_column(
-        mapping, gflops_col, GFLOPS_CANDIDATES, "GFLOP/s"
-    )
-    power_actual, _ = select_column(
-        mapping, power_col, POWER_CANDIDATES, "Power (Watts)"
-    )
 
-    labels: List[str] = []
-    if label_available:
-        labels = df[mapping[label_key]].astype(str).tolist()
+def compute_bar_positions(num_states: int, num_devices: int) -> Tuple[np.ndarray, float, np.ndarray]:
+    x_positions = np.arange(num_states)
+    # Spread bars inside each state; keep total width capped for readability.
+    width = min(0.8 / max(num_devices, 1), 0.25) if num_devices > 1 else 0.5
+    offsets = (np.arange(num_devices) - (num_devices - 1) / 2.0) * width
+    return x_positions, width, offsets
+
+
+def format_value(value: float) -> str:
+    """
+    Format GFLOP/W values so small numbers remain distinguishable on annotations.
+    """
+    abs_value = abs(value)
+    if abs_value >= 10:
+        formatted = f"{value:.1f}"
+    elif abs_value >= 1:
+        formatted = f"{value:.2f}"
+    elif abs_value >= 0.1:
+        formatted = f"{value:.3f}"
+    elif abs_value >= 0.01:
+        formatted = f"{value:.4f}"
+    elif abs_value >= 0.001:
+        formatted = f"{value:.5f}"
     else:
-        basename = os.path.splitext(os.path.basename(path))[0]
-        labels = [f"{basename}[{idx}]" for idx in range(len(df))]
+        return f"{value:.2e}"
 
-    gflops_values = df[gflops_actual].astype(float)
-    power_values = df[power_actual].astype(float)
-
-    # handle unit conversions if the column is MFLOPS or TFLOPS.
-    gflops_norm = gflops_values.copy()
-    if "mflops" in gflops_key:
-        gflops_norm = gflops_values * 1e-3
-    elif "tflops" in gflops_key:
-        gflops_norm = gflops_values * 1e3
-
-    points: List[EfficiencyPoint] = []
-    for label, gflops, power in zip(labels, gflops_norm, power_values, strict=True):
-        points.append(EfficiencyPoint(label=label, gflops=gflops, power_w=power))
-    return points
+    stripped = formatted.rstrip("0").rstrip(".")
+    return stripped if stripped else "0"
 
 
-def build_parser() -> argparse.ArgumentParser:
+def plot_runs(
+    runs: Sequence[EfficiencyRun],
+    title: str,
+    output: Optional[str],
+    annotate: bool,
+    ymax_padding: float,
+    y_scale: str,
+) -> None:
+    devices, states = collect_orders(runs)
+
+    state_labels = list(states.keys())
+    num_states = len(state_labels)
+    num_devices = len(devices)
+
+    x_positions, bar_width, offsets = compute_bar_positions(num_states, num_devices)
+
+    fig, ax = plt.subplots(figsize=(8, 5))
+
+    ymax = 0.0
+    min_positive = np.inf
+
+    for device_idx, device in enumerate(devices):
+        values = []
+        for state in state_labels:
+            value = states[state].get(device)
+            values.append(value if value is not None else np.nan)
+
+        values_array = np.array(values, dtype=float)
+        if y_scale == "log":
+            if np.any(values_array <= 0):
+                raise ValueError("Logarithmic y-scale requires all GFLOP/W values to be > 0.")
+        positive_values = values_array[values_array > 0]
+        if positive_values.size:
+            min_positive = min(min_positive, float(np.nanmin(positive_values)))
+        try:
+            series_max = float(np.nanmax(values_array))
+        except ValueError:
+            series_max = 0.0
+        ymax = max(ymax, series_max)
+
+        bar_positions = x_positions + offsets[device_idx]
+        bars = ax.bar(bar_positions, values_array, bar_width, label=device)
+
+        if annotate:
+            for rect, value in zip(bars, values_array):
+                if np.isnan(value):
+                    continue
+                height = rect.get_height()
+                if y_scale == "log":
+                    text_y = height * (1.0 + ymax_padding)
+                else:
+                    text_y = height * 1.01
+                ax.text(
+                    rect.get_x() + rect.get_width() / 2.0,
+                    text_y,
+                    format_value(float(value)),
+                    ha="center",
+                    va="bottom",
+                    fontsize=9,
+                )
+
+    ax.set_xticks(x_positions)
+    ax.set_xticklabels(state_labels)
+    ax.set_ylabel("GFlops/W")
+    ax.set_title(title)
+    ax.grid(axis="y", linestyle="--", linewidth=0.3)
+    ax.legend(title="Device")
+
+    ax.set_yscale(y_scale)
+
+    if ymax > 0:
+        upper = ymax * (1.0 + ymax_padding)
+        if y_scale == "log":
+            if not np.isfinite(min_positive) or min_positive <= 0:
+                raise ValueError("Logarithmic y-scale requires all GFLOP/W values to be > 0.")
+            lower = min_positive / (1.0 + ymax_padding)
+            ax.set_ylim(lower, upper)
+        else:
+            ax.set_ylim(0, upper)
+
+    fig.tight_layout()
+
+    if output:
+        fig.savefig(output, dpi=200)
+    else:
+        plt.show()
+
+
+def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Plot GFLOP/s per Watt for assignment 03 task 4 measurements."
+        description="Plot GFLOP/W measurements for several devices across power states."
     )
     parser.add_argument(
-        "csv",
-        nargs="*",
-        help="Optional CSV file(s) with columns for label, GFLOP/s (or MFLOPS/TFLOPS), "
-        "and power/watts.",
-    )
-    parser.add_argument(
-        "--label-column",
-        help="Name of the column containing labels (default: auto-detect 'Label').",
-    )
-    parser.add_argument(
-        "--gflops-column",
-        help="Explicit GFLOP/s column name. If omitted, common names are tried.",
-    )
-    parser.add_argument(
-        "--power-column",
-        help="Explicit power column name. If omitted, common names are tried.",
-    )
-    parser.add_argument(
-        "--sort-desc",
-        action="store_true",
-        help="Sort bars in descending GFLOP/s per Watt order.",
+        "--run",
+        nargs=3,
+        metavar=("DEVICE", "STATE", "GFLOP_PER_WATT"),
+        action="append",
+        help="Measured run supplied as (device, state, GFLOP/W). Provide multiple --run entries "
+        "to override the default data set.",
     )
     parser.add_argument(
         "--title",
-        default="GFLOP/s per Watt",
+        default="",
         help="Figure title.",
     )
     parser.add_argument(
         "--output",
-        help="Optional path to save the figure (PNG, PDF, ...).",
+        help="Optional output path for saving the figure (PNG, PDF, ...). If omitted the plot "
+        "window is shown.",
     )
     parser.add_argument(
-        "--show",
+        "--no-annotations",
         action="store_true",
-        help="Show the plot even if --output is specified.",
+        help="Hide the GFLOP/W value on top of each bar.",
     )
     parser.add_argument(
-        "--point",
-        action="append",
-        nargs=3,
-        metavar=("LABEL", "GFLOPS", "WATTS"),
-        help="Add a single measurement directly: label GFLOP/s power_watts. "
-        "May be supplied multiple times.",
+        "--ymax-padding",
+        type=float,
+        default=0.05,
+        help="Relative headroom above the tallest bar (default: 5%%).",
     )
-    return parser
+    parser.add_argument(
+        "--y-scale",
+        choices=("linear", "log"),
+        default="log",
+        help="Y-axis scale (default: log).",
+    )
 
-
-def main() -> None:
-    parser = build_parser()
     args = parser.parse_args()
 
-    points: List[EfficiencyPoint] = []
-    if not args.csv and not args.point:
-        parser.error("Provide at least one CSV file or --point entry.")
-
-    for path in args.csv:
-        resolved = os.path.abspath(path)
-        if not os.path.exists(resolved):
-            parser.error(f"File not found: {resolved}")
-        try:
-            points.extend(
-                load_points(
-                    resolved,
-                    label_col=args.label_column,
-                    gflops_col=args.gflops_column,
-                    power_col=args.power_column,
-                )
-            )
-        except Exception as exc:  # noqa: BLE001 - surface parse errors
-            parser.error(f"{path}: {exc}")
-
-    if args.point:
-        for label, gflops_str, watts_str in args.point:
-            try:
-                gflops = float(gflops_str)
-                watts = float(watts_str)
-            except ValueError as exc:
-                parser.error(
-                    f"Invalid --point values '{label} {gflops_str} {watts_str}': {exc}"
-                )
-            points.append(EfficiencyPoint(label=label, gflops=gflops, power_w=watts))
-
-    if not points:
-        parser.error("No data points were loaded.")
-
-    if args.sort_desc:
-        points.sort(key=lambda p: p.gflops_per_watt, reverse=True)
-
-    labels = [pt.label for pt in points]
-    ratios = [pt.gflops_per_watt for pt in points]
-    gflops = [pt.gflops for pt in points]
-    power = [pt.power_w for pt in points]
-
-    fig, ax = plt.subplots(figsize=(8, 6))
-    ax.scatter(power, gflops, color="#4e79a7", s=80, edgecolor="black")
-
-    for idx, label in enumerate(labels):
-        annotation = f"{label}\n{ratios[idx]:.2f} GF/W"
-        ax.annotate(
-            annotation,
-            xy=(power[idx], gflops[idx]),
-            xytext=(6, 6),
-            textcoords="offset points",
-            fontsize=9,
+    raw_runs = args.run if args.run else DEFAULT_RUN_ARGUMENTS
+    runs = parse_runs(raw_runs)
+    try:
+        plot_runs(
+            runs=runs,
+            title=args.title,
+            output=args.output,
+            annotate=not args.no_annotations,
+            ymax_padding=args.ymax_padding,
+            y_scale=args.y_scale,
         )
-
-    ax.set_xlabel("Power [W]")
-    ax.set_ylabel("Performance [GFLOP/s]")
-    ax.set_title(args.title)
-    ax.grid(alpha=0.6, linestyle="--")
-    fig.tight_layout()
-
-    if args.output:
-        fig.savefig(args.output, dpi=300)
-    if args.show or not args.output:
-        plt.show()
+    except ValueError as exc:
+        parser.error(str(exc))
 
 
 if __name__ == "__main__":
