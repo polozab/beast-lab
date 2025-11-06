@@ -2,7 +2,7 @@
 
 
 
-The idle power consumption of milan and cs (all cs n nodes) is  701W and  1158W respectively.
+The idle power consumption of milan and cs (all cs nodes) is  701W and  1158W respectively.
 
 ### Benchmark Power Consumption
 
