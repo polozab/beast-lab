@@ -21,7 +21,9 @@ The following measurements were taken on the sap3 platform using the perf tool. 
 ![plot](plots/roofline_triads.png)
 
 
-The values calculated by the perftool differ from those which are calculated internally due to overhead which is measured in perf but not internally like the initialization of the vectors and the verification of the results. All the points are underneath each other because the Arithmetic intensity is constant the points which are above the roofline ceiling fit complete inside the caches therefore they achieve higher performance than the roofline model predicts based on the main memory bandwidth.
+The performance values reported by perf differ from the internal measurements because perf records overheads that our internal timing excludes (for example, vector initialization and result verification). All plotted points lie on top of each other because the arithmetic intensity is constant for each benchmark. Points that appear above the roofline ceiling correspond to runs that fit entirely in cache and therefore achieve higher throughput than predicted by a roofline based on main-memory bandwidth.
+
+The roofline points were produced by measuring achieved performance and computing arithmetic intensity from the data size and the number of floating‑point operations. For the triad benchmark the arithmetic intensity is constant at 0.0625 FLOPs/byte; matrix‑multiplication runs likewise have a constant intensity determined by matrix size. GFLOPS were computed as total floating‑point operations divided by execution time. For the roofline model we used the measured peak performance and bandwidth values (peak ≈ 6454.27 GFLOPS, memory bandwidth ≈ 347.24 GB/s), which were obtained in previous tasks and are consistent with Intels reported figures.
 
 ## c) ![alt text](plots/1image-2.png) ![alt text](plots/1image-1.png)
 The following output of perf for the triad benchmark on the sap3 platform shows the measured event 
