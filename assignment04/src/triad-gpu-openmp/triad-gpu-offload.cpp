@@ -35,9 +35,9 @@ void triad(unsigned long N,
     {
         targetDeviceId = omp_is_initial_device();
     }
-    // printf("--------------------------------------\n");
-    // printf("Device ID: %d", targetDeviceId);
-    // printf("--------------------------------------\n");
+    printf("--------------------------------------\n");
+    printf("Device ID: %d", targetDeviceId);
+    printf("--------------------------------------\n");
 
     /*
      *TODO: Variant 1 - (CPU to GPU copy after CPU initialization) is done by the for loop below.
@@ -56,6 +56,9 @@ void triad(unsigned long N,
             /*
              *TODO: Add OpenMP directives and clauses to fully utilize the GPU
              */
+
+            #pragma omp target
+            #pragma omp loop
             for (unsigned long i = 0; i < N; ++i) {
                 a[i] = b[i] + c[i] * d[i];
             }
