@@ -8,16 +8,14 @@
 double calculateChecksum(long N, const double *vector)
 {
     double checksum = 0.0;
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < N; i++)
+    {
         checksum += vector[i];
     }
     return checksum;
 }
 
-void triad(unsigned long N,
-           unsigned long repetitions,
-           long          numTeams,
-           long          numThreads)
+void triad(unsigned long N, unsigned long repetitions, long numTeams, long numThreads)
 {
 
     auto *a = new double[N];
@@ -28,10 +26,10 @@ void triad(unsigned long N,
     // Device Ids CPU = 1 , GPU = 0
     int targetDeviceId = 1;
 
-/*
- *TODO: Check by below code block to see if you can offload to GPU properly
- */
-#pragma omp target map(tofrom : targetDeviceId, numTeams, numThreads)
+    /*
+    *TODO: Check by below code block to see if you can offload to GPU properly
+    */
+    #pragma omp target map(tofrom : targetDeviceId, numTeams, numThreads)
     {
         targetDeviceId = omp_is_initial_device();
     }
@@ -43,29 +41,32 @@ void triad(unsigned long N,
      *TODO: Variant 1 - (CPU to GPU copy after CPU initialization) is done by the for loop below.
      *TODO: Variant 2 - Implement and test
      */
-    for (unsigned long i = 0; i < N; i++) {
+    for (unsigned long i = 0; i < N; i++)
+    {
         a[i] = b[i] = c[i] = d[i] = i;
     }
 
     auto start = std::chrono::high_resolution_clock::now();
 
-// GPU offloading of the computation loops
-#pragma omp target map(tofrom : a[0 : N]) map(to : b[0 : N], c[0 : N], d[0 : N])
+    // GPU offloading of the computation loops
+    #pragma omp target map(tofrom : a[0 : N]) map(to : b[0 : N], c[0 : N], d[0 : N])
     {
-        for (unsigned long j = 0; j < repetitions; ++j) {
+        for (unsigned long j = 0; j < repetitions; ++j)
+        {
             /*
              *TODO: Add OpenMP directives and clauses to fully utilize the GPU
              */
 
             #pragma omp target
             #pragma omp loop
-            for (unsigned long i = 0; i < N; ++i) {
+            for (unsigned long i = 0; i < N; ++i)
+            {
                 a[i] = b[i] + c[i] * d[i];
             }
         }
     } /* target end */
 
-    auto stop     = std::chrono::high_resolution_clock::now();
+    auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration<double>(stop - start).count();
 
     double checksum = calculateChecksum(N, a);
@@ -91,26 +92,29 @@ void triad(unsigned long N,
 int main(int argc, char *argv[])
 {
 
-    if (argc < 3) {
-        printf("The two parameters maximum dataset size and total number of processed "
-               "points need to be provided.\n");
+    if (argc < 3)
+    {
+        printf("The two parameters maximum dataset size and total number of processed points need to be provided.\n");
         exit(1);
     }
 
     char *pEnd;
-    long  maximumN = strtol(argv[1], &pEnd, 10);
-    if (errno == ERANGE) {
+    long maximumN = strtol(argv[1], &pEnd, 10);
+    if (errno == ERANGE)
+    {
         printf("Problem with the first number.");
         exit(2);
     }
     long totalNumberProcessedPoints = strtol(argv[2], &pEnd, 10);
-    if (errno == ERANGE) {
+    if (errno == ERANGE)
+    {
         printf("Problem with the second number.");
         exit(3);
     }
 
     int num_devices = omp_get_num_devices();
-    if (num_devices <= 0) {
+    if (num_devices <= 0)
+    {
         printf("--------------------------------------\n");
         printf(" No OpenMP Offload device found\n");
         printf("--------------------------------------\n");
@@ -121,7 +125,7 @@ int main(int argc, char *argv[])
      * TODO: You can adjust thread and team numbers by passing argv[3] and argv[4]
      */
     long numThreads = 32;
-    long numTeams   = 64;
+    long numTeams = 64;
     if (argc >= 4)
         numTeams = strtol(argv[3], &pEnd, 10);
     if (argc == 5)
@@ -143,7 +147,8 @@ int main(int argc, char *argv[])
            "Checksum");
 
     long N = 64;
-    while (N <= maximumN) {
+    while (N <= maximumN)
+    {
 
         // Keep the total number of processed points constant by
         // adjusting the number of repetitions according to data set size
