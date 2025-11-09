@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <omp.h>
+#pragma omp requires unified_shared_memory
 
 int main(int argc, char const *argv[])
 {
