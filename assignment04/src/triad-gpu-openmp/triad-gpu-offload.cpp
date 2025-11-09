@@ -146,10 +146,10 @@ int main(int argc, char *argv[])
 
         // Keep the total number of processed points constant by
         // adjusting the number of repetitions according to data set size
-        long cycles = std::clamp(totalNumberProcessedPoints / N, 8l, 65536l);
+        //long cycles = std::clamp(totalNumberProcessedPoints / N, 8l, 65536l);
 
         // Run benchmark
-        triad(N, cycles, numTeams, numThreads);
+        triad(N, 8, numTeams, numThreads);
 
         N *= 2;
     }
