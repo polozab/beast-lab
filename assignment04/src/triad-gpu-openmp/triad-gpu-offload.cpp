@@ -39,7 +39,6 @@ void triad(size_t N, long numTeams, long numThreads)
 
     while (dt < 1.0) {
 
-        // GPU offloading of the computation loops
         #pragma omp target data map(tofrom:a[0:N]) map(to:b[0:N],c[0:N],d[0:N])
         {
 
@@ -58,7 +57,7 @@ void triad(size_t N, long numTeams, long numThreads)
             auto stop = std::chrono::high_resolution_clock::now();
             dt = std::chrono::duration<double>(stop - start).count();
 
-        } /* target end */
+        }
 
         repetitions *= 2;
 
@@ -69,19 +68,20 @@ void triad(size_t N, long numTeams, long numThreads)
     
     double duration;
 
-    // GPU offloading of the computation loops
     #pragma omp target data map(tofrom:a[0:N]) map(to:b[0:N],c[0:N],d[0:N])
     {
 
         auto start = std::chrono::high_resolution_clock::now();
 
         #pragma omp target teams parallel
-        for (size_t j = 0; j < repetitions; ++j)
-        {  
-            #pragma distribute for num_teams(numTeams) num_threads(numThreads)
-            for (size_t i = 0; i < N; ++i)
-            {
-                a[i] = b[i] + c[i] * d[i];
+        {
+            for (size_t j = 0; j < repetitions; ++j)
+            {  
+                #pragma distribute for num_teams(numTeams) num_threads(numThreads)
+                for (size_t i = 0; i < N; ++i)
+                {
+                    a[i] = b[i] + c[i] * d[i];
+                }
             }
         }
 
