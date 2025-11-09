@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
     }
 
     char *pEnd;
-    long maximumN = strtol(argv[1], &pEnd, 10);
+    long maximumN = 1U << strtol(argv[1], &pEnd, 10);
     if (errno == ERANGE)
     {
         printf("Problem with the first number.");
