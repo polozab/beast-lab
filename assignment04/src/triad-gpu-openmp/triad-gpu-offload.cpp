@@ -102,7 +102,7 @@ void triad(size_t N, long numTeams, long numThreads)
     double mflops = 2.0 * N * repetitions * 1.0e-6 / duration;
 
     // print the experimental results
-    printf("| %10ld | %8ld | %8ld | %8.2f | %8ld | %4d | %.4e |\n",
+    printf("%10ld, %8ld, %8ld, %8.2f, %8ld, %4d, %.4e\n",
            N,
            numTeams,
            numThreads,
@@ -117,7 +117,7 @@ int main(int argc, char *argv[])
 
     if (argc < 2)
     {
-        printf("Vector length len = 2^N needs to be provided.\n Usage: %s <len> [teams] [threads]\n", argv[0]);
+        printf("Vector length len = 2^N needs to be provided.\nUsage: %s <len> [teams] [threads]\n", argv[0]);
         exit(1);
     }
 
@@ -145,12 +145,9 @@ int main(int argc, char *argv[])
     if (argc == 4)
         numThreads = strtol(argv[4], &pEnd, 10);
 
-    fprintf(stderr,
-            "Maximum dataset size = %ld"
-            "Performance in MFLOPS.\n",
-            maximumN);
+    fprintf(stderr, "Maximum dataset size = %ld, Performance in MFLOPS.\n", maximumN);
 
-    printf("| %10s | %8s | %8s | %8s | %8s | %4s | %10s |\n",
+    printf("%10s, %8s, %8s, %8s, %8s, %4s, %10s\n",
            "Data size",
            "Teams",
            "Threads",
