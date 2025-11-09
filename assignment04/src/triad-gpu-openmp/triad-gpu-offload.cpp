@@ -102,7 +102,7 @@ int main(int argc, char *argv[])
     size_t totalNumberProcessedPoints = 1048576;
     if (argc >= 3) {
 
-        size_t totalNumberProcessedPoints = strtol(argv[2], &pEnd, 10);
+        totalNumberProcessedPoints = strtol(argv[2], &pEnd, 10);
         if (errno == ERANGE)
         {
             printf("Problem with the second number.");
