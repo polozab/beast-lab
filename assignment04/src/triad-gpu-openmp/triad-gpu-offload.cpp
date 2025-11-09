@@ -8,10 +8,10 @@
 void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
 {
 
-    double *a = (double*) malloc(sizeof(double) * N);
-    double *b = (double*) malloc(sizeof(double) * N);
-    double *c = (double*) malloc(sizeof(double) * N);
-    double *d = (double*) malloc(sizeof(double) * N);
+    static double *a = (double*) malloc(sizeof(double) * N);
+    static double *b = (double*) malloc(sizeof(double) * N);
+    static double *c = (double*) malloc(sizeof(double) * N);
+    static double *d = (double*) malloc(sizeof(double) * N);
 
     // CPU = 1; GPU = 0
     int isInitialDevice = omp_is_initial_device();
