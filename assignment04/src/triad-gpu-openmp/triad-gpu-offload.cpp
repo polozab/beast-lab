@@ -5,6 +5,8 @@
 #include <cstdlib>
 #include <omp.h>
 
+double *a, *b, *c, *d;
+
 void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
 {
 
@@ -20,10 +22,10 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
 
     // Allocate memory
 
-    double *a = new double[N];
-    double *b = new double[N];
-    double *c = new double[N];
-    double *d = new double[N];
+    a = new double[N];
+    b = new double[N];
+    c = new double[N];
+    d = new double[N];
 
     // Init memory
 
@@ -65,7 +67,7 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
     }
 
     // Clean up & print results
-    
+
     delete[] a;
     delete[] b;
     delete[] c;
