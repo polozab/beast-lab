@@ -32,7 +32,7 @@ void triad(size_t N, long numTeams, long numThreads)
         a[i] = b[i] = c[i] = d[i] = i;
     }
 
-    // Calculate repetitions & warmup
+    // Calculate repetitions
 
     double dt = 0.0;
     size_t repetitions = 2;
@@ -73,7 +73,7 @@ void triad(size_t N, long numTeams, long numThreads)
     {
         for (size_t j = 0; j < repetitions; ++j)
         {
-            #pragma omp distribute parallel for num_threads(numThreads) schedule(static, 1)
+            #pragma omp distribute parallel for num_threads(numThreads)
             for (size_t i = 0; i < N; ++i)
             {
                 a[i] = b[i] + c[i] * d[i];
