@@ -54,10 +54,10 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
     
 
     // Clean up & print results
-    free(a);
-    free(b);
-    free(c);
-    free(d);
+    delete a;
+    delete b;
+    delete c;
+    delete d;
 
     double mflops = 2.0 * N * repetitions * 1.0e-6 / duration;
 
