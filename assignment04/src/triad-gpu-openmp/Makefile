@@ -14,7 +14,7 @@ OBJS := $(SRCS:.c=.out)
 all: $(OBJS)
 
 %.out: %.c
-  ${CXX} ${CXXFLAGS} $< -o $@
+  $(CXX) $(CXXFLAGS) $< -o $@
 
 clean:
   rm -f $(OBJS)
