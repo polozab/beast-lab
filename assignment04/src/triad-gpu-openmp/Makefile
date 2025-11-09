@@ -1,5 +1,5 @@
 CXX ?= nvc++
-CXXFLAGS = -std=c++17 -fopenmp -mp=gpu -O3 -ffastmath
+CXXFLAGS = -std=c++17 -fopenmp -mp=gpu -O3 -ffast-math
 
 # or use llvm:
 # CXX=clang++
@@ -8,13 +8,14 @@ CXXFLAGS = -std=c++17 -fopenmp -mp=gpu -O3 -ffastmath
 # need to set LD_LIBRARY_PATH for clang:
 # export LD_LIBRARY_PATH=$(dirname $(dirname $(command -v clang)))/lib/aarch64-unknown-linux-gnu:$LD_LIBRARY_PATH
 
-SRCS := $(wildcard *.c)
-OBJS := $(SRCS:.c=.out)
+SRCS := $(wildcard *.cpp)
+OBJS := $(SRCS:.cpp=.out)
 
 all: $(OBJS)
 
-%.out: %.c
-  $(CXX) $(CXXFLAGS) $< -o $@
+%.out: %.cpp
+	$(CXX) $(CXXFLAGS) $< -o $@
 
 clean:
-  rm -f $(OBJS)
+	rm -f $(OBJS)
+  
