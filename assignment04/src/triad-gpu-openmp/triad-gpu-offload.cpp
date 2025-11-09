@@ -23,18 +23,15 @@ void triad(unsigned long N, unsigned long repetitions, long numTeams, long numTh
     auto *c = new double[N];
     auto *d = new double[N];
 
-    // Device Ids CPU = 1 , GPU = 0
-    int targetDeviceId = 0;
+    // CPU = 1; GPU = 0
+    int isInitialDevice = omp_is_initial_device();
 
-    /*
-    *TODO: Check by below code block to see if you can offload to GPU properly
-    */
-    #pragma omp target
+    #pragma omp target map(isInitialDevice)
     {
-        targetDeviceId = omp_is_initial_device();
+        isInitialDevice = omp_is_initial_device();
     }
     printf("--------------------------------------\n");
-    printf("Device ID: %d", targetDeviceId);
+    printf("Device ID: %d", isInitialDevice);
     printf("--------------------------------------\n");
 
     /*
@@ -49,7 +46,7 @@ void triad(unsigned long N, unsigned long repetitions, long numTeams, long numTh
     auto start = std::chrono::high_resolution_clock::now();
 
     // GPU offloading of the computation loops
-    #pragma omp target
+    #pragma omp target map(a, b, c, d)
     {
         for (unsigned long j = 0; j < repetitions; ++j)
         {
@@ -84,7 +81,7 @@ void triad(unsigned long N, unsigned long repetitions, long numTeams, long numTh
            numThreads,
            mflops,
            repetitions,
-           targetDeviceId,
+           isInitialDevice,
            checksum);
 }
 
