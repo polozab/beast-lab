@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <omp.h>
-#pragma omp requires unified_shared_memory
 
 int main(int argc, char const *argv[])
 {
@@ -10,7 +9,7 @@ int main(int argc, char const *argv[])
 
   printf("Total devices: %d\n", omp_get_num_devices());
 
-  #pragma omp target
+  #pragma omp target map(init)
   {
     init = omp_is_initial_device();
   }
