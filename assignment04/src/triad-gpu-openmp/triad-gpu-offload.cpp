@@ -5,13 +5,23 @@
 #include <cstdlib>
 #include <omp.h>
 
-void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
+double calculateChecksum(long N, const double *vector)
+{
+    double checksum = 0.0;
+    for (int i = 0; i < N; i++)
+    {
+        checksum += vector[i];
+    }
+    return checksum;
+}
+
+void triad(unsigned long N, unsigned long repetitions, long numTeams, long numThreads)
 {
 
-    double *a = (double*) malloc(sizeof(double) * N);
-    double *b = (double*) malloc(sizeof(double) * N);
-    double *c = (double*) malloc(sizeof(double) * N);
-    double *d = (double*) malloc(sizeof(double) * N);
+    auto *a = new double[N];
+    auto *b = new double[N];
+    auto *c = new double[N];
+    auto *d = new double[N];
 
     // CPU = 1; GPU = 0
     int isInitialDevice = omp_is_initial_device();
@@ -25,7 +35,7 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
      *TODO: Variant 1 - (CPU to GPU copy after CPU initialization) is done by the for loop below.
      *TODO: Variant 2 - Implement and test
      */
-    for (size_t i = 0; i < N; i++)
+    for (unsigned long i = 0; i < N; i++)
     {
         a[i] = b[i] = c[i] = d[i] = i;
     }
@@ -35,14 +45,14 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
     // GPU offloading of the computation loops
     #pragma omp target map(tofrom:a) map(to:b,c,d)
     {
-        for (size_t j = 0; j < repetitions; ++j)
+        for (unsigned long j = 0; j < repetitions; ++j)
         {
             /*
              *TODO: Add OpenMP directives and clauses to fully utilize the GPU
              */
 
             #pragma omp loop
-            for (size_t i = 0; i < N; ++i)
+            for (unsigned long i = 0; i < N; ++i)
             {
                 a[i] = b[i] + c[i] * d[i];
             }
@@ -52,18 +62,12 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration<double>(stop - start).count();
 
-    double checksum = 0.0;
-    for (size_t i = 0; i < N; i++)
-    {
-        checksum += a[i];
-    }
-    
+    double checksum = calculateChecksum(N, a);
 
-    // Clean up & print results
-    free(a);
-    free(b);
-    free(c);
-    free(d);
+    delete[] a;
+    delete[] b;
+    delete[] c;
+    delete[] d;
 
     double mflops = 2.0 * N * repetitions * 1.0e-6 / duration;
 
@@ -88,12 +92,14 @@ int main(int argc, char *argv[])
     }
 
     char *pEnd;
-    size_t maximumN = 1ULL << strtol(argv[1], &pEnd, 10);
-    if (errno || maximumN > __INT_MAX__ || maximumN < 1ULL << 7) {
-        fprintf(stderr, "N invalid / out of range\n");
-        exit(EXIT_FAILURE);
+    long maximumN = 1U << strtol(argv[1], &pEnd, 10);
+    printf("%d\n", maximumN);
+    if (errno == ERANGE)
+    {
+        printf("Problem with the first number.");
+        exit(2);
     }
-    size_t totalNumberProcessedPoints = strtol(argv[2], &pEnd, 10);
+    long totalNumberProcessedPoints = strtol(argv[2], &pEnd, 10);
     if (errno == ERANGE)
     {
         printf("Problem with the second number.");
@@ -134,13 +140,13 @@ int main(int argc, char *argv[])
            "GPU",
            "Checksum");
 
-    size_t N = 1ULL << 7;
+    long N = 64;
     while (N <= maximumN)
     {
 
         // Keep the total number of processed points constant by
         // adjusting the number of repetitions according to data set size
-        long cycles = std::clamp(totalNumberProcessedPoints / N, 8ul, 65536ul);
+        long cycles = std::clamp(totalNumberProcessedPoints / N, 8l, 65536l);
 
         // Run benchmark
         triad(N, cycles, numTeams, numThreads);
