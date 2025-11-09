@@ -37,6 +37,9 @@ void triad(size_t N, long numTeams, long numThreads)
     double dt = 0.0;
     size_t repetitions = 2;
 
+    printf("TEST\n");
+    fflush(stdout);
+
     while (dt < 1.0) {
 
         #pragma omp target data map(tofrom:a[0:N]) map(to:b[0:N],c[0:N],d[0:N])
