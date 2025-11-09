@@ -11,7 +11,7 @@ int main(int argc, char const *argv[])
 
   #pragma omp target map(a)
   {
-    a = 2;
+    a = omp_is_initial_device();
   }
   
   printf("Inital? %d \n", a);
