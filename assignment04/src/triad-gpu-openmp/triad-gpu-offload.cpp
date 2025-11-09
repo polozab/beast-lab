@@ -59,10 +59,10 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
     // Calculate checksum
 
     double checksum = 0.0;
-    for (int i = 0; i < N; i++)
-    {
-        checksum += a[i];
-    }
+    //for (int i = 0; i < N; i++)
+    //{
+    //    checksum += a[i];
+    //}
 
     // Clean up & print results
 
