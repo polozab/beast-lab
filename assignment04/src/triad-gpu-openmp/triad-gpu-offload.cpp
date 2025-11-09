@@ -24,7 +24,7 @@ void triad(unsigned long N, unsigned long repetitions, long numTeams, long numTh
     auto *d = new double[N];
 
     // Device Ids CPU = 1 , GPU = 0
-    int targetDeviceId = 1;
+    int targetDeviceId = 0;
 
     /*
     *TODO: Check by below code block to see if you can offload to GPU properly
