@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
         fprintf(stderr, "N invalid / out of range\n");
         exit(EXIT_FAILURE);
     }
-    long totalNumberProcessedPoints = strtol(argv[2], &pEnd, 10);
+    size_t totalNumberProcessedPoints = strtol(argv[2], &pEnd, 10);
     if (errno == ERANGE)
     {
         printf("Problem with the second number.");
@@ -140,10 +140,10 @@ int main(int argc, char *argv[])
 
         // Keep the total number of processed points constant by
         // adjusting the number of repetitions according to data set size
-        //long cycles = std::clamp(totalNumberProcessedPoints / N, 8l, 65536l);
+        long cycles = std::clamp(totalNumberProcessedPoints / N, 8ul, 65536ul);
 
         // Run benchmark
-        triad(N, 8, numTeams, numThreads);
+        triad(N, cycles, numTeams, numThreads);
 
         N *= 2;
     }
