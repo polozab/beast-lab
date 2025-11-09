@@ -9,7 +9,6 @@ int main(int argc, char const *argv[])
 
   #pragma omp target
   {
-    init = omp_is_initial_device();
     dev = omp_get_device_num();
   }
   
