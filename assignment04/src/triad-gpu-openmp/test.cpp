@@ -7,8 +7,9 @@ int main(int argc, char const *argv[])
   int dev = omp_get_device_num();
   printf("Device Num: %d (%d)\n", dev, init);
 
-  #pragma omp target map(init)
+  #pragma omp target map(init, dev)
   {
+    dev = omp_get_device_num();
     init = omp_is_initial_device();
   }
   
