@@ -37,7 +37,7 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
     auto start = std::chrono::high_resolution_clock::now();
 
     // GPU offloading of the computation loops
-    #pragma omp target map(tofrom:a) map(to:b,c,d)
+    #pragma omp target map(tofrom:a[0:N]) map(to:b[0:N],c[0:N],d[0:N])
     #pragma omp teams num_teams(numTeams)
     {
         for (size_t j = 0; j < repetitions; ++j)
