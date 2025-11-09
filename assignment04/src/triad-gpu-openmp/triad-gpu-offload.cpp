@@ -147,9 +147,9 @@ int main(int argc, char *argv[])
     long numThreads = 32;
     long numTeams = 64;
     if (argc >= 3)
-        numTeams = strtol(argv[3], &pEnd, 10);
+        numTeams = strtol(argv[2], &pEnd, 10);
     if (argc == 4)
-        numThreads = strtol(argv[4], &pEnd, 10);
+        numThreads = strtol(argv[3], &pEnd, 10);
 
     fprintf(stderr, "Maximum dataset size = %ld, Performance in MFLOPS.\n", maximumN);
 
