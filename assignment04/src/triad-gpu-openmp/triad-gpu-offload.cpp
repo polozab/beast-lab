@@ -87,7 +87,7 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
 int main(int argc, char *argv[])
 {
 
-    if (argc < 3)
+    if (argc < 2)
     {
         printf("The two parameters maximum dataset size and total number of processed points need to be provided.\n");
         exit(1);
@@ -99,11 +99,15 @@ int main(int argc, char *argv[])
         fprintf(stderr, "N invalid / out of range\n");
         exit(EXIT_FAILURE);
     }
-    size_t totalNumberProcessedPoints = strtol(argv[2], &pEnd, 10);
-    if (errno == ERANGE)
-    {
-        printf("Problem with the second number.");
-        exit(3);
+    size_t totalNumberProcessedPoints = maximumN;
+    if (argc >= 3) {
+
+        size_t totalNumberProcessedPoints = strtol(argv[2], &pEnd, 10);
+        if (errno == ERANGE)
+        {
+            printf("Problem with the second number.");
+            exit(3);
+        }
     }
 
     int num_devices = omp_get_num_devices();
