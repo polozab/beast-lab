@@ -26,7 +26,7 @@ void triad(unsigned long N, unsigned long repetitions, long numTeams, long numTh
     // CPU = 1; GPU = 0
     int isInitialDevice = omp_is_initial_device();
 
-    #pragma omp target map(isInitialDevice)
+    #pragma omp target map(from:isInitialDevice)
     {
         isInitialDevice = omp_is_initial_device();
     }
@@ -43,7 +43,7 @@ void triad(unsigned long N, unsigned long repetitions, long numTeams, long numTh
     auto start = std::chrono::high_resolution_clock::now();
 
     // GPU offloading of the computation loops
-    #pragma omp target map(a, b, c, d)
+    #pragma omp target map(tofrom:a) map(to:b,c,d)
     {
         for (unsigned long j = 0; j < repetitions; ++j)
         {
