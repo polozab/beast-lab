@@ -57,7 +57,6 @@ void triad(unsigned long N, unsigned long repetitions, long numTeams, long numTh
              *TODO: Add OpenMP directives and clauses to fully utilize the GPU
              */
 
-            #pragma omp target
             #pragma omp loop
             for (unsigned long i = 0; i < N; ++i)
             {
