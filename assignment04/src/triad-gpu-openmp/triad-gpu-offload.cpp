@@ -20,10 +20,10 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
 
     // Allocate memory
 
-    double *a = (double *) calloc(N, sizeof(double));
-    double *b = (double *) calloc(N, sizeof(double));
-    double *c = (double *) calloc(N, sizeof(double));
-    double *d = (double *) calloc(N, sizeof(double));
+    double *a = new double[N];
+    double *b = new double[N];
+    double *c = new double[N];
+    double *d = new double[N];
 
     // Init memory
 
@@ -37,7 +37,8 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
     auto start = std::chrono::high_resolution_clock::now();
 
     // GPU offloading of the computation loops
-    #pragma omp target map(tofrom:a) map(to:b,c,d)
+    #pragma omp target map(tofrom:a[0:N]) map(to:b[0:N],c[0:N],d[0:N])
+    #pragma omp teams num_teams(numTeams)
     {
         for (size_t j = 0; j < repetitions; ++j)
         {
@@ -45,7 +46,7 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
              *TODO: Add OpenMP directives and clauses to fully utilize the GPU
              */
 
-            #pragma omp loop
+            #pragma omp distribute parallel for num_threads(numThreads)
             for (size_t i = 0; i < N; ++i)
             {
                 a[i] = b[i] + c[i] * d[i];
