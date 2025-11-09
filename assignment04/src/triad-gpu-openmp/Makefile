@@ -1,5 +1,5 @@
 CXX ?= nvc++
-CXXFLAGS = -std=c++17 -fopenmp -mp=gpu 
+CXXFLAGS = -std=c++17 -fopenmp -mp=gpu -gpu=mem:unified
 
 # or use llvm:
 # CXX=clang++
