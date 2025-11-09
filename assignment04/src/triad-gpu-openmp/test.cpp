@@ -9,10 +9,9 @@ int main(int argc, char const *argv[])
 
   int a = -1;
 
-  #pragma omp target
+  #pragma omp target map()
   {
-    a = omp_is_initial_device();
-  }
+    a = 2;
   
   printf("Inital? %d \n", a);
 
