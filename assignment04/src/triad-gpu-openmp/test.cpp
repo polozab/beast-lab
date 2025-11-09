@@ -7,11 +7,14 @@ int main(int argc, char const *argv[])
   int dev = omp_get_device_num();
   printf("Device Num: %d (%d)\n", dev, init);
 
+  int a = 0;
+
   #pragma omp target
   {
-    int a = 3;
+    a = 3;
   }
   
+  printf("%d", a);
   printf("Device Num: %d (%d)\n", dev, init);
 
   return 0;
