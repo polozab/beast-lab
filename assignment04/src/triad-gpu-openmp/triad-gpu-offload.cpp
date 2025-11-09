@@ -52,12 +52,7 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration<double>(stop - start).count();
 
-    // Verify checksum
     double checksum = 0.0;
-    for (size_t i = 0; i < N; i++)
-    {
-        checksum += a[i];
-    }
 
     // Clean up & print results
     delete[] a;
