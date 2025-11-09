@@ -9,7 +9,7 @@ int main(int argc, char const *argv[])
 
   int a = -1;
 
-  #pragma omp target
+  #pragma omp target map(a)
   {
     a = 2;
   }
