@@ -99,8 +99,8 @@ int main(int argc, char *argv[])
         fprintf(stderr, "N invalid / out of range\n");
         exit(EXIT_FAILURE);
     }
-    size_t totalNumberProcessedPoints = maximumN;
-    if (argc >= 2) {
+    size_t totalNumberProcessedPoints = 1048576;
+    if (argc >= 3) {
 
         size_t totalNumberProcessedPoints = strtol(argv[2], &pEnd, 10);
         if (errno == ERANGE)
