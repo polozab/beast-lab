@@ -12,6 +12,7 @@ int main(int argc, char const *argv[])
   #pragma omp target
   {
     a = 2;
+  }
   
   printf("Inital? %d \n", a);
 
