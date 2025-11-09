@@ -117,7 +117,7 @@ int main(int argc, char *argv[])
 
     if (argc < 2)
     {
-        printf("The two parameters maximum dataset size and total number of processed points need to be provided.\n");
+        printf("Vector length len = 2^N needs to be provided.\n Usage: %s <len> [teams] [threads]", argv[0]);
         exit(1);
     }
 
@@ -127,17 +127,7 @@ int main(int argc, char *argv[])
         fprintf(stderr, "N invalid / out of range\n");
         exit(EXIT_FAILURE);
     }
-    size_t totalNumberProcessedPoints = 4194304;
-    if (argc >= 3) {
-
-        totalNumberProcessedPoints = strtol(argv[2], &pEnd, 10);
-        if (errno == ERANGE)
-        {
-            printf("Problem with the second number.");
-            exit(3);
-        }
-    }
-
+    
     int num_devices = omp_get_num_devices();
     if (num_devices <= 0)
     {
@@ -147,21 +137,18 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
-    /*
-     * TODO: You can adjust thread and team numbers by passing argv[3] and argv[4]
-     */
+
     long numThreads = 32;
     long numTeams = 64;
-    if (argc >= 4)
+    if (argc >= 3)
         numTeams = strtol(argv[3], &pEnd, 10);
-    if (argc == 5)
+    if (argc == 4)
         numThreads = strtol(argv[4], &pEnd, 10);
 
     fprintf(stderr,
-            "Maximum dataset size = %ld, total number of processed points = %ld. "
+            "Maximum dataset size = %ld"
             "Performance in MFLOPS.\n",
-            maximumN,
-            totalNumberProcessedPoints);
+            maximumN);
 
     printf("| %10s | %8s | %8s | %8s | %8s | %4s | %10s |\n",
            "Data size",
