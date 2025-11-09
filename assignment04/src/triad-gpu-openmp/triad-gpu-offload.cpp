@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <omp.h>
 
-void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
+void triad(size_t N, long numTeams, long numThreads)
 {
 
     // Check if offloading is enabled
@@ -32,6 +32,37 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
         a[i] = b[i] = c[i] = d[i] = i;
     }
 
+    // Calculate repetitions
+
+    double dt = 0.0;
+    size_t repetitions = 2;
+
+    while (dt < 1.0) {
+
+        auto start = std::chrono::high_resolution_clock::now();
+
+        // GPU offloading of the computation loops
+        #pragma omp target map(tofrom:a[0:N]) map(to:b[0:N],c[0:N],d[0:N])
+        #pragma omp teams num_teams(numTeams)
+        {
+            for (size_t j = 0; j < repetitions; ++j)
+            {
+                #pragma omp distribute parallel for num_threads(numThreads)
+                for (size_t i = 0; i < N; ++i)
+                {
+                    a[i] = b[i] + c[i] * d[i];
+                }
+            }
+        } /* target end */
+
+        auto stop = std::chrono::high_resolution_clock::now();
+        dt = std::chrono::duration<double>(stop - start).count();
+
+        repetitions *= 2;
+
+    }
+
+
     // Measurement
 
     auto start = std::chrono::high_resolution_clock::now();
@@ -42,10 +73,6 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
     {
         for (size_t j = 0; j < repetitions; ++j)
         {
-            /*
-             *TODO: Add OpenMP directives and clauses to fully utilize the GPU
-             */
-
             #pragma omp distribute parallel for num_threads(numThreads)
             for (size_t i = 0; i < N; ++i)
             {
@@ -151,10 +178,10 @@ int main(int argc, char *argv[])
 
         // Keep the total number of processed points constant by
         // adjusting the number of repetitions according to data set size
-        long cycles = std::clamp(totalNumberProcessedPoints / N, 8ul, 65536ul);
+        //long cycles = std::clamp(totalNumberProcessedPoints / N, 8ul, 65536ul);
 
         // Run benchmark
-        triad(N, cycles, numTeams, numThreads);
+        triad(N, numTeams, numThreads);
 
         N *= 2;
     }
