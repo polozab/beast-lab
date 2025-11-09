@@ -39,23 +39,25 @@ void triad(size_t N, long numTeams, long numThreads)
 
     while (dt < 1.0) {
 
-        auto start = std::chrono::high_resolution_clock::now();
-
         // GPU offloading of the computation loops
         #pragma omp target data map(tofrom:a[0:N]) map(to:b[0:N],c[0:N],d[0:N])
         {
-            #pragma omp target teams distribute parallel for num_teams(numTeams) num_threads(numThreads)
-            for (size_t i = 0; i < N; ++i)
+
+            auto start = std::chrono::high_resolution_clock::now();
+
+            for (size_t j = 0; j < repetitions; ++j)
             {
-                for (size_t j = 0; j < repetitions; ++j)
+                #pragma omp target teams distribute parallel for num_teams(numTeams) num_threads(numThreads)
+                for (size_t i = 0; i < N; ++i)
                 {
                     a[i] = b[i] + c[i] * d[i];
                 }
             }
-        } /* target end */
 
-        auto stop = std::chrono::high_resolution_clock::now();
-        dt = std::chrono::duration<double>(stop - start).count();
+            auto stop = std::chrono::high_resolution_clock::now();
+            dt = std::chrono::duration<double>(stop - start).count();
+
+        } /* target end */
 
         repetitions *= 2;
 
@@ -63,12 +65,15 @@ void triad(size_t N, long numTeams, long numThreads)
 
 
     // Measurement
-
-    auto start = std::chrono::high_resolution_clock::now();
+    
+    double duration;
 
     // GPU offloading of the computation loops
     #pragma omp target data map(tofrom:a[0:N]) map(to:b[0:N],c[0:N],d[0:N])
     {
+
+        auto start = std::chrono::high_resolution_clock::now();
+
         for (size_t j = 0; j < repetitions; ++j)
         {
             #pragma omp target teams distribute parallel for num_teams(numTeams) num_threads(numThreads)
@@ -77,10 +82,12 @@ void triad(size_t N, long numTeams, long numThreads)
                 a[i] = b[i] + c[i] * d[i];
             }
         }
+
+        auto stop = std::chrono::high_resolution_clock::now();
+        duration = std::chrono::duration<double>(stop - start).count();
+
     } /* target end */
 
-    auto stop = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration<double>(stop - start).count();
 
     // Calculate checksum
 
