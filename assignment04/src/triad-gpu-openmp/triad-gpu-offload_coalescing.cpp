@@ -38,7 +38,7 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
 
     // GPU offloading of the computation loops
     #pragma omp target map(tofrom:a[0:N]) map(to:b[0:N],c[0:N],d[0:N])
-    #pragma omp teams num_teams(numTeams)
+    #pragma omp teams num_teams(1)
     {
         for (size_t j = 0; j < repetitions; ++j)
         {
@@ -46,7 +46,7 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
              *TODO: Add OpenMP directives and clauses to fully utilize the GPU
              */
 
-            #pragma omp distribute parallel for num_threads(numThreads)
+            #pragma omp distribute parallel for num_threads(1)
             for (size_t i = 0; i < N; ++i)
             {
                 a[i] = b[i] + c[i] * d[i];
