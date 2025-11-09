@@ -9,7 +9,7 @@ int main(int argc, char const *argv[])
 
   #pragma omp target
   {
-    dev = omp_get_device_num();
+    int a = 3;
   }
   
   printf("Device Num: %d (%d)\n", dev, init);
