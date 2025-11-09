@@ -100,7 +100,7 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
     size_t totalNumberProcessedPoints = maximumN;
-    if (argc >= 3) {
+    if (argc >= 2) {
 
         size_t totalNumberProcessedPoints = strtol(argv[2], &pEnd, 10);
         if (errno == ERANGE)
