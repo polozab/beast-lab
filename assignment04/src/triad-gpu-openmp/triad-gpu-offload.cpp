@@ -8,10 +8,10 @@
 void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
 {
 
-    auto *a = new double[N];
-    auto *b = new double[N];
-    auto *c = new double[N];
-    auto *d = new double[N];
+    double *a = (double*) malloc(sizeof(double) * N);
+    double *b = (double*) malloc(sizeof(double) * N);
+    double *c = (double*) malloc(sizeof(double) * N);
+    double *d = (double*) malloc(sizeof(double) * N);
 
     // CPU = 1; GPU = 0
     int isInitialDevice = omp_is_initial_device();
@@ -55,10 +55,10 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
     double checksum = 0.0;
 
     // Clean up & print results
-    delete[] a;
-    delete[] b;
-    delete[] c;
-    delete[] d;
+    free(a);
+    free(b);
+    free(c);
+    free(d);
 
     double mflops = 2.0 * N * repetitions * 1.0e-6 / duration;
 
