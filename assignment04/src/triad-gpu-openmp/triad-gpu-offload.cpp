@@ -5,16 +5,6 @@
 #include <cstdlib>
 #include <omp.h>
 
-double calculateChecksum(size_t N, const double *vector)
-{
-    double checksum = 0.0;
-    for (size_t i = 0; i < N; i++)
-    {
-        checksum += vector[i];
-    }
-    return checksum;
-}
-
 void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
 {
 
@@ -62,8 +52,14 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration<double>(stop - start).count();
 
-    double checksum = calculateChecksum(N, a);
+    // Verify checksum
+    double checksum = 0.0;
+    for (size_t i = 0; i < N; i++)
+    {
+        checksum += a[i];
+    }
 
+    // Clean up & print results
     delete[] a;
     delete[] b;
     delete[] c;
