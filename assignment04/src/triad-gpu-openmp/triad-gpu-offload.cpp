@@ -131,7 +131,7 @@ int main(int argc, char *argv[])
            "GPU",
            "Checksum");
 
-    size_t N = 1ULL << 7;
+    size_t N = 1ULL << 6;
     while (N <= maximumN)
     {
 
