@@ -14,7 +14,7 @@ int main(int argc, char const *argv[])
     a = 3;
   }
   
-  printf("%d", a);
+  printf("%d\n", a);
   printf("Device Num: %d (%d)\n", dev, init);
 
   return 0;
