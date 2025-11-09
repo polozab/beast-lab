@@ -32,7 +32,7 @@ void triad(size_t N, long numTeams, long numThreads)
         a[i] = b[i] = c[i] = d[i] = i;
     }
 
-    // Calculate repetitions
+    // Calculate repetitions & warmup
 
     double dt = 0.0;
     size_t repetitions = 2;
@@ -69,10 +69,10 @@ void triad(size_t N, long numTeams, long numThreads)
 
     // GPU offloading of the computation loops
     #pragma omp target map(tofrom:a[0:N]) map(to:b[0:N],c[0:N],d[0:N])
+    #pragma omp teams num_teams(numTeams)
     {
         for (size_t j = 0; j < repetitions; ++j)
         {
-            #pragma omp teams num_teams(numTeams)
             #pragma omp distribute parallel for num_threads(numThreads) schedule(static, 1)
             for (size_t i = 0; i < N; ++i)
             {
