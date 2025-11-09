@@ -30,9 +30,6 @@ void triad(unsigned long N, unsigned long repetitions, long numTeams, long numTh
     {
         isInitialDevice = omp_is_initial_device();
     }
-    printf("--------------------------------------\n");
-    printf("Device ID: %d", isInitialDevice);
-    printf("--------------------------------------\n");
 
     /*
      *TODO: Variant 1 - (CPU to GPU copy after CPU initialization) is done by the for loop below.
@@ -81,7 +78,7 @@ void triad(unsigned long N, unsigned long repetitions, long numTeams, long numTh
            numThreads,
            mflops,
            repetitions,
-           isInitialDevice,
+           !isInitialDevice,
            checksum);
 }
 
