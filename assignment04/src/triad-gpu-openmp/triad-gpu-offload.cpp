@@ -8,10 +8,10 @@
 void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
 {
 
-    double *a = (double*) malloc(sizeof(double) * N);
-    double *b = (double*) malloc(sizeof(double) * N);
-    double *c = (double*) malloc(sizeof(double) * N);
-    double *d = (double*) malloc(sizeof(double) * N);
+    double *a = new double[N];
+    double *b = new double[N];
+    double *c = new double[N];
+    double *d = new double[N];
 
     // CPU = 1; GPU = 0
     int isInitialDevice = omp_is_initial_device();
@@ -21,10 +21,7 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
         isInitialDevice = omp_is_initial_device();
     }
 
-    /*
-     *TODO: Variant 1 - (CPU to GPU copy after CPU initialization) is done by the for loop below.
-     *TODO: Variant 2 - Implement and test
-     */
+
     for (size_t i = 0; i < N; i++)
     {
         a[i] = b[i] = c[i] = d[i] = i;
