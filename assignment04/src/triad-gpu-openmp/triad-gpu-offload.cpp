@@ -26,6 +26,8 @@ void triad(unsigned long N, unsigned long repetitions, long numTeams, long numTh
     // CPU = 1; GPU = 0
     int isInitialDevice = omp_is_initial_device();
 
+    printf("%d\n", isInitialDevice);
+
     #pragma omp target map(isInitialDevice)
     {
         isInitialDevice = omp_is_initial_device();
