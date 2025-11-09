@@ -117,7 +117,7 @@ int main(int argc, char *argv[])
 
     if (argc < 2)
     {
-        printf("Vector length len = 2^N needs to be provided.\n Usage: %s <len> [teams] [threads]", argv[0]);
+        printf("Vector length len = 2^N needs to be provided.\n Usage: %s <len> [teams] [threads]\n", argv[0]);
         exit(1);
     }
 
