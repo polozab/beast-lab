@@ -8,12 +8,9 @@
 void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
 {
 
-    double *a = new double[N];
-    double *b = new double[N];
-    double *c = new double[N];
-    double *d = new double[N];
-
+    // Check if offloading is enabled
     // CPU = 1; GPU = 0
+
     int isInitialDevice = omp_is_initial_device();
 
     #pragma omp target map(from:isInitialDevice)
@@ -21,11 +18,21 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
         isInitialDevice = omp_is_initial_device();
     }
 
+    // Allocate memory
+
+    double *a = new double[N];
+    double *b = new double[N];
+    double *c = new double[N];
+    double *d = new double[N];
+
+    // Init memory
 
     for (size_t i = 0; i < N; i++)
     {
         a[i] = b[i] = c[i] = d[i] = i;
     }
+
+    // Measurement
 
     auto start = std::chrono::high_resolution_clock::now();
 
@@ -49,15 +56,20 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration<double>(stop - start).count();
 
-    double checksum = 0.0;
+    // Calculate checksum
 
-    
+    double checksum = 0.0;
+    for (int i = 0; i < N; i++)
+    {
+        checksum += a[i];
+    }
 
     // Clean up & print results
-    delete a;
-    delete b;
-    delete c;
-    delete d;
+    
+    delete[] a;
+    delete[] b;
+    delete[] c;
+    delete[] d;
 
     double mflops = 2.0 * N * repetitions * 1.0e-6 / duration;
 
