@@ -45,7 +45,8 @@ void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
              *TODO: Add OpenMP directives and clauses to fully utilize the GPU
              */
 
-            #pragma omp loop schedule(static, 1)
+            #pragma omp teams num_teams(4)
+            #pragma omp distribute parallel for num_threads(16)
             for (size_t i = 0; i < N; ++i)
             {
                 a[i] = b[i] + c[i] * d[i];
