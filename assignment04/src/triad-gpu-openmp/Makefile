@@ -13,7 +13,7 @@ BINARY_POSTFIX=gh
 SRCS := $(wildcard *.c)
 OBJS := $(SRCS:.c=.out)
 
-all: triad-gpu-offload
+all: $(OBJS)
 
 %.out: %.c
   ${CXX} ${CXXFLAGS} $< -o $@
