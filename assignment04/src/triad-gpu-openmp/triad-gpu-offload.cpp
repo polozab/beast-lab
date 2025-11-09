@@ -26,8 +26,6 @@ void triad(unsigned long N, unsigned long repetitions, long numTeams, long numTh
     // CPU = 1; GPU = 0
     int isInitialDevice = omp_is_initial_device();
 
-    printf("%d\n", isInitialDevice);
-
     #pragma omp target map(isInitialDevice)
     {
         isInitialDevice = omp_is_initial_device();
@@ -95,6 +93,7 @@ int main(int argc, char *argv[])
 
     char *pEnd;
     long maximumN = 1U << strtol(argv[1], &pEnd, 10);
+    printf("%d\n", maximumN);
     if (errno == ERANGE)
     {
         printf("Problem with the first number.");
