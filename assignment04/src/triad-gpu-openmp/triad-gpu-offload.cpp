@@ -5,17 +5,17 @@
 #include <cstdlib>
 #include <omp.h>
 
-double calculateChecksum(long N, const double *vector)
+double calculateChecksum(size_t N, const double *vector)
 {
     double checksum = 0.0;
-    for (int i = 0; i < N; i++)
+    for (size_t i = 0; i < N; i++)
     {
         checksum += vector[i];
     }
     return checksum;
 }
 
-void triad(unsigned long N, unsigned long repetitions, long numTeams, long numThreads)
+void triad(size_t N, size_t repetitions, long numTeams, long numThreads)
 {
 
     auto *a = new double[N];
@@ -35,7 +35,7 @@ void triad(unsigned long N, unsigned long repetitions, long numTeams, long numTh
      *TODO: Variant 1 - (CPU to GPU copy after CPU initialization) is done by the for loop below.
      *TODO: Variant 2 - Implement and test
      */
-    for (unsigned long i = 0; i < N; i++)
+    for (size_t i = 0; i < N; i++)
     {
         a[i] = b[i] = c[i] = d[i] = i;
     }
@@ -45,14 +45,14 @@ void triad(unsigned long N, unsigned long repetitions, long numTeams, long numTh
     // GPU offloading of the computation loops
     #pragma omp target map(tofrom:a) map(to:b,c,d)
     {
-        for (unsigned long j = 0; j < repetitions; ++j)
+        for (size_t j = 0; j < repetitions; ++j)
         {
             /*
              *TODO: Add OpenMP directives and clauses to fully utilize the GPU
              */
 
             #pragma omp loop
-            for (unsigned long i = 0; i < N; ++i)
+            for (size_t i = 0; i < N; ++i)
             {
                 a[i] = b[i] + c[i] * d[i];
             }
@@ -92,12 +92,10 @@ int main(int argc, char *argv[])
     }
 
     char *pEnd;
-    long maximumN = 1U << strtol(argv[1], &pEnd, 10);
-    printf("%d\n", maximumN);
-    if (errno == ERANGE)
-    {
-        printf("Problem with the first number.");
-        exit(2);
+    size_t maximumN = 1ULL << strtol(argv[1], &pEnd, 10);
+    if (errno || maximumN > __INT_MAX__ || maximumN < 1ULL << 7) {
+        fprintf(stderr, "N invalid / out of range\n");
+        exit(EXIT_FAILURE);
     }
     long totalNumberProcessedPoints = strtol(argv[2], &pEnd, 10);
     if (errno == ERANGE)
@@ -140,7 +138,7 @@ int main(int argc, char *argv[])
            "GPU",
            "Checksum");
 
-    long N = 64;
+    size_t N = 1ULL << 7;
     while (N <= maximumN)
     {
 
