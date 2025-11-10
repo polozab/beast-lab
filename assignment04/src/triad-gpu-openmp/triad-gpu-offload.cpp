@@ -32,7 +32,6 @@ void triad(size_t N, long repetitions, long numTeams, long numThreads)
         a[i] = b[i] = c[i] = d[i] = i;
     }
 
-
     // Measurement
     
     double duration;

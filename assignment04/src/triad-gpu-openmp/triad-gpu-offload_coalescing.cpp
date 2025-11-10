@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <omp.h>
 
-void triad(size_t N, long numTeams, long numThreads)
+void triad(size_t N, long repetitions, long numTeams, long numThreads)
 {
 
     // Check if offloading is enabled
@@ -32,52 +32,19 @@ void triad(size_t N, long numTeams, long numThreads)
         a[i] = b[i] = c[i] = d[i] = i;
     }
 
-    // Calculate repetitions
-
-    double dt = 0.0;
-    size_t repetitions = 2;
-
-    while (dt < 1.0) {
-
-        // GPU offloading of the computation loops
-        #pragma omp target data map(tofrom:a[0:N]) map(to:b[0:N],c[0:N],d[0:N])
-        {
-
-            auto start = std::chrono::high_resolution_clock::now();
-
-            #pragma omp target teams distribute parallel for num_teams(numTeams) num_threads(numThreads)
-            for (size_t i = 0; i < N; ++i)
-            {
-                for (size_t j = 0; j < repetitions; ++j)
-                {
-                    a[i] = b[i] + c[i] * d[i];
-                }
-            }
-
-            auto stop = std::chrono::high_resolution_clock::now();
-            dt = std::chrono::duration<double>(stop - start).count();
-
-        } /* target end */
-
-        repetitions *= 2;
-
-    }
-
-
     // Measurement
     
     double duration;
 
-    // GPU offloading of the computation loops
     #pragma omp target data map(tofrom:a[0:N]) map(to:b[0:N],c[0:N],d[0:N])
     {
 
         auto start = std::chrono::high_resolution_clock::now();
 
-        #pragma omp target teams distribute parallel for num_teams(numTeams) num_threads(numThreads)
-        for (size_t i = 0; i < N; ++i)
+        for (size_t j = 0; j < repetitions; ++j)
         {  
-            for (size_t j = 0; j < repetitions; ++j)
+            #pragma omp target teams distribute parallel for simd schedule(static, 1) num_teams(numTeams) num_threads(numThreads)
+            for (size_t i = 0; i < N; ++i)
             {
                 a[i] = b[i] + c[i] * d[i];
             }
@@ -146,9 +113,9 @@ int main(int argc, char *argv[])
     long numThreads = 32;
     long numTeams = 64;
     if (argc >= 3)
-        numTeams = strtol(argv[3], &pEnd, 10);
+        numTeams = strtol(argv[2], &pEnd, 10);
     if (argc == 4)
-        numThreads = strtol(argv[4], &pEnd, 10);
+        numThreads = strtol(argv[3], &pEnd, 10);
 
     fprintf(stderr, "Maximum dataset size = %ld, Performance in MFLOPS.\n", maximumN);
 
@@ -167,10 +134,10 @@ int main(int argc, char *argv[])
 
         // Keep the total number of processed points constant by
         // adjusting the number of repetitions according to data set size
-        //long cycles = std::clamp(totalNumberProcessedPoints / N, 8ul, 65536ul);
+        long cycles = std::clamp(2147483648 / N, 8ul, 65536ul);
 
         // Run benchmark
-        triad(N, numTeams, numThreads);
+        triad(N, cycles, numTeams, numThreads);
 
         N *= 2;
     }
