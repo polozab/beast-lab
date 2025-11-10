@@ -4,6 +4,47 @@
 #include <cstdio>
 #include <cstdlib>
 #include <omp.h>
+#include <string>
+#include <cctype>
+
+enum class SchedulePolicy
+{
+    Default,
+    StaticChunk
+};
+
+const char *schedulePolicyToString(SchedulePolicy policy)
+{
+    switch (policy) {
+    case SchedulePolicy::StaticChunk:
+        return "static";
+    case SchedulePolicy::Default:
+    default:
+        return "default";
+    }
+}
+
+SchedulePolicy parseScheduleArgument(const char *arg)
+{
+    if (arg == nullptr) {
+        return SchedulePolicy::StaticChunk;
+    }
+
+    std::string normalized(arg);
+    std::transform(normalized.begin(), normalized.end(), normalized.begin(), [](unsigned char c) {
+        return static_cast<char>(std::tolower(c));
+    });
+
+    if (normalized == "default" || normalized == "none") {
+        return SchedulePolicy::Default;
+    }
+    if (normalized == "static" || normalized == "static_chunk") {
+        return SchedulePolicy::StaticChunk;
+    }
+
+    fprintf(stderr, "Unknown scheduling policy \"%s\". Falling back to static scheduling.\n", arg);
+    return SchedulePolicy::StaticChunk;
+}
 
 double calculateChecksum(long N, const double *vector)
 {
@@ -17,7 +58,8 @@ double calculateChecksum(long N, const double *vector)
 void triad(unsigned long N,
            unsigned long repetitions,
            long          numTeams,
-           long          numThreads)
+           long          numThreads,
+           SchedulePolicy schedulePolicy)
 {
 
     auto *a = new double[N];
@@ -28,7 +70,7 @@ void triad(unsigned long N,
     // Device Ids CPU = 1 , GPU = 0
     int targetDeviceId = 1;
 
-    /*
+/*
  *TODO: Check by below code block to see if you can offload to GPU properly
  */
 #pragma omp target map(tofrom : targetDeviceId, numTeams, numThreads)
@@ -52,12 +94,20 @@ void triad(unsigned long N,
     // Keep vectors on the device for all repetitions
 #pragma omp target enter data map(alloc : a[0 : N]) map(to : b[0 : N], c[0 : N], d[0 : N])
     for (unsigned long j = 0; j < repetitions; ++j) {
+        if (schedulePolicy == SchedulePolicy::StaticChunk) {
             #pragma omp target teams distribute parallel for simd schedule(static) \
                 num_teams(numTeams) thread_limit(numThreads) \
                 map(present : a[0 : N], b[0 : N], c[0 : N], d[0 : N])
             for (unsigned long i = 0; i < N; ++i) {
                 a[i] = b[i] + c[i] * d[i];
             }
+        } else {
+            #pragma omp target teams distribute parallel for simd num_teams(numTeams) \
+                thread_limit(numThreads) map(present : a[0 : N], b[0 : N], c[0 : N], d[0 : N])
+            for (unsigned long i = 0; i < N; ++i) {
+                a[i] = b[i] + c[i] * d[i];
+            }
+        }
     }
 #pragma omp target exit data map(from : a[0 : N]) map(delete : b[0 : N], c[0 : N], d[0 : N])
 
@@ -74,13 +124,14 @@ void triad(unsigned long N,
     double mflops = 2.0 * N * repetitions * 1.0e-6 / duration;
 
     // print the experimental results
-    printf("| %10ld | %8ld | %8ld | %8.2f | %8ld | %4d | %.4e |\n",
+    printf("| %10ld | %8ld | %8ld | %8.2f | %8ld | %4d | %8s | %.4e |\n",
            N,
            numTeams,
            numThreads,
            mflops,
            repetitions,
            targetDeviceId,
+           schedulePolicyToString(schedulePolicy),
            checksum);
 }
 
@@ -116,12 +167,15 @@ int main(int argc, char *argv[])
     /*
      * TODO: You can adjust thread and team numbers by passing argv[3] and argv[4]
      */
-    long numThreads = 32;
-    long numTeams   = 64;
+    long           numThreads     = 32;
+    long           numTeams       = 64;
+    SchedulePolicy schedulePolicy = SchedulePolicy::StaticChunk;
     if (argc >= 4)
         numTeams = strtol(argv[3], &pEnd, 10);
-    if (argc == 5)
+    if (argc >= 5)
         numThreads = strtol(argv[4], &pEnd, 10);
+    if (argc >= 6)
+        schedulePolicy = parseScheduleArgument(argv[5]);
 
     fprintf(stderr,
             "Maximum dataset size = %ld, total number of processed points = %ld. "
@@ -129,13 +183,14 @@ int main(int argc, char *argv[])
             maximumN,
             totalNumberProcessedPoints);
 
-    printf("| %10s | %8s | %8s | %8s | %8s | %4s | %10s |\n",
+    printf("| %10s | %8s | %8s | %8s | %8s | %4s | %8s | %10s |\n",
            "Data size",
            "Teams",
            "Threads",
            "MFLOPS",
            "Cycles",
            "GPU",
+           "Sched",
            "Checksum");
 
     long N = 64;
@@ -146,7 +201,7 @@ int main(int argc, char *argv[])
         long cycles = std::clamp(totalNumberProcessedPoints / N, 8l, 65536l);
 
         // Run benchmark
-        triad(N, cycles, numTeams, numThreads);
+        triad(N, cycles, numTeams, numThreads, schedulePolicy);
 
         N *= 2;
     }
