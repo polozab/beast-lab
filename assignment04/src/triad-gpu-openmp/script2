@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# submit via sbatch job_minimal.cmd
+# Job Name and Files (also --job-name)
+
+#SBATCH -J a4_t3a_v2
+#Output and error (also --output, --error):
+#SBATCH -o ./%x.%j.out
+#SBATCH -e ./%x.%j.err
+#Initial working directory (also --chdir):
+#SBATCH -D ./
+#Notification and type
+#SBATCH --time=04:00:00
+#SBATCH --no-requeue
+#SBATCH --export=NONE
+#SBATCH --get-user-env
+#SBATCH --partition=gh #milan sap gh cs
+#SBATCH --nodelist=gh3 #sap4 gh3 cs7
+#SBATCH --nodes=1
+
+
+module load nvhpc/25.3
+make clean
+make
+for tt_opt in 40 50 60 70 80 90 100 110 120 130 140 150 160 170 180; do 
+    for t_opt in 32 64 128 256 512 1024 2048 4096; do
+        ./triad-gpu-offload_gpu-init.out 30 ${t_opt} ${tt_opt} > "./tests/teams_${t_opt}_${tt_opt}.csv"
+    done
+done
+
+
+
+
+
