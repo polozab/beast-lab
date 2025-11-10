@@ -29,29 +29,37 @@ void triad(unsigned long N,
     int targetDeviceId = 1;
 
     /*
-    *TODO: Check by below code block to see if you can offload to GPU properly
-    */
-    #pragma omp target map(tofrom : targetDeviceId, numTeams, numThreads)
+ *TODO: Check by below code block to see if you can offload to GPU properly
+ */
+#pragma omp target map(tofrom : targetDeviceId, numTeams, numThreads)
     {
         targetDeviceId = omp_is_initial_device();
     }
-    
+    printf("--------------------------------------\n");
+    printf("Device ID: %d", targetDeviceId);
+    printf("--------------------------------------\n");
+
+    /*
+     *TODO: Variant 1 - (CPU to GPU copy after CPU initialization) is done by the for loop below.
+     *TODO: Variant 2 - Implement and test
+     */
     for (unsigned long i = 0; i < N; i++) {
         a[i] = b[i] = c[i] = d[i] = i;
     }
 
     auto start = std::chrono::high_resolution_clock::now();
 
-    // GPU offloading of the computation loops
-    #pragma omp target data map(tofrom : a[0 : N]) map(to : b[0 : N], c[0 : N], d[0 : N])
-    {
-        for (unsigned long j = 0; j < repetitions; ++j) {
-            #pragma omp target teams distribute parallel for simd schedule(static, 1) num_teams(numTeams) num_threads(numThreads)
+    // Keep vectors on the device for all repetitions
+#pragma omp target enter data map(alloc : a[0 : N]) map(to : b[0 : N], c[0 : N], d[0 : N])
+    for (unsigned long j = 0; j < repetitions; ++j) {
+            #pragma omp target teams distribute parallel for simd schedule(static) \
+                num_teams(numTeams) thread_limit(numThreads) \
+                map(present : a[0 : N], b[0 : N], c[0 : N], d[0 : N])
             for (unsigned long i = 0; i < N; ++i) {
                 a[i] = b[i] + c[i] * d[i];
             }
-        }
-    } /* target end */
+    }
+#pragma omp target exit data map(from : a[0 : N]) map(delete : b[0 : N], c[0 : N], d[0 : N])
 
     auto stop     = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration<double>(stop - start).count();
@@ -66,14 +74,16 @@ void triad(unsigned long N,
     double mflops = 2.0 * N * repetitions * 1.0e-6 / duration;
 
     // print the experimental results
-    printf("| %10ld | %8ld | %8ld | %8.2f | %8ld | %4d | %.4e |\n",
+    printf("| %10ld | %8ld | %8ld | %8.2f | %8ld | %4d | %8s | %.4e |\n",
            N,
            numTeams,
            numThreads,
            mflops,
            repetitions,
            targetDeviceId,
+           schedulePolicyToString(schedulePolicy),
            checksum);
+}
 }
 
 int main(int argc, char *argv[])
