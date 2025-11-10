@@ -36,10 +36,10 @@ void triad(size_t N, long repetitions, long numTeams, long numThreads)
     
     double duration;
 
+    auto start = std::chrono::high_resolution_clock::now();
+
     #pragma omp target data map(tofrom:a[0:N]) map(to:b[0:N],c[0:N],d[0:N])
     {
-
-        auto start = std::chrono::high_resolution_clock::now();
 
         for (size_t j = 0; j < repetitions; ++j)
         {  
@@ -50,11 +50,10 @@ void triad(size_t N, long repetitions, long numTeams, long numThreads)
             }
         }
 
-        auto stop = std::chrono::high_resolution_clock::now();
-        duration = std::chrono::duration<double>(stop - start).count();
-
     } /* target end */
 
+    auto stop = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration<double>(stop - start).count();
 
     // Calculate checksum
 
