@@ -44,7 +44,7 @@ void triad(size_t N, long repetitions, long numTeams, long numThreads)
 
         for (size_t j = 0; j < repetitions; ++j)
         {  
-            #pragma omp target teams distribute parallel for num_teams(numTeams) num_threads(numThreads)
+            #pragma omp target teams distribute parallel for simd num_teams(numTeams) num_threads(numThreads)
             for (size_t i = 0; i < N; ++i)
             {
                 a[i] = b[i] + c[i] * d[i];
