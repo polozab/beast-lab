@@ -46,7 +46,7 @@ void triad(unsigned long N,
     #pragma omp target data map(tofrom : a[0 : N]) map(to : b[0 : N], c[0 : N], d[0 : N])
     {
         for (unsigned long j = 0; j < repetitions; ++j) {
-            #pragma omp target teams distribute parallel for simd num_teams(numTeams) num_threads(numThreads)
+            #pragma omp target teams distribute parallel for simd schedule(static, 1) num_teams(numTeams) num_threads(numThreads)
             for (unsigned long i = 0; i < N; ++i) {
                 a[i] = b[i] + c[i] * d[i];
             }
