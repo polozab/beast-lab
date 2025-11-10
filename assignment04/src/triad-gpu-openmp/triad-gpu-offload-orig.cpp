@@ -74,16 +74,14 @@ void triad(unsigned long N,
     double mflops = 2.0 * N * repetitions * 1.0e-6 / duration;
 
     // print the experimental results
-    printf("| %10ld | %8ld | %8ld | %8.2f | %8ld | %4d | %8s | %.4e |\n",
+    printf("| %10ld | %8ld | %8ld | %8.2f | %8ld | %4d | %.4e |\n",
            N,
            numTeams,
            numThreads,
            mflops,
            repetitions,
            targetDeviceId,
-           schedulePolicyToString(schedulePolicy),
            checksum);
-}
 }
 
 int main(int argc, char *argv[])
