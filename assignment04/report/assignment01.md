@@ -103,4 +103,8 @@ Finally to optimize necessary data transfers to and from the GPU we already encl
 
 ## c) Loop Scheduling Policy
 
-While testing if using the `schedule(static, 1)` scheduling would improve performance we found out, that there is little to no impact declaring any kind of scheduling:
+While testing if using the `schedule(static, 1)` scheduling would improve performance we found out, that there is only a small impact when declaring static scheduling. This difference is only significant at very large vector sizes and at the performance peak:
+
+![Scheduling Plot](task1-plots/scheduling.png)
+
+This difference could be caused by enabling the GPU to better handle contiguous memory accesses. As the scheduling directive directly tells the GPU that only one iteration should be handled by each core they can perfectly access the array one by one. This leads to a better memory utilization in contrast to allowing multiple consecutive entries being loaded for one core.
