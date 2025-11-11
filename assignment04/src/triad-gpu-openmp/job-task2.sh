@@ -25,8 +25,5 @@ make
 
 mkdir -p "./data/memory-init"
 
-./triad-gpu-offload.out 30 > "./data/memory-init/scheduling_none.csv"
-./triad-gpu-offload_static.out 30 > "./data/memory-init/scheduling_static.csv"
-./triad-gpu-offload_static-1.out 30 > "./data/memory-init/scheduling_static-1.csv"
-./triad-gpu-offload_static-1.out 30 > "./data/memory-init/scheduling_static-64.csv"
-./triad-gpu-offload_static-1.out 30 > "./data/memory-init/scheduling_static-128.csv"
+./triad-gpu-offload.out 30 > "./data/memory-init/cpu.csv"
+./triad-gpu-offload_gpu-init.out 30 > "./data/memory-init/gpu.csv"
