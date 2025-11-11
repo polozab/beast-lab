@@ -26,5 +26,7 @@ make
 mkdir data
 
 ./triad-gpu-offload.out 30 > "./data/scheduling_none.csv"
-./triad-gpu-offload_static-1.out 30 > "./data/scheduling_static-1.csv"
 ./triad-gpu-offload_static.out 30 > "./data/scheduling_static.csv"
+./triad-gpu-offload_static-1.out 30 > "./data/scheduling_static-1.csv"
+./triad-gpu-offload_static-1.out 30 > "./data/scheduling_static-64.csv"
+./triad-gpu-offload_static-1.out 30 > "./data/scheduling_static-128.csv"
