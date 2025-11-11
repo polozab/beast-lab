@@ -75,4 +75,10 @@ Noticeable we see a small plateau at the same vector size of 524288 for the GPU 
 
 ### Explanation
 
+Similar to the improvements on the CPU side when allocating memory near threads that later use the data the GPU can also benefit massively form location-aware memory allocation.
+When we copy the data over from the CPU to the GPU it is not guaranteed that we transfer it to memory that is close to the cores operating on this data. This could significantly decrease performance due to longer waiting times for the GPU memory.
 
+If we then instead initialize the memory directly on the GPU with the same teams and thread using deterministic scheduling, we also enure that the relevant vector entries get stored in local memory near to the executing cores.
+As OpenMP uses deterministic scheduling we can profit substantially from fast local memory accesses, which especially improves performance for memory heavy kernels like triad.
+
+In addition the data can be loaded into the shared cache of one streaming multiprocessor, which benefits performance even more when the teams using this data get assigned to the same streaming multiprocessor both times during initialization and kernel execution.
