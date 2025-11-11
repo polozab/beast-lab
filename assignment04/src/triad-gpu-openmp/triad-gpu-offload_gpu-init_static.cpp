@@ -37,7 +37,7 @@ void triad(size_t N, long repetitions, long numTeams, long numThreads)
     {
 
         // Init memory
-        #pragma omp target teams distribute parallel for
+        #pragma omp target teams distribute parallel for schedule(static, 1)
         for (size_t i = 0; i < N; i++)
         {
             a[i] = b[i] = c[i] = d[i] = i;
