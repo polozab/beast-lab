@@ -27,3 +27,4 @@ mkdir -p "./data/memory-init"
 
 ./triad-gpu-offload.out 30 > "./data/memory-init/cpu.csv"
 ./triad-gpu-offload_gpu-init.out 30 > "./data/memory-init/gpu.csv"
+./triad-gpu-offload_gpu-init_static.out 30 > "./data/memory-init/gpu_static.csv"

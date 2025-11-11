@@ -6,7 +6,7 @@ base = Path("./assignment04")
 
 dfs = []
 
-for f in (base / "src/triad-gpu-openmp/data/scheduling").iterdir():
+for f in (base / "src/triad-gpu-openmp/data/memory-init").iterdir():
   df = pd.read_csv(f, skipinitialspace=True)
   df["mem_init"] = f.stem
   dfs.append(df)
@@ -24,7 +24,9 @@ p = (ggplot(df, aes(x="Data size", y="MFLOPS", color="mem_init"))
        name="MFLOPS/s"
      )
      + scale_color_discrete(
-        name="Thread Scheduling",
+        name="Memory Initialization",
+        breaks=["cpu", "gpu"],
+        labels=["On CPU", "On GPU"]
      )
      + geom_line())
 

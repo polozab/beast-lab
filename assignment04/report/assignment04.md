@@ -20,4 +20,4 @@ The achieved GPU bandwidth can be calculated as follows: Bandwidth = achieved GF
 we also ran our test script for the new best performing value of 8388608x128 Teams x Threads and for low and medium data sizes it performed dreadful as can be seen in this [file](/assignment04/src/triad-gpu-openmp/tests/teams_8388608_128.csv).
 
 ## Appendix
-all measurements can be found in this [folder](/assignment04/src/triad-gpu-openmp/tests/) and in the [file](/assignment04/src/triad-gpu-openmp/task4b-results.csv).
+All measurements can be found in this [folder](/assignment04/src/triad-gpu-openmp/tests/) and in the [file](/assignment04/src/triad-gpu-openmp/task4b-results.csv).
