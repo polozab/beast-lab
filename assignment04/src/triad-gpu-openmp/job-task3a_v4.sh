@@ -3,7 +3,7 @@
 # submit via sbatch job_minimal.cmd
 # Job Name and Files (also --job-name)
 
-#SBATCH -J a4_t3a_v3
+#SBATCH -J a4_t3a_v4
 #Output and error (also --output, --error):
 #SBATCH -o ./%x.%j.out
 #SBATCH -e ./%x.%j.err
