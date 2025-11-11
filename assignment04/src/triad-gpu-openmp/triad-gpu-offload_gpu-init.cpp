@@ -51,13 +51,13 @@ void triad(size_t N, long repetitions, long numTeams, long numThreads)
             for (size_t i = 0; i < N; ++i)
             {
                 if (i == 0 && j == 0) {
-                        if (omp_get_team_num() == 0 && omp_get_thread_num() == 0) {
+                    if (omp_get_team_num() == 0 && omp_get_thread_num() == 0) {
         
-                    *teams   = omp_get_num_teams();
-                    *threads = omp_get_num_threads();
+                        *teams   = omp_get_num_teams();
+                        *threads = omp_get_num_threads();
 
+                    }
                 }
-            }
                 a[i] = b[i] + c[i] * d[i];
             }
         }
