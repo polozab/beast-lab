@@ -23,10 +23,7 @@ module load nvhpc/25.3
 make clean
 make
 
-mkdir data
+mkdir -p "./data/scheduling"
 
-./triad-gpu-offload.out 30 > "./data/scheduling_none.csv"
-./triad-gpu-offload_static.out 30 > "./data/scheduling_static.csv"
-./triad-gpu-offload_static-1.out 30 > "./data/scheduling_static-1.csv"
-./triad-gpu-offload_static-1.out 30 > "./data/scheduling_static-64.csv"
-./triad-gpu-offload_static-1.out 30 > "./data/scheduling_static-128.csv"
+./triad-gpu-offload.out 30 > "./data/scheduling/scheduling_none.csv"
+./triad-gpu-offload_static-1.out 30 > "./data/scheduling/scheduling_static-1.csv"
