@@ -13,6 +13,8 @@ for f in (base / "src/triad-gpu-openmp/data/memory-init").iterdir():
 
 df = pd.concat(dfs)
 
+df = df[df["mem_init"].isin(["cpu", "gpu"])]
+
 print(df.columns)
 
 p = (ggplot(df, aes(x="Data size", y="MFLOPS", color="mem_init"))
