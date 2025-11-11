@@ -6,7 +6,7 @@ The following configurations were used:
 - as source file we used our modified version of the triad benchmark `./triad-gpu-offload_gpu-init.out` runing vector sized up to 2^30 elements
 - as comiler we used `nvc++`with the flags -fopenmp -mp=gpu -O4 -fast
 
-> To see an extensive list of our measured results please refer to the files in this [folder](/assignment04/src/triad-gpu-openmp/tests/). They contain a sorted list of the different configurations we used and a sorted by maximum achieved MFLOPS, Median MFLOPS and Avgerage MFLOPS. Furthermore the combined file shows the configuration which performed the highest in every metric.
+> To see an extensive list of our measured results please refer to the files in this [folder](/assignment04/report/task3-measurements). They contain a sorted list of the different configurations we used and a sorted by maximum achieved MFLOPS, Median MFLOPS and Avgerage MFLOPS. Furthermore the combined file shows the configuration which performed the highest in every metric.
 
 ## Results and interpretation
 We decided to continue our analysis with the configuration:
