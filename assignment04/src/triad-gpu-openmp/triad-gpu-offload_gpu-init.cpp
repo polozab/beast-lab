@@ -8,6 +8,10 @@
 void triad(size_t N, long repetitions, long numTeams, long numThreads)
 {
 
+    int tz = -1;
+    int thz = -1;
+    int *teams = &tz;
+    int *threads = &thz;
     // Check if offloading is enabled
     // CPU = 1; GPU = 0
 
@@ -43,9 +47,17 @@ void triad(size_t N, long repetitions, long numTeams, long numThreads)
 
         for (size_t j = 0; j < repetitions; ++j)
         {  
-            #pragma omp target teams distribute parallel for simd num_teams(numTeams) num_threads(numThreads)
+            #pragma omp target teams distribute parallel loop simd
             for (size_t i = 0; i < N; ++i)
             {
+                if (i == 0 && j == 0) {
+                        if (omp_get_team_num() == 0 && omp_get_thread_num() == 0) {
+        
+                    *teams   = omp_get_num_teams();
+                    *threads = omp_get_num_threads();
+
+                }
+            }
                 a[i] = b[i] + c[i] * d[i];
             }
         }
@@ -76,8 +88,8 @@ void triad(size_t N, long repetitions, long numTeams, long numThreads)
     // print the experimental results
     printf("%10ld, %8ld, %8ld, %8.2f, %8ld, %4d, %.4e\n",
            N,
-           numTeams,
-           numThreads,
+           *teams,
+           *threads,
            mflops,
            repetitions,
            !isInitialDevice,
