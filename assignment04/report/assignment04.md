@@ -1,4 +1,4 @@
-# Report on task 4
+# Task 4
 ## Figures
 ![](/assignment04/report/task4-plots/Figure_1.png)
 

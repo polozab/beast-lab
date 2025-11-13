@@ -1,4 +1,4 @@
-# Report on task 3
+# Task 3
 For a better result we combined task a) and b) and ran the benchmark with different number of threads and teams and analyzed the resulting performance.
 
 ## Measurement setup
