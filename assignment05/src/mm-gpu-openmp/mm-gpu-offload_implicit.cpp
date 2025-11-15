@@ -19,7 +19,7 @@ void mm_kernel(double *a, double *b, double *c, int N, int r)
     (void)r;
 
     #pragma omp target
-    #pragma omp teams loop
+    #pragma omp teams loop collapse(2)
     for (int i = 0; i < N; ++i)
     {
         for (int j = 0; j < N; ++j)
@@ -59,7 +59,7 @@ double mm(int N, int REP, double expected_result)
 
         // Init data on cpu
         #pragma omp target
-        #pragma omp teams loop
+        #pragma omp teams loop collapse(2)
         for (int i = 0; i < N; ++i)
         {
             for (int j = 0; j < N; ++j)
