@@ -14,7 +14,7 @@
 #define IDX(row, col, width) ((width) * (row) + (col))
 #define IDX_COL(row, col, height) ((row) + (col) * (height))
 
-void mm_kernel(double *a, double *b, double *c, int N, int r)
+void mm_kernel(double *a, double *b, double *c, int N, int r, int teams, int threads)
 {
 
     (void)r;
@@ -31,7 +31,8 @@ void mm_kernel(double *a, double *b, double *c, int N, int r)
                 #ifdef PRINT_DEBUG
                 if (i == 0 && j == 0 && k == 0 && r == 0) {
                     if (omp_get_team_num() == 0 && omp_get_thread_num() == 0) {
-                        printf("DEBUG: Teams = %d, Threads = %d\n", omp_get_num_teams(), omp_get_num_threads());
+                        teams = omp_get_num_teams();
+                        threads = omp_get_num_threads();
                     }
                 }
                 #endif
@@ -54,8 +55,11 @@ double mm(int N, int REP, double expected_result)
     double *b = (double *)malloc(N_sqr * sizeof(double));
     double *c = (double *)malloc(N_sqr * sizeof(double));
 
+    int teams = 0;
+    int threads = 0;
+
     // Alloc on GPU
-    #pragma omp target data map(from : a[0 : N_sqr]) map(alloc : b[0 : N_sqr], c[0 : N_sqr])
+    #pragma omp target data map(from : a[0 : N_sqr], teams, threads) map(alloc : b[0 : N_sqr], c[0 : N_sqr]) 
     {
 
         // Init data on cpu
@@ -77,7 +81,7 @@ double mm(int N, int REP, double expected_result)
         // TODO: Run on target device
         for (int r = 0; r < REP; ++r)
         {
-            mm_kernel(a, b, c, N, r);
+            mm_kernel(a, b, c, N, r, teams, threads);
         }
 
         // End time measurements for computation
@@ -88,6 +92,9 @@ double mm(int N, int REP, double expected_result)
         dur = std::chrono::duration_cast<dsec>(t1 - t0).count();
 
     }
+
+    // PRINT THE FUCKING FUCK
+    printf("Teams: %d, Threads: %d\n", teams, threads);
 
     // TODO: Copy back from GPU, eventually release memory
 
