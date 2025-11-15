@@ -24,13 +24,12 @@ void mm_kernel(double *a, double *b, double *c, int N, int r)
     #pragma omp distribute parallel for num_threads(NUM_THREADS) collapse(2)
     for (int i = 0; i < N; ++i)
     {
-        #ifdef PRINT_DEBUG
                 if (i == 0&& r == 0) {
                     if (omp_get_team_num() == 0 && omp_get_thread_num() == 0) {
                         printf("DEBUG: Teams = %d, Threads = %d\n", omp_get_num_teams(), omp_get_num_threads());
                     }
                 }
-                #endif
+                
         for (int j = 0; j < N; ++j)
         {
             for (int k = 0; k < N; ++k)
