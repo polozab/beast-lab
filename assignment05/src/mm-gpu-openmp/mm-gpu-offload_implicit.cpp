@@ -19,7 +19,7 @@ void mm_kernel(double *a, double *b, double *c, int N, int r)
     (void)r;
 
     #pragma omp target
-    #pragma omp loop collapse(2)
+    #pragma omp loop simd collapse(2)
     for (int i = 0; i < N; ++i)
     {
         for (int j = 0; j < N; ++j)
@@ -35,7 +35,6 @@ void mm_kernel(double *a, double *b, double *c, int N, int r)
                 }
                 #endif
 
-                #pragma omp simd
                 a[IDX(i, j, N)] += b[IDX(i, k, N)] * c[IDX(j, k, N)];
             }
         }
