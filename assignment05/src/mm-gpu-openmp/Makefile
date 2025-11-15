@@ -10,10 +10,10 @@ OBJS := $(SRCS:.cpp=.out)
 all: $(OBJS)
 
 debug:
-        $(MAKE) $(NUM_TEAMS) $(NUM_THREADS) CXXFLAGS="$(CXXFLAGS) -g -DPRINT_DEBUG"
+	$(MAKE) $(NUM_TEAMS) $(NUM_THREADS) CXXFLAGS="$(CXXFLAGS) -g -DPRINT_DEBUG"
 
 %.out: %.cpp
-        $(CXX) $(CXXFLAGS) -DNUM_TEAMS=$(NUM_TEAMS) -DNUM_THREADS=$(NUM_THREADS) $< -o $@
+	$(CXX) $(CXXFLAGS) -DNUM_TEAMS=$(NUM_TEAMS) -DNUM_THREADS=$(NUM_THREADS) $< -o $@
 
 clean:
-        rm -f $(OBJS)
+	rm -f $(OBJS)
