@@ -18,27 +18,23 @@ void mm_kernel(double *a, double *b, double *c, int N, int r)
 
     (void)r;
 
-    #pragma omp target teams parallel num_teams(NUM_TEAMS) thread_limit(NUM_THREADS)
+    #pragma omp loop
+    for (int i = 0; i < N; ++i)
     {
-
-        #pragma omp loop collapse(2)
-        for (int i = 0; i < N; ++i)
+        for (int j = 0; j < N; ++j)
         {
-            for (int j = 0; j < N; ++j)
+            for (int k = 0; k < N; ++k)
             {
-                for (int k = 0; k < N; ++k)
-                {
-    
-                    #ifdef PRINT_DEBUG
-                    if (i == 0 && j == 0 && k == 0 && r == 0) {
-                        if (omp_get_team_num() == 0 && omp_get_thread_num() == 0) {
-                            printf("DEBUG: Teams = %d, Threads = %d\n", omp_get_num_teams(), omp_get_num_threads());
-                        }
+
+                #ifdef PRINT_DEBUG
+                if (i == 0 && j == 0 && k == 0 && r == 0) {
+                    if (omp_get_team_num() == 0 && omp_get_thread_num() == 0) {
+                        printf("DEBUG: Teams = %d, Threads = %d\n", omp_get_num_teams(), omp_get_num_threads());
                     }
-                    #endif
-    
-                    a[IDX(i, j, N)] += b[IDX(i, k, N)] * c[IDX(j, k, N)];
                 }
+                #endif
+
+                a[IDX(i, j, N)] += b[IDX(i, k, N)] * c[IDX(j, k, N)];
             }
         }
     }
@@ -61,17 +57,14 @@ double mm(int N, int REP, double expected_result)
     {
 
         // Init data on cpu
-        #pragma omp target teams parallel num_teams(NUM_TEAMS) thread_limit(NUM_THREADS)
+        #pragma omp loop
+        for (int i = 0; i < N; ++i)
         {
-            #pragma omp loop collapse(2)
-            for (int i = 0; i < N; ++i)
+            for (int j = 0; j < N; ++j)
             {
-                for (int j = 0; j < N; ++j)
-                {
-                    a[i * N + j] = 0.0;
-                    b[i * N + j] = (i * j) / (N * 50);
-                    c[i * N + j] = (i * j) / (N * 50);
-                }
+                a[i * N + j] = 0.0;
+                b[i * N + j] = (i * j) / (N * 50);
+                c[i * N + j] = (i * j) / (N * 50);
             }
         }
 
