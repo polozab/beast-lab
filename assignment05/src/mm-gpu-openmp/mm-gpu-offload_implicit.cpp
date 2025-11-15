@@ -64,9 +64,9 @@ double mm(int N, int REP, double expected_result)
         {
             for (int j = 0; j < N; ++j)
             {
-                a[i * N + j] = 0.0;
-                b[i * N + j] = (i * j) / (N * 50);
-                c[i * N + j] = (i * j) / (N * 50);
+                a[IDX(i, j, N)] = 0.0;
+                b[IDX(i, j, N)] = (i * j) / (N * 50);
+                c[IDX(i, j, N)] = (i * j) / (N * 50);
             }
         }
 
