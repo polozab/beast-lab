@@ -18,6 +18,7 @@ void mm_kernel(double *a, double *b, double *c, int N, int r)
 
     (void)r;
 
+    #pragma omp target
     #pragma omp loop
     for (int i = 0; i < N; ++i)
     {
@@ -57,6 +58,7 @@ double mm(int N, int REP, double expected_result)
     {
 
         // Init data on cpu
+        #pragma omp target
         #pragma omp loop
         for (int i = 0; i < N; ++i)
         {
