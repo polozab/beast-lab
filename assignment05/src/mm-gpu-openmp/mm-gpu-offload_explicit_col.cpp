@@ -56,8 +56,8 @@ double mm(int N, int REP, double expected_result)
     double *b = (double *)malloc(N_sqr * sizeof(double));
     double *c = (double *)malloc(N_sqr * sizeof(double));
 
-    int teams;
-    int threads;
+    int teams = 0;
+    int threads = 0;
 
     // Alloc on GPU
     #pragma omp target data map(from : a[0 : N_sqr], teams, threads) map(alloc : b[0 : N_sqr], c[0 : N_sqr]) 
