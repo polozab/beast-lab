@@ -23,17 +23,19 @@ void mm_kernel(double *a, double *b, double *c, int N, int r)
     #pragma omp teams loop collapse(2)
     for (int i = 0; i < N; ++i)
     {
-                if (name == 1) {
-                        printf("DEBUG: Teams = %d, Threads = %d\n", omp_get_num_teams(), omp_get_num_threads());
-                        name = 2;
-                }
         for (int j = 0; j < N; ++j)
         {
             for (int k = 0; k < N; ++k)
             {
 
                 
-
+                if (r == 0) {
+                    int num_teams = omp_get_num_teams();
+                    int num_threads = omp_get_num_threads();
+                    if (omp_get_team_num() == 0 && omp_get_thread_num() == 0) {
+                        printf("Teams: %d, Threads: %d\n", num_teams, num_threads);
+                    }
+                }
                 a[IDX(i, j, N)] += b[IDX(i, k, N)] * c[IDX_COL(j, k, N)];
             }
         }
