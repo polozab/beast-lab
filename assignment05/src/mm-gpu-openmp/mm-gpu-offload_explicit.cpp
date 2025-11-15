@@ -18,7 +18,9 @@ void mm_kernel(double *a, double *b, double *c, int N, int r)
 
     (void)r;
 
-    #pragma omp target teams distribute parallel for schedule(static, 1) collapse(2) num_teams(NUM_TEAMS) num_threads(NUM_THREADS)
+    #pragma omp target
+    #pragma omp teams num_teams(NUM_TEAMS)
+    #pragma omp distribute parallel for num_threads(NUM_THREADS) collapse(2)
     for (int i = 0; i < N; ++i)
     {
         for (int j = 0; j < N; ++j)
@@ -57,7 +59,9 @@ double mm(int N, int REP, double expected_result)
     {
 
         // Init data on cpu
-        #pragma omp target teams distribute parallel for schedule(static, 1) collapse(2) num_teams(NUM_TEAMS) num_threads(NUM_THREADS)
+        #pragma omp target
+        #pragma omp teams num_teams(NUM_TEAMS)
+        #pragma omp distribute parallel for num_threads(NUM_THREADS) collapse(2)
         for (int i = 0; i < N; ++i)
         {
             for (int j = 0; j < N; ++j)
