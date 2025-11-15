@@ -1,8 +1,8 @@
 CXX=clang++
 CXXFLAGS= -std=c++17 -Wall -Wextra -fopenmp --offload-arch=gfx90a -O3
 
-NUM_TEAMS ?= $(firstword $(MAKECMDGOALS))
-NUM_THREADS ?= $(word 2, $(MAKECMDGOALS))
+NUM_TEAMS ?= $(or $(firstword $(MAKECMDGOALS)), 64)
+NUM_THREADS ?= $(or $(word 2, $(MAKECMDGOALS)), 64)
 
 SRCS := $(wildcard *.cpp)
 OBJS := $(SRCS:.cpp=.out)
