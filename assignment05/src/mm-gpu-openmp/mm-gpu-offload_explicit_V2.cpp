@@ -62,7 +62,7 @@ double mm(int N, int REP, double expected_result)
         // Init data on cpu
         #pragma omp target
         #pragma omp teams num_teams(NUM_TEAMS)
-        #pragma omp distribute parallel for num_threads(NUM_THREADS) collapse(2)
+        #pragma omp distribute parallel for simd num_threads(NUM_THREADS) collapse(2)
         for (int i = 0; i < N; ++i)
         {
             for (int j = 0; j < N; ++j)
