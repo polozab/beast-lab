@@ -14,19 +14,18 @@
 #define IDX(row, col, width) ((width) * (row) + (col))
 #define IDX_COL(row, col, height) ((row) + (col) * (height))
 
+int name = 1;
 void mm_kernel(double *a, double *b, double *c, int N, int r)
 {
-
     (void)r;
 
     #pragma omp target
     #pragma omp teams loop collapse(2)
     for (int i = 0; i < N; ++i)
     {
-                if (i == 0 && r == 0) {
-                    if (omp_get_team_num() == 0 && omp_get_thread_num() == 0) {
+                if (name == 1) {
                         printf("DEBUG: Teams = %d, Threads = %d\n", omp_get_num_teams(), omp_get_num_threads());
-                    }
+                        name = 2;
                 }
         for (int j = 0; j < N; ++j)
         {
