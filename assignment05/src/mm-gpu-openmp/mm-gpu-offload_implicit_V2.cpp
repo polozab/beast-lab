@@ -29,13 +29,10 @@ void mm_kernel(double *a, double *b, double *c, int N, int r)
             {
 
                 
-                if (r == 0) {
-                    int num_teams = omp_get_num_teams();
-                    int num_threads = omp_get_num_threads();
-                    if (omp_get_team_num() == 0 && omp_get_thread_num() == 0) {
-                        printf("Teams: %d, Threads: %d\n", num_teams, num_threads);
-                    }
-                }
+                
+                printf("Teams: %d, Threads: %d :: From Team: %d, Thread: %d", omp_get_num_teams(), omp_get_num_threads(), omp_get_thread_num(), omp_get_team_num());
+
+                   
                 a[IDX(i, j, N)] += b[IDX(i, k, N)] * c[IDX_COL(j, k, N)];
             }
         }
