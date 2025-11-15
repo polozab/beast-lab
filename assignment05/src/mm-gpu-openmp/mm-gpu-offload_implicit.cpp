@@ -19,7 +19,7 @@ void mm_kernel(double *a, double *b, double *c, int N, int r)
     (void)r;
 
     #pragma omp target
-    #pragma omp loop simd collapse(2)
+    #pragma omp loop collapse(2)
     for (int i = 0; i < N; ++i)
     {
         for (int j = 0; j < N; ++j)
