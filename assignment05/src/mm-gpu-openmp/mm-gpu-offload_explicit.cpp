@@ -68,7 +68,7 @@ double mm(int N, int REP, double expected_result)
             {
                 a[i * N + j] = 0.0;
                 b[i * N + j] = (i * j) / (N * 50);
-                c[j * N + i] = (i * j) / (N * 50);
+                c[i * N + j] = (i * j) / (N * 50);
             }
         }
 
