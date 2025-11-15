@@ -18,7 +18,7 @@ void mm_kernel(double *a, double *b, double *c, int N, int r)
 
     (void)r;
 
-    #pragma omp target loop schedule(static, 1) collapse(2)
+    #pragma omp target loop collapse(2)
     for (int i = 0; i < N; ++i)
     {
         for (int j = 0; j < N; ++j)
@@ -57,7 +57,7 @@ double mm(int N, int REP, double expected_result)
     {
 
         // Init data on cpu
-        #pragma omp target loop schedule(static, 1) collapse(2)
+        #pragma omp target loop collapse(2)
         for (int i = 0; i < N; ++i)
         {
             for (int j = 0; j < N; ++j)
