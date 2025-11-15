@@ -61,15 +61,17 @@ double mm(int N, int REP, double expected_result)
     {
 
         // Init data on cpu
-        #pragma omp target
-        #pragma omp loop collapse(2)
-        for (int i = 0; i < N; ++i)
+        #pragma omp target teams num_teams(NUM_TEAMS) thread_limit(NUM_THREADS)
         {
-            for (int j = 0; j < N; ++j)
+            #pragma omp loop collapse(2)
+            for (int i = 0; i < N; ++i)
             {
-                a[i * N + j] = 0.0;
-                b[i * N + j] = (i * j) / (N * 50);
-                c[i * N + j] = (i * j) / (N * 50);
+                for (int j = 0; j < N; ++j)
+                {
+                    a[i * N + j] = 0.0;
+                    b[i * N + j] = (i * j) / (N * 50);
+                    c[i * N + j] = (i * j) / (N * 50);
+                }
             }
         }
 
