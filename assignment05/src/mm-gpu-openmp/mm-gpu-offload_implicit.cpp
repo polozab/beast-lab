@@ -35,6 +35,7 @@ void mm_kernel(double *a, double *b, double *c, int N, int r)
                 }
                 #endif
 
+                #pragma omp simd
                 a[IDX(i, j, N)] += b[IDX(i, k, N)] * c[IDX(j, k, N)];
             }
         }
