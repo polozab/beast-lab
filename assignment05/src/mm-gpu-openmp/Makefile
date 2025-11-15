@@ -16,4 +16,4 @@ debug:
         $(CXX) $(CXXFLAGS) -DNUM_TEAMS=$(NUM_TEAMS) -DNUM_THREADS=$(NUM_THREADS) $< -o $@
 
 clean:
-	rm -f $(OBJS)
+        rm -f $(OBJS)
