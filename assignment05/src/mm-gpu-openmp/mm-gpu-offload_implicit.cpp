@@ -18,7 +18,7 @@ void mm_kernel(double *a, double *b, double *c, int N, int r)
 
     (void)r;
 
-    #pragma omp target teams num_teams(NUM_TEAMS) thread_limit(NUM_THREADS)
+    #pragma omp target teams parallel num_teams(NUM_TEAMS) thread_limit(NUM_THREADS)
     {
 
         #pragma omp loop collapse(2)
@@ -61,7 +61,7 @@ double mm(int N, int REP, double expected_result)
     {
 
         // Init data on cpu
-        #pragma omp target teams num_teams(NUM_TEAMS) thread_limit(NUM_THREADS)
+        #pragma omp target teams parallel num_teams(NUM_TEAMS) thread_limit(NUM_THREADS)
         {
             #pragma omp loop collapse(2)
             for (int i = 0; i < N; ++i)
