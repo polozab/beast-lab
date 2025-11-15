@@ -7,7 +7,8 @@ NUM_THREADS ?= 64
 SRCS := $(wildcard *.cpp)
 OBJS := $(SRCS:.cpp=.out)
 
-.PHONY: all debug
+.PHONY: FORCE
+%.out: FORCE
 
 all: $(OBJS)
 
