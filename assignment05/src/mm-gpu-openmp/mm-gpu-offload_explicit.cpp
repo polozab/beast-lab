@@ -53,11 +53,11 @@ double mm(int N, int REP, double expected_result)
     double *c = (double *)malloc(N_sqr * sizeof(double));
 
     // Alloc on GPU
-    #pragma omp target data map(from : a[0 : N_sqr]) map(alloc : b[0 : N_sqr], c[0 : N_sqr])
+    #pragma omp target data map(from : a[0 : N_sqr]) map(alloc : b[0 : N_sqr], c[0 : N_sqr]) 
     {
 
         // Init data on cpu
-        #pragma omp target teams distribute parallel for schedule(static, 1) collapse(2)
+        #pragma omp target teams distribute parallel for schedule(static, 1) collapse(2) num_teams(NUM_TEAMS) num_threads(NUM_THREADS)
         for (int i = 0; i < N; ++i)
         {
             for (int j = 0; j < N; ++j)
