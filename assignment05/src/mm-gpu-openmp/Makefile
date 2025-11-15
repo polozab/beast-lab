@@ -7,9 +7,6 @@ NUM_THREADS ?= 64
 SRCS := $(wildcard *.cpp)
 OBJS := $(SRCS:.cpp=.out)
 
-.PHONY: FORCE
-%.out: FORCE
-
 all: $(OBJS)
 
 debug: CXXFLAGS += -g -DPRINT_DEBUG
