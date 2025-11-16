@@ -13,11 +13,8 @@
 
 #define IDX(row, col, width) ((width) * (row) + (col))
 
-void mm_kernel(double *a, double *b, double *c, int N, int r)
+void mm_kernel(double *a, double *b, double *c, int N)
 {
-
-    (void)r;
-
     #pragma omp target
     #pragma omp teams num_teams(NUM_TEAMS)
     #pragma omp distribute parallel for num_threads(NUM_THREADS) collapse(2) schedule(dynamic, 1)
@@ -27,22 +24,11 @@ void mm_kernel(double *a, double *b, double *c, int N, int r)
         {
             for (int k = 0; k < N; ++k)
             {
-
-                #ifdef PRINT_DEBUG
-                if (i == 0 && j == 0 && k == 0 && r == 0) {
-                    if (omp_get_team_num() == 0 && omp_get_thread_num() == 0) {
-                        printf("DEBUG: Teams = %d, Threads = %d\n", omp_get_num_teams(), omp_get_num_threads());
-                    }
-                }
-                #endif
-
                 a[IDX(i, j, N)] += b[IDX(i, k, N)] * c[IDX(j, k, N)];
             }
         }
     }
 }
-
-// TODO: Tiled version
 
 double mm(int N, int REP, double expected_result)
 {
@@ -53,6 +39,12 @@ double mm(int N, int REP, double expected_result)
     double *a = (double *)malloc(N_sqr * sizeof(double));
     double *b = (double *)malloc(N_sqr * sizeof(double));
     double *c = (double *)malloc(N_sqr * sizeof(double));
+
+    int *teams = (int *) omp_target_alloc(sizeof(int), omp_get_default_device());
+    int *threads = (int *) omp_target_alloc(sizeof(int), omp_get_default_device());
+
+    *teams = -1;
+    *threads = -1;
 
     // Alloc on GPU
     #pragma omp target data map(from : a[0 : N_sqr]) map(alloc : b[0 : N_sqr], c[0 : N_sqr]) 
@@ -67,10 +59,25 @@ double mm(int N, int REP, double expected_result)
             for (int j = 0; j < N; ++j)
             {
                 a[IDX(i, j, N)] = 0.0;
-                b[IDX(i, j, N)] = (i * j) / (N * 50);
+                b[IDX(i, j, N)]= (i * j) / (N * 50);
                 c[IDX(i, j, N)] = (i * j) / (N * 50);
             }
         }
+
+        // Debug print 
+        #ifdef PRINT_DEBUG
+        #pragma omp target
+        #pragma omp teams num_teams(NUM_TEAMS)
+        #pragma omp distribute parallel for num_threads(NUM_THREADS) collapse(2) schedule(static, 1)
+        for (int i = 0; i < N; ++i)
+        {
+            for (int j = 0; j < N; ++j)
+            {
+                *teams = omp_get_num_teams();
+                *threads = omp_get_num_threads();
+            }
+        }
+        #endif
 
         // Start time measurements for computation
         auto t0 = std::chrono::high_resolution_clock::now();
@@ -78,7 +85,7 @@ double mm(int N, int REP, double expected_result)
         // TODO: Run on target device
         for (int r = 0; r < REP; ++r)
         {
-            mm_kernel(a, b, c, N, r);
+            mm_kernel(a, b, c, N);
         }
 
         // End time measurements for computation
@@ -113,10 +120,12 @@ double mm(int N, int REP, double expected_result)
     free((void *)a);
     free((void *)b);
     free((void *)c);
+    omp_target_free(teams, omp_get_default_device());
+    omp_target_free(threads, omp_get_default_device());
 
     // Flop calculation
     double mflop = 2.0 * (double)N * (double)N * (double)N * (double)REP * 1.0e-6 / dur;
-    printf("%d, %d, %d, %d, %f\n", N, REP, NUM_TEAMS, NUM_THREADS, mflop);
+    printf("%d, %d, %d, %d, %d, %d, %f\n", N, REP, NUM_TEAMS, NUM_THREADS, *teams, *threads, mflop);
 
     return mflop;
 
@@ -138,7 +147,7 @@ int main(int argc, char *argv[])
     // }
     // printf("--------------------------------------------------\n");
 
-    printf("N, REP, Teams, Threads, MFLOPS\n");
+    printf("N, REP, Teams, Threads, Actual_Teams, Actual_Threads, MFLOPS\n");
 
     // ugly hardcoded stuff :)
     mm(100, 2000, 108290000.000);
