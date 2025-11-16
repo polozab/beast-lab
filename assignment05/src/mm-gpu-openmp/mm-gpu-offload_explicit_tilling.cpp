@@ -75,20 +75,13 @@ double mm(int N, int REP, double expected_result)
         #pragma omp target
         #pragma omp teams num_teams(NUM_TEAMS)
         #pragma omp distribute parallel for num_threads(NUM_THREADS) collapse(2) schedule(static, 1)
-        for (int i = 0; i < padded_N; ++i)
+        for (int i = 0; i < N; ++i)
         {
-            for (int j = 0; j < padded_N; ++j)
+            for (int j = 0; j < N; ++j)
             {
-                if (i < N && j < N) {
-                    a[IDX(i, j, padded_N)] = 0.0;
-                    b[IDX(i, j, padded_N)] = (i * j) / (N * 50);
-                    c[IDX(i, j, padded_N)] = (i * j) / (N * 50);
-                }
-                else {
-                    a[IDX(i, j, padded_N)] = 0.0;
-                    b[IDX(i, j, padded_N)] = 0.0;
-                    c[IDX(i, j, padded_N)] = 0.0;
-                }
+                a[IDX(i, j, padded_N)] = 0.0;
+                b[IDX(i, j, padded_N)] = (i * j) / (N * 50);
+                c[IDX(i, j, padded_N)] = (i * j) / (N * 50);
             }
         }
 
