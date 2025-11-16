@@ -20,7 +20,7 @@ void mm_kernel(double *a, double *b, double *c, int N, int *teams, int *threads)
     (void)teams;
     (void)threads;
 
-    #pragma omp target
+    #pragma omp target is_device_ptr(teams, threads)
     #pragma omp teams loop collapse(2)
     for (int i = 0; i < N; ++i)
     {
@@ -50,7 +50,7 @@ double mm(int N, int REP, double expected_result)
     int *threads = (int *) omp_target_alloc(sizeof(int), 0);
 
     // Alloc on GPU
-    #pragma omp target data is_device_ptr(teams, threads) map(from : a[0 : N_sqr]) map(alloc : b[0 : N_sqr], c[0 : N_sqr]) 
+    #pragma omp target data map(from : a[0 : N_sqr]) map(alloc : b[0 : N_sqr], c[0 : N_sqr]) 
     {
 
         // Init data on cpu
