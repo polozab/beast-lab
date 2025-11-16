@@ -51,7 +51,7 @@ double mm(int N, int REP, double expected_result)
     {
 
         // Init data on cpu
-        #pragma omp target num_teams(NUM_TEAMS) thread_limit(NUM_THREADS)
+        #pragma omp target
         #pragma omp teams num_teams(NUM_TEAMS) thread_limit(NUM_THREADS) loop collapse(2)
         for (int i = 0; i < N; ++i)
         {
