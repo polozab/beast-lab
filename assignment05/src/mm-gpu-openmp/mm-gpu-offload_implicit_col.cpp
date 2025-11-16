@@ -14,7 +14,7 @@
 #define IDX(row, col, width) ((width) * (row) + (col))
 #define IDX_COL(row, col, height) ((row) + (col) * (height))
 
-void mm_kernel(double *a, double *b, double *c, int N, int *teams, int *threads)
+void mm_kernel(double *a, double *b, double *c, int N, double *teams, double *threads)
 {
 
     (void)teams;
@@ -28,8 +28,8 @@ void mm_kernel(double *a, double *b, double *c, int N, int *teams, int *threads)
         {
             for (int k = 0; k < N; ++k)
             {
-                *teams = 0;
-                *threads = 9;
+                *teams = 0.0;
+                *threads = 9.0;
                 a[IDX(i, j, N)] += b[IDX(i, k, N)] * c[IDX_COL(j, k, N)];
             }
         }
@@ -46,8 +46,8 @@ double mm(int N, int REP, double expected_result)
     double *b = (double *)malloc(N_sqr * sizeof(double));
     double *c = (double *)malloc(N_sqr * sizeof(double));
 
-    int *teams = (int *) omp_target_alloc(sizeof(int), 0);
-    int *threads = (int *) omp_target_alloc(sizeof(int), 0);
+    double *teams = (double *) omp_target_alloc(sizeof(double), 0);
+    double *threads = (double *) omp_target_alloc(sizeof(double), 0);
 
     // Alloc on GPU
     #pragma omp target data map(from : a[0 : N_sqr]) map(alloc : b[0 : N_sqr], c[0 : N_sqr]) 
