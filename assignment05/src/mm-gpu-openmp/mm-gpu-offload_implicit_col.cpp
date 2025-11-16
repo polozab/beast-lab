@@ -29,16 +29,10 @@ void mm_kernel(double *a, double *b, double *c, int N, int r, int teams, int thr
         {
             for (int k = 0; k < N; ++k)
             {
-
                 #ifdef PRINT_DEBUG
-                if (i == 0 && j == 0 && k == 0 && r == 0) {
-                    if (omp_get_team_num() == 0 && omp_get_thread_num() == 0) {
-                        teams = omp_get_num_teams();
-                        threads = omp_get_num_threads();
-                    }
-                }
+                teams = omp_get_num_teams();
+                threads = omp_get_num_threads();
                 #endif
-
                 a[IDX(i, j, N)] += b[IDX(i, k, N)] * c[IDX_COL(j, k, N)];
             }
         }
