@@ -85,7 +85,7 @@ double mm(int N, int REP, double expected_result)
     }
 
     // PRINT THE FUCKING FUCK
-    printf("Teams: %d, Threads: %d\n", teams, threads);
+    printf("Teams: %f, Threads: %f\n", teams, threads);
 
     // TODO: Copy back from GPU, eventually release memory
 
