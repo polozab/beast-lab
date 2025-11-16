@@ -1,0 +1,71 @@
+rm -f mm-gpu-offload_implicit.out mm-gpu-offload_implicit_col_limit.out mm-gpu-offload_implicit_col.out mm-gpu-offload_explicit_tilling.out mm-gpu-offload_explicit.out mm-gpu-offload_explicit_col_mod_task3.out mm-gpu-offload_explicit_col.out
+clang++ -std=c++17 -Wall -Wextra -fopenmp --offload-arch=gfx90a -O3 -DNUM_TEAMS=8 -DNUM_THREADS=8 mm-gpu-offload_implicit.cpp -o mm-gpu-offload_implicit.out
+clang++ -std=c++17 -Wall -Wextra -fopenmp --offload-arch=gfx90a -O3 -DNUM_TEAMS=8 -DNUM_THREADS=8 mm-gpu-offload_implicit_col_limit.cpp -o mm-gpu-offload_implicit_col_limit.out
+clang++ -std=c++17 -Wall -Wextra -fopenmp --offload-arch=gfx90a -O3 -DNUM_TEAMS=8 -DNUM_THREADS=8 mm-gpu-offload_implicit_col.cpp -o mm-gpu-offload_implicit_col.out
+clang++ -std=c++17 -Wall -Wextra -fopenmp --offload-arch=gfx90a -O3 -DNUM_TEAMS=8 -DNUM_THREADS=8 mm-gpu-offload_explicit_tilling.cpp -o mm-gpu-offload_explicit_tilling.out
+clang++ -std=c++17 -Wall -Wextra -fopenmp --offload-arch=gfx90a -O3 -DNUM_TEAMS=8 -DNUM_THREADS=8 mm-gpu-offload_explicit.cpp -o mm-gpu-offload_explicit.out
+clang++ -std=c++17 -Wall -Wextra -fopenmp --offload-arch=gfx90a -O3 -DNUM_TEAMS=8 -DNUM_THREADS=8 mm-gpu-offload_explicit_col_mod_task3.cpp -o mm-gpu-offload_explicit_col_mod_task3.out
+clang++ -std=c++17 -Wall -Wextra -fopenmp --offload-arch=gfx90a -O3 -DNUM_TEAMS=8 -DNUM_THREADS=8 mm-gpu-offload_explicit_col.cpp -o mm-gpu-offload_explicit_col.out
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
+make: Nothing to be done for 'all'.
