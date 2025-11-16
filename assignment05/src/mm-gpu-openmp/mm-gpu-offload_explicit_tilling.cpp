@@ -104,6 +104,7 @@ double mm(int N, int REP, double expected_result)
                 *threads = omp_get_num_threads();
             }
         }
+        printf("TEST\n");
         #endif
 
         // Start time measurements for computation
