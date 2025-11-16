@@ -16,8 +16,8 @@
 
 void mm_kernel(double *a, double *b, double *c, int N)
 {
-    #pragma omp target num_teams(NUM_TEAMS) thread_limit(NUM_THREADS)
-    #pragma omp teams loop collapse(2)
+    #pragma omp target
+    #pragma omp teams num_teams(NUM_TEAMS) thread_limit(NUM_THREADS) loop collapse(2)
     for (int i = 0; i < N; ++i)
     {
         for (int j = 0; j < N; ++j)
@@ -52,7 +52,7 @@ double mm(int N, int REP, double expected_result)
 
         // Init data on cpu
         #pragma omp target num_teams(NUM_TEAMS) thread_limit(NUM_THREADS)
-        #pragma omp teams loop collapse(2)
+        #pragma omp teams num_teams(NUM_TEAMS) thread_limit(NUM_THREADS) loop collapse(2)
         for (int i = 0; i < N; ++i)
         {
             for (int j = 0; j < N; ++j)
@@ -65,8 +65,8 @@ double mm(int N, int REP, double expected_result)
 
         // Debug print 
         #ifdef PRINT_DEBUG
-        #pragma omp target num_teams(NUM_TEAMS) thread_limit(NUM_THREADS) is_device_ptr(teams, threads)
-        #pragma omp teams loop collapse(2)
+        #pragma omp target is_device_ptr(teams, threads)
+        #pragma omp teams num_teams(NUM_TEAMS) thread_limit(NUM_THREADS) loop collapse(2)
         for (int i = 0; i < N; ++i)
         {
             for (int j = 0; j < N; ++j)
