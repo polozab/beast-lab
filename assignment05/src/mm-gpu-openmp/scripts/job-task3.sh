@@ -19,9 +19,9 @@
 #SBATCH --nodes=1
 
 
-make clean
 for teams in 8 16 32 64 128 256 512 1024; do 
     for threads in 8 16 32 64 128 256 512 1024; do
+        make clean
         make NUM_THREADS=${threads} NUM_TEAMS=${teams}
         ./mm-gpu-offload_explicit_col_mod_task3.cpp  > "./data/teams_${teams}_${threads}.csv"
     done
