@@ -124,7 +124,7 @@ double mm(int N, int REP, double expected_result)
     double sum = 0.0;
     for (int i = 0; i < N; ++i)
     {
-        for (int j = 0; i < N; j++) {
+        for (int j = 0; j < N; j++) {
 
             sum += a[IDX(i, j, padded_N)];
         }
