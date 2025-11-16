@@ -39,8 +39,6 @@ void mm_kernel(double *a, double *b, double *c, int N, int r, int teams, int thr
     }
 }
 
-// TODO: Tiled version
-
 double mm(int N, int REP, double expected_result)
 {
     const long N_sqr = N*N;
@@ -55,7 +53,7 @@ double mm(int N, int REP, double expected_result)
     int threads = -1;
 
     // Alloc on GPU
-    #pragma omp target data map(from : a[0 : N_sqr], teams, threads) map(alloc : b[0 : N_sqr], c[0 : N_sqr]) 
+    #pragma omp target data map(tofrom: teams, threads) map(from : a[0 : N_sqr]) map(alloc : b[0 : N_sqr], c[0 : N_sqr]) 
     {
 
         // Init data on cpu
