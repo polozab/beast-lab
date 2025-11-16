@@ -36,6 +36,7 @@ void mm_kernel(double *a, double *b, double *c, int N, int *teams, int *threads)
     }
     #endif
 
+    #pragma omp target
     #pragma omp teams loop collapse(2)
     for (int i = 0; i < N; ++i)
     {
