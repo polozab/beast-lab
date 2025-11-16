@@ -14,7 +14,7 @@
 #define IDX(row, col, width) ((width) * (row) + (col))
 #define IDX_COL(row, col, height) ((row) + (col) * (height))
 
-void mm_kernel(double *a, double *b, double *c, int N, double *teams, double *threads)
+void mm_kernel(double *a, double *b, double *c, int N, int *teams, int *threads)
 {
 
     (void)teams;
@@ -28,8 +28,8 @@ void mm_kernel(double *a, double *b, double *c, int N, double *teams, double *th
         {
             for (int k = 0; k < N; ++k)
             {
-                *teams = 0.0;
-                *threads = 9.0;
+                *teams = 0;
+                *threads = 9;
                 a[IDX(i, j, N)] += b[IDX(i, k, N)] * c[IDX_COL(j, k, N)];
             }
         }
@@ -46,8 +46,8 @@ double mm(int N, int REP, double expected_result)
     double *b = (double *)malloc(N_sqr * sizeof(double));
     double *c = (double *)malloc(N_sqr * sizeof(double));
 
-    double *teams = (double *) omp_target_alloc(sizeof(double), omp_get_default_device());
-    double *threads = (double *) omp_target_alloc(sizeof(double), omp_get_default_device());
+    int *teams = (int *) omp_target_alloc(sizeof(int), omp_get_default_device());
+    int *threads = (int *) omp_target_alloc(sizeof(int), omp_get_default_device());
 
     *teams = 10;
     *threads = 50;
@@ -88,7 +88,7 @@ double mm(int N, int REP, double expected_result)
     }
 
     // PRINT THE FUCKING FUCK
-    printf("Teams: %f, Threads: %f\n", *teams, *threads);
+    printf("Teams: %d, Threads: %d\n", *teams, *threads);
 
     // TODO: Copy back from GPU, eventually release memory
 
