@@ -49,6 +49,9 @@ double mm(int N, int REP, double expected_result)
     double *teams = (double *) omp_target_alloc(sizeof(double), omp_get_default_device());
     double *threads = (double *) omp_target_alloc(sizeof(double), omp_get_default_device());
 
+    *teams = 10;
+    *threads = 50;
+
     // Alloc on GPU
     #pragma omp target data map(from : a[0 : N_sqr]) map(alloc : b[0 : N_sqr], c[0 : N_sqr]) 
     {
