@@ -1,6 +1,7 @@
 CXX=clang++
 CXXFLAGS= -std=c++17 -Wall -Wextra -fopenmp --offload-arch=gfx90a -O3
 
+TILE_SIZE ?= 1024
 NUM_TEAMS ?= 64
 NUM_THREADS ?= 64
 
@@ -13,7 +14,7 @@ debug: CXXFLAGS += -DPRINT_DEBUG
 debug: all
 
 %.out: %.cpp
-	$(CXX) $(CXXFLAGS) -DNUM_TEAMS=$(NUM_TEAMS) -DNUM_THREADS=$(NUM_THREADS) $< -o $@
+	$(CXX) $(CXXFLAGS) -DTILE_SIZE=$(TILE_SIZE) -DNUM_TEAMS=$(NUM_TEAMS) -DNUM_THREADS=$(NUM_THREADS) $< -o $@
 
 clean:
 	rm -f $(OBJS)
