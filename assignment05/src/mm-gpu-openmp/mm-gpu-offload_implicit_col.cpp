@@ -14,25 +14,8 @@
 #define IDX(row, col, width) ((width) * (row) + (col))
 #define IDX_COL(row, col, height) ((row) + (col) * (height))
 
-void mm_kernel(double *a, double *b, double *c, int N, int *teams, int *threads)
+void mm_kernel(double *a, double *b, double *c, int N)
 {
-
-    (void)teams;
-    (void)threads;
-
-    #ifdef PRINT_DEBUG
-    #pragma omp target is_device_ptr(teams, threads)
-    #pragma omp teams loop collapse(2)
-    for (int i = 0; i < N; ++i)
-    {
-        for (int j = 0; j < N; ++j)
-        {
-            *teams = omp_get_num_teams();
-            *threads = omp_get_num_threads();
-        }
-    }
-    #endif
-
     #pragma omp target
     #pragma omp teams loop collapse(2)
     for (int i = 0; i < N; ++i)
@@ -80,13 +63,27 @@ double mm(int N, int REP, double expected_result)
             }
         }
 
+        // Debug print 
+        #ifdef PRINT_DEBUG
+        #pragma omp target is_device_ptr(teams, threads)
+        #pragma omp teams loop collapse(2)
+        for (int i = 0; i < N; ++i)
+        {
+            for (int j = 0; j < N; ++j)
+            {
+                *teams = omp_get_num_teams();
+                *threads = omp_get_num_threads();
+            }
+        }
+        #endif
+
         // Start time measurements for computation
         auto t0 = std::chrono::high_resolution_clock::now();
 
         // TODO: Run on target device
         for (int r = 0; r < REP; ++r)
         {
-            mm_kernel(a, b, c, N, teams, threads);
+            mm_kernel(a, b, c, N);
         }
 
         // End time measurements for computation
