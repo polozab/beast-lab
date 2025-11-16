@@ -18,9 +18,7 @@ void mm_kernel(double *a, double *b, double *c, int N, int r, int teams, int thr
 {
 
     (void)r;
-    (void)teams;
-    (void)threads;
-
+    
     #pragma omp target
     #pragma omp teams loop collapse(2)
     for (int i = 0; i < N; ++i)
@@ -29,9 +27,9 @@ void mm_kernel(double *a, double *b, double *c, int N, int r, int teams, int thr
         {
             for (int k = 0; k < N; ++k)
             {
+                a[IDX(i, j, N)] += b[IDX(i, k, N)] * c[IDX_COL(j, k, N)];
                 teams = omp_get_num_teams();
                 threads = omp_get_num_threads();
-                a[IDX(i, j, N)] += b[IDX(i, k, N)] * c[IDX_COL(j, k, N)];
             }
         }
     }
