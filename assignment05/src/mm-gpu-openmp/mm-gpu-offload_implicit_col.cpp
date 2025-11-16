@@ -46,8 +46,8 @@ double mm(int N, int REP, double expected_result)
     double *b = (double *)malloc(N_sqr * sizeof(double));
     double *c = (double *)malloc(N_sqr * sizeof(double));
 
-    double *teams = (double *) omp_target_alloc(sizeof(double), 0);
-    double *threads = (double *) omp_target_alloc(sizeof(double), 0);
+    double *teams = (double *) omp_target_alloc(sizeof(double), omp_get_default_device());
+    double *threads = (double *) omp_target_alloc(sizeof(double), omp_get_default_device());
 
     // Alloc on GPU
     #pragma omp target data map(from : a[0 : N_sqr]) map(alloc : b[0 : N_sqr], c[0 : N_sqr]) 
@@ -110,8 +110,8 @@ double mm(int N, int REP, double expected_result)
     free((void *)a);
     free((void *)b);
     free((void *)c);
-    omp_target_free(teams, 0);
-    omp_target_free(threads, 0);
+    omp_target_free(teams, omp_get_default_device());
+    omp_target_free(threads, omp_get_default_device());
 
     // Flop calculation
     double mflop = 2.0 * (double)N * (double)N * (double)N * (double)REP * 1.0e-6 / dur;
