@@ -20,6 +20,22 @@ void mm_kernel(double *a, double *b, double *c, int N, int *teams, int *threads)
     (void)teams;
     (void)threads;
 
+    #ifdef PRINT_DEBUG
+    #pragma omp target is_device_ptr(teams, threads)
+    #pragma omp teams loop collapse(2)
+    for (int i = 0; i < N; ++i)
+    {
+        for (int j = 0; j < N; ++j)
+        {
+            for (int k = 0; k < N; ++k)
+            {
+                *teams = omp_get_num_teams();
+                *threads = omp_get_num_threads();
+            }
+        }
+    }
+    #endif
+
     #pragma omp target is_device_ptr(teams, threads)
     #pragma omp teams loop collapse(2)
     for (int i = 0; i < N; ++i)

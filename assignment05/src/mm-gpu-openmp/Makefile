@@ -9,7 +9,7 @@ OBJS := $(SRCS:.cpp=.out)
 
 all: $(OBJS)
 
-debug: CXXFLAGS += -fopt-info -DPRINT_DEBUG
+debug: CXXFLAGS += -DPRINT_DEBUG
 debug: all
 
 %.out: %.cpp
