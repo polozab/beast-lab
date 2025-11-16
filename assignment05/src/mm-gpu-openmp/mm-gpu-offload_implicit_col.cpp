@@ -123,7 +123,7 @@ double mm(int N, int REP, double expected_result)
 
     // Flop calculation
     double mflop = 2.0 * (double)N * (double)N * (double)N * (double)REP * 1.0e-6 / dur;
-    printf("%d, %d, %d, %d, %d, %d, %f\n", N, REP, NUM_TEAMS, NUM_THREADS, teams, threads, mflop);
+    printf("%d, %d, %d, %d, %d, %d, %f\n", N, REP, NUM_TEAMS, NUM_THREADS, *teams, *threads, mflop);
 
     return mflop;
 
