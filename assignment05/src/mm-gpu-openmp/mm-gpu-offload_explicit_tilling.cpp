@@ -12,7 +12,7 @@
 #endif
 
 #ifndef TILE_SIZE
-#define TILE_SIZE 64
+#define TILE_SIZE 1024
 #endif
 
 #define IDX(row, col, width) ((width) * (row) + (col))
@@ -60,6 +60,8 @@ double mm(int N, int REP, double expected_result)
 
     *teams = -1;
     *threads = -1;
+
+    printf("%d\n", padded_N);
 
     // Alloc on GPU
     #pragma omp target data map(from : a[0 : padded_N_sqr]) map(alloc : b[0 : padded_N_sqr], c[0 : padded_N_sqr]) 
