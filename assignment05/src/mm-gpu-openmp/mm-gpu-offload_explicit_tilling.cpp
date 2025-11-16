@@ -79,14 +79,15 @@ double mm(int N, int REP, double expected_result)
         {
             for (int j = 0; j < padded_N; ++j)
             {
-                a[IDX(i, j, padded_N)] = 0.0;
                 if (i < N && j < N) {
+                    a[IDX(i, j, padded_N)] = 0.0;
                     b[IDX(i, j, padded_N)] = (i * j) / (N * 50);
                     c[IDX(i, j, padded_N)] = (i * j) / (N * 50);
                 }
                 else {
-                    b[IDX(i, j, padded_N)] = 0;
-                    c[IDX(i, j, padded_N)] = 0;
+                    a[IDX(i, j, padded_N)] = 0.0;
+                    b[IDX(i, j, padded_N)] = 0.0;
+                    c[IDX(i, j, padded_N)] = 0.0;
                 }
             }
         }
