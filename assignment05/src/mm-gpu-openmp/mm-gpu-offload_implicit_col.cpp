@@ -27,11 +27,8 @@ void mm_kernel(double *a, double *b, double *c, int N, int *teams, int *threads)
     {
         for (int j = 0; j < N; ++j)
         {
-            for (int k = 0; k < N; ++k)
-            {
-                *teams = omp_get_num_teams();
-                *threads = omp_get_num_threads();
-            }
+            *teams = omp_get_num_teams();
+            *threads = omp_get_num_threads();
         }
     }
     #endif
