@@ -46,7 +46,7 @@ void mm_kernel(double *a, double *b, double *c, int N, int padded_N)
 
 double mm(int N, int REP, double expected_result)
 {
-    const long padded_N = ((N + TILE_SIZE - 1) / TILE_SIZE) * TILE_SIZE;
+    const int padded_N = ((N + TILE_SIZE - 1) / TILE_SIZE) * TILE_SIZE;
     const long padded_N_sqr = padded_N*padded_N;
     double dur;
 
