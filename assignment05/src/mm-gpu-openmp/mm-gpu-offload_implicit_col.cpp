@@ -18,6 +18,8 @@ void mm_kernel(double *a, double *b, double *c, int N, int r, int teams, int thr
 {
 
     (void)r;
+    (void)teams;
+    (void)threads;
 
     #pragma omp target
     #pragma omp teams loop collapse(2)
@@ -55,8 +57,8 @@ double mm(int N, int REP, double expected_result)
     double *b = (double *)malloc(N_sqr * sizeof(double));
     double *c = (double *)malloc(N_sqr * sizeof(double));
 
-    int teams = 0;
-    int threads = 0;
+    int teams = -1;
+    int threads = -1;
 
     // Alloc on GPU
     #pragma omp target data map(from : a[0 : N_sqr], teams, threads) map(alloc : b[0 : N_sqr], c[0 : N_sqr]) 
