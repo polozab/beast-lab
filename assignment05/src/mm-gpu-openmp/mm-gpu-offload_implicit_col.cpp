@@ -43,8 +43,8 @@ double mm(int N, int REP, double expected_result)
     int *teams = (int *) omp_target_alloc(sizeof(int), omp_get_default_device());
     int *threads = (int *) omp_target_alloc(sizeof(int), omp_get_default_device());
 
-    *teams = 10;
-    *threads = 50;
+    *teams = NUM_TEAMS;
+    *threads = NUM_THREADS;
 
     // Alloc on GPU
     #pragma omp target data map(from : a[0 : N_sqr]) map(alloc : b[0 : N_sqr], c[0 : N_sqr]) 
@@ -95,9 +95,6 @@ double mm(int N, int REP, double expected_result)
 
     }
 
-    // PRINT THE FUCKING FUCK
-    printf("Teams: %d, Threads: %d\n", *teams, *threads);
-
     // TODO: Copy back from GPU, eventually release memory
 
     // Simple correctness check
@@ -126,7 +123,7 @@ double mm(int N, int REP, double expected_result)
 
     // Flop calculation
     double mflop = 2.0 * (double)N * (double)N * (double)N * (double)REP * 1.0e-6 / dur;
-    printf("%d, %d, %d, %d, %f\n", N, REP, NUM_TEAMS, NUM_THREADS, mflop);
+    printf("%d, %d, %d, %d, %d, %d, %f\n", N, REP, NUM_TEAMS, NUM_THREADS, teams, threads, mflop);
 
     return mflop;
 
@@ -148,7 +145,7 @@ int main(int argc, char *argv[])
     // }
     // printf("--------------------------------------------------\n");
 
-    printf("N, REP, Teams, Threads, MFLOPS\n");
+    printf("N, REP, Teams, Threads, Actual_Teams, Actual_Threads, MFLOPS\n");
 
     // ugly hardcoded stuff :)
     mm(100, 2000, 108290000.000);
