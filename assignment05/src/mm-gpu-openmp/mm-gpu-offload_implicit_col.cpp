@@ -14,10 +14,9 @@
 #define IDX(row, col, width) ((width) * (row) + (col))
 #define IDX_COL(row, col, height) ((row) + (col) * (height))
 
-void mm_kernel(double *a, double *b, double *c, int N, int r, int teams, int threads)
+void mm_kernel(double *a, double *b, double *c, int N, int *teams, int *threads)
 {
 
-    (void)r;
     (void)teams;
     (void)threads;
 
@@ -29,8 +28,8 @@ void mm_kernel(double *a, double *b, double *c, int N, int r, int teams, int thr
         {
             for (int k = 0; k < N; ++k)
             {
-                teams = 0;
-                threads = 9;
+                *teams = 0;
+                *threads = 9;
                 a[IDX(i, j, N)] += b[IDX(i, k, N)] * c[IDX_COL(j, k, N)];
             }
         }
@@ -47,11 +46,11 @@ double mm(int N, int REP, double expected_result)
     double *b = (double *)malloc(N_sqr * sizeof(double));
     double *c = (double *)malloc(N_sqr * sizeof(double));
 
-    int teams = -1;
-    int threads = -1;
+    int *teams = (int *) omp_target_alloc(sizeof(int), 0);
+    int *threads = (int *) omp_target_alloc(sizeof(int), 0);
 
     // Alloc on GPU
-    #pragma omp target data map(tofrom: teams, threads) map(from : a[0 : N_sqr]) map(alloc : b[0 : N_sqr], c[0 : N_sqr]) 
+    #pragma omp target data is_device_ptr(teams, threads) map(from : a[0 : N_sqr]) map(alloc : b[0 : N_sqr], c[0 : N_sqr]) 
     {
 
         // Init data on cpu
@@ -73,7 +72,7 @@ double mm(int N, int REP, double expected_result)
         // TODO: Run on target device
         for (int r = 0; r < REP; ++r)
         {
-            mm_kernel(a, b, c, N, r, teams, threads);
+            mm_kernel(a, b, c, N, teams, threads);
         }
 
         // End time measurements for computation
@@ -111,6 +110,8 @@ double mm(int N, int REP, double expected_result)
     free((void *)a);
     free((void *)b);
     free((void *)c);
+    omp_target_free(teams, 0);
+    omp_target_free(threads, 0);
 
     // Flop calculation
     double mflop = 2.0 * (double)N * (double)N * (double)N * (double)REP * 1.0e-6 / dur;
