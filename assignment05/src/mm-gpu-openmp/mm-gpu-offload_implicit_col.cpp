@@ -30,8 +30,8 @@ void mm_kernel(double *a, double *b, double *c, int N, int r, int teams, int thr
             for (int k = 0; k < N; ++k)
             {
                 #ifdef PRINT_DEBUG
-                teams = omp_get_num_teams();
-                threads = omp_get_num_threads();
+                teams = 0;
+                threads = 9;
                 #endif
                 a[IDX(i, j, N)] += b[IDX(i, k, N)] * c[IDX_COL(j, k, N)];
             }
