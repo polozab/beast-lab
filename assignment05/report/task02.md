@@ -125,5 +125,3 @@ While we can even archive a significant performance improvement with tiling  usi
 
 Furthermore we discovered that a tile size of 32 has in general good performance for all matrix sizes and also isn't much slower as the maximum archived value using tiling. However as we only have tiling code for explicit directives and implicit directives can't be configured as broadly we will not consider implicit testing in our future investigation.  
 As our explicit tiling code gets at least comparable performance we will therefor use this setup with a tile size of 32 to determine the best number of teams and threads going forward.
-
-## Further work
