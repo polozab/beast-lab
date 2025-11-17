@@ -1,6 +1,6 @@
 // Multi-GPU version of the implicit column-major MxM.
-// Splits the row domain across available devices and launches one target
-// region per device (in parallel tasks).
+// Splits the row domain across available devices, sets up per-device data once,
+// and reuses it for all repetitions.
 
 #include <chrono>
 #include <cstdio>
@@ -18,7 +18,8 @@
 // Work on a slice of rows starting at i0 with length rows on a specific device.
 static void mm_kernel_slice(double *a, double *b, double *c, int N, int i0, int rows, int dev)
 {
-    #pragma omp target teams loop collapse(2) device(dev)
+    #pragma omp target teams loop collapse(2) device(dev) \
+        map(present: a[i0 * N : rows * N], b[0 : N * N], c[0 : N * N])
     for (int ii = 0; ii < rows; ++ii)
     {
         for (int j = 0; j < N; ++j)
@@ -68,27 +69,68 @@ double mm(int N, int REP, double expected_result)
     {
         #pragma omp single nowait
         {
+            // Stage data on each device once
             for (int dev = 0; dev < num_dev; ++dev)
             {
-                #pragma omp task firstprivate(dev)
+                int rows = N / num_dev;
+                int i0 = dev * rows;
+                if (dev == num_dev - 1)
+                {
+                    rows = N - i0; // handle remainder
+                }
+
+                #pragma omp task firstprivate(dev, rows, i0)
+                {
+                    #pragma omp target enter data device(dev) \
+                        map(to: b[0 : N_sqr], c[0 : N_sqr]) \
+                        map(alloc: a[i0 * N : rows * N])
+
+                    // Initialize the slice of a on device
+                    #pragma omp target teams loop device(dev) map(present: a[i0 * N : rows * N])
+                    for (int idx = 0; idx < rows * N; ++idx)
+                    {
+                        a[i0 * N + idx] = 0.0;
+                    }
+                }
+            }
+            #pragma omp taskwait
+
+            // Compute for all repetitions; launch per-device tasks in parallel
+            for (int r = 0; r < REP; ++r)
+            {
+                for (int dev = 0; dev < num_dev; ++dev)
                 {
                     int rows = N / num_dev;
                     int i0 = dev * rows;
                     if (dev == num_dev - 1)
                     {
-                        rows = N - i0; // handle remainder
+                        rows = N - i0;
                     }
 
-                    // Map only the slice of A, but full B and C since they are read-only.
-                    #pragma omp target data device(dev) \
-                        map(to: b[0 : N_sqr], c[0 : N_sqr]) \
-                        map(tofrom: a[i0 * N : rows * N])
+                    #pragma omp task firstprivate(dev, rows, i0)
                     {
-                        for (int r = 0; r < REP; ++r)
-                        {
-                            mm_kernel_slice(a, b, c, N, i0, rows, dev);
-                        }
+                        mm_kernel_slice(a, b, c, N, i0, rows, dev);
                     }
+                }
+                #pragma omp taskwait
+            }
+
+            // Copy back slices and free device data
+            for (int dev = 0; dev < num_dev; ++dev)
+            {
+                int rows = N / num_dev;
+                int i0 = dev * rows;
+                if (dev == num_dev - 1)
+                {
+                    rows = N - i0;
+                }
+
+                #pragma omp task firstprivate(dev, rows, i0)
+                {
+                    #pragma omp target exit data device(dev) \
+                        map(from: a[i0 * N : rows * N]) \
+                        map(delete: b[0 : N_sqr], c[0 : N_sqr]) \
+                        map(delete: a[i0 * N : rows * N])
                 }
             }
             #pragma omp taskwait
