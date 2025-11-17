@@ -19,8 +19,7 @@
 static void mm_kernel_slice(double *a, double *b, double *c, int N, int i0, int rows, int dev)
 {
     #pragma omp target teams loop collapse(2) device(dev) \
-        map(present, tofrom: a[i0 * N : rows * N]) \
-        map(present, to: b[0 : N * N], c[0 : N * N])
+        map(present: a[i0 * N : rows * N], b[0 : N * N], c[0 : N * N])
     for (int ii = 0; ii < rows; ++ii)
     {
         for (int j = 0; j < N; ++j)
@@ -84,15 +83,7 @@ double mm(int N, int REP, double expected_result)
                 {
                     #pragma omp target enter data device(dev) \
                         map(to: b[0 : N_sqr], c[0 : N_sqr]) \
-                        map(alloc: a[i0 * N : rows * N])
-
-                    // Initialize the slice of a on device
-                    #pragma omp target teams loop device(dev) \
-                        map(present, tofrom: a[i0 * N : rows * N])
-                    for (int idx = 0; idx < rows * N; ++idx)
-                    {
-                        a[i0 * N + idx] = 0.0;
-                    }
+                        map(to: a[i0 * N : rows * N])
                 }
             }
             #pragma omp taskwait
