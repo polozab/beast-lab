@@ -15,15 +15,15 @@
 #SBATCH --export=NONE
 #SBATCH --get-user-env
 #SBATCH --partition=milan #milan sap gh cs
-#SBATCH --nodelist=milan2 #sap4 gh3 cs7
+#SBATCH --nodelist=milan1 #sap4 gh3 cs7
 #SBATCH --nodes=1
 
 
-for teams in 8 16 32 64 128 256 512 1024; do 
-    for threads in 8 16 32 64 128 256 512 1024; do
+for teams in 1024 512 256 128 64 32 16 8; do 
+    for threads in 1024 512 256 128 64 32 16 8; do
         make clean
         make NUM_THREADS=${threads} NUM_TEAMS=${teams} -B
-        ./mm-gpu-offload_explicit_col_mod_task3.cpp  > "/data/teams_${teams}_${threads}.csv"
+        ./mm-gpu-offload_explicit_col_mod_task3.out  > "data/teams_${teams}_${threads}.csv"
     done
 done
 
