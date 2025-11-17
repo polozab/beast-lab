@@ -72,7 +72,7 @@ double mm(int N, int REP, double expected_result)
 
         // Init data on cpu
         #pragma omp target
-        #pragma omp teams loop collapse(2)
+        #pragma omp teams parallel loop bind(parallel) collapse(2)
         for (int i = 0; i < padded_N; ++i)
         {
             for (int j = 0; j < padded_N; ++j)
