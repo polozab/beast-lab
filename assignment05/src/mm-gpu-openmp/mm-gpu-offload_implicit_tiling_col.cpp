@@ -28,7 +28,7 @@ void mm_kernel(double *a, double *b, double *c, int N, int padded_N)
         {
             for (int k = 0; k < N; k += TILE_SIZE)
             {
-                #pragma omp parallel loop collapse(2) bind(parallel)
+                #pragma omp loop collapse(2) bind(parallel)
                 for (int ii = 0; ii < TILE_SIZE; ++ii)
                 {
                     for (int jj = 0; jj < TILE_SIZE; ++jj)
