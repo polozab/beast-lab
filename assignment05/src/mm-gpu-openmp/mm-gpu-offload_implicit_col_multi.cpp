@@ -58,6 +58,7 @@ double mm(int N, int REP, double expected_result)
     }
 
     int num_dev = omp_get_num_devices();
+    printf("num of devices: %d", num_dev);
     if (num_dev < 1)
         num_dev = 1;
 
