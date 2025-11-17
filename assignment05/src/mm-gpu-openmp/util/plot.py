@@ -1,18 +1,26 @@
+from glob import glob
+from pathlib import Path
 import pandas as pd
 from plotnine import *
 
 
-df = pd.read_csv("./data/result.csv", skipinitialspace=True)
-print(df.columns)
+base = Path("./data/t2")
+dfs = []
 
-df["Teams x Threads"] = f"{df.iloc[0,2]} x {df.iloc[0,3]}"
 
-print(df.head())
+for f in base.iterdir():
+        if "tiling" in f.stem:
+                df = pd.read_csv(f, skipinitialspace=True)
+                df["Mem_Order"] = "col" if "col" in f.stem else "row"
+                dfs.append(df)
 
-plot = (ggplot(df, aes(x="N", y="MFLOPS", color="Teams x Threads"))
-        + geom_vline(xintercept=300)
-        + lims(y=(0, df["MFLOPS"].max()))
-        + geom_line()
-        )
+dfs = pd.concat(dfs)[["Tiles", "Mem_Order", "MFLOPS"]]
+dfs = dfs.groupby(["Tiles", "Mem_Order"]).agg(["max", "mean"]).reset_index()
 
-plot.save("./data/plot.png")
+dfs.columns = ['_'.join([str(part) for part in col if part not in (None, '')]).rstrip('_') for col in dfs.columns.values]
+dfs = dfs.melt(["Tiles", "Mem_Order"])
+
+print(dfs)
+
+plot = ggplot(dfs, aes(x="Tiles", y="value", color="Mem_Order", linetype="variable"), ) + geom_line()
+plot.save("./data/t2.png")
