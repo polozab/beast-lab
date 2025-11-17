@@ -26,5 +26,17 @@ dfs = dfs.melt(["Tiles", "Mem_Order"])
 
 print(dfs)
 
-plot = ggplot(dfs, aes(x="Tiles", y="value", color="Mem_Order", linetype="variable"), ) + geom_line()
+plot = (ggplot(dfs, aes("Tiles", "value", color="Mem_Order", linetype="variable"))
+        + geom_line()
+        +scale_x_continuous(name="Tile Size")
+        + scale_y_continuous(name="MFLOPS/s")
+        + scale_color_discrete(
+                name="Memory Order",
+                labels={"col": "Column-Major", "row": "Row-Major"}
+        )
+        + scale_linetype_discrete(
+                name="Metric",
+                labels={"MFLOPS_max": "Max", "MFLOPS_mean": "Average"}
+        )
+        )
 plot.save("./data/t2.png")
