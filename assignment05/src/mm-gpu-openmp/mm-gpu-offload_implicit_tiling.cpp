@@ -82,7 +82,7 @@ double mm(int N, int REP, double expected_result)
         #pragma omp teams loop
         for (int i = 0; i < padded_N; ++i)
         {
-            #pragma omp loop bind(parallel)
+            #pragma omp parallel loop bind(parallel)
             for (int j = 0; j < padded_N; ++j)
             {
                 if (i < N && j < N) {
@@ -104,7 +104,7 @@ double mm(int N, int REP, double expected_result)
         #pragma omp teams loop
         for (int i = 0; i < padded_N; ++i)
         {
-            #pragma omp loop bind(parallel)
+            #pragma omp parallel loop bind(parallel)
             for (int j = 0; j < padded_N; ++j)
             {
                 *teams = omp_get_num_teams();
