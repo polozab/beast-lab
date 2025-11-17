@@ -1,7 +1,7 @@
 CXX=clang++
 CXXFLAGS= -std=c++17 -Wall -Wextra -fopenmp --offload-arch=gfx90a -O3
 
-TILE_SIZE ?= 1024
+TILE_SIZE ?= 64
 NUM_TEAMS ?= 64
 NUM_THREADS ?= 64
 
