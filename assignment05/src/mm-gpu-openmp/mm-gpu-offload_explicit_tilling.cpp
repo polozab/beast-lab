@@ -12,7 +12,7 @@
 #endif
 
 #ifndef TILE_SIZE
-#define TILE_SIZE 1024
+#define TILE_SIZE 64
 #endif
 
 #define IDX(row, col, width) ((width) * (row) + (col))
