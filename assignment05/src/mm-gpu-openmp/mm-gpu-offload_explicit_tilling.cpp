@@ -98,7 +98,7 @@ double mm(int N, int REP, double expected_result)
         #ifdef PRINT_DEBUG
         #pragma omp target
         #pragma omp teams num_teams(NUM_TEAMS)
-        #pragma omp distribute parallel for num_threads(NUM_THREADS) collapse(2) schedule(static, 1)
+        #pragma omp distribute parallel for num_threads(NUM_THREADS) collapse(2)
         for (int i = 0; i < padded_N; ++i)
         {
             for (int j = 0; j < padded_N; ++j)
@@ -107,7 +107,6 @@ double mm(int N, int REP, double expected_result)
                 *threads = omp_get_num_threads();
             }
         }
-        printf("TEST\n");
         #endif
 
         // Start time measurements for computation
