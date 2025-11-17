@@ -19,9 +19,9 @@
 static void mm_kernel_slice(double *a, double *b, double *c, int N, int i0, int rows, int dev)
 {
     #pragma omp target teams loop collapse(2) device(dev) \
-        map(present: a[i0 * N : rows * N]) \
-        map(present: b[0 : N * N]) \
-        map(present: c[0 : N * N])
+        map(present, tofrom: a[i0 * N : rows * N]) \
+        map(present, to: b[0 : N * N]) \
+        map(present, to: c[0 : N * N])
     for (int ii = 0; ii < rows; ++ii)
     {
         for (int j = 0; j < N; ++j)
