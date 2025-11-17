@@ -26,18 +26,26 @@ void mm_kernel(double *a, double *b, double *c, int N, int padded_N)
     {
         for (int j = 0; j < N; j += TILE_SIZE)
         {
-            for (int k = 0; k < N; k += TILE_SIZE)
+            #pragma omp parallel loop collapse(2) bind(parallel)
+            for (int ii = 0; ii < TILE_SIZE; ++ii)
             {
-                #pragma omp loop collapse(2) bind(parallel)
-                for (int ii = 0; ii < TILE_SIZE; ++ii)
+                for (int jj = 0; jj < TILE_SIZE; ++jj)
                 {
-                    for (int jj = 0; jj < TILE_SIZE; ++jj)
+
+                    double sum = 0.0;
+
+                    #pragma omp loop bind(thread) reduction(+:sum)
+                    for (int k = 0; k < N; k += TILE_SIZE)
                     {
+                        #pragma omp simd reduction(+:sum)
                         for (int kk = 0; kk < TILE_SIZE; ++kk)
                         {
-                            a[IDX(i + ii, j + jj, padded_N)] += b[IDX(i + ii, k + kk, padded_N)] * c[IDX_COL(j + jj, k + kk,  padded_N)];
+                            sum+= b[IDX(i + ii, k + kk, padded_N)] * c[IDX_COL(j + jj, k + kk,  padded_N)];
                         }
                     }
+
+                    a[IDX(i + ii, j + jj, padded_N)] = sum;
+
                 }
             }
         }
@@ -72,9 +80,10 @@ double mm(int N, int REP, double expected_result)
 
         // Init data on cpu
         #pragma omp target
-        #pragma omp teams parallel loop bind(parallel) collapse(2)
+        #pragma omp teams loop
         for (int i = 0; i < padded_N; ++i)
         {
+            #pragma omp parallel loop bind(parallel)
             for (int j = 0; j < padded_N; ++j)
             {
                 if (i < N && j < N) {
@@ -93,9 +102,10 @@ double mm(int N, int REP, double expected_result)
         // Debug print 
         #ifdef PRINT_DEBUG
         #pragma omp target
-        #pragma omp teams loop collapse(2)
+        #pragma omp teams loop
         for (int i = 0; i < padded_N; ++i)
         {
+            #pragma omp parallel loop bind(parallel)
             for (int j = 0; j < padded_N; ++j)
             {
                 *teams = omp_get_num_teams();
