@@ -9,13 +9,13 @@ dfs = []
 
 
 for f in base.iterdir():
-        if "tiling" in f.stem:
-                try:
-                        df = pd.read_csv(f, skipinitialspace=True)
-                        df["Mem_Order"] = "col" if "col" in f.stem else "row"
-                        dfs.append(df)
-                except Exception as _:
-                        pass
+  if "tiling" in f.stem:
+    try:
+      df = pd.read_csv(f, skipinitialspace=True)
+      df["Mem_Order"] = "col" if "col" in f.stem else "row"
+      dfs.append(df)
+    except Exception as _:
+      pass
                         
 
 dfs = pd.concat(dfs)[["Tiles", "Mem_Order", "MFLOPS"]]
