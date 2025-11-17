@@ -16,10 +16,10 @@
 #define IDX_COL(row, col, height) ((row) + (col) * (height))
 
 // Work on a slice of rows starting at i0 with length rows on a specific device.
-static void mm_kernel_slice(double *a, double *b, double *c, int N, int i0, int rows, int dev)
+static void mm_kernel_slice(double *a_slice, double *b, double *c, int N, int rows, int dev)
 {
     #pragma omp target teams loop collapse(2) device(dev) \
-        map(present, tofrom: a[i0 * N : rows * N]) \
+        map(present, tofrom: a_slice[0 : rows * N]) \
         map(present, to: b[0 : N * N]) \
         map(present, to: c[0 : N * N])
     for (int ii = 0; ii < rows; ++ii)
@@ -28,7 +28,7 @@ static void mm_kernel_slice(double *a, double *b, double *c, int N, int i0, int 
         {
             for (int k = 0; k < N; ++k)
             {
-                a[IDX(i0 + ii, j, N)] += b[IDX(i0 + ii, k, N)] * c[IDX_COL(j, k, N)];
+                a_slice[IDX(ii, j, N)] += b[IDX(ii, k, N)] * c[IDX_COL(j, k, N)];
             }
         }
     }
@@ -104,7 +104,7 @@ double mm(int N, int REP, double expected_result)
 
                     #pragma omp task firstprivate(dev, rows, i0)
                     {
-                        mm_kernel_slice(a, b, c, N, i0, rows, dev);
+                        mm_kernel_slice(a + i0 * N, b, c, N, rows, dev);
                     }
                 }
                 #pragma omp taskwait
