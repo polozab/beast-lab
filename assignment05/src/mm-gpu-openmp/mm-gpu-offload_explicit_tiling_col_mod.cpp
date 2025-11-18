@@ -33,19 +33,18 @@ void mm_kernel(double *a, double *b, double *c, int N, int padded_N)
             {
                 for (int jj = 0; jj < TILE_SIZE; ++jj)
                 {
+                    double sum = 0.0;
+
                     #pragma omp simd reduction(+:sum)
                     for (int k = 0; k < N; k += TILE_SIZE) {
-
-                        double sum = 0.0;
-                        
                         for (int kk = 0; kk < TILE_SIZE; ++kk)
                         {
                             sum += b[IDX(i + ii, k + kk, padded_N)] * c[IDX_COL(j + jj, k + kk,  padded_N)];
                         }
-
-                        a[IDX(i + ii, j + jj, padded_N)] += sum;
-
                     }
+
+                    a[IDX(i + ii, j + jj, padded_N)] += sum;
+                    
                 }
             }
         }
