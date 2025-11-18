@@ -26,7 +26,7 @@ Explicitly applying vectorization with the `simd` directive didn't had an impact
 Running the test with both 256 teams and thread archived overall good performance, which is why we ran all our measurements using these values. We also tried to assign the numbers already at compile time using the preprocessor to hopefully let the compiler make more informed decision. Additionally we though this might help getting a fixed number during execution which doesn't get overwritten by the runtime.
 We will look into further details about different combinations of teams and threads in task 3.
 
-When looking at the performance reached for larger matrices we can see that after the sizes increase beyond 200 the performance goes down continuously. We can clearly see the memory hierarchy drops in this graph which get even amplified as we take entire row jumps in every iteration for the innermost loop. This is due to the nature we currently access matrix `C` leading to many unnecessary cache evictions and thus keeping the kernel for large matrix sizes memory bound.
+When looking at the performance reached for larger matrices we can see that after the sizes increase beyond 200 the performance goes down continuously. We can clearly see the memory hierarchy drops in this graph which get even amplified as we take entire row jumps in every iteration for the innermost loop. This is due to the nature we currently access matrix `C` leading to many unnecessary cache evictions and data transfers. Thus beyond a matrix size of 200 we exceed the L1 cache of size 16 KiB and finally L2 with 8 MiB capacity after 1000 being completely memory bound.
 
 By implicitly defining the OpenMP directives we can spot an even worse performance for larger matrices compared to explicit clauses. We think the compiler might even increase the effect of the inefficient memory layout of the matrix `C`.
 He might not be able to sufficiently predict the right amount of teams and threads so that all data for the inner loop would fit into a fast cache level. When explicitly setting the teams and threads to a constant value overall might be a safer and faster option for large matrices.
@@ -45,7 +45,7 @@ Because of this the innermost loop of the kernel streams subsequent cells in mem
 
 ![Row Column comparison](plots/t2_row-col.png)
 
-We are now able to clearly see a initial ramp-up in performance for increasing matrix sizes. Previously as we were memory bound beyond a matrix size of 200 we could only see the start of the trend. Now the ramp-up continues up to around a matrix size of 750.
+We are now able to clearly see a initial ramp-up in performance for increasing matrix sizes. Previously as we were limited by strided loads from C beyond a matrix size of 200 we could only see the start of the trend. Now the ramp-up continues up to around a matrix size of 750.
 This can be explained by the loop and work distribution overhead from OpenMP which gets mitigated as the matrix size increases and overall execution takes longer. So the ratio from overhead to raw computation gets shifted to the advantage of performance.
 
 Additionally, We can see that performance will not decrease anymore with increasing matrix sizes. This we think can be also traced back to the fact that now access to the matrix `C` is continuous. For larger matrix sizes this would previously mean that due to the bad cache coherence rows would be swapped in and out of faster cache levels in the innermost loop as they don't fit into the small caches. Now as memory access to all matrices is coalesced we can use the smaller cache much more effectively and don't have to swap out rows anymore in every iteration. Instead they now get evicted if computation for this chunk is already finished and thus data is only loaded once.
@@ -125,3 +125,7 @@ While we can even archive a significant performance improvement with tiling  usi
 
 Furthermore we discovered that a tile size of 32 has in general good performance for all matrix sizes and also isn't much slower as the maximum archived value using tiling. However as we only have tiling code for explicit directives and implicit directives can't be configured as broadly we will not consider implicit testing in our future investigation.  
 As our explicit tiling code gets at least comparable performance we will therefor use this setup with a tile size of 32 to determine the best number of teams and threads going forward.
+
+## Further work
+
+For further investigation we would also like to compare our results to the CPU version of the matrix multiplication kernel. However as we were testing this on the Grace Hopper system, we didn't have time to adapt out CPU kernel for the Milan system.
