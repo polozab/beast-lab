@@ -1,5 +1,5 @@
 CXX=clang++
-CXXFLAGS= -std=c++17 -Wall -Wextra -fopenmp --offload-arch=gfx90a -O3
+CXXFLAGS= -std=c++17 -Wall -Wextra -fopenmp --offload-arch=gfx90a -O3 -ffast-math -funroll-loops -fstrict-aliasing
 
 TILE_SIZE ?= 64
 NUM_TEAMS ?= 64
