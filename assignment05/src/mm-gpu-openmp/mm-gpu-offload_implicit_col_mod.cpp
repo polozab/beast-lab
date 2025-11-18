@@ -25,9 +25,9 @@ void mm_kernel(double *a, double *b, double *c, int N)
             double sum = 0.0;
             for (int k = 0; k < N; ++k)
             {
-                sum += b[IDX(i, k, N)] * c[IDX_COL(j, k, N)];
+                a[IDX(i, j, N)] += b[IDX(i, k, N)] * c[IDX_COL(j, k, N)];
             }
-            a[IDX(i, j, N)] = sum;
+            //a[IDX(i, j, N)] = sum;
         }
     }
 }
