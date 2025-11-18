@@ -36,13 +36,19 @@ double mm(int N, int REP, double expected_result)
 
     // host copy of A used only for correctness check
     double *a = (double *)malloc(N_sqr * sizeof(double));
-    if (!a)
+    double *b = (double *)malloc(N_sqr * sizeof(double));
+    double *c = (double *)malloc(N_sqr * sizeof(double));
+    if (!a || !b || !c)
     {
         fprintf(stderr, "Allocation failed\n");
         exit(EXIT_FAILURE);
     }
     for (long i = 0; i < N_sqr; ++i)
+    {
         a[i] = 0.0;
+        b[i] = 0.0;
+        c[i] = 0.0;
+    }
 
     int num_dev = omp_get_num_devices();
     if (num_dev < 1)
@@ -119,6 +125,8 @@ double mm(int N, int REP, double expected_result)
     }
 
     free((void *)a);
+    free((void *)b);
+    free((void *)c);
 
     double mflop = 2.0 * (double)N * (double)N * (double)N * (double)REP * 1.0e-6 / dur;
     printf("N=%d, REP=%d, devices=%d, MFLOPs=%f\n", N, REP, num_dev, mflop);
