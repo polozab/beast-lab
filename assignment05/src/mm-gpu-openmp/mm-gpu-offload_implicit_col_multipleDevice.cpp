@@ -1,7 +1,3 @@
-// Multi-GPU version of the implicit column-major MxM.
-// Splits the row domain across available devices and launches one target
-// region per device (in parallel tasks).
-
 #include <chrono>
 #include <cstdio>
 #include <cstdlib>
@@ -15,7 +11,6 @@
 #define IDX(row, col, width) ((width) * (row) + (col))
 #define IDX_COL(row, col, height) ((row) + (col) * (height))
 
-// Work on a slice of rows starting at i0 with length rows on a specific device.
 static void mm_kernel_slice(double *a, double *b, double *c, int N, int i0, int rows, int dev)
 {
     #pragma omp target teams loop collapse(2) device(dev)
