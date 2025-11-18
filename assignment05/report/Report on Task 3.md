@@ -7,18 +7,13 @@
 ![task3_plot](/Group-101/assignment05/report/plots/heatmap.png)
 
 ## Hardware Configuration
-- each Wavefront executes 64 threads
-- 104 Compute Units per die
+- Every SIMD execution Unit (Wavefront) can execute up to 64 threads
+- 104 Compute Units each serving one team
+
+## Predictions
+To fully utilize the GPU we need to have at least 104 teams to keep all compute units busy. Fewer teams would lead to underutilization of the GPU. Furthermore each team should have a number of threads that is a multiple of 64 to fully utilize the wavefronts.
 
 
 ## Observations
-Less than 104 teams result in underutilization of the GPU therefore the performance is poor.
-
-Less than 64 threads per team also result in underutilization due to lane underutilization. 
-
-Having more than 104 teams gives the scheduler enough work to swap in when some waves stall on memory.
-
-The best performance is achieved with 1024 teams and 64 threads per team which results in a performance of approximately 307 GFLOPs. This is because with 1024 teams there is enough work to keep the GPU busy and with 64 threads per team all lanes of a wavefront are utilized.
-
-256 teams with more than 256 threads performs also very well 
-> todo: finish this sentence
+Our predictions correctly anticipated the performance trends observed in the heatmap. Having less than 104 teams, and not a multiple of 64 threads per team leads to significant performance drops. Having at least 256 teams already provides good performance, as most compute units can be kept busy and stalling wavefronts can be swapped out. One note worthy observation is that with 256 teams to achive the best performance 256 threads per team or are required.
+However when using more teams than 256 the number of threads per team decreases to achieve the best performance. Our best results where achieved with 1024 teams and 64 threads per team achieving 306.367 GFLOPs. Although our next best results are very close to this value.
