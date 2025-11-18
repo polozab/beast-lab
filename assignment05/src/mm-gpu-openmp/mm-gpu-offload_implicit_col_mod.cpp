@@ -23,7 +23,6 @@ void mm_kernel(double *a, double *b, double *c, int N)
         for (int j = 0; j < N; ++j)
         {
             double sum = 0.0;
-            #pragma omp simd reduction(+:sum)
             for (int k = 0; k < N; ++k)
             {
                 sum += b[IDX(i, k, N)] * c[IDX_COL(j, k, N)];
