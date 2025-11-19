@@ -7,3 +7,4 @@ pcm: MemUnitBusy MemUnitStalled BANDWIDTH_EA
 pcm: FetchSize WriteSize
 
 kernel: mm_kernel
+range: 1 : 7 
