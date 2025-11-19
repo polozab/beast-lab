@@ -1,6 +1,7 @@
 CXX=clang++
 CXXFLAGS= -std=c++17 -Wall -Wextra -fopenmp --offload-arch=gfx90a -O3 -ffast-math -funroll-loops -fstrict-aliasing
-LDFLAGS= -L/opt/rocm-6.3.4/lib -Wl,-rpath=/opt/rocm-6.3.4/lib -lroctx64
+LDFLAGS= -I/opt/rocm-6.3.4/include -L/opt/rocm-6.3.4/lib -Wl,-rpath=/opt/rocm-6.3.4/lib
+LDLIBS= -lroctx64
 
 TILE_SIZE ?= 64
 NUM_TEAMS ?= 64
@@ -15,7 +16,7 @@ debug: CXXFLAGS += -DPRINT_DEBUG
 debug: all
 
 %.out: %.cpp
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -DTILE_SIZE=$(TILE_SIZE) -DNUM_TEAMS=$(NUM_TEAMS) -DNUM_THREADS=$(NUM_THREADS) $< -o $@
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -DTILE_SIZE=$(TILE_SIZE) -DNUM_TEAMS=$(NUM_TEAMS) -DNUM_THREADS=$(NUM_THREADS) $< -o $@ $(LDLIBS)
 
 clean:
 	rm -f $(OBJS)
