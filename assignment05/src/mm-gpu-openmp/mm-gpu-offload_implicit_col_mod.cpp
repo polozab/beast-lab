@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <math.h>
 #include <omp.h>
+#include <roctracer/include/roctracer_ext.h>
 
 #ifndef NUM_TEAMS
 #define NUM_TEAMS 64
@@ -82,11 +83,15 @@ double mm(int N, int REP, double expected_result)
         // Start time measurements for computation
         auto t0 = std::chrono::high_resolution_clock::now();
 
+        roctracer_start();
+
         // TODO: Run on target device
         for (int r = 0; r < REP; ++r)
         {
             mm_kernel(a, b, c, N);
         }
+
+        roctracer_stop();
 
         // End time measurements for computation
         auto t1 = std::chrono::high_resolution_clock::now();
