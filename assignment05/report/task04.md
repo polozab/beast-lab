@@ -1,4 +1,4 @@
-# Report on Task4
+# Task 4
 The implementation for Task 4 uses a basic approach for multi GPU matrix multiplication. All matrices are initialized on the CPU and then copied to each GPU. Each GPU computes a portion of the resulting matrix, and the final result is copied back to the CPU. 
 > **Speculation:**
 > 

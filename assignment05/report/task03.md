@@ -1,4 +1,4 @@
-# Report on Task 3
+# Task 3
 ## Implementation Configuration
 - Variant: explicit column-major
 - Size of N: 4000
