@@ -49,9 +49,13 @@ double mm(int N, int REP, double expected_result)
     *teams = -1;
     *threads = -1;
 
+    roctxRangeStart("kernel");
+
     // Alloc on GPU
     #pragma omp target data map(from : a[0 : N_sqr]) map(alloc : b[0 : N_sqr], c[0 : N_sqr]) 
     {
+
+        roctxRangePush("data_init");
 
         // Init data on cpu
         #pragma omp target
@@ -65,6 +69,8 @@ double mm(int N, int REP, double expected_result)
                 c[IDX_COL(i, j, N)] = (i * j) / (N * 50);
             }
         }
+
+        roctxRangePop();
 
         // Debug print 
         #ifdef PRINT_DEBUG
@@ -83,7 +89,7 @@ double mm(int N, int REP, double expected_result)
         // Start time measurements for computation
         auto t0 = std::chrono::high_resolution_clock::now();
 
-        roctracer_start();
+        roctxRangePush("computation");
 
         // TODO: Run on target device
         for (int r = 0; r < REP; ++r)
@@ -91,7 +97,7 @@ double mm(int N, int REP, double expected_result)
             mm_kernel(a, b, c, N);
         }
 
-        roctracer_stop();
+        roctxRangePop();
 
         // End time measurements for computation
         auto t1 = std::chrono::high_resolution_clock::now();
@@ -101,6 +107,8 @@ double mm(int N, int REP, double expected_result)
         dur = std::chrono::duration_cast<dsec>(t1 - t0).count();
 
     }
+
+    roctxRangeStop("kernel");
 
     // TODO: Copy back from GPU, eventually release memory
 
