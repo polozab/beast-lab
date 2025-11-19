@@ -1,0 +1,3 @@
+pmc :  TCC_HIT_sum TCC_MISS_sum L2CacheHit TCC_BUSY_sum TCC_EA_RDREQ_DRAM_sum VALUUtilization LDSBankConflict
+
+kernel: mm_kernel

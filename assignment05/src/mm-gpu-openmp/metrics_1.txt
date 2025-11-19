@@ -1,5 +1,3 @@
 pmc :  BANDWIDTH_EA MemUnitBusy MemUnitStalled TCP_TOTAL_CACHE_ACCESSES_sum TCP_PENDING_STALL_CYCLES_sum MeanOccupancyPerCU MeanOccupancyPerActiveCU LDSInsts SIMD_UTILIZATION VALUBusy
-pmc :  TCC_HIT_sum TCC_MISS_sum L2CacheHit TCC_BUSY_sum TCC_EA_RDREQ_DRAM_sum VALUUtilization LDSBankConflict
-
 
 kernel: mm_kernel
