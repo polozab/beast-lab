@@ -1,0 +1,10 @@
+MemUnitStalled
+BANDWIDTH_EA
+L2CacheHit
+TCC_MISS
+VALUUtilization
+MeanOccupancyPerCU
+LDSBankConflict
+MemUnitBusy
+TCP_PENDING_STALL_CYCLES_sum
+TD_TC_STALL_sum
