@@ -33,12 +33,12 @@ There are many other interesting traces we could consider depending on what we o
 
 ## Program Observations
 
-To be able to get precise measurement that only contain the matrix multiplication kernel we first ran a `hsa`-trace to get the desired identifier, which in this case was `_omp_offloading_43_e270c8a__Z9mm_kernelPdS_S_i_l20.kd`.
+To be able to get precise measurement that only contain the matrix multiplication kernel we first ran a `hsa`-trace to verify that out `mm_kernel` was listed separately and can be therefore watched exclusively.
 
 ~~~
 "Name","Calls","TotalDurationNs","AverageNs","Percentage"
-"__omp_offloading_43_e270c8a__Z9mm_kernelPdS_S_i_l20.kd",2404,968912573,403041,99.039013990062
-"__omp_offloading_43_e270c8a__Z2mmiid_l61.kd",15,9401461,626764,0.9609860099379909
+"__omp_offloading_43_e270c8a__Z9mm_kernelPdS_S_i_l20.kd",1,249718841,249718841,98.82054097762018
+"__omp_offloading_43_e270c8a__Z2mmiid_l61.kd",1,2980485,2980485,1.1794590223798223
 ~~~
 
-
+We only looked at one matrix size 4000, were we previously reached out peak performance of around 0.5 TFLOPS/s.
