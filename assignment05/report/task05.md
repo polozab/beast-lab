@@ -33,3 +33,12 @@ There are many other interesting traces we could consider depending on what we o
 
 ## Program Observations
 
+To be able to get precise measurement that only contain the matrix multiplication kernel we first ran a `hsa`-trace to get the desired identifier, which in this case was `_omp_offloading_43_e270c8a__Z9mm_kernelPdS_S_i_l20.kd`.
+
+~~~
+"Name","Calls","TotalDurationNs","AverageNs","Percentage"
+"__omp_offloading_43_e270c8a__Z9mm_kernelPdS_S_i_l20.kd",2404,968912573,403041,99.039013990062
+"__omp_offloading_43_e270c8a__Z2mmiid_l61.kd",15,9401461,626764,0.9609860099379909
+~~~
+
+
