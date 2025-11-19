@@ -1,0 +1,2 @@
+Index,KernelName,gpu-id,queue-id,queue-index,pid,tid,grd,wgr,lds,scr,arch_vgpr,accum_vgpr,sgpr,wave_size,sig,obj,BANDWIDTH_EA,MemUnitBusy,MemUnitStalled,TCP_TOTAL_CACHE_ACCESSES_sum,TCP_PENDING_STALL_CYCLES_sum,MeanOccupancyPerCU,MeanOccupancyPerActiveCU,LDSInsts,SIMD_UTILIZATION,VALUBusy
+1,"__omp_offloading_43_e270c8a__Z9mm_kernelPdS_S_i_l20.kd",8,0,1,85395,85395,106496,256,0,0,16,0,32,64,0x7ff852bff900,0x7ff852c35280,48.9734188055,89.7930566197,0.0157110659,32008000000.0000000000,9809778788.0000000000,15.9118642395,7.9613854100,0.0000000000,0.9990686769,21.5157872725
