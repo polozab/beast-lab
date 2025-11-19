@@ -2,7 +2,7 @@
 #include <cstdio>
 #include <math.h>
 #include <omp.h>
-#include <roctracer/roctx.h>
+//#include <roctracer/roctx.h>
 
 #ifndef NUM_TEAMS
 #define NUM_TEAMS 64
@@ -49,13 +49,13 @@ double mm(int N, int REP, double expected_result)
     *teams = -1;
     *threads = -1;
 
-    roctxRangeStart("kernel");
+    //roctxRangeStart("kernel");
 
     // Alloc on GPU
     #pragma omp target data map(from : a[0 : N_sqr]) map(alloc : b[0 : N_sqr], c[0 : N_sqr]) 
     {
 
-        roctxRangePush("data_init");
+        //roctxRangePush("data_init");
 
         // Init data on cpu
         #pragma omp target
@@ -70,7 +70,7 @@ double mm(int N, int REP, double expected_result)
             }
         }
 
-        roctxRangePop();
+        //roctxRangePop();
 
         // Debug print 
         #ifdef PRINT_DEBUG
@@ -89,7 +89,7 @@ double mm(int N, int REP, double expected_result)
         // Start time measurements for computation
         auto t0 = std::chrono::high_resolution_clock::now();
 
-        roctxRangePush("computation");
+        //roctxRangePush("computation");
 
         // TODO: Run on target device
         for (int r = 0; r < REP; ++r)
@@ -97,7 +97,7 @@ double mm(int N, int REP, double expected_result)
             mm_kernel(a, b, c, N);
         }
 
-        roctxRangePop();
+        //roctxRangePop();
 
         // End time measurements for computation
         auto t1 = std::chrono::high_resolution_clock::now();
@@ -108,7 +108,7 @@ double mm(int N, int REP, double expected_result)
 
     }
 
-    roctxRangeStop("kernel");
+    //roctxRangeStop("kernel");
 
     // TODO: Copy back from GPU, eventually release memory
 
