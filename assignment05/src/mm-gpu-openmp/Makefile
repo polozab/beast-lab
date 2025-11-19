@@ -1,6 +1,6 @@
 CXX=clang++
 CXXFLAGS= -std=c++17 -Wall -Wextra -fopenmp --offload-arch=gfx90a -O3 -ffast-math -funroll-loops -fstrict-aliasing
-LDFLAGS= -L/opt/rocm-6.3.4/lib -Wl,-rpath=/opt/rocm-6.3.4/lib -llibroctx64
+LDFLAGS= -L/opt/rocm-6.3.4/lib -Wl,-rpath=/opt/rocm-6.3.4/lib -lroctx64
 
 TILE_SIZE ?= 64
 NUM_TEAMS ?= 64
