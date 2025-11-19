@@ -41,4 +41,10 @@ To be able to get precise measurement that only contain the matrix multiplicatio
 "__omp_offloading_43_e270c8a__Z2mmiid_l61.kd",1,2980485,2980485,1.1794590223798223
 ~~~
 
-We only looked at one matrix size 4000, were we previously reached out peak performance of around 0.5 TFLOPS/s.
+We only looked at one matrix size 4000, were we previously reached out peak performance of around 500 GFLOPS/s.
+
+Our first observation was that due to the profiling the performance of our kernel dropped significantly to around 476 - 472 GFLOPS/s depending on how many counters were measured.
+Looking at the results we immediately saw that LDS is not used at all in our kernel. This means that the data is directly loaded from HBM and is not using the shared memory in any way. This directly fits other observations like the very high stall sums of the TCC and TCP and thus low busy times of the vector arithmetic units. Moreover it explains why our kernel performance saturates at around 350-500 GFLOPS/s and proves our previous assumption that we are still memory bound.
+As a positiv at least we get a high cache reusability at the L2 level, which means that our tiling is at least in that sense effective. Also we have a nearly 100% SIMD utilization.
+
+Our primary focus now for optimizing the kernel should be to make sure that LDS is used correctly and get the HBM bandwidth utilization down to reduce stalling times due to memory loads. 
