@@ -121,9 +121,12 @@ Unfortunately we had problems optimizing the code with implicit OpenMP directive
 ## Conclusion
 
 Looking at the peak values we can reach with 256 teams and threads and using implicit OpenMP directives at a matrices size of 2000 around *373360.53 MFLOPS/s*. When using tiling and explicit clauses we get for the same setup and matrices size *346514.07 MFLOPS/s* with a tile size of 64. Similar performance could be also reached at a matrix size of 1000 where explicit directives could even match the performance of implicit clauses.
-While we can even archive a significant performance improvement with tiling  using row-major memory order all OpenMP clauses still outperform them with column-major order. And while tiling allowed explicit OpenMP clauses to be more effective they still fall short in comparison to the automatic optimization done by the compiler when using implicit directives like the `loop` construct.
+While we can even archive a significant performance improvement with tiling using row-major memory order all OpenMP clauses still outperform them with column-major order. And while tiling allowed explicit OpenMP clauses to be more effective they still fall short in comparison to the automatic optimization done by the compiler when using implicit directives like the `loop` construct.
 
-Furthermore we discovered that a tile size of 32 has in general good performance for all matrix sizes and also isn't much slower as the maximum archived value using tiling. However as we only have tiling code for explicit directives and implicit directives can't be configured as broadly we will not consider implicit testing in our future investigation.  
+As our performance is still far below the theoretical max performance of *46.1 TFLOPS/s* for matrix benchmarks, we suspect that the kernel still is somehow memory bound at some level. That would explain the strict saturation at around *300-500 MFLOPS/s* we currently observer when looking at our results. Further investigation would be necessary to find the precise cause of this premature saturation.
+
+The measurements also reveal that a tile size of 32 has in general good performance for all matrix sizes and isn't much slower as the maximum archived value using tiling. However as we only have tiling code for explicit directives and implicit directives can't be configured as broadly we will not consider implicit testing in our future investigation. 
+ 
 As our explicit tiling code gets at least comparable performance we will therefor use this setup with a tile size of 32 to determine the best number of teams and threads going forward.
 
 ## Further work
