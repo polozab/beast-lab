@@ -2,7 +2,7 @@
 #include <cstdio>
 #include <math.h>
 #include <omp.h>
-#include <roctracer/include/roctracer_ext.h>
+#include <roctracer/roctx.h>
 
 #ifndef NUM_TEAMS
 #define NUM_TEAMS 64
