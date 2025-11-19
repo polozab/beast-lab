@@ -1,10 +1,9 @@
-pmc: MeanOccupancyPerCU MeanOccupancyPerActiveCU
-pcm: SIMD_UTILIZATION VALUUtilization VALUBusy
-pcm: LDSInsts LDSBankConflict
-pcm: TCP_TOTAL_CACHE_ACCESSES_sum TCP_PENDING_STALL_CYCLES_sum
-pcm: TCC_HIT_sum TCC_MISS_sum L2CacheHit TCC_BUSY_sum TCC_EA_RDREQ_DRAM_sum
-pcm: MemUnitBusy MemUnitStalled BANDWIDTH_EA
-pcm: FetchSize WriteSize
+pmc : MeanOccupancyPerCU MeanOccupancyPerActiveCU
+pcm : SIMD_UTILIZATION VALUUtilization VALUBusy
+pcm : LDSInsts LDSBankConflict
+pcm : TCP_TOTAL_CACHE_ACCESSES_sum TCP_PENDING_STALL_CYCLES_sum
+pcm : TCC_HIT_sum TCC_MISS_sum L2CacheHit TCC_BUSY_sum TCC_EA_RDREQ_DRAM_sum
+pcm : MemUnitBusy MemUnitStalled BANDWIDTH_EA
+pcm : FetchSize WriteSize
 
 kernel: mm_kernel
-range: 0:
