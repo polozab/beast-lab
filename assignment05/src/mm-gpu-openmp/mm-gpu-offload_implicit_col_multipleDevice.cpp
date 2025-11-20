@@ -41,7 +41,6 @@ double mm(int N, int REP, double expected_result)
         exit(EXIT_FAILURE);
     }
 
-    // Init on host
     for (int i = 0; i < N; ++i)
     {
         for (int j = 0; j < N; ++j)
@@ -71,13 +70,10 @@ double mm(int N, int REP, double expected_result)
                     int i0 = dev * rows;
                     if (dev == num_dev - 1)
                     {
-                        rows = N - i0; // handle remainder
-                    }
+                        rows = N - i0;
+                    } 
 
-                    // Map only the slice of A, but full B and C since they are read-only.
-                    #pragma omp target data device(dev) \
-                        map(to: b[0 : N_sqr], c[0 : N_sqr]) \
-                        map(tofrom: a[i0 * N : rows * N])
+                    #pragma omp target data device(dev) map(to: b[0 : N_sqr], c[0 : N_sqr]) map(tofrom: a[i0 * N : rows * N])
                     {
                         for (int r = 0; r < REP; ++r)
                         {
