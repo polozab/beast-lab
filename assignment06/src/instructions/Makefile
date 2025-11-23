@@ -27,7 +27,7 @@ LIKWID_GROUP?=CLOCK
 all: $(BIN)
 
 $(BIN): $(SRC) Makefile
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -DOP=$(OP) -DCHAINS_MAX=$(CHAINS_MAX) $< -o $@ $(LDLIBS)
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -DOP="$(OP)" -DCHAINS_MAX=$(CHAINS_MAX) $< -o $@ $(LDLIBS)
 
 .PHONY: clean bench-instructions
 
