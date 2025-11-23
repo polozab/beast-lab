@@ -33,7 +33,7 @@ bench-instructions:
 	@echo dtype,op,chains,time,rep > "./data/$(CSV_FILE)"
 	@for op in + "*" /; do \
 		make $(BIN) -B OP="$$op"; \
-		likwid-perfctr -C $(CPU) -g FLOPS_DP -m ./triad.out >> "./data/$(CSV_FILE)";
+		likwid-perfctr -C $(CPU) -g FLOPS_DP -m $(BIN) >> "./data/$(CSV_FILE)"; \
 	done;
 
 clean:
