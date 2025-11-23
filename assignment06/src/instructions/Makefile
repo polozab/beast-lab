@@ -31,6 +31,7 @@ $(BIN): $(SRC) Makefile
 .PHONY: clean bench-instructions
 
 bench-instructions:
+	mkdir -p "./data"
 	@echo dtype,op,chains,time,rep > "./data/$(CSV_FILE)"
 	@for op in + "*" /; do \
 		make $(BIN) -B OP="$$op"; \
