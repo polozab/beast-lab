@@ -13,4 +13,4 @@
 #SBATCH --nodes=1
 
 module load likwid
-make bench-instructions CHAINS_MAX=10 LIKWID_GROUP="FLOPS"
+make bench-instructions LIKWID_GROUP="FLOPS" CHAINS_MAX=1
