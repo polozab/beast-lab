@@ -50,12 +50,10 @@ double instructions(size_t REP)
 }
 
 template <typename T, size_t CHAINS>
-double instructions_real(size_t REP)
+double instructions_real(size_t REP, const char *typestring)
 {
 
-    LIKWID_MARKER_INIT;
-    LIKWID_MARKER_THREADINIT;
-    LIKWID_MARKER_REGISTER("REGION");
+    LIKWID_MARKER_REGISTER(typestring);
 
     T val1[CHAINS];
     T val2 = (rand() % REP) + 2.01;
@@ -64,7 +62,7 @@ double instructions_real(size_t REP)
         val1[j] = (rand() % (j + 1)) + 1 + rand();
 
     auto t0 = std::chrono::high_resolution_clock::now();
-    LIKWID_MARKER_START("REGION");
+    LIKWID_MARKER_START(typestring);
     for (ssize_t i = 0; i < REP / CHAINS; ++i) {
 #pragma GCC unroll 65534 // max loop unroll
         for (size_t j = 0; j < CHAINS; ++j) {
@@ -73,7 +71,7 @@ double instructions_real(size_t REP)
         // prevent add optimization:
         val2 = (i > REP) ? 2.01 : 3.01;
     }
-    LIKWID_MARKER_STOP("REGION");
+    LIKWID_MARKER_STOP(typestring);
     auto t1 = std::chrono::high_resolution_clock::now();
 
     // prevent DCE:
@@ -83,8 +81,6 @@ double instructions_real(size_t REP)
 
     using dsec = std::chrono::duration<double>;
     double dur = std::chrono::duration_cast<dsec>(t1 - t0).count();
-    
-    LIKWID_MARKER_CLOSE;
 
     return dur;
 }
@@ -105,7 +101,7 @@ void bench_chains(const char *typestring)
     }
 
     // actual measurement:
-    dur = instructions_real<T, CHAINS>(REP);
+    dur = instructions_real<T, CHAINS>(REP, );
 
     // csv output:
     std::cout << typestring << ','
@@ -140,8 +136,14 @@ int main(int argc, char **argv)
               << " CHAINS_MAX=" << CHAINS_MAX << '\n'
               << "======================================\n";
 
+    LIKWID_MARKER_INIT;
+    LIKWID_MARKER_THREADINIT;
+
     BENCH(float, CHAINS_MAX);
     BENCH(double, CHAINS_MAX);
     BENCH(int32_t, CHAINS_MAX);
     BENCH(int64_t, CHAINS_MAX);
+
+    LIKWID_MARKER_CLOSE;
+
 }

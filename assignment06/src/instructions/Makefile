@@ -21,6 +21,7 @@ CHAINS_MAX?=1U
 CPU?=2
 
 CSV_FILE:=$(HOSTNAME)_$(OP)_$(CHAINS_MAX).csv
+LIK_FILE:=$(HOSTNAME)_$(OP)_$(CHAINS_MAX).lik
 
 all: $(BIN)
 
@@ -30,11 +31,10 @@ $(BIN): $(SRC) Makefile
 .PHONY: clean bench-instructions
 
 bench-instructions:
-	rm -rf "./data/likwid_$(CSV_FILE)"
 	@echo dtype,op,chains,time,rep > "./data/$(CSV_FILE)"
 	@for op in + "*" /; do \
 		make $(BIN) -B OP="$$op"; \
-		likwid-perfctr -C 2 -g CLOCK -o "./data/likwid_$(CSV_FILE)" -m ./instructions.out 27 >> "./data/$(CSV_FILE)"; \
+		likwid-perfctr -C 2 -g CLOCK -o "./data/$(LIK_FILE)" -m ./instructions.out 27 >> "./data/$(CSV_FILE)"; \
 	done;
 
 clean:
