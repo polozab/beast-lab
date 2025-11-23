@@ -33,7 +33,7 @@ bench-instructions:
 	@echo dtype,op,chains,time,rep > "./data/$(CSV_FILE)"
 	@for op in + "*" /; do \
 		make $(BIN) -B OP="$$op"; \
-		taskset -c $(CPU) ./$(BIN) 27 >> "./data/$(CSV_FILE)"; \
+		./$(BIN) 27 >> "./data/$(CSV_FILE)"; \
 	done;
 
 clean:
