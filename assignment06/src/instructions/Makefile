@@ -34,7 +34,7 @@ bench-instructions:
 	@echo dtype,op,chains,time,rep > "./data/$(CSV_FILE)"
 	@for op in + "*" /; do \
 		make $(BIN) -B OP="$$op"; \
-		likwid-perfctr -C 2 -g CLOCK -o "./data/$(HOSTNAME)_$(OP)_$(CHAINS_MAX).xml" -m ./$(BIN) 27 >> "./data/$(CSV_FILE)"; \
+		likwid-perfctr -C 2 -g CLOCK -o "./data/$(HOSTNAME)_$$op_$(CHAINS_MAX).txt" -m ./$(BIN) 27 >> "./data/$(CSV_FILE)"; \
 	done;
 
 clean:
