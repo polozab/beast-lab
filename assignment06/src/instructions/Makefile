@@ -34,7 +34,7 @@ bench-instructions:
 	@for op in + "*" /; do \
 		make $(BIN) -B OP="$$op"; \
 		echo dtype,op,chains,time,rep >> "./data/$(CSV_FILE)"; \
-		likwid-perfctr -C 2 -g FLOPS_DP -m $(BIN) 27 >> "./data/$(CSV_FILE)"; \
+		likwid-perfctr -C 2 -g CLOCK -o "./data/$(CSV_FILE)" -m ./instructions.out 27 >> "./data/$(CSV_FILE)"; \
 	done;
 
 clean:
