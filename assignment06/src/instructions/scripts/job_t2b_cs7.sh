@@ -8,9 +8,9 @@
 #SBATCH --no-requeue
 #SBATCH --export=NONE
 #SBATCH --get-user-env
-#SBATCH --partition=milan #milan sap gh cs
-#SBATCH --nodelist=milan1 #sap4 gh3 cs7
+#SBATCH --partition=cs #milan sap gh cs
+#SBATCH --nodelist=cs7 #sap4 gh3 cs7
 #SBATCH --nodes=1
 
 module load likwid
-make bench-instructions
+make bench-instructions CHAINS_MAX=10

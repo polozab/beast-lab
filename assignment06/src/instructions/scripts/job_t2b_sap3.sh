@@ -13,4 +13,4 @@
 #SBATCH --nodes=1
 
 module load likwid
-make bench-instructions
+make bench-instructions CHAINS_MAX=10
