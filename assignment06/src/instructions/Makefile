@@ -20,8 +20,8 @@ CHAINS_MAX?=1U
 # setting of CPU to pin the thread
 CPU?=2
 
-CSV_FILE:=$(HOSTNAME)_$(OP)_$(CHAINS_MAX).csv
-LIKWID_FILE:=$(HOSTNAME)_$(OP)_$(CHAINS_MAX).txt
+CSV_FILE:=$(HOSTNAME)_$(CHAINS_MAX).csv
+LIKWID_FILE:=$(HOSTNAME)_$(CHAINS_MAX).txt
 
 all: $(BIN)
 
@@ -33,7 +33,7 @@ $(BIN): $(SRC) Makefile
 bench-instructions:
 	mkdir -p "./data"
 	@echo dtype,op,chains,time,rep > "./data/$(CSV_FILE)"
-	@for op in + "*" /; do \
+	@for op in "+" "*" "/"; do \
 		make $(BIN) -B OP="$$op"; \
 		likwid-perfctr -C 2 -g CLOCK -o "./data/$(LIKWID_FILE)" -m ./$(BIN) 27 >> "./data/$(CSV_FILE)"; \
 	done;
