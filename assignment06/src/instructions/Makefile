@@ -30,9 +30,10 @@ $(BIN): $(SRC) Makefile
 .PHONY: clean bench-instructions
 
 bench-instructions:
-	@echo dtype,op,chains,time,rep > "./data/$(CSV_FILE)"
+	rm "./data/$(CSV_FILE)"
 	@for op in + "*" /; do \
 		make $(BIN) -B OP="$$op"; \
+		@echo dtype,op,chains,time,rep >> "./data/$(CSV_FILE)"
 		likwid-perfctr -C $(CPU) -g FLOPS_DP -m $(BIN) >> "./data/$(CSV_FILE)"; \
 	done;
 
