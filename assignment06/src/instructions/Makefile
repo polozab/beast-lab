@@ -30,11 +30,10 @@ $(BIN): $(SRC) Makefile
 .PHONY: clean bench-instructions
 
 bench-instructions:
-	rm -f "./data/$(CSV_FILE)" \
+	@echo dtype,op,chains,time,rep > "./data/$(CSV_FILE)"
 	@for op in + "*" /; do \
 		make $(BIN) -B OP="$$op"; \
-		@echo dtype,op,chains,time,rep >> "./data/$(CSV_FILE)" \
-		likwid-perfctr -C $(CPU) -g FLOPS_DP -m $(BIN) >> "./data/$(CSV_FILE)";
+		likwid-perfctr -C $(CPU) -g FLOPS_DP -m ./triad.out >> "./data/$(CSV_FILE)";
 	done;
 
 clean:
