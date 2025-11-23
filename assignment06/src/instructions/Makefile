@@ -21,7 +21,6 @@ CHAINS_MAX?=1U
 CPU?=2
 
 CSV_FILE:=$(HOSTNAME)_$(OP)_$(CHAINS_MAX).csv
-LIK_FILE:=$(HOSTNAME)_$(OP)_$(CHAINS_MAX).txt
 
 all: $(BIN)
 
@@ -35,7 +34,7 @@ bench-instructions:
 	@echo dtype,op,chains,time,rep > "./data/$(CSV_FILE)"
 	@for op in + "*" /; do \
 		make $(BIN) -B OP="$$op"; \
-		likwid-perfctr -C 2 -g CLOCK -o "./data/$(LIK_FILE)" -m ./$(BIN) 27 >> "./data/$(CSV_FILE)"; \
+		likwid-perfctr -C 2 -g CLOCK -o "./data/$(HOSTNAME)_$(OP)_$(CHAINS_MAX).xml" -m ./$(BIN) 27 >> "./data/$(CSV_FILE)"; \
 	done;
 
 clean:
