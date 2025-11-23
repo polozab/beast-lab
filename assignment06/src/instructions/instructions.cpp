@@ -101,7 +101,7 @@ void bench_chains(const char *typestring)
     }
 
     // actual measurement:
-    dur = instructions_real<T, CHAINS>(REP, );
+    dur = instructions_real<T, CHAINS>(REP, typestring);
 
     // csv output:
     std::cout << typestring << ','
