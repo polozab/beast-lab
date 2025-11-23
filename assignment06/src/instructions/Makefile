@@ -22,6 +22,7 @@ CPU?=2
 
 CSV_FILE:=$(HOSTNAME)_$(CHAINS_MAX).csv
 LIKWID_FILE:=$(HOSTNAME)_$(CHAINS_MAX).txt
+LIKWID_GROUP?=CLOCK
 
 all: $(BIN)
 
@@ -35,7 +36,7 @@ bench-instructions:
 	@echo dtype,op,chains,time,rep > "./data/$(CSV_FILE)"
 	@for op in "+" "*" "/"; do \
 		make $(BIN) -B OP="$$op"; \
-		likwid-perfctr -C 2 -g CLOCK -o "./data/$(LIKWID_FILE)" -m ./$(BIN) 27 >> "./data/$(CSV_FILE)"; \
+		likwid-perfctr -C 2 -g $(LIKWID_GROUP) -o "./data/$(LIKWID_FILE)" -m ./$(BIN) 27 >> "./data/$(CSV_FILE)"; \
 	done;
 
 clean:
