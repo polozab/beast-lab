@@ -129,3 +129,4 @@ Now we can spot that our architectural register are fully used which means that 
 
 ### iii.)
 
+To measure the possible throughput of an operation we have to at least match the independent instructions chains with `CHAINS` and the number of available functional units dedicated to this instruction. If we chose a too small amount of `CHAINS`, we can get limited by the latency of the `OP`-instruction as the data dependency forbids the CPU to use further functional units. If instead we use a too large number for `CHAINS` we get limited by the latency of load and store operations. In that case we get the unwanted memory access latency which could slow down the measured IPC. Thus setting `CHAINS` to a sufficiently high number to saturate all functional units and is small enough so no spilling to the memory occurs is very important. Only than is the throughput of the functional units the sole limiting factor that tells us the actual throughput of the instruction.
