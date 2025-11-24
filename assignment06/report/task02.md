@@ -147,11 +147,7 @@ latency = exec_time [s] * clock_freq [MHz] * 1.e+6 / repetitions
         = exec_time [s] * clock_freq [Hz] / repetitions
 ~~~
 
-To calculate the throughput of an operation we first looked at the execution times of different numbers of independent instruction chains. That way we tried to get the optimal throughput by choosing `CHAINS` so that it minimizes the execution time. With this method we got the following results:
-
-![Comparison of best performing number of CHAINS](plots/chains_best.svg)
-
-After that we computed the throughput (instructions per cycle) with these best performing `CHAIN`-values by using the following formular:
+To calculate the throughput of an operation we first looked at the execution times of different numbers of independent instruction chains. That way we tried to get the optimal throughput by choosing `CHAINS` so that it minimizes the execution time. After that we computed the throughput (instructions per cycle) with the best performing `CHAIN`-values by using the following formular:
 
 ~~~
 throughput = rep / (exec_time [s] * clock_freq [MHz] * 1.e+6)
@@ -159,7 +155,16 @@ throughput = rep / (exec_time [s] * clock_freq [MHz] * 1.e+6)
 
 Again we had to multiply by `10^6` to convert the MHz to Hz. Notably, we normally would have to divide by the number of independent execution chains to get the throughput per instruction chain which represent the real throughput of an instruction. However, as this is already done in the benchmark code we don't have to adjust our formular.
 
-### Results and interpretation
+### iii.)
+
+To compare the optimal number of independent instruction chains to match the throughput we consider the Milan2 system with a 32 bit integer addition. According to this document the latency of such an instruction would be one cycle and the throughput 0.25 CPI. This would suggest that there are 4 parallel execution units handling 32 bit integer addition. According to our formular this would mean optimal throughput for this operation would be reached at `n * m = 1 * 4 = 4` independent instruction chains. However this is not the case according to our measurements. Depending on the test run we got a execution time of around 0.10 to 0.14 seconds (we notice that the variance between runs can be very significant) for `CHAINS` set to 4. However the minimum execution time measured around 0.08 seconds was archived with 14.
+
+In general throughout all systems it seems like the optimal number of independent instruction chains is much higher then our simple `n * m` model suggests. We think this is due to other factors limiting throughput and thus having to increase the number of independent instruction chains to fully utilize all possible execution units. For example the loop logic itself has some overhead therefore to allow the out-of-order execution to fully hide the latency of such overhead more independent instructions are needed. Similar in todays processor pipelines in specific for CISC architectures operation can get translated to multiple micro-operations. These micro-operations could compete for the same execution unit even if the ISA instructions are not the same. All these factors could bottleneck the execution if to little instructions are given that can be reordered to hide possibly latency. Thus a higher number of independent instruction chains is important to ensure full saturation especially in modern out-of-order processors that make extensive use of instruction level parallelism.
+
+
+![Comparison of best performing number of CHAINS](plots/chains_best.svg)
+
+### Results and interpretation of ii.) and iv.)
 
 In the following we will first discuss the latency and afterwards the CPI of the measured instructions. We will first take look at differences between instruction on the same system and afterwards draw a conclusion between systems.
 
@@ -178,4 +183,16 @@ In the CH3 system we can again see that there is no differentiation between sing
 
 However we cannot explain why we get a latency of 0.5 cycles, as this should not be possible. We verified the measurements by repeating and got a result within the error margin of measurements. At least the floating point latencies reported by [this article](https://chipsandcheese.com/p/arms-neoverse-v2-in-awss-graviton-4) seems to match our measured two cycles for addition and three cycles for multiplication.
 
+![GH3 latency](plots/latency_overview_gh3.svg)
+![GH3 throughput](plots/CPI_overview_gh3.svg)
+
 #### Milan2
+
+For the Milan2 system we can observe that latencies across different types are the same for addition and multiplication 
+
+Comparing these values to specification listed in [this document](https://www.agner.org/optimize/instruction_tables.pdf) seem to suggest that our throughput is much higher than expected. The latencies for integer operations seem to match up with our measurements, however we again seem to observe an impossible instruction latency of 0.5 for addition. Floating point operation seem even more off when compared to the values from the document.
+
+![Milan2 latency](plots/latency_overview_milan2.svg)
+![Milan2 throughput](plots/CPI_overview_milan2.svg)
+
+#### SAP3
