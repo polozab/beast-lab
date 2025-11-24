@@ -139,3 +139,43 @@ To perform the throughput calculations we chose to use likwid to measure the ave
 
 To compute the instruction latency and throughput we have to take a look at results of different numbers of `CHAINS`. Specifically for the instruction latency we have to make sure only a single instruction chain can get executed so we receive sequential results for execution time. And if we want to measure the instruction throughput we have to make sure that we utilize all available execution ports, while not spilling over registers to the memory, which would reduce throughput.
 
+The latency can be calculated as we deduced in task 1.
+In our case we had to convert the clock cycle frequency given in MHz to Hz by multiplying with `10^6`:
+
+~~~
+latency = exec_time [s] * clock_freq [MHz] * 1.e+6 / repetitions
+        = exec_time [s] * clock_freq [Hz] / repetitions
+~~~
+
+To calculate the throughput of an operation we first looked at the execution times of different numbers of independent instruction chains. That way we tried to get the optimal throughput by choosing `CHAINS` so that it minimizes the execution time. With this method we got the following results:
+
+![Comparison of best performing number of CHAINS](plots/chains_best.svg)
+
+After that we computed the throughput (instructions per cycle) with these best performing `CHAIN`-values by using the following formular:
+
+~~~
+throughput = rep / (exec_time [s] * clock_freq [MHz] * 1.e+6)
+~~~
+
+Again we had to multiply by `10^6` to convert the MHz to Hz. Notably, we normally would have to divide by the number of independent execution chains to get the throughput per instruction chain which represent the real throughput of an instruction. However, as this is already done in the benchmark code we don't have to adjust our formular.
+
+### Results and interpretation
+
+In the following we will first discuss the latency and afterwards the CPI of the measured instructions. We will first take look at differences between instruction on the same system and afterwards draw a conclusion between systems.
+
+#### CS2
+
+For the CS2 system we can see that integer addition perform us the primary strength of the system with an throughput of 0.08 cycles per instructions and a latency of around 4 cycles. Multiplication is significantly slower using integer numbers and for division the performance is massively reduced, reaching a latency of 69 cycles. Looking at floating point operation the performances gets even worse with addition and multiplication sharing the same latency of 70 cycles and exploding for division up to 1300 cycles. Interestingly for integer number as well as for floating point numbers the bit size or precision of the used operand did not make any difference, this could indicate that for different sizes the same execution units get used. For example a 32 bit integer gets upcasted by the processor and than processed by the 64 bit addition unit. An exception to that is only visible for the floating point division, where double precision is slower in comparison to single precision. Another interesting observation is that floating point addition and multiplication both have the same latency of 69 cycles. This again indicates that they are using the same floating point units for both operations.
+
+One thing we cannot explain is, why the latencies are such large numbers. Taking a look at [reference material](https://mediatum.ub.tum.de/doc/1657424/gbv9g0ozk9fwu9nvszhm03q2u.pdf) shows us that the expected latency should only be around 9 cycles. One reason for that could be that the loop produces overhead that influences our measurements. However due to out limited time budget we didn't investigate this further.
+
+![CS2 latency](plots/latency_overview_cs2.svg)
+![CS2 throughput](plots/CPI_overview_cs2.svg)
+
+#### GH3
+
+In the CH3 system we can again see that there is no differentiation between single and double precision floating point numbers, except for division were single precision have a higher throughput. This suggest that there are additional execution units for single precision division to compensate for the large latencies division typically cause. The same scheme is observable between floating point multiplication and addition. While the latency for multiplication is higher this gets compensated by using more execution units so the throughput of both operations are kept equal. We can also observe that the latency for operation on integer numbers are overall smaller, reaching a minimal latency of 0.5 cycles for integer addition (we will talk about this in the upcoming paragraph). However in the case of division there are much less execution units offered to integer numbers which results in a decreased throughput of only 9 CPI when compared to floating point numbers of less than one.
+
+However we cannot explain why we get a latency of 0.5 cycles, as this should not be possible. We verified the measurements by repeating and got a result within the error margin of measurements. At least the floating point latencies reported by [this article](https://chipsandcheese.com/p/arms-neoverse-v2-in-awss-graviton-4) seems to match our measured two cycles for addition and three cycles for multiplication.
+
+#### Milan2

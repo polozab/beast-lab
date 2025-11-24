@@ -55,17 +55,22 @@ for f in base.iterdir():
 
 dfs = pd.concat(dfs, ignore_index=True)
 
-seq_dfs = dfs[dfs["chains"] == 1][["dtype", "op", "time", "system", "clock_frq"]]
-seq_dfs["latency"] = seq_dfs["time"]
-print(seq_dfs)
+dfs = dfs[dfs["chains"] == 1]
+dfs["latency"] = dfs["time"] * dfs["clock_frq"] * 10 ** 6 / dfs["rep"]
+dfs["latency_label"] = round(dfs["latency"], 2)
+
+dfs = dfs.drop(columns=["rep", "clock_frq", "chains"])
+
+plot = ggplot(dfs[dfs["system"] == "cs2"], aes(x="dtype", y="latency", label="latency_label")) + geom_bar(stat="identity") + geom_label() + facet_wrap("op", scales="free_y") + labs(title="cs2")
+plot.save("./plots/latency_overview_cs2.svg", height=6, width=12)
+
+plot = ggplot(dfs[dfs["system"] == "sap3"], aes(x="dtype", y="latency", label="latency_label")) + geom_bar(stat="identity") + geom_label() + facet_wrap("op", scales="free_y") + labs(title="sap3")
+plot.save("./plots/latency_overview_sap3.svg", height=6, width=12)
+
+plot = ggplot(dfs[dfs["system"] == "milan2"], aes(x="dtype", y="latency", label="latency_label")) + geom_bar(stat="identity") + geom_label() + facet_wrap("op", scales="free_y") + labs(title="milan2")
+plot.save("./plots/latency_overview_milan2.svg", height=6, width=12)
+
+plot = ggplot(dfs[dfs["system"] == "gh3"], aes(x="dtype", y="latency", label="latency_label")) + geom_bar(stat="identity") + geom_label() + facet_wrap("op", scales="free_y") + labs(title="gh3")
+plot.save("./plots/latency_overview_gh3.svg", height=6, width=12)
 
 
-
-dfs = dfs.drop(columns=["rep", "clock_frq"])
-best = dfs.loc[dfs.groupby(["op", "dtype", "system"])["time"].idxmin()]
-
-plot = ggplot(best, aes(x="op", y="time", color="dtype")) + scale_y_log10() + geom_point() + facet_wrap("system")
-plot.save("./plots/time_comp.png")
-
-plot = ggplot(best, aes(x="op", y="chains", color="dtype")) + geom_point() + facet_wrap("system")
-plot.save("./plots/chains_comp.png")
