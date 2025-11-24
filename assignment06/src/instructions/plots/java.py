@@ -37,25 +37,35 @@ dfs = []
 
 for f in base.iterdir():
   
-  print(f)
-  
   if max_chains not in f.stem:
     continue
   
   if f.suffix == ".csv":
     
-    df = pd.read_csv(f)
+    df = pd.read_csv(f, skipinitialspace=True)
     df["system"] = f.stem.split("_")[0]
     df["clock_frq"] = df["dtype"]
     
-    txt_file = f.stem + ".txt"
-    with open(txt_file) as f_txt:
-      f_txt.read()
-    
-    freq_map = parse_clock_frequencies(f_txt)
-    
+    txt_file = base / (f.stem + ".txt")
+    txt_str = txt_file.read_text()
+    freq_map = parse_clock_frequencies(txt_str)
     df["clock_frq"] = df["clock_frq"].map(freq_map)
     
     dfs.append(df)
-    
-print(dfs)
+
+dfs = pd.concat(dfs, ignore_index=True)
+
+seq_dfs = dfs[dfs["chains"] == 1][["dtype", "op", "time", "system", "clock_frq"]]
+seq_dfs["latency"] = seq_dfs["time"]
+print(seq_dfs)
+
+
+
+dfs = dfs.drop(columns=["rep", "clock_frq"])
+best = dfs.loc[dfs.groupby(["op", "dtype", "system"])["time"].idxmin()]
+
+plot = ggplot(best, aes(x="op", y="time", color="dtype")) + scale_y_log10() + geom_point() + facet_wrap("system")
+plot.save("./plots/time_comp.png")
+
+plot = ggplot(best, aes(x="op", y="chains", color="dtype")) + geom_point() + facet_wrap("system")
+plot.save("./plots/chains_comp.png")
