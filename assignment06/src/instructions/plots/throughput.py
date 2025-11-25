@@ -87,6 +87,18 @@ plot.save("./plots/IPC_overview_milan2.svg", height=6, width=12)
 # CPI
 #
 
+plot = ggplot(best, aes(x="op", y="CPI", fill="dtype", label="CPI_label")) + geom_bar(stat="identity") + facet_grid("~system")
+plot.save("./plots/CPI_overview.svg", height=6, width=12)
+
+plot = ggplot(best[best["op"] != "/"], aes(x="op", y="CPI", fill="dtype", label="CPI_label")) + geom_bar(stat="identity") + facet_grid("~system")
+plot.save("./plots/CPI_nodiv.svg", height=6, width=12)
+
+plot = ggplot(best[best["system"] != "cs2"], aes(x="op", y="CPI", fill="dtype", label="CPI_label")) + geom_bar(stat="identity") + facet_grid("~system")
+plot.save("./plots/CPI_nocs2.svg", height=6, width=12)
+
+plot = ggplot(best[(best["system"] != "cs2") & (best["op"] != "/")], aes(x="op", y="CPI", fill="dtype", label="CPI_label")) + geom_bar(stat="identity") + facet_grid("~system")
+plot.save("./plots/CPI_nocs2_nodiv.svg", height=6, width=12)
+
 plot = ggplot(best[best["system"] == "gh3"], aes(x="dtype", y="CPI", label="CPI_label")) + geom_bar(stat="identity") + geom_label() +facet_wrap("op", scales="free_y") + labs(title="gh3")
 plot.save("./plots/CPI_overview_gh3.svg", height=6, width=12)
 

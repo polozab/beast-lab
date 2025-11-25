@@ -61,6 +61,18 @@ dfs["latency_label"] = round(dfs["latency"], 2)
 
 dfs = dfs.drop(columns=["rep", "clock_frq", "chains"])
 
+plot = ggplot(dfs, aes(x="op", y="latency", label="latency_label", fill="dtype")) + geom_bar(stat="identity") + facet_grid("~system")
+plot.save("./plots/latency_overview.svg", height=6, width=12)
+
+plot = ggplot(dfs[dfs["op"] != "/"], aes(x="op", y="latency", label="latency_label", fill="dtype")) + geom_bar(stat="identity") + facet_grid("~system")
+plot.save("./plots/latency_nodiv.svg", height=6, width=12)
+
+plot = ggplot(dfs[dfs["system"] != "cs2"], aes(x="op", y="latency", label="latency_label", fill="dtype")) + geom_bar(stat="identity") + facet_grid("~system")
+plot.save("./plots/latency_nocs2.svg", height=6, width=12)
+
+plot = ggplot(dfs[(dfs["system"] != "cs2") & (dfs["op"] != "/")], aes(x="op", y="latency", label="latency_label", fill="dtype")) + geom_bar(stat="identity") + facet_grid("~system")
+plot.save("./plots/latency_nocs2_nodiv.svg", height=6, width=12)
+
 plot = ggplot(dfs[dfs["system"] == "cs2"], aes(x="dtype", y="latency", label="latency_label")) + geom_bar(stat="identity") + geom_label() + facet_wrap("op", scales="free_y") + labs(title="cs2")
 plot.save("./plots/latency_overview_cs2.svg", height=6, width=12)
 

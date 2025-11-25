@@ -188,11 +188,41 @@ However we cannot explain why we get a latency of 0.5 cycles, as this should not
 
 #### Milan2
 
-For the Milan2 system we can observe that latencies across different types are the same for addition and multiplication 
+For the Milan2 system we can observe that latencies across different types for addition and multiplication are the same. Comparing these values to specification listed in [this document](https://www.agner.org/optimize/instruction_tables.pdf) seem to suggest that our throughput is much higher than expected. The latencies for integer operations seem to match up with our measurements, however we again seem to observe an impossible instruction latency of 0.5 for addition. Floating point operation seem to diverge even more form th values stated in the document. Unfortunately we couldn't investigate this further as running multiple benchmarks to at least verify that our raw measurements are correct due to our limited group size.
 
-Comparing these values to specification listed in [this document](https://www.agner.org/optimize/instruction_tables.pdf) seem to suggest that our throughput is much higher than expected. The latencies for integer operations seem to match up with our measurements, however we again seem to observe an impossible instruction latency of 0.5 for addition. Floating point operation seem even more off when compared to the values from the document.
+However the measured throughput of the instruction seem to be at least feasible, as addition is the fastest followed by multiplication and with a significant gap division being last. We also seem to measure the latencies of floating point divisions being higher again in comparison to integer numbers. Then similar to previous systems the throughput is instead increased potentially by using a larger set of execution units.
+
 
 ![Milan2 latency](plots/latency_overview_milan2.svg)
 ![Milan2 throughput](plots/CPI_overview_milan2.svg)
 
 #### SAP3
+
+Looking at the SAP3 system we see again the typical trend of addition being the fastest followed by multiplication and division being last. However our measurements show significantly higher latencies for floating point operation. While using single and double precision makes no difference in the measured latencies (or only a small one for division), integer number seem to vary a lot more for addition and division. In addition we see that multiplication and addition share both latency and throughout both single and double precision data types.
+
+![SAP3 latency](plots/latency_overview_sap3.svg)
+![SAP3 throughput](plots/CPI_overview_sap3.svg)
+
+#### Comparison between systems
+
+One immediate fact we observe is that CS2 is overall the slowest system in terms of latency independent form measures operation or used data types for operands. Especially floating point division is exceptionally slow in comparison to other systems. Looking at integer division instead shows much more comparable results even surpassing SAP3. In terms of throughput CS2 gets even worse in division and can't compete with any data type.
+
+![Overview latency](plots/latency_overview.svg)
+![Overview throughput](plots/CPI_overview.svg)
+
+Taking a look at the latencies and throughput of other operation we can see that CS2 falls behind again. However the values reached by CS2 are much closer to other systems, especially for the floating point operations of the SAP3 system.
+
+![Overview latencies without division](plots/latency_nodiv.svg)
+![Overview throughput without division](plots/CPI_nodiv.svg)
+
+To make the comparison easier we will continue without further representation of the CS2 system.
+
+Observing the other systems shows us that SAP3 has the second-most slowest latencies for floating point division, which is clearly behind the two other systems. Also 64 bit integer division is much larger. However the throughput of divisions compares much more closely to the Milan2 system and almost matches its performance for every data type except 64 bit integers. We can also see that GH3 sees much improvement over Milan2 in floating point division and 64 bit integer division. This is also true for the latencies of all data types where GH3 has the shortest ones overall and only the single precision floating point division from the other systems can come close to the performance of GH3.
+
+![Overview latencies without cs2](plots/latency_nocs2.svg)
+![Overview throughput without cs2](plots/CPI_nocs2.svg)
+
+Finally looking at the remaining multiplication and addition operations on SAP3, GH3 and Milan2 shows that SAP3 really falls behind for latencies in terms of floating point operations. How like stated before this gets potentially compensated by using more execution units for these data types as throughput closely matches Milan2 in every remaining category. Looking at GH3 and Milan2 we can see that latency-wise Milan2 can almost match the values from GH3 but still falls behind by a small amount. In particular for integer multiplication and floating point addition. GH3 seems to be the overall winner in terms of latency. This is definitely also the case for throughput, where Milan2 falls behind substantially to more closely match the throughput of SAP3. Floating point addition and multiplication seem to be faster for GH3 compared to SAP3 and Milan2 and especially integer division marks GH3 clear winner when looking at throughput.
+
+![Overview latencies without cs2 and division](plots/latency_nocs2_nodiv.svg)
+![Overview throughput without cs2 and division](plots/CPI_nocs2_nodiv.svg)
