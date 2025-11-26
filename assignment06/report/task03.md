@@ -19,12 +19,10 @@ The measurments clearly show that on this system function calls are the most exp
 
 This may be because function calls often involve additional overhead such as stack frame setup and teardown, which can add to the execution time. Furthermore depending on the calling convention used by the compiler, function calls may also require saving and restoring registers, which can further increase the execution time.
 
-Variant B, which uses a switch statement, is faster than variant A. This may be because switch statements can be optimized by the compiler to use jump tables, which allow for faster branching compared to multiple if-else statements. Furthermore the switch statement is no function call, which further reduces the overhead.
+Variant B, which uses a switch statement, is faster than variant A. This may be because switch statements can be optimized by the compiler to use jump tables, which allow for faster branching compared to multiple function call statements.
 
-The fastests variant was the C variant, which uses a goto approach. Bascially what it does is thaat an array is initialized with the addresses of the labels. Then an indirect jump is performed to the address stored in the array, the command executed and then another jump to the next label is performed. This approach is very fast, as it only requires a single indirect jump without any additional overhead.
+The fastest variant was the C variant, which uses a goto approach. It uses an array that is initialized with the addresses of the labels. Then an indirect jump is performed to the address stored in the array, the command is executed and then another jump to the next label is performed. This approach is very fast, as it only requires a single indirect jump without any additional overhead.
 
-### TLDR
-C is fast because there is only one indirect jump per command. B is faster than A because switch statements can be optimized as a jump table and avoid function call overhead.
 
 > **Note**: The measurements are highly sensitive to the hardware and compiler optimizations. Different systems or compiler settings may yield different results.
 
@@ -44,9 +42,9 @@ C is fast because there is only one indirect jump per command. B is faster than 
 | D-fix2  | 200  | 0.187s | 0.623ns  |
 
 ### Analysis
-The measurments show that direct jumps (done by using if-chains) are significantly faster than indirect jumps. This is because direct jumps have a fixed target address, which allows the CPU to predict and optimize the jump more effectively. 
+The measurments show that direct jumps (done by using if chains) are significantly faster than indirect jumps. This is because direct jumps have a fixed target address, which allows the CPU to predict and optimize the jump more effectively. 
 
-Variant D is semantically very similar to variant B, basically the only difference is that instead of using a switch variant D uses nested if-else statements to determine the next command to execute. This however allows the branch predictor to work more effectively, because most branches are heavily biased so after only a few iterations the predictor very accurately can correctly predict most branches. Due to the low amount of different cases the swich statement in variant B cant be effectively optimized as a jump table. For more cases or more randomized distribution over the if else statements the switch my be faster. 
+Variant D is semantically very similar to variant B, basically the only difference is that instead of using a switch variant D uses nested if else statements to determine the next command to execute. This however allows the branch predictor to work more effectively, because most branches are heavily biased so after only a few iterations the predictor very accurately can correctly predict most branches. Due to the low amount of different cases the swich statement in variant B can not be effectively optimized as a jump table. For more cases or more randomized distribution over the if else statements the switch may be faster. 
 
 
 ## c) Predictors for return instructions
@@ -70,7 +68,8 @@ Variant D is semantically very similar to variant B, basically the only differen
 | E106-fix2 | 200  | 0.469s | 1.563ns  |
 
 ### Analysis
-The measurments show that using a return address stack significantly improves the performance of function calls and returns. The fastest variant is E11 (G) or E16 (H), which uses a depth of 11 or 16 respectively. Indicating that the return address stack can store all of these adresses. When going beyond (H) or before (G) the performance degrades again, as the stack either cant store all return addresses or is underutilized. Depending on the run E11 or E16 may be slightly faster, but the difference is negligible and likely due to measurement noise. Therefore we can conclude that the size of the stack is close to this range.
+The measurments show that using a return address stack significantly improves the performance of function calls and returns. The fastest variant is E11 (G) or E16 (H), which uses a depth of 11 or 16 respectively. Indicating that the return address stack can store all of these adresses. When going beyond (H) or before (G) the performance degrades again, as the stack either cant store all return addresses or is underutilized. Depending on the run E11 or E16 may be slightly faster, but the difference is negligible and likely due to measurement noise. The vendor documentation of Milan states that the return address stack has a depth of [32](https://docs.kernel.org/admin-guide/hw-vuln/rsb.html). However our measurements indicate that the effective depth is lower, likely due to other optimizations or limitations in the CPU architecture.
+>The notice that the time measurement includes 2 branch types dosnt interefere with the results, as only the return is stored in the return address stack.
 
 ## Sources
 
