@@ -226,3 +226,7 @@ Finally looking at the remaining multiplication and addition operations on SAP3,
 
 ![Overview latencies without cs2 and division](plots/latency_nocs2_nodiv.svg)
 ![Overview throughput without cs2 and division](plots/CPI_nocs2_nodiv.svg)
+
+## Future Work
+
+We think the dissimilarities to expected values come either from a falsely reported clock frequency while running the test or that measuring the clock frequency with likwid disturbs the actual benchmark by making it perform worse. However the last option would not explain why we get latencies around 0,5 cycles. In the future we would try to measure the number of cycles during execution and check if we arrive at similar values.
