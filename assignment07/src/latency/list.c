@@ -199,14 +199,14 @@ int main(int argc, char **argv)
 
     fprintf(stderr, "Linked list benchmark with max. list length of N=%" PRIu64 "\n\n", N_max);
 
-    printf("%20s,%10s,%10s\n", "SumType", "N", "Latency[ns]");
+    printf("%20s,%10s,%10s,%10s\n", "Fun", "k", "N", "Latency[ns]");
 
     double   sum_calc;
     double   sum_load;
     uint64_t dummy_calc;
     uint64_t dummy_load;
 
-#define CSV_FORMAT "%s k=%-4s,%10" PRIu64 ",%11.6f\n"
+#define CSV_FORMAT "%s, k=%-4s,%10" PRIu64 ",%11.6f\n"
 
 #define BENCH(FN, N, K, SUM, DUMMY)                                                                \
     do {                                                                                           \
