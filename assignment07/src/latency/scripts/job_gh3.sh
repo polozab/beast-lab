@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 #SBATCH -J job_t1
-#SBATCH -D ~/beastlab/assignment07/src/latency
+#SBATCH -D ./
 #SBATCH -o ./%x.%j.out
 #SBATCH -e ./%x.%j.err
 #SBATCH --time=00:30:00
