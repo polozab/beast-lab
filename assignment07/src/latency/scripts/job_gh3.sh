@@ -14,4 +14,4 @@
 
 module load nvhpc
 nvc -Wall -Wextra -O3 -march=native -g list.c -o list_gh3.out
-./list_gh3.out 30 > ./data/gh3.csv
+taskset -c 0 stdbuf -oL ./list_gh3.out 30 | tee ./data/gh3.csv

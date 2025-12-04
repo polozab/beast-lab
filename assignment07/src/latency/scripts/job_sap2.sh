@@ -14,4 +14,4 @@
 
 module load compiler
 icx -Wall -Wextra -Wconversion -O3 -march=native -g list.c -o list_sap2.out
-./list_sap2.out 30 > ./data/sap2.csv
+taskset -c 0 stdbuf -oL ./list_sap2.out 30 | tee ./data/sap2.csv
