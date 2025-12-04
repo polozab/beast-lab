@@ -91,7 +91,7 @@ double sum_indexcalc(uint64_t N, uint64_t k, uint64_t REP, double *psum, uint64_
             sum   += A[next].v;
             dummy |= A[next].next;
             next   = (k * (i + 1)) & mask;
-            fprintf(stderr, "%d", next);
+            fprintf(stderr, "%ld", next);
         }
     }
     double t1 = wtime();
@@ -125,7 +125,7 @@ double sum_indexload(uint64_t N, uint64_t k, uint64_t REP, double *psum, uint64_
             sum   += A[next].v;
             dummy |= (k * (i + 1)) & mask;
             next   = A[next].next;
-            fprintf(stderr, "%d", next);
+            fprintf(stderr, "%ld", next);
         }
     }
     double t1 = wtime();
