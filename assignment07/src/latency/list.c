@@ -69,7 +69,7 @@ void init(uint64_t N, uint64_t k, struct entry *A)
     }
 }
 
-double sum_indexcalc(uint64_t N, uint64_t k, uint64_t REP, double *psum, uint64_t *pdummy)
+double sum_indexcalc(uint64_t N, uint64_t k, uint64_t REP, double *psum, uint64_t *pdummy, bool real)
 {
     double   sum   = 0.0;
     uint64_t dummy = 0;
@@ -91,7 +91,8 @@ double sum_indexcalc(uint64_t N, uint64_t k, uint64_t REP, double *psum, uint64_
             sum   += A[next].v;
             dummy |= A[next].next;
             next   = (k * (i + 1)) & mask;
-            fprintf(stderr, "%ld", next);
+            if (real && r == 0)
+                fprintf(stderr, "%ld\n", next);
         }
     }
     double t1 = wtime();
@@ -103,7 +104,7 @@ double sum_indexcalc(uint64_t N, uint64_t k, uint64_t REP, double *psum, uint64_
     return t1 - t0;
 }
 
-double sum_indexload(uint64_t N, uint64_t k, uint64_t REP, double *psum, uint64_t *pdummy)
+double sum_indexload(uint64_t N, uint64_t k, uint64_t REP, double *psum, uint64_t *pdummy, bool real)
 {
     double   sum   = 0.0;
     uint64_t dummy = 0;
@@ -125,7 +126,8 @@ double sum_indexload(uint64_t N, uint64_t k, uint64_t REP, double *psum, uint64_
             sum   += A[next].v;
             dummy |= (k * (i + 1)) & mask;
             next   = A[next].next;
-            fprintf(stderr, "%ld", next);
+            if (real && r == 0)
+                fprintf(stderr, "%ld\n", next);
         }
     }
     double t1 = wtime();
@@ -211,11 +213,11 @@ int main(int argc, char **argv)
         uint64_t rep = 1;                                                                          \
         double   time;                                                                             \
         /* warm-up and set number of repetitions */                                                \
-        while ((time = FN((N), (K), rep, (SUM), (DUMMY))) < min_duration &&                        \
+        while ((time = FN((N), (K), rep, (SUM), (DUMMY), false)) < min_duration &&                        \
                rep < __UINT64_MAX__ / 2) {                                                         \
             rep *= 2;                                                                              \
         }                                                                                          \
-        time                    = FN((N), (K), rep, (SUM), (DUMMY));                               \
+        time                    = FN((N), (K), rep, (SUM), (DUMMY), true);                               \
         double time_per_element = time / ((double)(N) * (double)rep) * 1.e9;                       \
         printf(CSV_FORMAT, #FN, ((K) == 1) ? "1" : "gold", (N), time_per_element);                 \
     } while (0)
