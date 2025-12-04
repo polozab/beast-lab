@@ -9,9 +9,9 @@
 #SBATCH --export=NONE
 #SBATCH --get-user-env
 #SBATCH --partition=sap #milan sap gh cs
-#SBATCH --nodelist=sap4 #sap4 gh3 cs7
+#SBATCH --nodelist=sap2 #sap4 gh3 cs7
 #SBATCH --nodes=1
 
 module load compiler
-icx -Wall -Wextra -Wconversion -O3 -march=native -g list.c -o list_sap4.out
-./list_sap4.out 30 > ./data/sap4.csv
+icx -Wall -Wextra -Wconversion -O3 -march=native -g list.c -o list_sap2.out
+./list_sap2.out 30 > ./data/sap2.csv
