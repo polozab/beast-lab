@@ -1,9 +1,9 @@
 #!/usr/bin/bash
 
 #SBATCH -J job_t1
-#Initial working directory (also --chdir):
 #SBATCH -D ~/beastlab/assignment07/src/latency
-#Notification and type
+#SBATCH -o ./%x.%j.out
+#SBATCH -e ./%x.%j.err
 #SBATCH --time=00:30:00
 #SBATCH --no-requeue
 #SBATCH --export=NONE
