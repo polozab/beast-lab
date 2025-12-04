@@ -224,6 +224,7 @@ int main(int argc, char **argv)
 
     for (uint64_t N = N_min; N <= N_max; N *= 2) {
 
+        fprintf(stderr, "Currently benchmarking with N=%ld", N);
         BENCH(sum_indexcalc, N, 1, &sum_calc, &dummy_calc);
         BENCH(sum_indexload, N, 1, &sum_load, &dummy_load);
         //BENCH(sum_indexload2, N, 1, &sum_load, &dummy_load);
