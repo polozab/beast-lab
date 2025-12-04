@@ -206,7 +206,7 @@ int main(int argc, char **argv)
     uint64_t dummy_calc;
     uint64_t dummy_load;
 
-#define CSV_FORMAT "%20s, k=%-4s,%10" PRIu64 ",%11.6f\n"
+#define CSV_FORMAT "%20s,%10s,%10" PRIu64 ",%11.6f\n"
 
 #define BENCH(FN, N, K, SUM, DUMMY)                                                                \
     do {                                                                                           \
