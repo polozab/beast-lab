@@ -222,31 +222,14 @@ int main(int argc, char **argv)
         printf(CSV_FORMAT, #FN, ((K) == 1) ? "1" : "gold", (N), time_per_element);                 \
     } while (0)
 
-    for (uint64_t N = N_min; N <= N_max; N *= 2) {
+    fprintf(stderr, "Currently benchmarking with N=%ld\n", N);
+    BENCH(sum_indexcalc, N_max, 1, &sum_calc, &dummy_calc);
+    BENCH(sum_indexload, N_max, 1, &sum_load, &dummy_load);
+    //BENCH(sum_indexload2, N, 1, &sum_load, &dummy_load);
 
-        fprintf(stderr, "Currently benchmarking with N=%ld\n", N);
-        BENCH(sum_indexcalc, N, 1, &sum_calc, &dummy_calc);
-        BENCH(sum_indexload, N, 1, &sum_load, &dummy_load);
-        //BENCH(sum_indexload2, N, 1, &sum_load, &dummy_load);
+    assert(dummy_calc == dummy_load);
+    assert(check_sum(N, sum_calc));
+    assert(check_sum(N, sum_load));
 
-        assert(dummy_calc == dummy_load);
-        assert(check_sum(N, sum_calc));
-        assert(check_sum(N, sum_load));
-        return 0;
-        /*
-         * Ensure N and k are coprime and set k such that the ratio of
-         * N and k is close to golden ratio for pseudo-randomness
-         */
-        uint64_t k = (uint64_t)((double)N / golden_ratio);
-        k          = (k % 2 == 0) ? k - 1 : k;
-        assert(is_coprime(N, k));
-
-        BENCH(sum_indexcalc, N, k, &sum_calc, &dummy_calc);
-        BENCH(sum_indexload, N, k, &sum_load, &dummy_load);
-
-        assert(dummy_calc == dummy_load);
-        assert(check_sum(N, sum_calc));
-        assert(check_sum(N, sum_load));
-    }
     return EXIT_SUCCESS;
 }
