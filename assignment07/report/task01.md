@@ -6,8 +6,9 @@
 
 To analyze the measurement results we will first take a closer look at the `SAP2` system which represents the other systems very well. Afterwards, for completion we show the remaining differences that occurred on the other systems.
 
-![SAP2 Plot - List length N vs Latency](plots/task1_sap2.svg)
+### Case: K=1
 
+![SAP2 linear access](plots/task1_sap2_no-gold.svg)
 
 As expected `k` has a significant impact on both the overall dimension of the latency and the general behavior with increasing `N`. Looking at the `k=1` case we see that the behaviour of both functions is almost the same, only that indexload is slower in comparison to indexcalc. This can be explained when we look at the disassembly of both functions:
 
@@ -32,6 +33,29 @@ imul    rax, rcx
 and     rax, qword ptr [rbp - 72]    # Calculating (k * (i + 1)) & mask
 mov     qword ptr [rbp - 104], rax   # Storing to next
 ```
+
+We also notice this sudden increase in latency around `N=22` in both indexcalc and index load. This can be explained by the size of the list exceeding the LLC cache and thus falling back to main memory. If we report the LLC load misses using Perf we can notice that indeed this is the case and while they seem stable until that point the misses suddenly explode after that.
+
+>> Insert Table
+
+To understand why this causes the increase in latency we first take a look at the access pattern to the list for the case `k=1`:
+With that value for `k` in each iteration we just look at the exact next value in memory `(k * (i + 1)) => (i + 1)`. While indexcalc uses this formular directly for indexload this formular gets used during the initialization of the individual list entries.
+In addition we access each element of the list exactly one time, this means we get a cold miss for every first entry that falls into a new memory block and wasn't already fetched with the last cache line.
+
+We now think that prefetching is able to circumvent most of these misses and thus thanks to our linear access is able to fit the entire list into the several cache levels. As we see only a slight increase in the latency for the `indexcalc` function we assume prefetching is so effective to almost completely hide the necessary accesses to higher level caches in all other cases with increasing list size. However when the entire list doesn't fit in any cache anymore as main memory is so much slower even prefetching isn't able to hide the accesses. Thus we experience the increase in latency at this point.
+
+### Case: K=Random (golden ratio)
+
+![SAP2 no random indexload access](plots/task1_sap2_no-gold-load.svg)
+
+This also explains the behavior of the latency increase with larger list for a pseudorandom access order. If we set `k=golden` to a approximation of the golden ratio we suddenly access memory in a completely suboptimal way. We completely miss out on both reuse of values from one cache line and the possibility of prefetching.
+
+Thus we should be able to clearly see the different cache levels of the memory hierarchy, which is indeed the case. We see similar performance for small list sizes as they still fit completely into level one cache thus achieving the same performance as prefetching doese all the way to main memory sizes. Now the random access pattern sees the first increase between 10^4 - 10^5 where not all parts of the list fit into the L1 cache anymore. The next step is between 10^5 - 10^6 where we exceed the limit of the L2 cache and finally at around 10^7 we overflow to the main memory causing huge latencies.
+
+As the size keeps increases and we have to access more main memory the latency also further increases instead of being a clear step like we have seen before with the different cache levels. We think this further increase can be explained by main memory not being so uniform as caches, thus accessing larger areas of the main memory can cause even larger latencies due to nonuniform designs.
+
+![SAP2 overview of all measures](plots/task1_sap2_all.svg)
+
 
 
 
