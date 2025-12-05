@@ -213,23 +213,23 @@ int main(int argc, char **argv)
         uint64_t rep = 1;                                                                          \
         double   time;                                                                             \
         /* warm-up and set number of repetitions */                                                \
-        while ((time = FN((N), (K), rep, (SUM), (DUMMY), false)) < min_duration &&                        \
+        while ((time = FN((N_max), (K), rep, (SUM), (DUMMY), false)) < min_duration &&                        \
                rep < __UINT64_MAX__ / 2) {                                                         \
             rep *= 2;                                                                              \
         }                                                                                          \
-        time                    = FN((N), (K), rep, (SUM), (DUMMY), true);                               \
-        double time_per_element = time / ((double)(N) * (double)rep) * 1.e9;                       \
-        printf(CSV_FORMAT, #FN, ((K) == 1) ? "1" : "gold", (N), time_per_element);                 \
+        time                    = FN((N_max), (K), rep, (SUM), (DUMMY), true);                               \
+        double time_per_element = time / ((double)(N_max) * (double)rep) * 1.e9;                       \
+        printf(CSV_FORMAT, #FN, ((K) == 1) ? "1" : "gold", (N_max), time_per_element);                 \
     } while (0)
 
-    fprintf(stderr, "Currently benchmarking with N=%ld\n", N);
+    fprintf(stderr, "Currently benchmarking with N=%ld\n", N_max);
     BENCH(sum_indexcalc, N_max, 1, &sum_calc, &dummy_calc);
     BENCH(sum_indexload, N_max, 1, &sum_load, &dummy_load);
     //BENCH(sum_indexload2, N, 1, &sum_load, &dummy_load);
 
     assert(dummy_calc == dummy_load);
-    assert(check_sum(N, sum_calc));
-    assert(check_sum(N, sum_load));
+    assert(check_sum(N_max, sum_calc));
+    assert(check_sum(N_max, sum_load));
 
     return EXIT_SUCCESS;
 }
