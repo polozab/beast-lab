@@ -4,6 +4,38 @@
 
 ## b)
 
+To analyze the measurement results we will first take a closer look at the `SAP2` system which represents the other systems very well. Afterwards, for completion we show the remaining differences that occurred on the other systems.
+
+![SAP2 Plot - List length N vs Latency](plots/task1_sap2.svg)
+
+
+As expected `k` has a significant impact on both the overall dimension of the latency and the general behavior with increasing `N`. Looking at the `k=1` case we see that the behaviour of both functions is almost the same, only that indexload is slower in comparison to indexcalc. This can be explained when we look at the disassembly of both function
+
+For `indexload` we can see that the calculation of the next entry value fully depends on the current next value. Thus the loop has dependencies between iteration which limits the possible optimizations from the CPU.
+
+```asm
+mov     rax, qword ptr [rbp - 80]    # Loading A
+mov     rcx, qword ptr [rbp - 104]   # Loading next
+shl     rcx, 4
+add     rax, rcx
+mov     rax, qword ptr [rax + 8]     # Loading A[next].next
+mov     qword ptr [rbp - 104], rax   # Storing to next
+```
+
+On the other hand in the `indexcalc` function we notice that the calculation of the next entry value is purely arithmetic. Thus we don't have to wait for any value from memory. This allows the CPU to optimize the execution over several iterations as there exist only dependencies within one iteration of the loop. As a result the execution of the `indexcalc` function is faster in comparison.
+
+```asm
+mov     rax, qword ptr [rbp - 16]    # Loading k
+mov     rcx, qword ptr [rbp - 112]   # Loading i
+add     rcx, 1                     
+imul    rax, rcx
+and     rax, qword ptr [rbp - 72]    # Calculating (k * (i + 1)) & mask
+mov     qword ptr [rbp - 104], rax   # Storing to next
+```
+
+
+
+
 ## c)
 
 ## d)
