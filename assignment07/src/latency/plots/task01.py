@@ -68,3 +68,13 @@ plot = (
   + p9.facet_grid("k", scales="free")
 )
 plot.save("./plots/task1_gh3.svg", width=12., height=8.)
+
+plot = (
+    p9.ggplot(dfs[dfs["system"] == "cs7"], p9.aes(x="N", y="Latency[ns]", color="measure"))
+  + p9.scale_x_log10()
+  + p9.geom_line()
+  + p9.geom_point()
+  #+ p9.geom_vline(p9.aes(xintercept=10**8), color="red")
+  + p9.facet_grid("k", scales="free")
+)
+plot.save("./plots/task1_cs7.svg", width=12., height=8.)

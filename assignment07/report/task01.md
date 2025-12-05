@@ -56,8 +56,12 @@ As the size keeps increases and we have to access more main memory the latency a
 
 ![SAP2 overview of all measures](plots/task1_sap2_all.svg)
 
+Now when we take into consideration the `indexload` we see the same overall shape of the plot as we would expect from a pseudorandom access order. However the overall latency is much higher. While we see at the beginning similar performance to the sequential access `indexload` function we quickly fall behind it.
 
+This increase can be explained by the additional load dependency which is characteristic for the `indexload` function. While before the loop didn't have any dependencies in between iterations the CPU could wait for multiple loads in parallel. With that a large part of the memory access latency could be hidden. Now as each next value depends on the last next value directly through a memory access they can no longer be issued in parallel.
+We now access the worst case scenario of memory accesses where each load has to be sequentially executed and no predictable access pattern can be used to do prefetching. If we wouldn't load the data into the caches beforehand with the warmup phase, each access to the next list entry would have to pay the full penalty of a main memory access. This we see here only for large list sizes as smaller ones are already loaded entirely into one cache level.
 
+### Other systems
 
 
 
