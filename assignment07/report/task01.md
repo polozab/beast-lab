@@ -9,7 +9,7 @@ To analyze the measurement results we will first take a closer look at the `SAP2
 ![SAP2 Plot - List length N vs Latency](plots/task1_sap2.svg)
 
 
-As expected `k` has a significant impact on both the overall dimension of the latency and the general behavior with increasing `N`. Looking at the `k=1` case we see that the behaviour of both functions is almost the same, only that indexload is slower in comparison to indexcalc. This can be explained when we look at the disassembly of both function
+As expected `k` has a significant impact on both the overall dimension of the latency and the general behavior with increasing `N`. Looking at the `k=1` case we see that the behaviour of both functions is almost the same, only that indexload is slower in comparison to indexcalc. This can be explained when we look at the disassembly of both functions:
 
 For `indexload` we can see that the calculation of the next entry value fully depends on the current next value. Thus the loop has dependencies between iteration which limits the possible optimizations from the CPU.
 
@@ -32,6 +32,7 @@ imul    rax, rcx
 and     rax, qword ptr [rbp - 72]    # Calculating (k * (i + 1)) & mask
 mov     qword ptr [rbp - 104], rax   # Storing to next
 ```
+
 
 
 
