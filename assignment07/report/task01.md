@@ -36,7 +36,9 @@ mov     qword ptr [rbp - 104], rax   # Storing to next
 
 We also notice this sudden increase in latency around `N=22` in both indexcalc and index load. This can be explained by the size of the list exceeding the LLC cache and thus falling back to main memory. If we report the LLC load misses using Perf we can notice that indeed this is the case and while they seem stable until that point the misses suddenly explode after that.
 
->> Insert Table
+| N               | 18    | 19     | 20     | 21     | 22      | 23         | 24         | 25         | 26         |
+|-----------------|-------|--------|--------|--------|---------|------------|------------|------------|------------|
+| LLC Load Misses | 6.000 | 11.000 | 30.000 | 69.000 | 203.000 | 14.647.000 | 13.027.000 | 30.204.000 | 20.635.000 |
 
 To understand why this causes the increase in latency we first take a look at the access pattern to the list for the case `k=1`:
 With that value for `k` in each iteration we just look at the exact next value in memory `(k * (i + 1)) => (i + 1)`. While indexcalc uses this formular directly for indexload this formular gets used during the initialization of the individual list entries.
@@ -67,19 +69,19 @@ Looking at the `MILAN1` system we see very similar results to `SAP3`. For the li
 
 This also applies for the pseudo random accesses where even `indexload` is still significantly faster. We also notice that the cache level steps are only visible for the `indexcalc` function and are much more gradual. There even is a substantial dip in between 10^5 and 10^7, which we can not explain directly. *We think that the smoother steps could be explained by the more extensive distribution of caches in the `MILAN1` system which would spread out the areas where both caches store partial parts of the list. This leads to the gradual increase as some accesses miss on the lower levels while other hit.*
 
->> insert graphic
+![MILAN1 overview of all measures](plots/task1_milan1.svg)
 
 Examining `GH3` shows even better overall latencies and again very similar behavior with increasing list sizes to the `SAP3` system. For linear access we see a much more substantial increase just above the 10^6 mark in comparison to `MILAN1` where `GH3` seems more similar ti `SAP3`. However the is increase smooth and not a sudden step which may be because of the same reason we proposed for the `MILAN1` system. In addition the `indexload` function latency doesn't change similar to the `MILAN1` system, as the processor may be again more effective in hiding the increase in latency due to fetching multiple list entries from memory in parallel.
 
 For the pseudo random accesses we can see the increases in latency according to the different levels of the memory hierarchy, although they are again much more smooth in comparison to the `SAP 3` system. What is also noticeable is that the difference between `indexcalc` and `indexload` is much small then for other system. This could be due to the much faster main memory of `GH3` where the differences between cache and DRAM is not as significant.
 
->> insert graphic
+![GH3 overview of all measures](plots/task1_gh3.svg)
 
-Taking a look at our last system `CS7` we see the most severe divergence from the established behavior. Here we can see the memory hirachy steps even for the 
+Taking a look at our last system `CS7` we see the most severe divergence from the established behavior. Here we can observe cleat steps even for the linear access pattern. Maybe the prefetching isn't as optimized as on other systems so it cant hide the accesses to higher level caches as well. In addition `indexcalc` seems to be slower for very small list sizes in comparison to `indexload` which is a pattern we never saw before. 
 
->> DO CS7
+For the pseudo random accesses pattern we can see that the `indexcalc` function matches the `indexload` functions. This implies that the CPU isn't able to fetch multiple entries from memory in parallel when access to the main memory is required. The `indexload` function also behaves differently to other systems, where the increase is much more consistent and not like a concrete step. Overall the `CS7` system also has the highest latencies in every category being significantly slower in comparison.
 
->> insert graphic
+![CS7 overview of all measures](plots/task1_cs7.svg)
 
 ## c)
 
