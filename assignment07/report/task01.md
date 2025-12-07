@@ -127,9 +127,24 @@ One thing we noticed too was that maybe our initial guess that CS7 can't fetch m
 
 ## d)
 
-s
+To be able to extract the main memory latency we can use the setup to archive the stated necessary criterions:
+
+ - Choose a `N` large enough that the list doesn't fit in its entirety into any cache level and we therefor have to access the main memory e.g. `N > 25` to be safe
+ - Choose the pseudo random access pattern to eliminate the possibility for prefetching being effective because of spatial locality. This can be achieved by using `k=golden` to simulate random access pattern
+ - Choose the `indexload` function so the CPU can't use any memory parallelism, as every iteration depends on the last one.
+
+Now the measured latency per element basically reports the main memory access latency if we use the assumption that secondary accesses to the same memory block are negligible. We also assume that we only access local memory within a numa domain as we pinned the measurements to a specific core and presume that memory gets allocated optimally for that core. We chose the largest measured value `N=30` for the list size as most systems are already saturated at this point.
+
+| System                          | SAP2       | MILAN1    | GH3       | CS7        |
+|---------------------------------|------------|-----------|-----------|------------|
+| Main memory access latency [ns] | 139.616625 | 88.152659 | 41.830499 | 242.502391 |
 
 ## e)
+
+We can extract the latencies for different cache levels by adjusting the list size to closely fit the cache size of one level. As we make sure every entry of the list should be loaded into this cache by running a warmup we're expecting to only fetch data from this cache level. Thus we can derive the cache latency by looking at the per element latency for the specific `N` that fits this cache level but no smaller one.
+
+First we have to find a suitable `N` the fit the individual cache levels:
+
 
 ## f)
 
