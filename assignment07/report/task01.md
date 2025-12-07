@@ -155,7 +155,7 @@ First we have to find a suitable `N` the fit the individual cache levels, for th
 | SAP2   | 48 kB / 16 B = 3000  | 2048 kB / 16 B = 128000 | 105 MB / 16 B = 6562500 |
 | MILAN1 | 32 kB / 16 B = 2000  | 512 kB / 16 B = 32000   | 96 MB / 16 B = 6000000  |
 | GH3    | 64 kB / 16 B = 4000  | 1024 kB / 16 B = 64000  | 114 MB / 16 B = 7125000 |
-| CS7    | 64 kiB / 16 B = 4000 | 32 MB / 16 B = 4000000  |                         |
+| CS7    | 64 kiB / 16 B = 4000 | 8 MB / 16 B = 500000    |                         |
 
 We now look at values that are at most as large as the numbers we calculated in the table to make sure the list fits in its entirety into the desired cache level. With this setup we gained the following `N` values:
 
@@ -176,7 +176,7 @@ We now look at values that are at most as large as the numbers we calculated in 
 
 **CS7**:
  - L1: 2048
- - L2: 2097152
+ - L2: 262144
 
 Note that for CS7 the last level cache before main memory is the L2 cache.
 Looking at the latencies for these `N`-values in our measurements reveal the following access latencies for the different cache sizes:
@@ -186,10 +186,30 @@ Looking at the latencies for these `N`-values in our measurements reveal the fol
 | SAP3   | 1.697743 ns       | 9.567669 ns       | 37.391673 ns      | 139.616625 ns         |
 | MILAN1 | 1.675693 ns       | 3.326702 ns       | 9.829455 ns       | 88.152659 ns          |
 | GH3    | 1.521333 ns       | 3.384762 ns       | 10.253689 ns      | 41.830499 ns          |
-| CS7    | 4.987112 ns       | 165.093591 ns     |                   | 242.502391 ns         |
+| CS7    | 4.987112 ns       | 41.627935 ns      |                   | 242.502391 ns         |
 
 
 ## f)
+
+Comparing our calculated latencies for the CS7 to the specifications given by the manufacture we can see substantial differences. Specifically our results seem to be much slower than anticipated.
+
+For the L1 data cache the specifications state a latency of 5 cycles. Assuming the processor operates at 1.8 GHz clock rate (cycles per ns) this would mean we would expect a latency of:
+
+```
+5 cycles / 1.8 GHz = 2.777777777777778 ns
+```
+However our results measure a latency close ti double the amount.
+The same holds for the L2 access latency were we also would expect slightly faster performance than actually measured
+
+```
+56 cycles / 1.8 GHz = 31.11111111111111 ns
+```
+
+These expected values should also be taken with caution as we assume the clock frequency of the processor is 1.8 GHz which we didn't actually measured during execution. A more robust way to calculate the latencies would be to calculate the necessary cycles needed until the data could be used. For that we in addition have to measure the clock frequency during the execution of the list traversal. 
+
+The greatest absolute difference between specification and measured values, however, is present for the memory latency where the specification states a latency of `135.5 ns` at a core frequency of `2.0 GHz`. We on the other side measure a latency of around `242 ns`.
+
+We think these deviations could be caused by the additional instruction executed during the loop iteration or the loop overhead itself. In addition the benchmark bases its latency calculation per entry solely on software timing measurements which do not include any presumable factors that could disrupt the measurements e.g. other processes or the OS.
 
 ## g)
 
