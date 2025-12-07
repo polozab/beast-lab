@@ -107,19 +107,21 @@ mem_bandwidth [bytes/s] = cache_line_size [bytes] / (time_per_element [ns] * 1.e
 
 Using `getconf` we can read out the line sizes for each system and calculate the memory bandwidth utilization with a vector size `N=30` which is way larger than the LLC on every system and compute the following utilizations:
 
-| System                                 | SAP2                   | MILAN1                 | GH3                    | CS7                    |
-|----------------------------------------|------------------------|------------------------|------------------------|------------------------|
-| Cache Line Size [bytes]                | 64                     | 64                     | 64                     | 256                    |
-| Latency per Element [ns]               | 139.616625             | 88.152659              | 41.830499              | 242.502391             |
-| Memory bandwidth utilization [bytes/s] | 4.58e8 B/s = 0.46 GB/s | 7.26e8 B/s = 0.73 GB/s | 1.53e9 B/s = 1.53 GB/s | 1.06e9 B/s = 1.06 GB/s |
+| System | Cache Line Size | Latency per Element | Memory bandwidth utilization |
+|--------|-----------------|---------------------|------------------------------|
+| SAP2   | 64 B            | 139.616625 ns       | 4.58e8 B/s = 0.46 GB/s       |
+| MILAN1 | 64 B            | 88.152659 ns        | 7.26e8 B/s = 0.73 GB/s       |
+| GH3    | 64 B            | 41.830499 ns        | 1.53e9 B/s = 1.53 GB/s       |
+| CS7    | 256 B           | 242.502391 ns       | 1.06e9 B/s = 1.06 GB/s       |
 
 If we instead look at the `indexcalc` function the dependencies between iteration disappears. This would mean that multiple entries can be fetched simultaneously by the CPU. We would therefore expect a significantly higher memory bandwidth utilization which for the measurements would mean a lower latency per element. If we take a look at our results our assumptions gets confirmed:
 
-| System                                 | SAP2                    | MILAN1                  | GH3                   | CS7                    |
-|----------------------------------------|-------------------------|-------------------------|-----------------------|------------------------|
-| Cache Line Size [bytes]                | 64                      | 64                      | 64                    | 256                    |
-| Latency per Element [ns]               | 6.200622                | 5.206658                | 9.957564              | 245.684702             |
-| Memory bandwidth utilization [bytes/s] | 1.03e10 B/s = 10.3 GB/s | 1.23e10 B/s = 12.3 GB/s | 6.43e9 B/s = 6.4 GB/s | 1.04e9 B/s = 1.04 GB/s |
+| System | Cache Line Size | Latency per Element | Memory bandwidth utilization |
+|--------|-----------------|---------------------|------------------------------|
+| SAP2   | 64 B            | 6.200622 ns         | 1.03e10 B/s = 10.3 GB/s      |
+| MILAN1 | 64 B            | 5.206658 ns         | 1.23e10 B/s = 12.3 GB/s      |
+| GH3    | 64 B            | 9.957564 ns         | 6.43e9 B/s = 6.4 GB/s        |
+| CS7    | 256 B           | 245.684702 ns       | 1.04e9 B/s = 1.04 GB/s       |
 
 However these values are still far behind the maximal stated memory bandwidth of the systems. This can be explained by the fact that although we are capable of issuing multiple loads at once we still only go along the one single memory stream of the list. Accessing only a single list cannot fully utilize the available memory bandwidth and we would need far more accesses per iteration to be able to reach a bandwidth limitation.
 
@@ -135,15 +137,56 @@ To be able to extract the main memory latency we can use the setup to archive th
 
 Now the measured latency per element basically reports the main memory access latency if we use the assumption that secondary accesses to the same memory block are negligible. We also assume that we only access local memory within a numa domain as we pinned the measurements to a specific core and presume that memory gets allocated optimally for that core. We chose the largest measured value `N=30` for the list size as most systems are already saturated at this point.
 
-| System                          | SAP2       | MILAN1    | GH3       | CS7        |
-|---------------------------------|------------|-----------|-----------|------------|
-| Main memory access latency [ns] | 139.616625 | 88.152659 | 41.830499 | 242.502391 |
+| System | Main memory access latency |
+|--------|----------------------------|
+| SAP2   | 139.616625 ns              |
+| MILAN1 | 88.152659 ns               |
+| GH3    | 41.830499 ns               |
+| CS7    | 242.502391 ns              |
 
 ## e)
 
 We can extract the latencies for different cache levels by adjusting the list size to closely fit the cache size of one level. As we make sure every entry of the list should be loaded into this cache by running a warmup we're expecting to only fetch data from this cache level. Thus we can derive the cache latency by looking at the per element latency for the specific `N` that fits this cache level but no smaller one.
 
-First we have to find a suitable `N` the fit the individual cache levels:
+First we have to find a suitable `N` the fit the individual cache levels, for that we use `lscpu` to get the cache sizes for the different systems:
+
+| System | L1                   | L2                      | L3                      |
+|--------|----------------------|-------------------------|-------------------------|
+| SAP2   | 48 kB / 16 B = 3000  | 2048 kB / 16 B = 128000 | 105 MB / 16 B = 6562500 |
+| MILAN1 | 32 kB / 16 B = 2000  | 512 kB / 16 B = 32000   | 96 MB / 16 B = 6000000  |
+| GH3    | 64 kB / 16 B = 4000  | 1024 kB / 16 B = 64000  | 114 MB / 16 B = 7125000 |
+| CS7    | 64 kiB / 16 B = 4000 | 32 MB / 16 B = 4000000  |                         |
+
+We now look at values that are at most as large as the numbers we calculated in the table to make sure the list fits in its entirety into the desired cache level. With this setup we gained the following `N` values:
+
+**SAP2**:
+ - L1: 2048
+ - L2: 121072
+ - L3: 4194304
+
+**MILAN1**:
+ - L1: 1024
+ - L2: 16384
+ - L3: 4194304
+
+**GH3**:
+ - L1: 2048
+ - L2: 32768
+ - L3: 4194304
+
+**CS7**:
+ - L1: 2048
+ - L2: 2097152
+
+Note that for CS7 the last level cache before main memory is the L2 cache.
+Looking at the latencies for these `N`-values in our measurements reveal the following access latencies for the different cache sizes:
+
+| System | L1 access latency | L2 access latency | L3 access latency | Memory access latency |
+|--------|-------------------|-------------------|-------------------|-----------------------|
+| SAP3   | 1.697743 ns       | 9.567669 ns       | 37.391673 ns      | 139.616625 ns         |
+| MILAN1 | 1.675693 ns       | 3.326702 ns       | 9.829455 ns       | 88.152659 ns          |
+| GH3    | 1.521333 ns       | 3.384762 ns       | 10.253689 ns      | 41.830499 ns          |
+| CS7    | 4.987112 ns       | 165.093591 ns     |                   | 242.502391 ns         |
 
 
 ## f)
