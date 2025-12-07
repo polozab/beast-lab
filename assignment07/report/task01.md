@@ -85,7 +85,49 @@ For the pseudo random accesses pattern we can see that the `indexcalc` function 
 
 ## c)
 
+The random access pattern also makes it impossible for any cache hits to occur by already loaded entries within one cache line or prefetching. Additionally large vectors only fit into main memory thus filling the caches in the warm up phase also doesn't reliably work. Given that we have dependencies in between iterations we can only ever load one list entry from memory at the time. This is the case if we use the `indexload` function as we have to know the previous next value to be able to load the address of the next entry. Our bandwidth utilization therefor only depends on the size of a list entry and how many loads can be performed in a given time. We can approximate this by using the measured latency and the number of elements of the list together with the size of one entry. To calculate the size we look at the entry struct and quickly see that it is 16 bytes long without any padding necessary:
+
+```c
+struct entry {
+    double v;                // 8 Byte
+    volatile uint64_t next;  // 8 Byte
+};
+```
+However we have to mind that we only ever load at least one entire cache line from memory. Assuming that the array are aligned to the cache line boundaries, which they should be as they are a multiple, and the individual entries are smaller than a cache line exactly one line gets loaded from memory. Factoring in the repetitions we get the following formular for the memory bandwidth utilization:
+
+```
+mem_bandwidth [bytes/s] = cache_line_size [bytes] * N * rep / lat [s]
+```
+
+Or if we have the access latency given for a single element in ns we can instead use:
+
+```
+mem_bandwidth [bytes/s] = cache_line_size [bytes] / (time_per_element [ns] * 1.e-9 [s/ns])
+```
+
+Using `getconf` we can read out the line sizes for each system and calculate the memory bandwidth utilization with a vector size `N=30` which is way larger than the LLC on every system and compute the following utilizations:
+
+| System                                 | SAP2                   | MILAN1                 | GH3                    | CS7                    |
+|----------------------------------------|------------------------|------------------------|------------------------|------------------------|
+| Cache Line Size [bytes]                | 64                     | 64                     | 64                     | 256                    |
+| Latency per Element [ns]               | 139.616625             | 88.152659              | 41.830499              | 242.502391             |
+| Memory bandwidth utilization [bytes/s] | 4.58e8 B/s = 0.46 GB/s | 7.26e8 B/s = 0.73 GB/s | 1.53e9 B/s = 1.53 GB/s | 1.06e9 B/s = 1.06 GB/s |
+
+If we instead look at the `indexcalc` function the dependencies between iteration disappears. This would mean that multiple entries can be fetched simultaneously by the CPU. We would therefore expect a significantly higher memory bandwidth utilization which for the measurements would mean a lower latency per element. If we take a look at our results our assumptions gets confirmed:
+
+| System                                 | SAP2                    | MILAN1                  | GH3                   | CS7                    |
+|----------------------------------------|-------------------------|-------------------------|-----------------------|------------------------|
+| Cache Line Size [bytes]                | 64                      | 64                      | 64                    | 256                    |
+| Latency per Element [ns]               | 6.200622                | 5.206658                | 9.957564              | 245.684702             |
+| Memory bandwidth utilization [bytes/s] | 1.03e10 B/s = 10.3 GB/s | 1.23e10 B/s = 12.3 GB/s | 6.43e9 B/s = 6.4 GB/s | 1.04e9 B/s = 1.04 GB/s |
+
+However these values are still far behind the maximal stated memory bandwidth of the systems. This can be explained by the fact that although we are capable of issuing multiple loads at once we still only go along the one single memory stream of the list. Accessing only a single list cannot fully utilize the available memory bandwidth and we would need far more accesses per iteration to be able to reach a bandwidth limitation.
+
+One thing we noticed too was that maybe our initial guess that CS7 can't fetch multiple list entries isn't the reason for the similar latencies of both `indecalc` and `indexload`. Instead the 256 cache line size might be the reason we get higher latencies in comparison to other systems. As larger cache lines don't help with our pseudo random access pattern we are loading much more unnecessary data from main memory which should increases the access time. 
+
 ## d)
+
+s
 
 ## e)
 
