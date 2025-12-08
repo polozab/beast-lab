@@ -8,7 +8,7 @@ To analyze the measurement results we will first take a closer look at the `SAP3
 
 ### Case: K=1
 
-![SAP2 linear access](plots/task1_sap2_no-gold.svg)
+![SAP3 linear access](plots/task1_sap3_no-gold.svg)
 
 As expected `k` has a significant impact on both the overall dimension of the latency and the general behavior with increasing `N`. Looking at the `k=1` case we see that the behaviour of both functions is almost the same, only that indexload is slower in comparison to indexcalc. This can be explained when we look at the disassembly of both functions:
 
@@ -48,7 +48,7 @@ We now think that prefetching is able to circumvent most of these misses and thu
 
 ### Case: K=Random (golden ratio)
 
-![SAP2 no random indexload access](plots/task1_sap2_no-gold-load.svg)
+![SAP3 no random indexload access](plots/task1_sap3_no-gold-load.svg)
 
 This also explains the behavior of the latency increase with larger list for a pseudorandom access order. If we set `k=golden` to a approximation of the golden ratio we suddenly access memory in a completely suboptimal way. We completely miss out on both reuse of values from one cache line and the possibility of prefetching.
 
@@ -56,7 +56,7 @@ Thus we should be able to clearly see the different cache levels of the memory h
 
 As the size keeps increases and we have to access more main memory the latency also further increases instead of being a clear step like we have seen before with the different cache levels. We think this further increase can be explained by main memory not being so uniform as caches, thus accessing larger areas of the main memory can cause even larger latencies due to nonuniform designs.
 
-![SAP2 overview of all measures](plots/task1_sap2_all.svg)
+![SAP3 overview of all measures](plots/task1_sap3_all.svg)
 
 Now when we take into consideration the `indexload` we see the same overall shape of the plot as we would expect from a pseudorandom access order. However the overall latency is much higher. While we see at the beginning similar performance to the sequential access `indexload` function we quickly fall behind it.
 
@@ -65,15 +65,17 @@ We now access the worst case scenario of memory accesses where each load has to 
 
 ### Other systems
 
-Looking at the `MILAN1` system we see very similar results to `SAP3`. For the linear access the increase is not as much when the list sizes gets larger then the last level cache. Also the increase is much more subtle for `indexload` and we get an almost completely constant performance. This could be due to larger caches or better prefetching capabilities. Overall the latencies are also faster in comparison to `SAP3`. 
+Looking at the `MILAN2` system we see very similar results to `SAP3`. For the linear access the increase is not as much when the list sizes gets larger then the last level cache. Also the increase is much more subtle for `indexload` and we get an almost completely constant performance. This could be due to larger caches or better prefetching capabilities. Overall the latencies are also faster in comparison to `SAP3`. 
 
-This also applies for the pseudo random accesses where even `indexload` is still significantly faster. We also notice that the cache level steps are only visible for the `indexcalc` function and are much more gradual. There even is a substantial dip in between 10^5 and 10^7, which we can not explain directly. *We think that the smoother steps could be explained by the more extensive distribution of caches in the `MILAN1` system which would spread out the areas where both caches store partial parts of the list. This leads to the gradual increase as some accesses miss on the lower levels while other hit.*
+This also applies for the pseudo random accesses where even `indexload` is still significantly faster. We also notice that the cache level steps are only visible for the `indexcalc` function and are much more gradual. There even is a substantial dip in between 10^5 and 10^7, which we can not explain directly. *We think that the smoother steps could be explained by the more extensive distribution of caches in the `MILAN2` system which would spread out the areas where both caches store partial parts of the list. This leads to the gradual increase as some accesses miss on the lower levels while other hit.*
 
-![MILAN1 overview of all measures](plots/task1_milan1.svg)
+However we cannot explain why there is another jump in latency around a list size of `N=29` which is present in all variations except linear access `indexcalc`.
 
-Examining `GH3` shows even better overall latencies and again very similar behavior with increasing list sizes to the `SAP3` system. For linear access we see a much more substantial increase just above the 10^6 mark in comparison to `MILAN1` where `GH3` seems more similar ti `SAP3`. However the is increase smooth and not a sudden step which may be because of the same reason we proposed for the `MILAN1` system. In addition the `indexload` function latency doesn't change similar to the `MILAN1` system, as the processor may be again more effective in hiding the increase in latency due to fetching multiple list entries from memory in parallel.
+![MILAN2 overview of all measures](plots/task1_milan2.svg)
 
-For the pseudo random accesses we can see the increases in latency according to the different levels of the memory hierarchy, although they are again much more smooth in comparison to the `SAP 3` system. What is also noticeable is that the difference between `indexcalc` and `indexload` is much small then for other system. This could be due to the much faster main memory of `GH3` where the differences between cache and DRAM is not as significant.
+Examining `GH3` shows even better overall latencies and again very similar behavior with increasing list sizes to the `SAP3` system. For linear access we see a much more substantial increase just above the 10^6 mark in comparison to `MILAN2` where `GH3` seems more similar to `SAP3`. However the is increase smooth and not a sudden step which may be because of the same reason we proposed for the `MILAN1` system. In addition the `indexload` function latency doesn't change similar to the `MILAN2` system, as the processor may be again more effective in hiding the increase in latency due to fetching multiple list entries from memory in parallel.
+
+For the pseudo random accesses we can see the increases in latency according to the different levels of the memory hierarchy, although they are again much more smooth in comparison to the `SAP3` system. What is also noticeable is that the difference between `indexcalc` and `indexload` is much small then for other system. This could be due to the much faster main memory of `GH3` where the differences between cache and DRAM is not as significant. Another interesting behavior ist that for very large list sizes above `N=29` the latency for the pseudo random accesses to the list dramatically decreases. We would love to investigate this further as we didn't see any comparable behaviouir 
 
 ![GH3 overview of all measures](plots/task1_gh3.svg)
 
@@ -109,7 +111,7 @@ Using `getconf` we can read out the line sizes for each system and calculate the
 
 | System | Cache Line Size | Latency per Element | Memory bandwidth utilization |
 |--------|-----------------|---------------------|------------------------------|
-| SAP2   | 64 B            | 139.616625 ns       | 4.58e8 B/s = 0.46 GB/s       |
+| SAP3   | 64 B            | 139.616625 ns       | 4.58e8 B/s = 0.46 GB/s       |
 | MILAN1 | 64 B            | 88.152659 ns        | 7.26e8 B/s = 0.73 GB/s       |
 | GH3    | 64 B            | 41.830499 ns        | 1.53e9 B/s = 1.53 GB/s       |
 | CS7    | 256 B           | 242.502391 ns       | 1.06e9 B/s = 1.06 GB/s       |
@@ -118,7 +120,7 @@ If we instead look at the `indexcalc` function the dependencies between iteratio
 
 | System | Cache Line Size | Latency per Element | Memory bandwidth utilization |
 |--------|-----------------|---------------------|------------------------------|
-| SAP2   | 64 B            | 6.200622 ns         | 1.03e10 B/s = 10.3 GB/s      |
+| SAP3   | 64 B            | 6.200622 ns         | 1.03e10 B/s = 10.3 GB/s      |
 | MILAN1 | 64 B            | 5.206658 ns         | 1.23e10 B/s = 12.3 GB/s      |
 | GH3    | 64 B            | 9.957564 ns         | 6.43e9 B/s = 6.4 GB/s        |
 | CS7    | 256 B           | 245.684702 ns       | 1.04e9 B/s = 1.04 GB/s       |
@@ -139,7 +141,7 @@ Now the measured latency per element basically reports the main memory access la
 
 | System | Main memory access latency |
 |--------|----------------------------|
-| SAP2   | 139.616625 ns              |
+| SAP3   | 139.616625 ns              |
 | MILAN1 | 88.152659 ns               |
 | GH3    | 41.830499 ns               |
 | CS7    | 242.502391 ns              |
@@ -152,14 +154,14 @@ First we have to find a suitable `N` the fit the individual cache levels, for th
 
 | System | L1                   | L2                      | L3                      |
 |--------|----------------------|-------------------------|-------------------------|
-| SAP2   | 48 kB / 16 B = 3000  | 2048 kB / 16 B = 128000 | 105 MB / 16 B = 6562500 |
+| SAP3   | 48 kB / 16 B = 3000  | 2048 kB / 16 B = 128000 | 105 MB / 16 B = 6562500 |
 | MILAN1 | 32 kB / 16 B = 2000  | 512 kB / 16 B = 32000   | 96 MB / 16 B = 6000000  |
 | GH3    | 64 kB / 16 B = 4000  | 1024 kB / 16 B = 64000  | 114 MB / 16 B = 7125000 |
 | CS7    | 64 kiB / 16 B = 4000 | 8 MB / 16 B = 500000    |                         |
 
 We now look at values that are at most as large as the numbers we calculated in the table to make sure the list fits in its entirety into the desired cache level. With this setup we gained the following `N` values:
 
-**SAP2**:
+**SAP3**:
  - L1: 2048
  - L2: 121072
  - L3: 4194304
