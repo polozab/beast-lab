@@ -78,3 +78,28 @@
        sum_indexcalc,         1, 536870912,   1.459474
        sum_indexload,         1, 536870912,   4.647745
        sum_indexcalc,      gold, 536870912, 194.351368
+       sum_indexload,      gold, 536870912, 218.050316
+       sum_indexcalc,         1,1073741824,   1.522495
+       sum_indexload,         1,1073741824,   4.694355
+       sum_indexcalc,      gold,1073741824, 259.077210
+       sum_indexload,      gold,1073741824, 267.420121
+# started on Mon Dec  8 19:31:44 2025
+
+
+ Performance counter stats for 'taskset -c 0 ./list_cs7.out 30':
+
+      6,398,835.92 msec task-clock                #    0.999 CPUs utilized          
+            12,238      context-switches          #    0.002 K/sec                  
+                 1      cpu-migrations            #    0.000 K/sec                  
+         3,874,959      page-faults               #    0.606 K/sec                  
+11,517,800,671,542      cycles                    #    1.800 GHz                    
+   993,275,256,833      instructions              #    0.09  insn per cycle         
+   <not supported>      branches                                                    
+        35,766,169      branch-misses                                               
+
+    6402.314317464 seconds time elapsed
+
+    6372.753171000 seconds user
+      26.056578000 seconds sys
+
+

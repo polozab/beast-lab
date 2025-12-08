@@ -1,4 +1,25 @@
                  Fun,         k,         N,Latency[ns]
-       sum_indexcalc,         1,  33554432,   1.578415
-       sum_indexload,         1,  33554432,   4.733467
-       sum_indexcalc,      gold,  33554432, 314.650001
+       sum_indexcalc,         1,  67108864,   1.450282
+       sum_indexload,         1,  67108864,   4.627430
+       sum_indexcalc,      gold,  67108864, 161.328187
+       sum_indexload,      gold,  67108864, 272.157416
+# started on Mon Dec  8 21:18:29 2025
+
+
+ Performance counter stats for 'numactl -a -C 0 -m 2 ./list_single_cs7.out 26':
+
+        193,297.04 msec task-clock                #    1.000 CPUs utilized          
+               247      context-switches          #    0.001 K/sec                  
+                 1      cpu-migrations            #    0.000 K/sec                  
+           114,830      page-faults               #    0.594 K/sec                  
+   347,932,012,469      cycles                    #    1.800 GHz                    
+    41,850,382,064      instructions              #    0.12  insn per cycle         
+   <not supported>      branches                                                    
+           979,080      branch-misses                                               
+
+     193.329649034 seconds time elapsed
+
+     192.056565000 seconds user
+       1.239848000 seconds sys
+
+
