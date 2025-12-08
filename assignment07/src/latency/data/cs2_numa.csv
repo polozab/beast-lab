@@ -1,0 +1,5 @@
+                 Fun,         k,         N,Latency[ns]
+       sum_indexcalc,         1,  67108864,   1.450295
+       sum_indexload,         1,  67108864,   4.626855
+       sum_indexcalc,      gold,  67108864, 161.238916
+       sum_indexload,      gold,  67108864, 272.135377

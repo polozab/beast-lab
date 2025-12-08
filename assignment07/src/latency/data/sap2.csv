@@ -1,0 +1,114 @@
+                 Fun,         k,         N,Latency[ns]
+       sum_indexcalc,         1,      1024,   0.436321
+       sum_indexload,         1,      1024,   1.677014
+       sum_indexcalc,      gold,      1024,   0.436353
+       sum_indexload,      gold,      1024,   1.677509
+       sum_indexcalc,         1,      2048,   0.432964
+       sum_indexload,         1,      2048,   1.697907
+       sum_indexcalc,      gold,      2048,   0.432941
+       sum_indexload,      gold,      2048,   1.697925
+       sum_indexcalc,         1,      4096,   0.431324
+       sum_indexload,         1,      4096,   1.715015
+       sum_indexcalc,      gold,      4096,   0.463225
+       sum_indexload,      gold,      4096,   4.221767
+       sum_indexcalc,         1,      8192,   0.430471
+       sum_indexload,         1,      8192,   1.717278
+       sum_indexcalc,      gold,      8192,   0.484014
+       sum_indexload,      gold,      8192,   3.262079
+       sum_indexcalc,         1,     16384,   0.429998
+       sum_indexload,         1,     16384,   1.718095
+       sum_indexcalc,      gold,     16384,   0.463971
+       sum_indexload,      gold,     16384,   5.289870
+       sum_indexcalc,         1,     32768,   0.429823
+       sum_indexload,         1,     32768,   1.718812
+       sum_indexcalc,      gold,     32768,   0.521703
+       sum_indexload,      gold,     32768,   6.691344
+       sum_indexcalc,         1,     65536,   0.429726
+       sum_indexload,         1,     65536,   1.718845
+       sum_indexcalc,      gold,     65536,   0.673152
+       sum_indexload,      gold,     65536,   8.607187
+       sum_indexcalc,         1,    131072,   0.488190
+       sum_indexload,         1,    131072,   1.725154
+       sum_indexcalc,      gold,    131072,   0.968612
+       sum_indexload,      gold,    131072,  12.478520
+       sum_indexcalc,         1,    262144,   0.574568
+       sum_indexload,         1,    262144,   1.726902
+       sum_indexcalc,      gold,    262144,   1.039339
+       sum_indexload,      gold,    262144,  14.973876
+       sum_indexcalc,         1,    524288,   0.572033
+       sum_indexload,         1,    524288,   1.726617
+       sum_indexcalc,      gold,    524288,   2.067441
+       sum_indexload,      gold,    524288,  38.682190
+       sum_indexcalc,         1,   1048576,   0.573668
+       sum_indexload,         1,   1048576,   1.726591
+       sum_indexcalc,      gold,   1048576,   2.129889
+       sum_indexload,      gold,   1048576,  39.017367
+       sum_indexcalc,         1,   2097152,   0.567328
+       sum_indexload,         1,   2097152,   1.726114
+       sum_indexcalc,      gold,   2097152,   2.146815
+       sum_indexload,      gold,   2097152,  38.052083
+       sum_indexcalc,         1,   4194304,   0.574274
+       sum_indexload,         1,   4194304,   1.727591
+       sum_indexcalc,      gold,   4194304,   2.132061
+       sum_indexload,      gold,   4194304,  37.772017
+       sum_indexcalc,         1,   8388608,   0.986264
+       sum_indexload,         1,   8388608,   1.931942
+       sum_indexcalc,      gold,   8388608,   3.300983
+       sum_indexload,      gold,   8388608,  64.506302
+       sum_indexcalc,         1,  16777216,   1.249412
+       sum_indexload,         1,  16777216,   2.068974
+       sum_indexcalc,      gold,  16777216,   4.245382
+       sum_indexload,      gold,  16777216,  99.129126
+       sum_indexcalc,         1,  33554432,   1.274022
+       sum_indexload,         1,  33554432,   2.130440
+       sum_indexcalc,      gold,  33554432,   3.934579
+       sum_indexload,      gold,  33554432,  83.292631
+       sum_indexcalc,         1,  67108864,   1.285037
+       sum_indexload,         1,  67108864,   2.150571
+       sum_indexcalc,      gold,  67108864,   4.616390
+       sum_indexload,      gold,  67108864, 116.349815
+       sum_indexcalc,         1, 134217728,   1.291294
+       sum_indexload,         1, 134217728,   2.162971
+       sum_indexcalc,      gold, 134217728,   6.260796
+       sum_indexload,      gold, 134217728, 120.981262
+       sum_indexcalc,         1, 268435456,   1.305502
+       sum_indexload,         1, 268435456,   2.184398
+       sum_indexcalc,      gold, 268435456,   5.210205
+       sum_indexload,      gold, 268435456, 123.288574
+       sum_indexcalc,         1, 536870912,   1.313792
+       sum_indexload,         1, 536870912,   2.189565
+       sum_indexcalc,      gold, 536870912,   9.509073
+       sum_indexload,      gold, 536870912, 128.523488
+       sum_indexcalc,         1,1073741824,   1.307921
+       sum_indexload,         1,1073741824,   2.189318
+       sum_indexcalc,      gold,1073741824,   9.832990
+       sum_indexload,      gold,1073741824, 128.876913
+# started on Mon Dec  8 19:32:56 2025
+
+
+ Performance counter stats for 'taskset -c 0 ./list_sap2.out 30':
+
+      2,272,686.44 msec task-clock                #    0.999 CPUs utilized          
+           191,443      context-switches          #   84.236 /sec                   
+                 1      cpu-migrations            #    0.000 /sec                   
+           442,316      page-faults               #  194.623 /sec                   
+ 7,940,105,203,036      cycles                    #    3.494 GHz                    
+ 2,630,952,024,900      instructions              #    0.33  insn per cycle         
+   147,574,367,341      branches                  #   64.934 M/sec                  
+        57,450,437      branch-misses             #    0.04% of all branches        
+47,640,419,899,842      slots                     #   20.962 G/sec                  
+43,344,818,762,019      topdown-retiring          #     88.5% retiring              
+   373,650,703,517      topdown-bad-spec          #      0.8% bad speculation       
+ 2,241,902,112,933      topdown-fe-bound          #      4.6% frontend bound        
+ 2,989,203,371,035      topdown-be-bound          #      6.1% backend bound         
+ 4,296,979,056,450      topdown-heavy-ops         #      8.8% heavy operations       #     79.8% light operations      
+   373,650,519,143      topdown-br-mispredict     #      0.8% branch mispredict      #      0.0% machine clears        
+   373,652,244,877      topdown-fetch-lat         #      0.8% fetch latency          #      3.8% fetch bandwidth       
+   373,650,703,517      topdown-mem-bound         #      0.8% memory bound           #      5.3% Core bound            
+
+    2273.880915442 seconds time elapsed
+
+    2204.406988000 seconds user
+      68.177247000 seconds sys
+
+

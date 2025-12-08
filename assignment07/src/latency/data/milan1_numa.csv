@@ -1,0 +1,28 @@
+                 Fun,         k,         N,Latency[ns]
+       sum_indexcalc,         1,  67108864,   1.133784
+       sum_indexload,         1,  67108864,   1.805647
+       sum_indexcalc,      gold,  67108864,   9.265907
+       sum_indexload,      gold,  67108864, 280.162142
+# started on Mon Dec  8 20:03:00 2025
+
+
+ Performance counter stats for 'numactl -a -C 0 -m 4 ./list_single_milan1.out 26':
+
+        129,912.97 msec task-clock                       #    0.999 CPUs utilized          
+            13,090      context-switches                 #  100.760 /sec                   
+                 1      cpu-migrations                   #    0.008 /sec                   
+            17,547      page-faults                      #  135.067 /sec                   
+   456,773,008,827      cycles                           #    3.516 GHz                      (83.33%)
+       150,643,828      stalled-cycles-frontend          #    0.03% frontend cycles idle     (83.33%)
+     9,365,497,402      stalled-cycles-backend           #    2.05% backend cycles idle      (83.34%)
+    69,000,031,632      instructions                     #    0.15  insn per cycle         
+                                                  #    0.14  stalled cycles per insn  (83.33%)
+     5,992,077,276      branches                         #   46.124 M/sec                    (83.34%)
+        32,069,100      branch-misses                    #    0.54% of all branches          (83.33%)
+
+     130.044363151 seconds time elapsed
+
+     127.845035000 seconds user
+       2.037466000 seconds sys
+
+

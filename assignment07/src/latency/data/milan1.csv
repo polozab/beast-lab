@@ -1,0 +1,108 @@
+                 Fun,         k,         N,Latency[ns]
+       sum_indexcalc,         1,      1024,   0.497765
+       sum_indexload,         1,      1024,   1.681881
+       sum_indexcalc,      gold,      1024,   0.498045
+       sum_indexload,      gold,      1024,   1.682036
+       sum_indexcalc,         1,      2048,   0.498438
+       sum_indexload,         1,      2048,   1.704403
+       sum_indexcalc,      gold,      2048,   0.495108
+       sum_indexload,      gold,      2048,   1.791914
+       sum_indexcalc,         1,      4096,   0.500797
+       sum_indexload,         1,      4096,   1.723736
+       sum_indexcalc,      gold,      4096,   0.654850
+       sum_indexload,      gold,      4096,   1.925173
+       sum_indexcalc,         1,      8192,   0.500581
+       sum_indexload,         1,      8192,   1.721267
+       sum_indexcalc,      gold,      8192,   0.649569
+       sum_indexload,      gold,      8192,   1.919227
+       sum_indexcalc,         1,     16384,   0.501701
+       sum_indexload,         1,     16384,   1.720213
+       sum_indexcalc,      gold,     16384,   0.661486
+       sum_indexload,      gold,     16384,   2.916996
+       sum_indexcalc,         1,     32768,   0.505790
+       sum_indexload,         1,     32768,   1.724766
+       sum_indexcalc,      gold,     32768,   0.838293
+       sum_indexload,      gold,     32768,   4.389038
+       sum_indexcalc,         1,     65536,   0.503816
+       sum_indexload,         1,     65536,   1.724393
+       sum_indexcalc,      gold,     65536,   1.007899
+       sum_indexload,      gold,     65536,   5.065007
+       sum_indexcalc,         1,    131072,   0.502809
+       sum_indexload,         1,    131072,   1.721908
+       sum_indexcalc,      gold,    131072,   1.050563
+       sum_indexload,      gold,    131072,   5.528852
+       sum_indexcalc,         1,    262144,   0.503019
+       sum_indexload,         1,    262144,   1.721819
+       sum_indexcalc,      gold,    262144,   1.009514
+       sum_indexload,      gold,    262144,   5.324378
+       sum_indexcalc,         1,    524288,   0.502796
+       sum_indexload,         1,    524288,   1.722092
+       sum_indexcalc,      gold,    524288,   1.060972
+       sum_indexload,      gold,    524288,   4.989639
+       sum_indexcalc,         1,   1048576,   0.503122
+       sum_indexload,         1,   1048576,   1.722094
+       sum_indexcalc,      gold,   1048576,   0.989162
+       sum_indexload,      gold,   1048576,   3.567912
+       sum_indexcalc,         1,   2097152,   0.504175
+       sum_indexload,         1,   2097152,   1.722504
+       sum_indexcalc,      gold,   2097152,   0.963404
+       sum_indexload,      gold,   2097152,   6.112630
+       sum_indexcalc,         1,   4194304,   0.506192
+       sum_indexload,         1,   4194304,   1.722930
+       sum_indexcalc,      gold,   4194304,   0.947871
+       sum_indexload,      gold,   4194304,  13.561596
+       sum_indexcalc,         1,   8388608,   0.683879
+       sum_indexload,         1,   8388608,   1.762812
+       sum_indexcalc,      gold,   8388608,   3.128564
+       sum_indexload,      gold,   8388608,  25.333880
+       sum_indexcalc,         1,  16777216,   0.679116
+       sum_indexload,         1,  16777216,   1.772123
+       sum_indexcalc,      gold,  16777216,   3.950842
+       sum_indexload,      gold,  16777216,  67.339667
+       sum_indexcalc,         1,  33554432,   0.665723
+       sum_indexload,         1,  33554432,   1.772981
+       sum_indexcalc,      gold,  33554432,   3.796728
+       sum_indexload,      gold,  33554432,  76.618442
+       sum_indexcalc,         1,  67108864,   0.678624
+       sum_indexload,         1,  67108864,   1.773467
+       sum_indexcalc,      gold,  67108864,   5.460480
+       sum_indexload,      gold,  67108864,  87.438492
+       sum_indexcalc,         1, 134217728,   0.680706
+       sum_indexload,         1, 134217728,   1.771234
+       sum_indexcalc,      gold, 134217728,   5.184413
+       sum_indexload,      gold, 134217728,  88.601014
+       sum_indexcalc,         1, 268435456,   0.659806
+       sum_indexload,         1, 268435456,   1.770485
+       sum_indexcalc,      gold, 268435456,   5.132780
+       sum_indexload,      gold, 268435456,  88.644364
+       sum_indexcalc,         1, 536870912,   0.659575
+       sum_indexload,         1, 536870912,   1.762249
+       sum_indexcalc,      gold, 536870912,   5.553844
+       sum_indexload,      gold, 536870912,  96.621916
+       sum_indexcalc,         1,1073741824,   0.883022
+       sum_indexload,         1,1073741824,   1.762440
+       sum_indexcalc,      gold,1073741824,   5.545022
+       sum_indexload,      gold,1073741824,  96.772573
+# started on Mon Dec  8 19:33:33 2025
+
+
+ Performance counter stats for 'taskset -c 0 ./list_milan1.out 30':
+
+      1,765,590.12 msec task-clock                       #    0.999 CPUs utilized          
+           179,805      context-switches                 #  101.838 /sec                   
+                 1      cpu-migrations                   #    0.001 /sec                   
+           435,423      page-faults                      #  246.616 /sec                   
+ 6,209,809,898,583      cycles                           #    3.517 GHz                      (83.33%)
+     1,743,410,251      stalled-cycles-frontend          #    0.03% frontend cycles idle     (83.34%)
+    97,882,400,506      stalled-cycles-backend           #    1.58% backend cycles idle      (83.33%)
+ 2,053,884,074,996      instructions                     #    0.33  insn per cycle         
+                                                  #    0.05  stalled cycles per insn  (83.34%)
+   131,982,287,857      branches                         #   74.753 M/sec                    (83.33%)
+       632,095,082      branch-misses                    #    0.48% of all branches          (83.34%)
+
+    1767.335335927 seconds time elapsed
+
+    1739.518359000 seconds user
+      25.774164000 seconds sys
+
+
