@@ -14,5 +14,5 @@
 
 module load nvhpc
 nvc -Wall -Wextra -O3 -march=native -g list.c -o list_gh3.out
-stdbuf -oL perf stat -o /dev/stdout taskset -c 0 ./list_gh3.out 10 | tee ./data/gh3.csv
+stdbuf -oL perf stat -o /dev/stdout taskset -c 0 ./list_gh3.out 30 | tee ./data/gh3.csv
 
