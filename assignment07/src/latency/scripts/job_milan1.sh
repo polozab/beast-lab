@@ -13,4 +13,8 @@
 #SBATCH --nodes=1
 
 clang -Wall -Wextra -Wconversion -O3 -march=native -g list.c -o list_milan1.out
-taskset -c 0 stdbuf -oL ./list_milan1.out 30 | tee ./data/milan1.csv
+stdbuf -oL taskset -c 0 ./list_milan1.out 30 | tee ./data/milan1.csv
+
+
+clang -Wall -Wextra -Wconversion -O3 -march=native -g list_single.c -o list_single_milan1.out
+stdbuf -oL numactl -a -C 0 -m 1 ./list_single_milan1.out 26 | tee ./data/milan1_numa.csv

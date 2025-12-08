@@ -17,4 +17,4 @@ cc -Wall -Wextra -Wconversion -O3 -g list.c -o list_cs7.out
 stdbuf -oL taskset -c 0 ./list_cs7.out 30 | tee ./data/cs7.csv
 
 cc -Wall -Wextra -Wconversion -O3 -g list_single.c -o list_single_cs7.out
-stdbuf -oL numactl -a -C 0 -m 1 ./list_single_cs7.out 30 | tee ./data/cs7_numa.csv
+stdbuf -oL numactl -a -C 0 -m 1 ./list_single_cs7.out 26 | tee ./data/cs7_numa.csv
