@@ -231,5 +231,12 @@ int main(int argc, char **argv)
     //assert(check_sum(N_max, sum_calc));
     //assert(check_sum(N_max, sum_load));
 
+    uint64_t k = (uint64_t)((double)N_max / golden_ratio);
+    k          = (k % 2 == 0) ? k - 1 : k;
+    assert(is_coprime(N_max, k));
+
+    BENCH(sum_indexcalc, N_max, k, &sum_calc, &dummy_calc);
+    BENCH(sum_indexload, N_max, k, &sum_load, &dummy_load);
+
     return EXIT_SUCCESS;
 }
