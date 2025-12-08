@@ -4,7 +4,7 @@
 
 ## b)
 
-To analyze the measurement results we will first take a closer look at the `SAP2` system which represents the other systems very well. Afterwards, for completion we show the remaining differences that occurred on the other systems.
+To analyze the measurement results we will first take a closer look at the `SAP3` system which represents the other systems very well. Afterwards, for completion we show the remaining differences that occurred on the other systems.
 
 ### Case: K=1
 
@@ -295,3 +295,22 @@ node   0   1   2   3
 ```
 
 ## h)
+
+To be able to force memory to be allocated remotely we used the `numactl` command line tool. We then used the following command to execute the benchmark:
+
+```sh
+numactl -a -C 0 -m 2 ./bench.out 26
+```
+
+The `-a` flag removes any inherited CPU pinning while `-C 0` flag will explicitly pin the benchmark thread to the the core 0 which lays in the numa domain 0 for all systems.
+To make sure no local memory can get used for allocation we specified with the `-m 2` flag that we instead have to allocate memory from the numa domain 2. This number had to be adjusted based on the given numa domains for each system. For that we decided to always use a numa domain that is furthest away according to the SLIT table. We ran the benchmark with a `N=26` vector size to ensure we actually have to access the main memory but still fit entirely into the remote numa domain. After running every benchmark we got the following results:
+
+| System | Local latency per Element | Remote latency per Element | Slow down     |
+|--------|---------------------------|----------------------------|---------------|
+| SAP3   | 116.349815 ns             | 224.605182 ns              | 1.93043007417 |
+| MILAN2 | 87.438492 ns              | 280.162142 ns              | 3.20410537272 |
+| GH3    | 22.077212 ns              |                            |               |
+| CS2    | 242.502391 ns             | 242.502391 ns              |               |
+
+If we compare these results to the distance table we see that these represent almost the slow down we measured for accessing the list remotely.
+For `MILAN2` we get a perfect match while for `SAP3` the slow down is not as bad as the specified `23`. So we can conclude that at least for out systems the distance values actually have a semantic meaning and show the (maximal) expected slowdown for accessing remote memory in comparison to local communication.
