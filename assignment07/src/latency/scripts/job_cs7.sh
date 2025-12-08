@@ -15,3 +15,5 @@
 module load cce/11.0.0
 cc -Wall -Wextra -Wconversion -O3 -g list.c -o list_cs7.out
 taskset -c 0 stdbuf -oL ./list_cs7.out 30 | tee ./data/cs7.csv
+
+numa
