@@ -131,6 +131,7 @@ int main(int argc, char* argv[])
                         min_arr[t1*tc + t2] = min;
                         max_arr[t1*tc + t2] = max;
                         avg_arr[t1*tc + t2] = avg;
+                        printf("    Min: %.1f ns (max: %.1f ns, avg: %.1f ns)\n", min, max, avg);
                     }
                 }
                 #pragma omp barrier
