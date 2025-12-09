@@ -1,0 +1,3962 @@
+Running 10.0 K ping-pongs using 30 different addresses for each pair from 192 threads
+Threads: 192, Base addr: 0x1608da0
+   Pair ( 0, 1):
+    Min: 36.1 ns (max: 38.6 ns, avg: 37.1 ns)
+   Pair ( 0, 2):
+    Min: 1203.8 ns (max: 2455.7 ns, avg: 1634.5 ns)
+   Pair ( 0, 3):
+    Min: 727.7 ns (max: 1078.1 ns, avg: 848.2 ns)
+   Pair ( 0, 4):
+    Min: 727.0 ns (max: 935.5 ns, avg: 841.8 ns)
+   Pair ( 0, 5):
+    Min: 733.6 ns (max: 934.1 ns, avg: 839.2 ns)
+   Pair ( 0, 6):
+    Min: 723.3 ns (max: 928.3 ns, avg: 837.2 ns)
+   Pair ( 0, 7):
+    Min: 714.0 ns (max: 929.8 ns, avg: 836.2 ns)
+   Pair ( 0, 8):
+    Min: 734.0 ns (max: 930.8 ns, avg: 840.8 ns)
+   Pair ( 0, 9):
+    Min: 736.7 ns (max: 932.5 ns, avg: 838.8 ns)
+   Pair ( 0,10):
+    Min: 735.2 ns (max: 931.3 ns, avg: 840.7 ns)
+   Pair ( 0,11):
+    Min: 731.3 ns (max: 926.9 ns, avg: 838.7 ns)
+   Pair ( 0,12):
+    Min: 731.8 ns (max: 933.6 ns, avg: 839.2 ns)
+   Pair ( 0,13):
+    Min: 733.4 ns (max: 927.7 ns, avg: 840.6 ns)
+   Pair ( 0,14):
+    Min: 700.0 ns (max: 922.5 ns, avg: 800.4 ns)
+   Pair ( 0,15):
+    Min: 90.3 ns (max: 876.7 ns, avg: 151.7 ns)
+   Pair ( 0,16):
+    Min: 76.7 ns (max: 132.5 ns, avg: 111.2 ns)
+   Pair ( 0,17):
+    Min: 76.8 ns (max: 130.2 ns, avg: 110.2 ns)
+   Pair ( 0,18):
+    Min: 86.3 ns (max: 140.5 ns, avg: 114.0 ns)
+   Pair ( 0,19):
+    Min: 86.9 ns (max: 141.3 ns, avg: 114.5 ns)
+   Pair ( 0,20):
+    Min: 90.6 ns (max: 131.1 ns, avg: 111.9 ns)
+   Pair ( 0,21):
+    Min: 90.5 ns (max: 130.8 ns, avg: 111.2 ns)
+   Pair ( 0,22):
+    Min: 83.7 ns (max: 141.0 ns, avg: 112.3 ns)
+   Pair ( 0,23):
+    Min: 83.5 ns (max: 142.0 ns, avg: 113.3 ns)
+   Pair ( 0,24):
+    Min: 61.2 ns (max: 94.4 ns, avg: 81.5 ns)
+   Pair ( 0,25):
+    Min: 61.7 ns (max: 95.0 ns, avg: 82.2 ns)
+   Pair ( 0,26):
+    Min: 90.0 ns (max: 144.8 ns, avg: 104.8 ns)
+   Pair ( 0,27):
+    Min: 89.5 ns (max: 146.3 ns, avg: 105.1 ns)
+   Pair ( 0,28):
+    Min: 63.2 ns (max: 95.5 ns, avg: 81.3 ns)
+   Pair ( 0,29):
+    Min: 62.7 ns (max: 95.0 ns, avg: 79.9 ns)
+   Pair ( 0,30):
+    Min: 62.9 ns (max: 99.6 ns, avg: 79.7 ns)
+   Pair ( 0,31):
+    Min: 62.7 ns (max: 100.3 ns, avg: 79.8 ns)
+   Pair ( 0,32):
+    Min: 62.4 ns (max: 102.8 ns, avg: 82.6 ns)
+   Pair ( 0,33):
+    Min: 62.2 ns (max: 103.9 ns, avg: 81.9 ns)
+   Pair ( 0,34):
+    Min: 62.3 ns (max: 100.6 ns, avg: 81.6 ns)
+   Pair ( 0,35):
+    Min: 62.5 ns (max: 100.5 ns, avg: 80.4 ns)
+   Pair ( 0,36):
+    Min: 75.3 ns (max: 102.5 ns, avg: 83.0 ns)
+   Pair ( 0,37):
+    Min: 75.2 ns (max: 102.6 ns, avg: 83.1 ns)
+   Pair ( 0,38):
+    Min: 74.2 ns (max: 101.5 ns, avg: 84.6 ns)
+   Pair ( 0,39):
+    Min: 74.8 ns (max: 101.4 ns, avg: 84.5 ns)
+   Pair ( 0,40):
+    Min: 73.6 ns (max: 103.4 ns, avg: 84.4 ns)
+   Pair ( 0,41):
+    Min: 74.4 ns (max: 177.3 ns, avg: 87.0 ns)
+   Pair ( 0,42):
+    Min: 62.2 ns (max: 147.9 ns, avg: 97.2 ns)
+   Pair ( 0,43):
+    Min: 62.0 ns (max: 164.8 ns, avg: 98.2 ns)
+   Pair ( 0,44):
+    Min: 61.5 ns (max: 147.1 ns, avg: 96.6 ns)
+   Pair ( 0,45):
+    Min: 62.1 ns (max: 147.2 ns, avg: 96.3 ns)
+   Pair ( 0,46):
+    Min: 62.4 ns (max: 160.2 ns, avg: 96.9 ns)
+   Pair ( 0,47):
+    Min: 62.6 ns (max: 146.3 ns, avg: 96.3 ns)
+   Pair ( 0,48):
+    Min: 73.6 ns (max: 95.9 ns, avg: 87.9 ns)
+   Pair ( 0,49):
+    Min: 73.8 ns (max: 110.5 ns, avg: 88.9 ns)
+   Pair ( 0,50):
+    Min: 75.3 ns (max: 101.4 ns, avg: 88.4 ns)
+   Pair ( 0,51):
+    Min: 75.1 ns (max: 98.5 ns, avg: 88.1 ns)
+   Pair ( 0,52):
+    Min: 75.9 ns (max: 109.3 ns, avg: 87.0 ns)
+   Pair ( 0,53):
+    Min: 75.5 ns (max: 104.4 ns, avg: 85.9 ns)
+   Pair ( 0,54):
+    Min: 73.3 ns (max: 97.9 ns, avg: 87.1 ns)
+   Pair ( 0,55):
+    Min: 72.9 ns (max: 97.5 ns, avg: 87.0 ns)
+   Pair ( 0,56):
+    Min: 73.1 ns (max: 100.9 ns, avg: 84.2 ns)
+   Pair ( 0,57):
+    Min: 73.3 ns (max: 95.5 ns, avg: 83.7 ns)
+   Pair ( 0,58):
+    Min: 75.0 ns (max: 101.1 ns, avg: 86.2 ns)
+   Pair ( 0,59):
+    Min: 74.8 ns (max: 114.0 ns, avg: 87.6 ns)
+   Pair ( 0,60):
+    Min: 72.6 ns (max: 136.3 ns, avg: 92.3 ns)
+   Pair ( 0,61):
+    Min: 72.5 ns (max: 113.2 ns, avg: 92.2 ns)
+   Pair ( 0,62):
+    Min: 73.3 ns (max: 110.2 ns, avg: 89.9 ns)
+   Pair ( 0,63):
+    Min: 73.2 ns (max: 111.8 ns, avg: 89.4 ns)
+   Pair ( 0,64):
+    Min: 72.3 ns (max: 108.4 ns, avg: 89.1 ns)
+   Pair ( 0,65):
+    Min: 71.9 ns (max: 109.2 ns, avg: 89.7 ns)
+   Pair ( 0,66):
+    Min: 72.5 ns (max: 101.9 ns, avg: 86.5 ns)
+   Pair ( 0,67):
+    Min: 72.2 ns (max: 106.5 ns, avg: 86.6 ns)
+   Pair ( 0,68):
+    Min: 74.2 ns (max: 111.8 ns, avg: 93.2 ns)
+   Pair ( 0,69):
+    Min: 73.9 ns (max: 110.3 ns, avg: 93.1 ns)
+   Pair ( 0,70):
+    Min: 74.7 ns (max: 112.5 ns, avg: 91.3 ns)
+   Pair ( 0,71):
+    Min: 74.1 ns (max: 110.8 ns, avg: 90.0 ns)
+   Pair ( 0,72):
+    Min: 67.4 ns (max: 115.8 ns, avg: 79.6 ns)
+   Pair ( 0,73):
+    Min: 67.4 ns (max: 127.9 ns, avg: 79.9 ns)
+   Pair ( 0,74):
+    Min: 67.8 ns (max: 108.4 ns, avg: 77.9 ns)
+   Pair ( 0,75):
+    Min: 67.8 ns (max: 106.0 ns, avg: 78.0 ns)
+   Pair ( 0,76):
+    Min: 69.1 ns (max: 118.6 ns, avg: 81.3 ns)
+   Pair ( 0,77):
+    Min: 69.3 ns (max: 119.7 ns, avg: 82.4 ns)
+   Pair ( 0,78):
+    Min: 69.5 ns (max: 109.4 ns, avg: 79.5 ns)
+   Pair ( 0,79):
+    Min: 69.7 ns (max: 108.1 ns, avg: 79.3 ns)
+   Pair ( 0,80):
+    Min: 67.5 ns (max: 122.5 ns, avg: 85.8 ns)
+   Pair ( 0,81):
+    Min: 67.5 ns (max: 124.9 ns, avg: 88.2 ns)
+   Pair ( 0,82):
+    Min: 68.7 ns (max: 119.4 ns, avg: 84.7 ns)
+   Pair ( 0,83):
+    Min: 68.6 ns (max: 120.7 ns, avg: 86.8 ns)
+   Pair ( 0,84):
+    Min: 69.1 ns (max: 119.7 ns, avg: 84.4 ns)
+   Pair ( 0,85):
+    Min: 68.7 ns (max: 119.4 ns, avg: 84.6 ns)
+   Pair ( 0,86):
+    Min: 69.7 ns (max: 123.0 ns, avg: 82.5 ns)
+   Pair ( 0,87):
+    Min: 69.5 ns (max: 121.2 ns, avg: 81.5 ns)
+   Pair ( 0,88):
+    Min: 71.2 ns (max: 125.5 ns, avg: 84.7 ns)
+   Pair ( 0,89):
+    Min: 71.2 ns (max: 123.4 ns, avg: 84.1 ns)
+   Pair ( 0,90):
+    Min: 67.0 ns (max: 131.0 ns, avg: 90.1 ns)
+   Pair ( 0,91):
+    Min: 67.4 ns (max: 133.0 ns, avg: 91.8 ns)
+   Pair ( 0,92):
+    Min: 67.7 ns (max: 131.6 ns, avg: 88.9 ns)
+   Pair ( 0,93):
+    Min: 67.7 ns (max: 130.9 ns, avg: 88.2 ns)
+   Pair ( 0,94):
+    Min: 69.7 ns (max: 125.1 ns, avg: 89.4 ns)
+   Pair ( 0,95):
+    Min: 69.3 ns (max: 125.3 ns, avg: 89.8 ns)
+   Pair ( 0,96):
+    Min: 166.5 ns (max: 200.6 ns, avg: 182.2 ns)
+   Pair ( 0,97):
+    Min: 166.5 ns (max: 200.1 ns, avg: 182.1 ns)
+   Pair ( 0,98):
+    Min: 166.0 ns (max: 200.2 ns, avg: 181.1 ns)
+   Pair ( 0,99):
+    Min: 166.2 ns (max: 199.9 ns, avg: 181.6 ns)
+   Pair ( 1, 0):
+    Min: 28.5 ns (max: 30.7 ns, avg: 29.0 ns)
+   Pair ( 1, 2):
+    Min: 65.0 ns (max: 100.9 ns, avg: 84.0 ns)
+   Pair ( 1, 3):
+    Min: 64.9 ns (max: 94.7 ns, avg: 83.5 ns)
+   Pair ( 1, 4):
+    Min: 67.0 ns (max: 87.0 ns, avg: 81.4 ns)
+   Pair ( 1, 5):
+    Min: 66.9 ns (max: 91.1 ns, avg: 82.5 ns)
+   Pair ( 1, 6):
+    Min: 64.6 ns (max: 93.7 ns, avg: 81.5 ns)
+   Pair ( 1, 7):
+    Min: 65.0 ns (max: 95.7 ns, avg: 82.8 ns)
+   Pair ( 1, 8):
+    Min: 66.1 ns (max: 98.4 ns, avg: 82.2 ns)
+   Pair ( 1, 9):
+    Min: 66.1 ns (max: 112.3 ns, avg: 81.6 ns)
+   Pair ( 1,10):
+    Min: 65.8 ns (max: 87.3 ns, avg: 80.4 ns)
+   Pair ( 1,11):
+    Min: 66.0 ns (max: 269.0 ns, avg: 87.5 ns)
+   Pair ( 1,12):
+    Min: 65.4 ns (max: 128.9 ns, avg: 93.6 ns)
+   Pair ( 1,13):
+    Min: 65.7 ns (max: 128.5 ns, avg: 93.8 ns)
+   Pair ( 1,14):
+    Min: 65.7 ns (max: 129.8 ns, avg: 91.9 ns)
+   Pair ( 1,15):
+    Min: 65.9 ns (max: 129.2 ns, avg: 91.9 ns)
+   Pair ( 1,16):
+    Min: 63.3 ns (max: 127.0 ns, avg: 92.8 ns)
+   Pair ( 1,17):
+    Min: 63.3 ns (max: 127.6 ns, avg: 92.6 ns)
+   Pair ( 1,18):
+    Min: 63.8 ns (max: 127.4 ns, avg: 92.9 ns)
+   Pair ( 1,19):
+    Min: 63.7 ns (max: 126.6 ns, avg: 93.2 ns)
+   Pair ( 1,20):
+    Min: 65.4 ns (max: 125.2 ns, avg: 91.7 ns)
+   Pair ( 1,21):
+    Min: 65.5 ns (max: 124.3 ns, avg: 90.8 ns)
+   Pair ( 1,22):
+    Min: 65.8 ns (max: 124.3 ns, avg: 91.8 ns)
+   Pair ( 1,23):
+    Min: 65.4 ns (max: 123.5 ns, avg: 91.0 ns)
+   Pair ( 1,24):
+    Min: 61.2 ns (max: 94.1 ns, avg: 81.8 ns)
+   Pair ( 1,25):
+    Min: 62.1 ns (max: 94.3 ns, avg: 81.7 ns)
+   Pair ( 1,26):
+    Min: 61.5 ns (max: 105.5 ns, avg: 82.1 ns)
+   Pair ( 1,27):
+    Min: 62.1 ns (max: 105.9 ns, avg: 83.3 ns)
+   Pair ( 1,28):
+    Min: 62.8 ns (max: 95.8 ns, avg: 79.9 ns)
+   Pair ( 1,29):
+    Min: 62.4 ns (max: 94.6 ns, avg: 80.0 ns)
+   Pair ( 1,30):
+    Min: 63.0 ns (max: 99.9 ns, avg: 80.3 ns)
+   Pair ( 1,31):
+    Min: 63.0 ns (max: 98.8 ns, avg: 79.4 ns)
+   Pair ( 1,32):
+    Min: 62.4 ns (max: 103.0 ns, avg: 81.6 ns)
+   Pair ( 1,33):
+    Min: 62.6 ns (max: 100.4 ns, avg: 82.0 ns)
+   Pair ( 1,34):
+    Min: 62.4 ns (max: 100.0 ns, avg: 80.0 ns)
+   Pair ( 1,35):
+    Min: 62.4 ns (max: 100.5 ns, avg: 79.9 ns)
+   Pair ( 1,36):
+    Min: 75.1 ns (max: 102.1 ns, avg: 83.6 ns)
+   Pair ( 1,37):
+    Min: 75.3 ns (max: 103.2 ns, avg: 83.1 ns)
+   Pair ( 1,38):
+    Min: 74.5 ns (max: 103.4 ns, avg: 84.7 ns)
+   Pair ( 1,39):
+    Min: 74.7 ns (max: 100.9 ns, avg: 84.7 ns)
+   Pair ( 1,40):
+    Min: 73.6 ns (max: 101.9 ns, avg: 83.3 ns)
+   Pair ( 1,41):
+    Min: 73.7 ns (max: 107.9 ns, avg: 83.5 ns)
+   Pair ( 1,42):
+    Min: 62.7 ns (max: 148.6 ns, avg: 97.8 ns)
+   Pair ( 1,43):
+    Min: 62.1 ns (max: 147.3 ns, avg: 97.3 ns)
+   Pair ( 1,44):
+    Min: 62.0 ns (max: 147.3 ns, avg: 96.0 ns)
+   Pair ( 1,45):
+    Min: 61.8 ns (max: 147.0 ns, avg: 95.8 ns)
+   Pair ( 1,46):
+    Min: 62.4 ns (max: 145.6 ns, avg: 96.8 ns)
+   Pair ( 1,47):
+    Min: 62.5 ns (max: 145.3 ns, avg: 96.5 ns)
+   Pair ( 1,48):
+    Min: 74.2 ns (max: 97.9 ns, avg: 88.2 ns)
+   Pair ( 1,49):
+    Min: 73.8 ns (max: 97.2 ns, avg: 87.8 ns)
+   Pair ( 1,50):
+    Min: 75.1 ns (max: 99.1 ns, avg: 87.9 ns)
+   Pair ( 1,51):
+    Min: 75.6 ns (max: 99.8 ns, avg: 87.7 ns)
+   Pair ( 1,52):
+    Min: 75.8 ns (max: 98.4 ns, avg: 85.6 ns)
+   Pair ( 1,53):
+    Min: 75.5 ns (max: 94.4 ns, avg: 85.3 ns)
+   Pair ( 1,54):
+    Min: 73.4 ns (max: 95.4 ns, avg: 86.9 ns)
+   Pair ( 1,55):
+    Min: 73.3 ns (max: 98.4 ns, avg: 87.3 ns)
+   Pair ( 1,56):
+    Min: 73.8 ns (max: 96.5 ns, avg: 84.3 ns)
+   Pair ( 1,57):
+    Min: 73.7 ns (max: 101.2 ns, avg: 84.7 ns)
+   Pair ( 1,58):
+    Min: 75.4 ns (max: 99.8 ns, avg: 87.2 ns)
+   Pair ( 1,59):
+    Min: 75.0 ns (max: 106.9 ns, avg: 87.7 ns)
+   Pair ( 1,60):
+    Min: 72.7 ns (max: 113.9 ns, avg: 91.8 ns)
+   Pair ( 1,61):
+    Min: 72.8 ns (max: 114.0 ns, avg: 92.2 ns)
+   Pair ( 1,62):
+    Min: 73.5 ns (max: 109.9 ns, avg: 90.3 ns)
+   Pair ( 1,63):
+    Min: 73.6 ns (max: 110.3 ns, avg: 90.0 ns)
+   Pair ( 1,64):
+    Min: 72.6 ns (max: 122.0 ns, avg: 92.3 ns)
+   Pair ( 1,65):
+    Min: 72.1 ns (max: 170.4 ns, avg: 93.0 ns)
+   Pair ( 1,66):
+    Min: 72.3 ns (max: 116.3 ns, avg: 88.0 ns)
+   Pair ( 1,67):
+    Min: 72.5 ns (max: 102.0 ns, avg: 87.2 ns)
+   Pair ( 1,68):
+    Min: 74.3 ns (max: 114.0 ns, avg: 93.7 ns)
+   Pair ( 1,69):
+    Min: 73.9 ns (max: 118.0 ns, avg: 93.4 ns)
+   Pair ( 1,70):
+    Min: 74.6 ns (max: 113.2 ns, avg: 90.4 ns)
+   Pair ( 1,71):
+    Min: 74.5 ns (max: 112.0 ns, avg: 91.0 ns)
+   Pair ( 1,72):
+    Min: 67.7 ns (max: 116.6 ns, avg: 79.7 ns)
+   Pair ( 1,73):
+    Min: 67.6 ns (max: 117.3 ns, avg: 79.9 ns)
+   Pair ( 1,74):
+    Min: 68.2 ns (max: 106.6 ns, avg: 78.3 ns)
+   Pair ( 1,75):
+    Min: 68.1 ns (max: 106.1 ns, avg: 78.2 ns)
+   Pair ( 1,76):
+    Min: 69.7 ns (max: 119.9 ns, avg: 82.0 ns)
+   Pair ( 1,77):
+    Min: 70.1 ns (max: 119.4 ns, avg: 81.0 ns)
+   Pair ( 1,78):
+    Min: 70.0 ns (max: 109.5 ns, avg: 79.4 ns)
+   Pair ( 1,79):
+    Min: 69.9 ns (max: 108.7 ns, avg: 79.0 ns)
+   Pair ( 1,80):
+    Min: 67.7 ns (max: 123.3 ns, avg: 85.8 ns)
+   Pair ( 1,81):
+    Min: 67.2 ns (max: 123.8 ns, avg: 86.3 ns)
+   Pair ( 1,82):
+    Min: 69.0 ns (max: 121.9 ns, avg: 85.8 ns)
+   Pair ( 1,83):
+    Min: 69.2 ns (max: 121.3 ns, avg: 85.5 ns)
+   Pair ( 1,84):
+    Min: 68.9 ns (max: 118.1 ns, avg: 84.3 ns)
+   Pair ( 1,85):
+    Min: 69.2 ns (max: 119.4 ns, avg: 84.5 ns)
+   Pair ( 1,86):
+    Min: 70.1 ns (max: 124.2 ns, avg: 82.1 ns)
+   Pair ( 1,87):
+    Min: 70.0 ns (max: 123.3 ns, avg: 82.6 ns)
+   Pair ( 1,88):
+    Min: 71.5 ns (max: 127.3 ns, avg: 84.0 ns)
+   Pair ( 1,89):
+    Min: 71.5 ns (max: 127.6 ns, avg: 83.7 ns)
+   Pair ( 1,90):
+    Min: 67.7 ns (max: 143.8 ns, avg: 94.7 ns)
+   Pair ( 1,91):
+    Min: 67.3 ns (max: 132.8 ns, avg: 90.6 ns)
+   Pair ( 1,92):
+    Min: 67.9 ns (max: 130.0 ns, avg: 88.8 ns)
+   Pair ( 1,93):
+    Min: 67.7 ns (max: 131.4 ns, avg: 89.1 ns)
+   Pair ( 1,94):
+    Min: 69.7 ns (max: 124.9 ns, avg: 89.5 ns)
+   Pair ( 1,95):
+    Min: 69.5 ns (max: 125.3 ns, avg: 89.2 ns)
+   Pair ( 1,96):
+    Min: 166.1 ns (max: 199.6 ns, avg: 182.3 ns)
+   Pair ( 1,97):
+    Min: 166.9 ns (max: 198.8 ns, avg: 182.2 ns)
+   Pair ( 1,98):
+    Min: 166.1 ns (max: 199.6 ns, avg: 181.1 ns)
+   Pair ( 1,99):
+    Min: 166.0 ns (max: 200.1 ns, avg: 180.9 ns)
+   Pair ( 2, 0):
+    Min: 65.3 ns (max: 92.3 ns, avg: 81.3 ns)
+   Pair ( 2, 1):
+    Min: 65.4 ns (max: 87.7 ns, avg: 81.2 ns)
+   Pair ( 2, 3):
+    Min: 28.0 ns (max: 30.5 ns, avg: 28.4 ns)
+   Pair ( 2, 4):
+    Min: 67.4 ns (max: 85.5 ns, avg: 80.6 ns)
+   Pair ( 2, 5):
+    Min: 67.5 ns (max: 87.1 ns, avg: 81.0 ns)
+   Pair ( 2, 6):
+    Min: 64.8 ns (max: 100.7 ns, avg: 82.6 ns)
+   Pair ( 2, 7):
+    Min: 65.1 ns (max: 96.1 ns, avg: 82.9 ns)
+   Pair ( 2, 8):
+    Min: 66.4 ns (max: 116.3 ns, avg: 82.3 ns)
+   Pair ( 2, 9):
+    Min: 66.4 ns (max: 93.4 ns, avg: 80.9 ns)
+   Pair ( 2,10):
+    Min: 67.1 ns (max: 88.4 ns, avg: 80.5 ns)
+   Pair ( 2,11):
+    Min: 66.8 ns (max: 96.9 ns, avg: 81.4 ns)
+   Pair ( 2,12):
+    Min: 65.6 ns (max: 126.5 ns, avg: 92.4 ns)
+   Pair ( 2,13):
+    Min: 65.7 ns (max: 127.4 ns, avg: 92.0 ns)
+   Pair ( 2,14):
+    Min: 66.0 ns (max: 127.1 ns, avg: 91.2 ns)
+   Pair ( 2,15):
+    Min: 66.3 ns (max: 125.6 ns, avg: 90.5 ns)
+   Pair ( 2,16):
+    Min: 63.5 ns (max: 127.2 ns, avg: 93.3 ns)
+   Pair ( 2,17):
+    Min: 63.8 ns (max: 128.1 ns, avg: 93.3 ns)
+   Pair ( 2,18):
+    Min: 64.1 ns (max: 126.2 ns, avg: 92.9 ns)
+   Pair ( 2,19):
+    Min: 64.2 ns (max: 180.4 ns, avg: 98.1 ns)
+   Pair ( 2,20):
+    Min: 65.7 ns (max: 123.2 ns, avg: 90.9 ns)
+   Pair ( 2,21):
+    Min: 65.8 ns (max: 124.1 ns, avg: 91.3 ns)
+   Pair ( 2,22):
+    Min: 66.5 ns (max: 122.5 ns, avg: 90.6 ns)
+   Pair ( 2,23):
+    Min: 66.4 ns (max: 122.8 ns, avg: 91.1 ns)
+   Pair ( 2,24):
+    Min: 62.3 ns (max: 98.3 ns, avg: 81.4 ns)
+   Pair ( 2,25):
+    Min: 62.3 ns (max: 102.7 ns, avg: 82.1 ns)
+   Pair ( 2,26):
+    Min: 62.4 ns (max: 108.0 ns, avg: 83.4 ns)
+   Pair ( 2,27):
+    Min: 62.1 ns (max: 104.9 ns, avg: 82.0 ns)
+   Pair ( 2,28):
+    Min: 63.8 ns (max: 89.7 ns, avg: 79.6 ns)
+   Pair ( 2,29):
+    Min: 63.5 ns (max: 91.3 ns, avg: 78.5 ns)
+   Pair ( 2,30):
+    Min: 63.8 ns (max: 102.1 ns, avg: 79.9 ns)
+   Pair ( 2,31):
+    Min: 64.0 ns (max: 100.4 ns, avg: 79.8 ns)
+   Pair ( 2,32):
+    Min: 62.8 ns (max: 99.9 ns, avg: 79.5 ns)
+   Pair ( 2,33):
+    Min: 63.0 ns (max: 100.9 ns, avg: 79.6 ns)
+   Pair ( 2,34):
+    Min: 63.7 ns (max: 100.9 ns, avg: 79.6 ns)
+   Pair ( 2,35):
+    Min: 63.6 ns (max: 101.3 ns, avg: 78.8 ns)
+   Pair ( 2,36):
+    Min: 76.3 ns (max: 100.8 ns, avg: 84.3 ns)
+   Pair ( 2,37):
+    Min: 76.0 ns (max: 100.0 ns, avg: 83.9 ns)
+   Pair ( 2,38):
+    Min: 74.5 ns (max: 99.7 ns, avg: 84.4 ns)
+   Pair ( 2,39):
+    Min: 74.1 ns (max: 102.4 ns, avg: 84.6 ns)
+   Pair ( 2,40):
+    Min: 73.1 ns (max: 102.1 ns, avg: 81.0 ns)
+   Pair ( 2,41):
+    Min: 73.5 ns (max: 103.4 ns, avg: 80.8 ns)
+   Pair ( 2,42):
+    Min: 62.5 ns (max: 148.8 ns, avg: 97.4 ns)
+   Pair ( 2,43):
+    Min: 62.6 ns (max: 148.3 ns, avg: 97.4 ns)
+   Pair ( 2,44):
+    Min: 61.8 ns (max: 145.9 ns, avg: 95.7 ns)
+   Pair ( 2,45):
+    Min: 62.0 ns (max: 146.0 ns, avg: 95.3 ns)
+   Pair ( 2,46):
+    Min: 62.8 ns (max: 144.9 ns, avg: 95.6 ns)
+   Pair ( 2,47):
+    Min: 62.4 ns (max: 144.8 ns, avg: 94.7 ns)
+   Pair ( 2,48):
+    Min: 74.0 ns (max: 101.5 ns, avg: 87.0 ns)
+   Pair ( 2,49):
+    Min: 73.5 ns (max: 100.8 ns, avg: 87.7 ns)
+   Pair ( 2,50):
+    Min: 75.4 ns (max: 102.2 ns, avg: 86.7 ns)
+   Pair ( 2,51):
+    Min: 75.5 ns (max: 103.3 ns, avg: 87.3 ns)
+   Pair ( 2,52):
+    Min: 76.2 ns (max: 92.9 ns, avg: 84.0 ns)
+   Pair ( 2,53):
+    Min: 75.9 ns (max: 95.6 ns, avg: 84.3 ns)
+   Pair ( 2,54):
+    Min: 73.6 ns (max: 108.6 ns, avg: 88.0 ns)
+   Pair ( 2,55):
+    Min: 73.9 ns (max: 102.1 ns, avg: 88.0 ns)
+   Pair ( 2,56):
+    Min: 73.9 ns (max: 96.6 ns, avg: 83.4 ns)
+   Pair ( 2,57):
+    Min: 74.1 ns (max: 95.3 ns, avg: 83.2 ns)
+   Pair ( 2,58):
+    Min: 75.4 ns (max: 95.8 ns, avg: 83.9 ns)
+   Pair ( 2,59):
+    Min: 75.7 ns (max: 95.8 ns, avg: 84.4 ns)
+   Pair ( 2,60):
+    Min: 73.3 ns (max: 112.0 ns, avg: 91.5 ns)
+   Pair ( 2,61):
+    Min: 73.3 ns (max: 110.3 ns, avg: 91.2 ns)
+   Pair ( 2,62):
+    Min: 74.1 ns (max: 110.8 ns, avg: 88.7 ns)
+   Pair ( 2,63):
+    Min: 74.2 ns (max: 108.5 ns, avg: 89.3 ns)
+   Pair ( 2,64):
+    Min: 72.6 ns (max: 103.1 ns, avg: 89.7 ns)
+   Pair ( 2,65):
+    Min: 72.6 ns (max: 106.4 ns, avg: 89.8 ns)
+   Pair ( 2,66):
+    Min: 73.1 ns (max: 109.7 ns, avg: 85.7 ns)
+   Pair ( 2,67):
+    Min: 73.1 ns (max: 101.6 ns, avg: 86.5 ns)
+   Pair ( 2,68):
+    Min: 74.1 ns (max: 110.4 ns, avg: 91.2 ns)
+   Pair ( 2,69):
+    Min: 73.9 ns (max: 111.1 ns, avg: 91.5 ns)
+   Pair ( 2,70):
+    Min: 74.7 ns (max: 107.8 ns, avg: 87.3 ns)
+   Pair ( 2,71):
+    Min: 74.9 ns (max: 109.1 ns, avg: 87.7 ns)
+   Pair ( 2,72):
+    Min: 68.3 ns (max: 118.0 ns, avg: 79.0 ns)
+   Pair ( 2,73):
+    Min: 68.4 ns (max: 115.6 ns, avg: 78.8 ns)
+   Pair ( 2,74):
+    Min: 68.7 ns (max: 102.9 ns, avg: 77.0 ns)
+   Pair ( 2,75):
+    Min: 68.4 ns (max: 106.4 ns, avg: 77.4 ns)
+   Pair ( 2,76):
+    Min: 69.7 ns (max: 116.2 ns, avg: 79.8 ns)
+   Pair ( 2,77):
+    Min: 70.1 ns (max: 118.1 ns, avg: 81.2 ns)
+   Pair ( 2,78):
+    Min: 70.2 ns (max: 108.5 ns, avg: 77.5 ns)
+   Pair ( 2,79):
+    Min: 70.1 ns (max: 108.1 ns, avg: 77.4 ns)
+   Pair ( 2,80):
+    Min: 68.1 ns (max: 124.5 ns, avg: 86.2 ns)
+   Pair ( 2,81):
+    Min: 68.1 ns (max: 123.7 ns, avg: 87.7 ns)
+   Pair ( 2,82):
+    Min: 69.3 ns (max: 116.3 ns, avg: 85.0 ns)
+   Pair ( 2,83):
+    Min: 69.3 ns (max: 120.2 ns, avg: 85.8 ns)
+   Pair ( 2,84):
+    Min: 70.4 ns (max: 123.7 ns, avg: 83.6 ns)
+   Pair ( 2,85):
+    Min: 70.7 ns (max: 122.9 ns, avg: 85.2 ns)
+   Pair ( 2,86):
+    Min: 70.6 ns (max: 121.0 ns, avg: 79.7 ns)
+   Pair ( 2,87):
+    Min: 70.8 ns (max: 123.2 ns, avg: 79.9 ns)
+   Pair ( 2,88):
+    Min: 70.5 ns (max: 126.7 ns, avg: 81.9 ns)
+   Pair ( 2,89):
+    Min: 70.3 ns (max: 126.1 ns, avg: 81.4 ns)
+   Pair ( 2,90):
+    Min: 68.3 ns (max: 131.0 ns, avg: 91.1 ns)
+   Pair ( 2,91):
+    Min: 67.9 ns (max: 131.3 ns, avg: 91.1 ns)
+   Pair ( 2,92):
+    Min: 68.4 ns (max: 129.5 ns, avg: 88.2 ns)
+   Pair ( 2,93):
+    Min: 68.5 ns (max: 129.2 ns, avg: 87.5 ns)
+   Pair ( 2,94):
+    Min: 70.1 ns (max: 124.8 ns, avg: 87.0 ns)
+   Pair ( 2,95):
+    Min: 70.4 ns (max: 123.5 ns, avg: 86.3 ns)
+   Pair ( 2,96):
+    Min: 166.4 ns (max: 200.2 ns, avg: 182.1 ns)
+   Pair ( 2,97):
+    Min: 166.6 ns (max: 199.7 ns, avg: 182.3 ns)
+   Pair ( 2,98):
+    Min: 166.1 ns (max: 200.0 ns, avg: 181.1 ns)
+   Pair ( 2,99):
+    Min: 166.3 ns (max: 199.9 ns, avg: 180.9 ns)
+   Pair ( 3, 0):
+    Min: 65.6 ns (max: 105.3 ns, avg: 82.0 ns)
+   Pair ( 3, 1):
+    Min: 65.6 ns (max: 90.3 ns, avg: 81.5 ns)
+   Pair ( 3, 2):
+    Min: 27.9 ns (max: 30.2 ns, avg: 28.3 ns)
+   Pair ( 3, 4):
+    Min: 67.7 ns (max: 85.6 ns, avg: 80.8 ns)
+   Pair ( 3, 5):
+    Min: 67.9 ns (max: 87.8 ns, avg: 81.0 ns)
+   Pair ( 3, 6):
+    Min: 65.2 ns (max: 228.0 ns, avg: 88.0 ns)
+   Pair ( 3, 7):
+    Min: 65.5 ns (max: 99.1 ns, avg: 82.2 ns)
+   Pair ( 3, 8):
+    Min: 66.8 ns (max: 87.0 ns, avg: 80.2 ns)
+   Pair ( 3, 9):
+    Min: 67.1 ns (max: 89.8 ns, avg: 80.3 ns)
+   Pair ( 3,10):
+    Min: 67.4 ns (max: 97.2 ns, avg: 80.9 ns)
+   Pair ( 3,11):
+    Min: 66.9 ns (max: 90.0 ns, avg: 80.2 ns)
+   Pair ( 3,12):
+    Min: 65.9 ns (max: 127.3 ns, avg: 93.2 ns)
+   Pair ( 3,13):
+    Min: 65.9 ns (max: 126.3 ns, avg: 91.8 ns)
+   Pair ( 3,14):
+    Min: 66.7 ns (max: 126.5 ns, avg: 90.0 ns)
+   Pair ( 3,15):
+    Min: 66.4 ns (max: 128.1 ns, avg: 90.9 ns)
+   Pair ( 3,16):
+    Min: 64.1 ns (max: 126.8 ns, avg: 92.9 ns)
+   Pair ( 3,17):
+    Min: 64.0 ns (max: 128.1 ns, avg: 94.0 ns)
+   Pair ( 3,18):
+    Min: 64.5 ns (max: 128.2 ns, avg: 93.3 ns)
+   Pair ( 3,19):
+    Min: 64.6 ns (max: 127.2 ns, avg: 93.1 ns)
+   Pair ( 3,20):
+    Min: 66.1 ns (max: 125.3 ns, avg: 91.6 ns)
+   Pair ( 3,21):
+    Min: 65.6 ns (max: 122.7 ns, avg: 91.4 ns)
+   Pair ( 3,22):
+    Min: 66.4 ns (max: 122.9 ns, avg: 91.2 ns)
+   Pair ( 3,23):
+    Min: 66.5 ns (max: 124.3 ns, avg: 91.6 ns)
+   Pair ( 3,24):
+    Min: 62.3 ns (max: 564.1 ns, avg: 97.8 ns)
+   Pair ( 3,25):
+    Min: 62.0 ns (max: 97.8 ns, avg: 80.9 ns)
+   Pair ( 3,26):
+    Min: 61.9 ns (max: 107.0 ns, avg: 82.1 ns)
+   Pair ( 3,27):
+    Min: 62.9 ns (max: 112.6 ns, avg: 83.7 ns)
+   Pair ( 3,28):
+    Min: 63.7 ns (max: 92.3 ns, avg: 78.8 ns)
+   Pair ( 3,29):
+    Min: 63.8 ns (max: 91.1 ns, avg: 78.6 ns)
+   Pair ( 3,30):
+    Min: 63.5 ns (max: 95.0 ns, avg: 79.0 ns)
+   Pair ( 3,31):
+    Min: 65.7 ns (max: 104.4 ns, avg: 81.4 ns)
+   Pair ( 3,32):
+    Min: 62.7 ns (max: 103.6 ns, avg: 80.1 ns)
+   Pair ( 3,33):
+    Min: 62.5 ns (max: 102.5 ns, avg: 80.2 ns)
+   Pair ( 3,34):
+    Min: 63.3 ns (max: 101.0 ns, avg: 78.7 ns)
+   Pair ( 3,35):
+    Min: 63.3 ns (max: 100.6 ns, avg: 79.3 ns)
+   Pair ( 3,36):
+    Min: 75.9 ns (max: 100.6 ns, avg: 84.0 ns)
+   Pair ( 3,37):
+    Min: 75.9 ns (max: 100.5 ns, avg: 83.8 ns)
+   Pair ( 3,38):
+    Min: 73.9 ns (max: 101.4 ns, avg: 83.9 ns)
+   Pair ( 3,39):
+    Min: 74.2 ns (max: 101.6 ns, avg: 84.3 ns)
+   Pair ( 3,40):
+    Min: 73.3 ns (max: 100.9 ns, avg: 81.2 ns)
+   Pair ( 3,41):
+    Min: 73.3 ns (max: 101.1 ns, avg: 81.5 ns)
+   Pair ( 3,42):
+    Min: 62.4 ns (max: 148.8 ns, avg: 97.3 ns)
+   Pair ( 3,43):
+    Min: 62.5 ns (max: 147.1 ns, avg: 97.3 ns)
+   Pair ( 3,44):
+    Min: 61.8 ns (max: 146.4 ns, avg: 94.9 ns)
+   Pair ( 3,45):
+    Min: 61.9 ns (max: 145.0 ns, avg: 95.4 ns)
+   Pair ( 3,46):
+    Min: 62.8 ns (max: 144.9 ns, avg: 94.9 ns)
+   Pair ( 3,47):
+    Min: 62.8 ns (max: 146.2 ns, avg: 95.2 ns)
+   Pair ( 3,48):
+    Min: 73.7 ns (max: 95.2 ns, avg: 86.6 ns)
+   Pair ( 3,49):
+    Min: 73.6 ns (max: 96.0 ns, avg: 86.8 ns)
+   Pair ( 3,50):
+    Min: 75.7 ns (max: 101.9 ns, avg: 86.4 ns)
+   Pair ( 3,51):
+    Min: 75.2 ns (max: 102.8 ns, avg: 86.5 ns)
+   Pair ( 3,52):
+    Min: 76.0 ns (max: 92.9 ns, avg: 83.6 ns)
+   Pair ( 3,53):
+    Min: 75.9 ns (max: 94.5 ns, avg: 83.7 ns)
+   Pair ( 3,54):
+    Min: 73.6 ns (max: 99.6 ns, avg: 87.5 ns)
+   Pair ( 3,55):
+    Min: 73.5 ns (max: 97.5 ns, avg: 86.9 ns)
+   Pair ( 3,56):
+    Min: 73.6 ns (max: 90.6 ns, avg: 82.7 ns)
+   Pair ( 3,57):
+    Min: 74.1 ns (max: 90.7 ns, avg: 82.7 ns)
+   Pair ( 3,58):
+    Min: 75.1 ns (max: 97.0 ns, avg: 84.0 ns)
+   Pair ( 3,59):
+    Min: 75.4 ns (max: 96.2 ns, avg: 83.9 ns)
+   Pair ( 3,60):
+    Min: 73.5 ns (max: 111.6 ns, avg: 91.6 ns)
+   Pair ( 3,61):
+    Min: 73.6 ns (max: 113.0 ns, avg: 91.3 ns)
+   Pair ( 3,62):
+    Min: 74.2 ns (max: 108.1 ns, avg: 88.8 ns)
+   Pair ( 3,63):
+    Min: 74.6 ns (max: 108.3 ns, avg: 88.6 ns)
+   Pair ( 3,64):
+    Min: 72.2 ns (max: 108.5 ns, avg: 90.7 ns)
+   Pair ( 3,65):
+    Min: 72.6 ns (max: 103.6 ns, avg: 89.8 ns)
+   Pair ( 3,66):
+    Min: 73.1 ns (max: 106.7 ns, avg: 86.1 ns)
+   Pair ( 3,67):
+    Min: 72.9 ns (max: 106.4 ns, avg: 85.6 ns)
+   Pair ( 3,68):
+    Min: 73.5 ns (max: 110.7 ns, avg: 91.3 ns)
+   Pair ( 3,69):
+    Min: 73.8 ns (max: 108.5 ns, avg: 90.6 ns)
+   Pair ( 3,70):
+    Min: 74.6 ns (max: 110.9 ns, avg: 87.8 ns)
+   Pair ( 3,71):
+    Min: 74.6 ns (max: 110.1 ns, avg: 87.8 ns)
+   Pair ( 3,72):
+    Min: 68.2 ns (max: 115.8 ns, avg: 78.5 ns)
+   Pair ( 3,73):
+    Min: 68.4 ns (max: 118.1 ns, avg: 78.5 ns)
+   Pair ( 3,74):
+    Min: 68.5 ns (max: 104.5 ns, avg: 76.7 ns)
+   Pair ( 3,75):
+    Min: 68.8 ns (max: 103.7 ns, avg: 76.8 ns)
+   Pair ( 3,76):
+    Min: 69.3 ns (max: 116.6 ns, avg: 80.0 ns)
+   Pair ( 3,77):
+    Min: 69.7 ns (max: 118.6 ns, avg: 80.9 ns)
+   Pair ( 3,78):
+    Min: 70.0 ns (max: 106.8 ns, avg: 77.8 ns)
+   Pair ( 3,79):
+    Min: 70.1 ns (max: 108.7 ns, avg: 77.5 ns)
+   Pair ( 3,80):
+    Min: 68.2 ns (max: 125.2 ns, avg: 86.7 ns)
+   Pair ( 3,81):
+    Min: 67.8 ns (max: 124.5 ns, avg: 86.5 ns)
+   Pair ( 3,82):
+    Min: 68.9 ns (max: 121.3 ns, avg: 84.7 ns)
+   Pair ( 3,83):
+    Min: 69.0 ns (max: 119.9 ns, avg: 84.4 ns)
+   Pair ( 3,84):
+    Min: 70.7 ns (max: 121.1 ns, avg: 83.3 ns)
+   Pair ( 3,85):
+    Min: 70.6 ns (max: 121.3 ns, avg: 83.5 ns)
+   Pair ( 3,86):
+    Min: 70.7 ns (max: 123.3 ns, avg: 80.3 ns)
+   Pair ( 3,87):
+    Min: 70.7 ns (max: 119.0 ns, avg: 79.5 ns)
+   Pair ( 3,88):
+    Min: 70.7 ns (max: 128.6 ns, avg: 81.5 ns)
+   Pair ( 3,89):
+    Min: 70.3 ns (max: 126.4 ns, avg: 81.5 ns)
+   Pair ( 3,90):
+    Min: 68.0 ns (max: 131.5 ns, avg: 90.7 ns)
+   Pair ( 3,91):
+    Min: 67.9 ns (max: 132.7 ns, avg: 91.0 ns)
+   Pair ( 3,92):
+    Min: 68.2 ns (max: 127.3 ns, avg: 87.3 ns)
+   Pair ( 3,93):
+    Min: 68.7 ns (max: 130.6 ns, avg: 89.1 ns)
+   Pair ( 3,94):
+    Min: 70.1 ns (max: 149.9 ns, avg: 87.9 ns)
+   Pair ( 3,95):
+    Min: 70.1 ns (max: 126.1 ns, avg: 86.8 ns)
+   Pair ( 3,96):
+    Min: 166.2 ns (max: 200.5 ns, avg: 182.2 ns)
+   Pair ( 3,97):
+    Min: 166.6 ns (max: 200.7 ns, avg: 182.2 ns)
+   Pair ( 3,98):
+    Min: 166.3 ns (max: 199.7 ns, avg: 181.1 ns)
+   Pair ( 3,99):
+    Min: 166.2 ns (max: 199.8 ns, avg: 181.5 ns)
+   Pair ( 4, 0):
+    Min: 67.0 ns (max: 114.9 ns, avg: 83.4 ns)
+   Pair ( 4, 1):
+    Min: 67.3 ns (max: 86.2 ns, avg: 79.2 ns)
+   Pair ( 4, 2):
+    Min: 67.4 ns (max: 91.9 ns, avg: 82.5 ns)
+   Pair ( 4, 3):
+    Min: 67.6 ns (max: 102.9 ns, avg: 82.8 ns)
+   Pair ( 4, 5):
+    Min: 28.1 ns (max: 29.0 ns, avg: 28.4 ns)
+   Pair ( 4, 6):
+    Min: 67.5 ns (max: 91.9 ns, avg: 79.7 ns)
+   Pair ( 4, 7):
+    Min: 67.5 ns (max: 93.8 ns, avg: 79.7 ns)
+   Pair ( 4, 8):
+    Min: 67.2 ns (max: 85.2 ns, avg: 77.2 ns)
+   Pair ( 4, 9):
+    Min: 67.5 ns (max: 84.8 ns, avg: 77.4 ns)
+   Pair ( 4,10):
+    Min: 68.4 ns (max: 83.8 ns, avg: 78.6 ns)
+   Pair ( 4,11):
+    Min: 68.4 ns (max: 89.9 ns, avg: 78.8 ns)
+   Pair ( 4,12):
+    Min: 67.9 ns (max: 123.3 ns, avg: 90.3 ns)
+   Pair ( 4,13):
+    Min: 67.7 ns (max: 124.5 ns, avg: 89.7 ns)
+   Pair ( 4,14):
+    Min: 68.3 ns (max: 123.5 ns, avg: 89.0 ns)
+   Pair ( 4,15):
+    Min: 68.1 ns (max: 123.8 ns, avg: 88.3 ns)
+   Pair ( 4,16):
+    Min: 65.2 ns (max: 124.9 ns, avg: 90.4 ns)
+   Pair ( 4,17):
+    Min: 65.2 ns (max: 124.1 ns, avg: 90.5 ns)
+   Pair ( 4,18):
+    Min: 66.1 ns (max: 120.2 ns, avg: 90.2 ns)
+   Pair ( 4,19):
+    Min: 65.9 ns (max: 123.1 ns, avg: 89.1 ns)
+   Pair ( 4,20):
+    Min: 66.5 ns (max: 121.4 ns, avg: 88.6 ns)
+   Pair ( 4,21):
+    Min: 66.7 ns (max: 120.4 ns, avg: 89.1 ns)
+   Pair ( 4,22):
+    Min: 68.2 ns (max: 120.9 ns, avg: 88.0 ns)
+   Pair ( 4,23):
+    Min: 67.6 ns (max: 118.9 ns, avg: 86.8 ns)
+   Pair ( 4,24):
+    Min: 62.9 ns (max: 91.5 ns, avg: 78.6 ns)
+   Pair ( 4,25):
+    Min: 62.8 ns (max: 90.2 ns, avg: 78.2 ns)
+   Pair ( 4,26):
+    Min: 63.6 ns (max: 98.5 ns, avg: 79.1 ns)
+   Pair ( 4,27):
+    Min: 63.7 ns (max: 98.0 ns, avg: 79.3 ns)
+   Pair ( 4,28):
+    Min: 65.4 ns (max: 89.0 ns, avg: 77.3 ns)
+   Pair ( 4,29):
+    Min: 65.5 ns (max: 86.9 ns, avg: 76.9 ns)
+   Pair ( 4,30):
+    Min: 65.7 ns (max: 91.0 ns, avg: 76.6 ns)
+   Pair ( 4,31):
+    Min: 65.6 ns (max: 93.7 ns, avg: 77.0 ns)
+   Pair ( 4,32):
+    Min: 65.2 ns (max: 96.7 ns, avg: 78.4 ns)
+   Pair ( 4,33):
+    Min: 64.6 ns (max: 98.0 ns, avg: 79.5 ns)
+   Pair ( 4,34):
+    Min: 65.4 ns (max: 99.2 ns, avg: 78.4 ns)
+   Pair ( 4,35):
+    Min: 65.3 ns (max: 98.1 ns, avg: 77.9 ns)
+   Pair ( 4,36):
+    Min: 73.7 ns (max: 103.7 ns, avg: 81.4 ns)
+   Pair ( 4,37):
+    Min: 73.7 ns (max: 102.0 ns, avg: 80.9 ns)
+   Pair ( 4,38):
+    Min: 72.6 ns (max: 100.1 ns, avg: 81.3 ns)
+   Pair ( 4,39):
+    Min: 73.1 ns (max: 104.7 ns, avg: 82.4 ns)
+   Pair ( 4,40):
+    Min: 71.5 ns (max: 108.4 ns, avg: 80.6 ns)
+   Pair ( 4,41):
+    Min: 71.7 ns (max: 108.5 ns, avg: 80.0 ns)
+   Pair ( 4,42):
+    Min: 63.6 ns (max: 146.1 ns, avg: 94.7 ns)
+   Pair ( 4,43):
+    Min: 63.3 ns (max: 146.2 ns, avg: 94.8 ns)
+   Pair ( 4,44):
+    Min: 64.0 ns (max: 141.3 ns, avg: 92.6 ns)
+   Pair ( 4,45):
+    Min: 63.9 ns (max: 141.8 ns, avg: 92.7 ns)
+   Pair ( 4,46):
+    Min: 65.4 ns (max: 141.9 ns, avg: 93.0 ns)
+   Pair ( 4,47):
+    Min: 64.8 ns (max: 142.0 ns, avg: 93.1 ns)
+   Pair ( 4,48):
+    Min: 71.3 ns (max: 97.5 ns, avg: 85.9 ns)
+   Pair ( 4,49):
+    Min: 71.8 ns (max: 99.0 ns, avg: 86.1 ns)
+   Pair ( 4,50):
+    Min: 73.3 ns (max: 89.6 ns, avg: 82.7 ns)
+   Pair ( 4,51):
+    Min: 73.1 ns (max: 89.5 ns, avg: 82.5 ns)
+   Pair ( 4,52):
+    Min: 73.3 ns (max: 86.3 ns, avg: 80.5 ns)
+   Pair ( 4,53):
+    Min: 73.3 ns (max: 88.5 ns, avg: 80.4 ns)
+   Pair ( 4,54):
+    Min: 70.9 ns (max: 96.5 ns, avg: 85.0 ns)
+   Pair ( 4,55):
+    Min: 71.0 ns (max: 109.2 ns, avg: 85.7 ns)
+   Pair ( 4,56):
+    Min: 70.9 ns (max: 94.3 ns, avg: 81.3 ns)
+   Pair ( 4,57):
+    Min: 71.3 ns (max: 95.4 ns, avg: 81.1 ns)
+   Pair ( 4,58):
+    Min: 72.8 ns (max: 88.0 ns, avg: 80.4 ns)
+   Pair ( 4,59):
+    Min: 73.1 ns (max: 85.8 ns, avg: 80.2 ns)
+   Pair ( 4,60):
+    Min: 70.7 ns (max: 108.9 ns, avg: 88.2 ns)
+   Pair ( 4,61):
+    Min: 70.7 ns (max: 107.4 ns, avg: 87.6 ns)
+   Pair ( 4,62):
+    Min: 70.4 ns (max: 535.0 ns, avg: 105.4 ns)
+   Pair ( 4,63):
+    Min: 70.3 ns (max: 103.6 ns, avg: 85.1 ns)
+   Pair ( 4,64):
+    Min: 69.9 ns (max: 98.8 ns, avg: 86.4 ns)
+   Pair ( 4,65):
+    Min: 70.1 ns (max: 104.6 ns, avg: 87.3 ns)
+   Pair ( 4,66):
+    Min: 71.3 ns (max: 113.0 ns, avg: 87.0 ns)
+   Pair ( 4,67):
+    Min: 70.7 ns (max: 102.1 ns, avg: 85.3 ns)
+   Pair ( 4,68):
+    Min: 71.1 ns (max: 103.6 ns, avg: 87.4 ns)
+   Pair ( 4,69):
+    Min: 71.2 ns (max: 108.6 ns, avg: 88.4 ns)
+   Pair ( 4,70):
+    Min: 72.3 ns (max: 102.7 ns, avg: 85.8 ns)
+   Pair ( 4,71):
+    Min: 72.1 ns (max: 107.2 ns, avg: 86.5 ns)
+   Pair ( 4,72):
+    Min: 66.9 ns (max: 111.7 ns, avg: 77.0 ns)
+   Pair ( 4,73):
+    Min: 67.0 ns (max: 111.8 ns, avg: 76.4 ns)
+   Pair ( 4,74):
+    Min: 66.4 ns (max: 107.0 ns, avg: 75.1 ns)
+   Pair ( 4,75):
+    Min: 66.4 ns (max: 105.7 ns, avg: 74.9 ns)
+   Pair ( 4,76):
+    Min: 68.4 ns (max: 113.8 ns, avg: 78.0 ns)
+   Pair ( 4,77):
+    Min: 68.4 ns (max: 113.0 ns, avg: 77.7 ns)
+   Pair ( 4,78):
+    Min: 68.5 ns (max: 108.7 ns, avg: 76.2 ns)
+   Pair ( 4,79):
+    Min: 67.7 ns (max: 108.7 ns, avg: 77.0 ns)
+   Pair ( 4,80):
+    Min: 69.0 ns (max: 122.0 ns, avg: 84.1 ns)
+   Pair ( 4,81):
+    Min: 69.1 ns (max: 122.5 ns, avg: 84.3 ns)
+   Pair ( 4,82):
+    Min: 67.7 ns (max: 117.8 ns, avg: 84.0 ns)
+   Pair ( 4,83):
+    Min: 68.0 ns (max: 116.8 ns, avg: 83.3 ns)
+   Pair ( 4,84):
+    Min: 67.8 ns (max: 260.1 ns, avg: 88.4 ns)
+   Pair ( 4,85):
+    Min: 67.9 ns (max: 125.3 ns, avg: 82.0 ns)
+   Pair ( 4,86):
+    Min: 67.5 ns (max: 124.8 ns, avg: 79.5 ns)
+   Pair ( 4,87):
+    Min: 67.6 ns (max: 126.6 ns, avg: 79.5 ns)
+   Pair ( 4,88):
+    Min: 68.9 ns (max: 129.8 ns, avg: 81.5 ns)
+   Pair ( 4,89):
+    Min: 69.5 ns (max: 132.1 ns, avg: 81.7 ns)
+   Pair ( 4,90):
+    Min: 69.9 ns (max: 127.1 ns, avg: 88.1 ns)
+   Pair ( 4,91):
+    Min: 69.7 ns (max: 127.4 ns, avg: 88.5 ns)
+   Pair ( 4,92):
+    Min: 67.1 ns (max: 126.3 ns, avg: 84.6 ns)
+   Pair ( 4,93):
+    Min: 67.0 ns (max: 125.6 ns, avg: 84.3 ns)
+   Pair ( 4,94):
+    Min: 68.6 ns (max: 119.9 ns, avg: 85.1 ns)
+   Pair ( 4,95):
+    Min: 68.8 ns (max: 120.6 ns, avg: 85.2 ns)
+   Pair ( 4,96):
+    Min: 166.3 ns (max: 198.9 ns, avg: 180.6 ns)
+   Pair ( 4,97):
+    Min: 166.4 ns (max: 198.7 ns, avg: 180.6 ns)
+   Pair ( 4,98):
+    Min: 165.7 ns (max: 197.9 ns, avg: 179.9 ns)
+   Pair ( 4,99):
+    Min: 166.2 ns (max: 198.9 ns, avg: 180.0 ns)
+   Pair ( 5, 0):
+    Min: 67.3 ns (max: 87.2 ns, avg: 79.6 ns)
+   Pair ( 5, 1):
+    Min: 67.4 ns (max: 90.7 ns, avg: 79.8 ns)
+   Pair ( 5, 2):
+    Min: 67.8 ns (max: 87.3 ns, avg: 82.0 ns)
+   Pair ( 5, 3):
+    Min: 68.2 ns (max: 108.1 ns, avg: 85.1 ns)
+   Pair ( 5, 4):
+    Min: 28.1 ns (max: 29.1 ns, avg: 28.4 ns)
+   Pair ( 5, 6):
+    Min: 67.8 ns (max: 85.4 ns, avg: 79.0 ns)
+   Pair ( 5, 7):
+    Min: 67.9 ns (max: 86.8 ns, avg: 79.0 ns)
+   Pair ( 5, 8):
+    Min: 67.4 ns (max: 83.8 ns, avg: 76.9 ns)
+   Pair ( 5, 9):
+    Min: 67.1 ns (max: 87.0 ns, avg: 77.4 ns)
+   Pair ( 5,10):
+    Min: 68.5 ns (max: 84.9 ns, avg: 78.9 ns)
+   Pair ( 5,11):
+    Min: 68.8 ns (max: 91.8 ns, avg: 79.6 ns)
+   Pair ( 5,12):
+    Min: 68.2 ns (max: 123.8 ns, avg: 90.4 ns)
+   Pair ( 5,13):
+    Min: 67.9 ns (max: 123.2 ns, avg: 90.2 ns)
+   Pair ( 5,14):
+    Min: 68.3 ns (max: 124.8 ns, avg: 89.8 ns)
+   Pair ( 5,15):
+    Min: 68.1 ns (max: 124.1 ns, avg: 88.3 ns)
+   Pair ( 5,16):
+    Min: 65.5 ns (max: 124.8 ns, avg: 90.3 ns)
+   Pair ( 5,17):
+    Min: 65.6 ns (max: 123.8 ns, avg: 91.9 ns)
+   Pair ( 5,18):
+    Min: 65.9 ns (max: 122.8 ns, avg: 90.5 ns)
+   Pair ( 5,19):
+    Min: 66.1 ns (max: 124.4 ns, avg: 90.3 ns)
+   Pair ( 5,20):
+    Min: 66.6 ns (max: 119.7 ns, avg: 87.8 ns)
+   Pair ( 5,21):
+    Min: 66.6 ns (max: 121.7 ns, avg: 88.5 ns)
+   Pair ( 5,22):
+    Min: 67.8 ns (max: 120.3 ns, avg: 88.0 ns)
+   Pair ( 5,23):
+    Min: 67.8 ns (max: 123.5 ns, avg: 87.5 ns)
+   Pair ( 5,24):
+    Min: 62.8 ns (max: 90.5 ns, avg: 78.3 ns)
+   Pair ( 5,25):
+    Min: 62.7 ns (max: 91.7 ns, avg: 78.6 ns)
+   Pair ( 5,26):
+    Min: 63.8 ns (max: 99.1 ns, avg: 79.3 ns)
+   Pair ( 5,27):
+    Min: 63.6 ns (max: 99.2 ns, avg: 78.8 ns)
+   Pair ( 5,28):
+    Min: 65.6 ns (max: 85.1 ns, avg: 76.6 ns)
+   Pair ( 5,29):
+    Min: 65.4 ns (max: 87.4 ns, avg: 76.6 ns)
+   Pair ( 5,30):
+    Min: 65.3 ns (max: 92.4 ns, avg: 77.3 ns)
+   Pair ( 5,31):
+    Min: 66.0 ns (max: 91.8 ns, avg: 77.5 ns)
+   Pair ( 5,32):
+    Min: 64.8 ns (max: 98.3 ns, avg: 78.7 ns)
+   Pair ( 5,33):
+    Min: 64.6 ns (max: 98.9 ns, avg: 78.8 ns)
+   Pair ( 5,34):
+    Min: 65.6 ns (max: 101.1 ns, avg: 79.1 ns)
+   Pair ( 5,35):
+    Min: 65.8 ns (max: 98.5 ns, avg: 77.8 ns)
+   Pair ( 5,36):
+    Min: 73.8 ns (max: 118.0 ns, avg: 82.8 ns)
+   Pair ( 5,37):
+    Min: 73.8 ns (max: 100.9 ns, avg: 80.9 ns)
+   Pair ( 5,38):
+    Min: 72.8 ns (max: 107.3 ns, avg: 81.9 ns)
+   Pair ( 5,39):
+    Min: 72.5 ns (max: 107.6 ns, avg: 81.9 ns)
+   Pair ( 5,40):
+    Min: 71.8 ns (max: 107.1 ns, avg: 80.1 ns)
+   Pair ( 5,41):
+    Min: 71.5 ns (max: 107.4 ns, avg: 80.1 ns)
+   Pair ( 5,42):
+    Min: 63.7 ns (max: 146.2 ns, avg: 94.7 ns)
+   Pair ( 5,43):
+    Min: 63.9 ns (max: 145.5 ns, avg: 95.0 ns)
+   Pair ( 5,44):
+    Min: 64.4 ns (max: 141.7 ns, avg: 92.9 ns)
+   Pair ( 5,45):
+    Min: 64.3 ns (max: 140.4 ns, avg: 94.6 ns)
+   Pair ( 5,46):
+    Min: 64.9 ns (max: 141.7 ns, avg: 92.9 ns)
+   Pair ( 5,47):
+    Min: 65.2 ns (max: 141.3 ns, avg: 96.2 ns)
+   Pair ( 5,48):
+    Min: 71.9 ns (max: 97.2 ns, avg: 85.9 ns)
+   Pair ( 5,49):
+    Min: 71.3 ns (max: 118.1 ns, avg: 88.2 ns)
+   Pair ( 5,50):
+    Min: 73.3 ns (max: 90.3 ns, avg: 82.9 ns)
+   Pair ( 5,51):
+    Min: 73.3 ns (max: 90.6 ns, avg: 83.2 ns)
+   Pair ( 5,52):
+    Min: 73.2 ns (max: 86.5 ns, avg: 80.3 ns)
+   Pair ( 5,53):
+    Min: 73.2 ns (max: 86.7 ns, avg: 80.5 ns)
+   Pair ( 5,54):
+    Min: 70.3 ns (max: 95.2 ns, avg: 84.2 ns)
+   Pair ( 5,55):
+    Min: 71.0 ns (max: 93.3 ns, avg: 84.6 ns)
+   Pair ( 5,56):
+    Min: 70.9 ns (max: 94.4 ns, avg: 81.7 ns)
+   Pair ( 5,57):
+    Min: 71.1 ns (max: 94.1 ns, avg: 81.4 ns)
+   Pair ( 5,58):
+    Min: 73.1 ns (max: 93.4 ns, avg: 80.8 ns)
+   Pair ( 5,59):
+    Min: 73.2 ns (max: 86.8 ns, avg: 80.1 ns)
+   Pair ( 5,60):
+    Min: 70.7 ns (max: 107.8 ns, avg: 88.0 ns)
+   Pair ( 5,61):
+    Min: 70.4 ns (max: 108.8 ns, avg: 88.0 ns)
+   Pair ( 5,62):
+    Min: 70.3 ns (max: 101.7 ns, avg: 85.0 ns)
+   Pair ( 5,63):
+    Min: 70.2 ns (max: 102.1 ns, avg: 85.4 ns)
+   Pair ( 5,64):
+    Min: 70.3 ns (max: 99.0 ns, avg: 87.0 ns)
+   Pair ( 5,65):
+    Min: 70.2 ns (max: 102.6 ns, avg: 88.1 ns)
+   Pair ( 5,66):
+    Min: 71.2 ns (max: 102.6 ns, avg: 85.3 ns)
+   Pair ( 5,67):
+    Min: 70.9 ns (max: 102.9 ns, avg: 85.2 ns)
+   Pair ( 5,68):
+    Min: 71.1 ns (max: 106.7 ns, avg: 88.3 ns)
+   Pair ( 5,69):
+    Min: 71.0 ns (max: 101.6 ns, avg: 88.1 ns)
+   Pair ( 5,70):
+    Min: 71.8 ns (max: 108.3 ns, avg: 86.1 ns)
+   Pair ( 5,71):
+    Min: 72.1 ns (max: 107.0 ns, avg: 86.5 ns)
+   Pair ( 5,72):
+    Min: 67.3 ns (max: 112.4 ns, avg: 77.1 ns)
+   Pair ( 5,73):
+    Min: 67.0 ns (max: 110.7 ns, avg: 76.8 ns)
+   Pair ( 5,74):
+    Min: 66.7 ns (max: 108.5 ns, avg: 75.1 ns)
+   Pair ( 5,75):
+    Min: 66.4 ns (max: 106.1 ns, avg: 74.8 ns)
+   Pair ( 5,76):
+    Min: 68.7 ns (max: 113.2 ns, avg: 78.7 ns)
+   Pair ( 5,77):
+    Min: 68.5 ns (max: 113.1 ns, avg: 77.7 ns)
+   Pair ( 5,78):
+    Min: 68.4 ns (max: 108.6 ns, avg: 76.4 ns)
+   Pair ( 5,79):
+    Min: 68.2 ns (max: 107.6 ns, avg: 75.8 ns)
+   Pair ( 5,80):
+    Min: 68.9 ns (max: 122.8 ns, avg: 84.5 ns)
+   Pair ( 5,81):
+    Min: 68.6 ns (max: 123.0 ns, avg: 83.8 ns)
+   Pair ( 5,82):
+    Min: 67.9 ns (max: 117.7 ns, avg: 83.1 ns)
+   Pair ( 5,83):
+    Min: 67.9 ns (max: 117.4 ns, avg: 83.0 ns)
+   Pair ( 5,84):
+    Min: 68.3 ns (max: 126.6 ns, avg: 83.0 ns)
+   Pair ( 5,85):
+    Min: 67.6 ns (max: 125.3 ns, avg: 82.1 ns)
+   Pair ( 5,86):
+    Min: 67.4 ns (max: 126.0 ns, avg: 81.2 ns)
+   Pair ( 5,87):
+    Min: 67.4 ns (max: 127.1 ns, avg: 79.8 ns)
+   Pair ( 5,88):
+    Min: 68.9 ns (max: 131.8 ns, avg: 81.6 ns)
+   Pair ( 5,89):
+    Min: 69.2 ns (max: 131.5 ns, avg: 81.8 ns)
+   Pair ( 5,90):
+    Min: 69.6 ns (max: 127.6 ns, avg: 88.1 ns)
+   Pair ( 5,91):
+    Min: 69.7 ns (max: 127.0 ns, avg: 87.7 ns)
+   Pair ( 5,92):
+    Min: 67.1 ns (max: 125.9 ns, avg: 84.6 ns)
+   Pair ( 5,93):
+    Min: 67.2 ns (max: 124.2 ns, avg: 84.9 ns)
+   Pair ( 5,94):
+    Min: 68.7 ns (max: 119.7 ns, avg: 84.9 ns)
+   Pair ( 5,95):
+    Min: 69.0 ns (max: 120.2 ns, avg: 84.9 ns)
+   Pair ( 5,96):
+    Min: 166.3 ns (max: 199.0 ns, avg: 180.7 ns)
+   Pair ( 5,97):
+    Min: 166.3 ns (max: 198.6 ns, avg: 180.7 ns)
+   Pair ( 5,98):
+    Min: 165.8 ns (max: 197.8 ns, avg: 179.9 ns)
+   Pair ( 5,99):
+    Min: 166.2 ns (max: 558.2 ns, avg: 193.2 ns)
+   Pair ( 6, 0):
+    Min: 64.4 ns (max: 91.8 ns, avg: 81.5 ns)
+   Pair ( 6, 1):
+    Min: 64.4 ns (max: 105.7 ns, avg: 82.0 ns)
+   Pair ( 6, 2):
+    Min: 64.8 ns (max: 97.4 ns, avg: 83.6 ns)
+   Pair ( 6, 3):
+    Min: 64.8 ns (max: 91.1 ns, avg: 82.4 ns)
+   Pair ( 6, 4):
+    Min: 67.3 ns (max: 97.4 ns, avg: 79.5 ns)
+   Pair ( 6, 5):
+    Min: 67.4 ns (max: 86.5 ns, avg: 78.6 ns)
+   Pair ( 6, 7):
+    Min: 28.0 ns (max: 30.4 ns, avg: 28.5 ns)
+   Pair ( 6, 8):
+    Min: 65.6 ns (max: 93.0 ns, avg: 79.8 ns)
+   Pair ( 6, 9):
+    Min: 65.8 ns (max: 93.1 ns, avg: 79.4 ns)
+   Pair ( 6,10):
+    Min: 66.5 ns (max: 87.9 ns, avg: 77.8 ns)
+   Pair ( 6,11):
+    Min: 66.3 ns (max: 86.4 ns, avg: 77.9 ns)
+   Pair ( 6,12):
+    Min: 64.8 ns (max: 126.1 ns, avg: 90.0 ns)
+   Pair ( 6,13):
+    Min: 64.8 ns (max: 126.1 ns, avg: 90.4 ns)
+   Pair ( 6,14):
+    Min: 65.4 ns (max: 127.2 ns, avg: 92.2 ns)
+   Pair ( 6,15):
+    Min: 65.5 ns (max: 127.4 ns, avg: 89.3 ns)
+   Pair ( 6,16):
+    Min: 63.1 ns (max: 125.8 ns, avg: 91.8 ns)
+   Pair ( 6,17):
+    Min: 63.1 ns (max: 127.4 ns, avg: 91.9 ns)
+   Pair ( 6,18):
+    Min: 63.8 ns (max: 127.1 ns, avg: 91.5 ns)
+   Pair ( 6,19):
+    Min: 63.4 ns (max: 126.3 ns, avg: 91.7 ns)
+   Pair ( 6,20):
+    Min: 65.2 ns (max: 121.6 ns, avg: 89.8 ns)
+   Pair ( 6,21):
+    Min: 65.1 ns (max: 122.3 ns, avg: 90.1 ns)
+   Pair ( 6,22):
+    Min: 65.7 ns (max: 123.0 ns, avg: 89.8 ns)
+   Pair ( 6,23):
+    Min: 65.9 ns (max: 120.0 ns, avg: 89.5 ns)
+   Pair ( 6,24):
+    Min: 61.0 ns (max: 97.6 ns, avg: 80.2 ns)
+   Pair ( 6,25):
+    Min: 61.2 ns (max: 98.6 ns, avg: 80.3 ns)
+   Pair ( 6,26):
+    Min: 62.0 ns (max: 99.4 ns, avg: 80.2 ns)
+   Pair ( 6,27):
+    Min: 62.3 ns (max: 101.4 ns, avg: 80.2 ns)
+   Pair ( 6,28):
+    Min: 62.9 ns (max: 90.0 ns, avg: 77.8 ns)
+   Pair ( 6,29):
+    Min: 62.5 ns (max: 89.2 ns, avg: 77.6 ns)
+   Pair ( 6,30):
+    Min: 62.4 ns (max: 98.1 ns, avg: 78.1 ns)
+   Pair ( 6,31):
+    Min: 62.5 ns (max: 95.3 ns, avg: 77.5 ns)
+   Pair ( 6,32):
+    Min: 62.4 ns (max: 98.1 ns, avg: 78.7 ns)
+   Pair ( 6,33):
+    Min: 62.3 ns (max: 101.4 ns, avg: 79.1 ns)
+   Pair ( 6,34):
+    Min: 62.6 ns (max: 100.6 ns, avg: 79.3 ns)
+   Pair ( 6,35):
+    Min: 62.6 ns (max: 102.9 ns, avg: 79.7 ns)
+   Pair ( 6,36):
+    Min: 74.3 ns (max: 100.3 ns, avg: 83.1 ns)
+   Pair ( 6,37):
+    Min: 74.0 ns (max: 100.4 ns, avg: 82.9 ns)
+   Pair ( 6,38):
+    Min: 73.4 ns (max: 100.3 ns, avg: 83.4 ns)
+   Pair ( 6,39):
+    Min: 73.6 ns (max: 100.3 ns, avg: 82.6 ns)
+   Pair ( 6,40):
+    Min: 72.3 ns (max: 99.1 ns, avg: 81.3 ns)
+   Pair ( 6,41):
+    Min: 72.4 ns (max: 99.4 ns, avg: 80.5 ns)
+   Pair ( 6,42):
+    Min: 61.8 ns (max: 147.7 ns, avg: 97.7 ns)
+   Pair ( 6,43):
+    Min: 62.4 ns (max: 148.3 ns, avg: 97.8 ns)
+   Pair ( 6,44):
+    Min: 61.1 ns (max: 144.7 ns, avg: 94.6 ns)
+   Pair ( 6,45):
+    Min: 61.5 ns (max: 145.0 ns, avg: 93.8 ns)
+   Pair ( 6,46):
+    Min: 62.5 ns (max: 144.6 ns, avg: 94.5 ns)
+   Pair ( 6,47):
+    Min: 62.6 ns (max: 143.0 ns, avg: 94.7 ns)
+   Pair ( 6,48):
+    Min: 71.8 ns (max: 99.8 ns, avg: 86.3 ns)
+   Pair ( 6,49):
+    Min: 71.8 ns (max: 103.3 ns, avg: 86.8 ns)
+   Pair ( 6,50):
+    Min: 73.1 ns (max: 98.6 ns, avg: 84.7 ns)
+   Pair ( 6,51):
+    Min: 73.5 ns (max: 98.5 ns, avg: 85.0 ns)
+   Pair ( 6,52):
+    Min: 73.7 ns (max: 96.3 ns, avg: 83.5 ns)
+   Pair ( 6,53):
+    Min: 73.6 ns (max: 95.5 ns, avg: 83.3 ns)
+   Pair ( 6,54):
+    Min: 70.6 ns (max: 98.1 ns, avg: 85.3 ns)
+   Pair ( 6,55):
+    Min: 71.7 ns (max: 113.6 ns, avg: 87.2 ns)
+   Pair ( 6,56):
+    Min: 72.0 ns (max: 95.6 ns, avg: 84.7 ns)
+   Pair ( 6,57):
+    Min: 71.6 ns (max: 97.4 ns, avg: 84.8 ns)
+   Pair ( 6,58):
+    Min: 73.0 ns (max: 93.4 ns, avg: 83.1 ns)
+   Pair ( 6,59):
+    Min: 73.0 ns (max: 92.9 ns, avg: 83.0 ns)
+   Pair ( 6,60):
+    Min: 70.9 ns (max: 109.6 ns, avg: 90.0 ns)
+   Pair ( 6,61):
+    Min: 71.0 ns (max: 110.7 ns, avg: 90.1 ns)
+   Pair ( 6,62):
+    Min: 71.1 ns (max: 110.9 ns, avg: 88.5 ns)
+   Pair ( 6,63):
+    Min: 71.4 ns (max: 107.7 ns, avg: 88.1 ns)
+   Pair ( 6,64):
+    Min: 70.1 ns (max: 105.6 ns, avg: 88.5 ns)
+   Pair ( 6,65):
+    Min: 70.3 ns (max: 106.0 ns, avg: 88.6 ns)
+   Pair ( 6,66):
+    Min: 70.4 ns (max: 105.2 ns, avg: 85.8 ns)
+   Pair ( 6,67):
+    Min: 70.3 ns (max: 102.1 ns, avg: 85.7 ns)
+   Pair ( 6,68):
+    Min: 71.5 ns (max: 108.8 ns, avg: 88.0 ns)
+   Pair ( 6,69):
+    Min: 71.2 ns (max: 107.1 ns, avg: 88.1 ns)
+   Pair ( 6,70):
+    Min: 72.1 ns (max: 106.3 ns, avg: 86.1 ns)
+   Pair ( 6,71):
+    Min: 72.6 ns (max: 109.7 ns, avg: 86.0 ns)
+   Pair ( 6,72):
+    Min: 67.8 ns (max: 112.2 ns, avg: 77.9 ns)
+   Pair ( 6,73):
+    Min: 67.8 ns (max: 113.9 ns, avg: 77.8 ns)
+   Pair ( 6,74):
+    Min: 67.3 ns (max: 105.2 ns, avg: 76.6 ns)
+   Pair ( 6,75):
+    Min: 67.2 ns (max: 107.6 ns, avg: 76.5 ns)
+   Pair ( 6,76):
+    Min: 68.8 ns (max: 112.0 ns, avg: 79.7 ns)
+   Pair ( 6,77):
+    Min: 68.6 ns (max: 108.9 ns, avg: 78.8 ns)
+   Pair ( 6,78):
+    Min: 69.5 ns (max: 108.9 ns, avg: 77.6 ns)
+   Pair ( 6,79):
+    Min: 69.3 ns (max: 109.4 ns, avg: 77.9 ns)
+   Pair ( 6,80):
+    Min: 67.4 ns (max: 125.2 ns, avg: 86.5 ns)
+   Pair ( 6,81):
+    Min: 67.3 ns (max: 124.6 ns, avg: 86.3 ns)
+   Pair ( 6,82):
+    Min: 69.2 ns (max: 120.0 ns, avg: 85.0 ns)
+   Pair ( 6,83):
+    Min: 69.4 ns (max: 118.2 ns, avg: 83.6 ns)
+   Pair ( 6,84):
+    Min: 69.8 ns (max: 117.7 ns, avg: 82.6 ns)
+   Pair ( 6,85):
+    Min: 69.7 ns (max: 121.8 ns, avg: 83.2 ns)
+   Pair ( 6,86):
+    Min: 68.0 ns (max: 117.3 ns, avg: 80.6 ns)
+   Pair ( 6,87):
+    Min: 68.2 ns (max: 121.7 ns, avg: 80.7 ns)
+   Pair ( 6,88):
+    Min: 70.3 ns (max: 124.2 ns, avg: 80.6 ns)
+   Pair ( 6,89):
+    Min: 70.1 ns (max: 126.1 ns, avg: 81.2 ns)
+   Pair ( 6,90):
+    Min: 67.4 ns (max: 243.7 ns, avg: 98.5 ns)
+   Pair ( 6,91):
+    Min: 67.3 ns (max: 131.6 ns, avg: 89.4 ns)
+   Pair ( 6,92):
+    Min: 67.8 ns (max: 127.9 ns, avg: 88.6 ns)
+   Pair ( 6,93):
+    Min: 67.9 ns (max: 127.0 ns, avg: 88.6 ns)
+   Pair ( 6,94):
+    Min: 69.6 ns (max: 121.8 ns, avg: 85.2 ns)
+   Pair ( 6,95):
+    Min: 69.2 ns (max: 122.7 ns, avg: 85.7 ns)
+   Pair ( 6,96):
+    Min: 166.6 ns (max: 200.0 ns, avg: 181.7 ns)
+   Pair ( 6,97):
+    Min: 166.6 ns (max: 200.1 ns, avg: 181.7 ns)
+   Pair ( 6,98):
+    Min: 165.9 ns (max: 222.4 ns, avg: 181.2 ns)
+   Pair ( 6,99):
+    Min: 166.0 ns (max: 200.1 ns, avg: 180.7 ns)
+   Pair ( 7, 0):
+    Min: 65.1 ns (max: 104.6 ns, avg: 82.1 ns)
+   Pair ( 7, 1):
+    Min: 64.8 ns (max: 88.6 ns, avg: 81.2 ns)
+   Pair ( 7, 2):
+    Min: 65.0 ns (max: 89.6 ns, avg: 82.3 ns)
+   Pair ( 7, 3):
+    Min: 65.0 ns (max: 90.5 ns, avg: 82.2 ns)
+   Pair ( 7, 4):
+    Min: 67.5 ns (max: 85.4 ns, avg: 78.6 ns)
+   Pair ( 7, 5):
+    Min: 67.4 ns (max: 91.3 ns, avg: 79.3 ns)
+   Pair ( 7, 6):
+    Min: 28.0 ns (max: 30.4 ns, avg: 28.5 ns)
+   Pair ( 7, 8):
+    Min: 65.6 ns (max: 94.8 ns, avg: 80.1 ns)
+   Pair ( 7, 9):
+    Min: 65.9 ns (max: 92.4 ns, avg: 79.5 ns)
+   Pair ( 7,10):
+    Min: 66.4 ns (max: 86.2 ns, avg: 78.0 ns)
+   Pair ( 7,11):
+    Min: 66.1 ns (max: 87.5 ns, avg: 77.9 ns)
+   Pair ( 7,12):
+    Min: 65.1 ns (max: 127.5 ns, avg: 90.1 ns)
+   Pair ( 7,13):
+    Min: 65.4 ns (max: 126.1 ns, avg: 89.7 ns)
+   Pair ( 7,14):
+    Min: 65.3 ns (max: 126.1 ns, avg: 88.9 ns)
+   Pair ( 7,15):
+    Min: 65.7 ns (max: 125.5 ns, avg: 90.0 ns)
+   Pair ( 7,16):
+    Min: 63.2 ns (max: 127.1 ns, avg: 95.3 ns)
+   Pair ( 7,17):
+    Min: 63.0 ns (max: 128.0 ns, avg: 92.2 ns)
+   Pair ( 7,18):
+    Min: 63.8 ns (max: 126.9 ns, avg: 91.4 ns)
+   Pair ( 7,19):
+    Min: 63.7 ns (max: 125.8 ns, avg: 91.5 ns)
+   Pair ( 7,20):
+    Min: 65.3 ns (max: 121.5 ns, avg: 89.9 ns)
+   Pair ( 7,21):
+    Min: 65.3 ns (max: 122.2 ns, avg: 91.3 ns)
+   Pair ( 7,22):
+    Min: 66.0 ns (max: 121.0 ns, avg: 90.0 ns)
+   Pair ( 7,23):
+    Min: 65.6 ns (max: 123.3 ns, avg: 90.0 ns)
+   Pair ( 7,24):
+    Min: 60.8 ns (max: 98.8 ns, avg: 80.3 ns)
+   Pair ( 7,25):
+    Min: 60.9 ns (max: 98.3 ns, avg: 80.8 ns)
+   Pair ( 7,26):
+    Min: 62.4 ns (max: 99.9 ns, avg: 79.8 ns)
+   Pair ( 7,27):
+    Min: 62.4 ns (max: 100.7 ns, avg: 80.1 ns)
+   Pair ( 7,28):
+    Min: 62.6 ns (max: 87.9 ns, avg: 77.5 ns)
+   Pair ( 7,29):
+    Min: 62.3 ns (max: 91.4 ns, avg: 78.0 ns)
+   Pair ( 7,30):
+    Min: 62.8 ns (max: 96.7 ns, avg: 78.0 ns)
+   Pair ( 7,31):
+    Min: 62.5 ns (max: 95.5 ns, avg: 77.9 ns)
+   Pair ( 7,32):
+    Min: 63.0 ns (max: 98.5 ns, avg: 79.0 ns)
+   Pair ( 7,33):
+    Min: 62.4 ns (max: 100.4 ns, avg: 78.9 ns)
+   Pair ( 7,34):
+    Min: 62.5 ns (max: 101.1 ns, avg: 78.8 ns)
+   Pair ( 7,35):
+    Min: 62.7 ns (max: 100.6 ns, avg: 78.7 ns)
+   Pair ( 7,36):
+    Min: 74.2 ns (max: 99.1 ns, avg: 83.1 ns)
+   Pair ( 7,37):
+    Min: 74.2 ns (max: 100.0 ns, avg: 83.6 ns)
+   Pair ( 7,38):
+    Min: 73.2 ns (max: 161.9 ns, avg: 85.0 ns)
+   Pair ( 7,39):
+    Min: 73.3 ns (max: 102.6 ns, avg: 82.7 ns)
+   Pair ( 7,40):
+    Min: 72.3 ns (max: 100.9 ns, avg: 80.8 ns)
+   Pair ( 7,41):
+    Min: 72.6 ns (max: 100.0 ns, avg: 80.9 ns)
+   Pair ( 7,42):
+    Min: 61.5 ns (max: 147.4 ns, avg: 97.6 ns)
+   Pair ( 7,43):
+    Min: 61.8 ns (max: 146.3 ns, avg: 97.9 ns)
+   Pair ( 7,44):
+    Min: 61.2 ns (max: 145.2 ns, avg: 94.3 ns)
+   Pair ( 7,45):
+    Min: 61.5 ns (max: 144.2 ns, avg: 93.8 ns)
+   Pair ( 7,46):
+    Min: 62.7 ns (max: 144.2 ns, avg: 94.7 ns)
+   Pair ( 7,47):
+    Min: 62.5 ns (max: 143.7 ns, avg: 94.9 ns)
+   Pair ( 7,48):
+    Min: 71.5 ns (max: 100.1 ns, avg: 86.3 ns)
+   Pair ( 7,49):
+    Min: 71.7 ns (max: 99.0 ns, avg: 86.2 ns)
+   Pair ( 7,50):
+    Min: 73.3 ns (max: 98.3 ns, avg: 84.8 ns)
+   Pair ( 7,51):
+    Min: 73.6 ns (max: 96.5 ns, avg: 84.5 ns)
+   Pair ( 7,52):
+    Min: 73.7 ns (max: 95.7 ns, avg: 83.3 ns)
+   Pair ( 7,53):
+    Min: 73.4 ns (max: 99.1 ns, avg: 83.4 ns)
+   Pair ( 7,54):
+    Min: 71.3 ns (max: 97.0 ns, avg: 85.2 ns)
+   Pair ( 7,55):
+    Min: 71.2 ns (max: 97.2 ns, avg: 85.3 ns)
+   Pair ( 7,56):
+    Min: 71.8 ns (max: 93.6 ns, avg: 84.8 ns)
+   Pair ( 7,57):
+    Min: 71.8 ns (max: 95.7 ns, avg: 84.5 ns)
+   Pair ( 7,58):
+    Min: 72.9 ns (max: 93.6 ns, avg: 83.2 ns)
+   Pair ( 7,59):
+    Min: 73.2 ns (max: 94.5 ns, avg: 83.2 ns)
+   Pair ( 7,60):
+    Min: 71.0 ns (max: 113.0 ns, avg: 90.0 ns)
+   Pair ( 7,61):
+    Min: 71.6 ns (max: 113.0 ns, avg: 90.5 ns)
+   Pair ( 7,62):
+    Min: 71.0 ns (max: 107.0 ns, avg: 88.3 ns)
+   Pair ( 7,63):
+    Min: 70.8 ns (max: 109.9 ns, avg: 88.0 ns)
+   Pair ( 7,64):
+    Min: 70.1 ns (max: 105.0 ns, avg: 88.8 ns)
+   Pair ( 7,65):
+    Min: 70.4 ns (max: 105.8 ns, avg: 89.1 ns)
+   Pair ( 7,66):
+    Min: 70.5 ns (max: 104.3 ns, avg: 86.1 ns)
+   Pair ( 7,67):
+    Min: 71.1 ns (max: 105.0 ns, avg: 85.9 ns)
+   Pair ( 7,68):
+    Min: 71.4 ns (max: 107.4 ns, avg: 87.5 ns)
+   Pair ( 7,69):
+    Min: 71.3 ns (max: 109.4 ns, avg: 87.6 ns)
+   Pair ( 7,70):
+    Min: 72.4 ns (max: 105.5 ns, avg: 86.3 ns)
+   Pair ( 7,71):
+    Min: 72.3 ns (max: 110.0 ns, avg: 86.5 ns)
+   Pair ( 7,72):
+    Min: 67.7 ns (max: 112.5 ns, avg: 77.2 ns)
+   Pair ( 7,73):
+    Min: 67.6 ns (max: 111.5 ns, avg: 77.1 ns)
+   Pair ( 7,74):
+    Min: 67.0 ns (max: 106.0 ns, avg: 76.0 ns)
+   Pair ( 7,75):
+    Min: 67.1 ns (max: 105.2 ns, avg: 76.1 ns)
+   Pair ( 7,76):
+    Min: 68.7 ns (max: 111.5 ns, avg: 78.8 ns)
+   Pair ( 7,77):
+    Min: 68.7 ns (max: 110.4 ns, avg: 78.8 ns)
+   Pair ( 7,78):
+    Min: 69.2 ns (max: 107.8 ns, avg: 77.4 ns)
+   Pair ( 7,79):
+    Min: 69.5 ns (max: 109.9 ns, avg: 77.5 ns)
+   Pair ( 7,80):
+    Min: 67.7 ns (max: 125.3 ns, avg: 86.9 ns)
+   Pair ( 7,81):
+    Min: 67.8 ns (max: 125.1 ns, avg: 84.7 ns)
+   Pair ( 7,82):
+    Min: 68.8 ns (max: 121.0 ns, avg: 84.1 ns)
+   Pair ( 7,83):
+    Min: 68.9 ns (max: 119.2 ns, avg: 83.4 ns)
+   Pair ( 7,84):
+    Min: 69.7 ns (max: 116.3 ns, avg: 82.6 ns)
+   Pair ( 7,85):
+    Min: 69.6 ns (max: 116.0 ns, avg: 82.9 ns)
+   Pair ( 7,86):
+    Min: 68.1 ns (max: 122.6 ns, avg: 80.6 ns)
+   Pair ( 7,87):
+    Min: 68.2 ns (max: 122.0 ns, avg: 80.5 ns)
+   Pair ( 7,88):
+    Min: 69.7 ns (max: 124.8 ns, avg: 80.6 ns)
+   Pair ( 7,89):
+    Min: 70.3 ns (max: 125.4 ns, avg: 80.7 ns)
+   Pair ( 7,90):
+    Min: 67.5 ns (max: 130.8 ns, avg: 89.7 ns)
+   Pair ( 7,91):
+    Min: 67.3 ns (max: 130.4 ns, avg: 90.0 ns)
+   Pair ( 7,92):
+    Min: 67.5 ns (max: 129.2 ns, avg: 86.2 ns)
+   Pair ( 7,93):
+    Min: 68.3 ns (max: 128.7 ns, avg: 87.0 ns)
+   Pair ( 7,94):
+    Min: 69.2 ns (max: 121.7 ns, avg: 84.9 ns)
+   Pair ( 7,95):
+    Min: 69.2 ns (max: 123.7 ns, avg: 85.5 ns)
+   Pair ( 7,96):
+    Min: 167.1 ns (max: 199.0 ns, avg: 181.9 ns)
+   Pair ( 7,97):
+    Min: 166.4 ns (max: 200.1 ns, avg: 181.7 ns)
+   Pair ( 7,98):
+    Min: 166.1 ns (max: 199.6 ns, avg: 180.4 ns)
+   Pair ( 7,99):
+    Min: 166.6 ns (max: 199.2 ns, avg: 180.7 ns)
+   Pair ( 8, 0):
+    Min: 66.2 ns (max: 87.2 ns, avg: 80.2 ns)
+   Pair ( 8, 1):
+    Min: 66.6 ns (max: 87.7 ns, avg: 80.1 ns)
+   Pair ( 8, 2):
+    Min: 66.4 ns (max: 89.6 ns, avg: 80.8 ns)
+   Pair ( 8, 3):
+    Min: 66.2 ns (max: 89.8 ns, avg: 80.9 ns)
+   Pair ( 8, 4):
+    Min: 68.0 ns (max: 84.8 ns, avg: 79.4 ns)
+   Pair ( 8, 5):
+    Min: 68.2 ns (max: 84.8 ns, avg: 79.4 ns)
+   Pair ( 8, 6):
+    Min: 65.9 ns (max: 87.7 ns, avg: 78.3 ns)
+   Pair ( 8, 7):
+    Min: 65.9 ns (max: 101.6 ns, avg: 80.8 ns)
+   Pair ( 8, 9):
+    Min: 27.7 ns (max: 29.8 ns, avg: 28.0 ns)
+   Pair ( 8,10):
+    Min: 67.9 ns (max: 86.4 ns, avg: 78.1 ns)
+   Pair ( 8,11):
+    Min: 67.9 ns (max: 85.4 ns, avg: 78.1 ns)
+   Pair ( 8,12):
+    Min: 66.2 ns (max: 123.6 ns, avg: 89.4 ns)
+   Pair ( 8,13):
+    Min: 66.4 ns (max: 124.3 ns, avg: 90.0 ns)
+   Pair ( 8,14):
+    Min: 67.4 ns (max: 125.0 ns, avg: 88.8 ns)
+   Pair ( 8,15):
+    Min: 67.4 ns (max: 123.3 ns, avg: 89.0 ns)
+   Pair ( 8,16):
+    Min: 64.7 ns (max: 126.6 ns, avg: 91.1 ns)
+   Pair ( 8,17):
+    Min: 64.7 ns (max: 124.5 ns, avg: 90.4 ns)
+   Pair ( 8,18):
+    Min: 64.9 ns (max: 124.3 ns, avg: 89.2 ns)
+   Pair ( 8,19):
+    Min: 65.3 ns (max: 123.1 ns, avg: 89.1 ns)
+   Pair ( 8,20):
+    Min: 66.5 ns (max: 120.9 ns, avg: 88.0 ns)
+   Pair ( 8,21):
+    Min: 67.0 ns (max: 119.9 ns, avg: 88.1 ns)
+   Pair ( 8,22):
+    Min: 67.3 ns (max: 116.8 ns, avg: 87.4 ns)
+   Pair ( 8,23):
+    Min: 67.2 ns (max: 125.3 ns, avg: 88.0 ns)
+   Pair ( 8,24):
+    Min: 63.2 ns (max: 94.2 ns, avg: 79.3 ns)
+   Pair ( 8,25):
+    Min: 63.1 ns (max: 95.8 ns, avg: 79.4 ns)
+   Pair ( 8,26):
+    Min: 63.3 ns (max: 97.5 ns, avg: 79.2 ns)
+   Pair ( 8,27):
+    Min: 63.3 ns (max: 97.2 ns, avg: 79.2 ns)
+   Pair ( 8,28):
+    Min: 65.6 ns (max: 87.9 ns, avg: 76.5 ns)
+   Pair ( 8,29):
+    Min: 65.1 ns (max: 85.7 ns, avg: 76.2 ns)
+   Pair ( 8,30):
+    Min: 64.6 ns (max: 95.8 ns, avg: 77.9 ns)
+   Pair ( 8,31):
+    Min: 64.3 ns (max: 90.7 ns, avg: 76.1 ns)
+   Pair ( 8,32):
+    Min: 64.6 ns (max: 95.1 ns, avg: 78.3 ns)
+   Pair ( 8,33):
+    Min: 64.6 ns (max: 97.3 ns, avg: 78.5 ns)
+   Pair ( 8,34):
+    Min: 64.3 ns (max: 97.7 ns, avg: 80.0 ns)
+   Pair ( 8,35):
+    Min: 64.1 ns (max: 97.9 ns, avg: 78.4 ns)
+   Pair ( 8,36):
+    Min: 73.0 ns (max: 101.9 ns, avg: 81.2 ns)
+   Pair ( 8,37):
+    Min: 73.2 ns (max: 101.4 ns, avg: 81.2 ns)
+   Pair ( 8,38):
+    Min: 72.9 ns (max: 101.0 ns, avg: 81.0 ns)
+   Pair ( 8,39):
+    Min: 72.9 ns (max: 102.7 ns, avg: 82.3 ns)
+   Pair ( 8,40):
+    Min: 71.6 ns (max: 107.3 ns, avg: 79.9 ns)
+   Pair ( 8,41):
+    Min: 71.6 ns (max: 105.6 ns, avg: 80.4 ns)
+   Pair ( 8,42):
+    Min: 64.1 ns (max: 145.4 ns, avg: 95.4 ns)
+   Pair ( 8,43):
+    Min: 63.8 ns (max: 145.9 ns, avg: 95.4 ns)
+   Pair ( 8,44):
+    Min: 62.9 ns (max: 139.2 ns, avg: 92.7 ns)
+   Pair ( 8,45):
+    Min: 63.0 ns (max: 141.5 ns, avg: 92.6 ns)
+   Pair ( 8,46):
+    Min: 63.8 ns (max: 141.7 ns, avg: 93.4 ns)
+   Pair ( 8,47):
+    Min: 63.6 ns (max: 140.5 ns, avg: 92.5 ns)
+   Pair ( 8,48):
+    Min: 71.5 ns (max: 99.8 ns, avg: 88.2 ns)
+   Pair ( 8,49):
+    Min: 71.7 ns (max: 100.1 ns, avg: 87.4 ns)
+   Pair ( 8,50):
+    Min: 71.8 ns (max: 96.6 ns, avg: 85.2 ns)
+   Pair ( 8,51):
+    Min: 72.3 ns (max: 94.9 ns, avg: 85.3 ns)
+   Pair ( 8,52):
+    Min: 72.6 ns (max: 89.2 ns, avg: 82.8 ns)
+   Pair ( 8,53):
+    Min: 72.1 ns (max: 89.5 ns, avg: 82.8 ns)
+   Pair ( 8,54):
+    Min: 69.8 ns (max: 97.8 ns, avg: 85.9 ns)
+   Pair ( 8,55):
+    Min: 69.9 ns (max: 98.6 ns, avg: 85.9 ns)
+   Pair ( 8,56):
+    Min: 70.6 ns (max: 118.5 ns, avg: 85.1 ns)
+   Pair ( 8,57):
+    Min: 70.7 ns (max: 108.0 ns, avg: 82.7 ns)
+   Pair ( 8,58):
+    Min: 72.5 ns (max: 89.7 ns, avg: 83.0 ns)
+   Pair ( 8,59):
+    Min: 72.4 ns (max: 92.8 ns, avg: 82.8 ns)
+   Pair ( 8,60):
+    Min: 69.6 ns (max: 104.5 ns, avg: 87.9 ns)
+   Pair ( 8,61):
+    Min: 70.0 ns (max: 105.8 ns, avg: 88.7 ns)
+   Pair ( 8,62):
+    Min: 70.0 ns (max: 101.4 ns, avg: 84.8 ns)
+   Pair ( 8,63):
+    Min: 70.1 ns (max: 128.7 ns, avg: 87.1 ns)
+   Pair ( 8,64):
+    Min: 69.3 ns (max: 105.5 ns, avg: 86.3 ns)
+   Pair ( 8,65):
+    Min: 69.5 ns (max: 99.6 ns, avg: 86.3 ns)
+   Pair ( 8,66):
+    Min: 70.0 ns (max: 102.5 ns, avg: 84.6 ns)
+   Pair ( 8,67):
+    Min: 70.3 ns (max: 102.1 ns, avg: 84.9 ns)
+   Pair ( 8,68):
+    Min: 70.0 ns (max: 103.1 ns, avg: 88.6 ns)
+   Pair ( 8,69):
+    Min: 70.0 ns (max: 107.4 ns, avg: 88.8 ns)
+   Pair ( 8,70):
+    Min: 72.2 ns (max: 108.0 ns, avg: 86.8 ns)
+   Pair ( 8,71):
+    Min: 71.7 ns (max: 103.7 ns, avg: 86.5 ns)
+   Pair ( 8,72):
+    Min: 66.9 ns (max: 112.3 ns, avg: 76.3 ns)
+   Pair ( 8,73):
+    Min: 67.2 ns (max: 111.2 ns, avg: 76.6 ns)
+   Pair ( 8,74):
+    Min: 65.8 ns (max: 107.1 ns, avg: 76.6 ns)
+   Pair ( 8,75):
+    Min: 65.9 ns (max: 110.3 ns, avg: 77.3 ns)
+   Pair ( 8,76):
+    Min: 67.9 ns (max: 115.4 ns, avg: 78.4 ns)
+   Pair ( 8,77):
+    Min: 67.5 ns (max: 113.7 ns, avg: 77.8 ns)
+   Pair ( 8,78):
+    Min: 67.9 ns (max: 111.8 ns, avg: 77.4 ns)
+   Pair ( 8,79):
+    Min: 68.0 ns (max: 111.2 ns, avg: 78.0 ns)
+   Pair ( 8,80):
+    Min: 66.8 ns (max: 121.7 ns, avg: 83.1 ns)
+   Pair ( 8,81):
+    Min: 66.9 ns (max: 119.8 ns, avg: 83.4 ns)
+   Pair ( 8,82):
+    Min: 67.8 ns (max: 117.3 ns, avg: 85.3 ns)
+   Pair ( 8,83):
+    Min: 67.5 ns (max: 115.5 ns, avg: 82.2 ns)
+   Pair ( 8,84):
+    Min: 68.1 ns (max: 122.2 ns, avg: 81.4 ns)
+   Pair ( 8,85):
+    Min: 67.9 ns (max: 121.2 ns, avg: 81.2 ns)
+   Pair ( 8,86):
+    Min: 67.4 ns (max: 124.2 ns, avg: 80.3 ns)
+   Pair ( 8,87):
+    Min: 67.1 ns (max: 120.9 ns, avg: 79.8 ns)
+   Pair ( 8,88):
+    Min: 69.4 ns (max: 125.8 ns, avg: 81.5 ns)
+   Pair ( 8,89):
+    Min: 69.7 ns (max: 128.7 ns, avg: 81.7 ns)
+   Pair ( 8,90):
+    Min: 68.5 ns (max: 128.9 ns, avg: 86.7 ns)
+   Pair ( 8,91):
+    Min: 68.7 ns (max: 128.3 ns, avg: 86.9 ns)
+   Pair ( 8,92):
+    Min: 67.7 ns (max: 126.6 ns, avg: 85.9 ns)
+   Pair ( 8,93):
+    Min: 67.7 ns (max: 126.2 ns, avg: 87.0 ns)
+   Pair ( 8,94):
+    Min: 69.8 ns (max: 120.7 ns, avg: 86.1 ns)
+   Pair ( 8,95):
+    Min: 69.7 ns (max: 120.2 ns, avg: 85.7 ns)
+   Pair ( 8,96):
+    Min: 166.2 ns (max: 199.3 ns, avg: 180.6 ns)
+   Pair ( 8,97):
+    Min: 166.4 ns (max: 199.2 ns, avg: 180.5 ns)
+   Pair ( 8,98):
+    Min: 165.5 ns (max: 197.8 ns, avg: 179.9 ns)
+   Pair ( 8,99):
+    Min: 165.7 ns (max: 199.4 ns, avg: 180.2 ns)
+   Pair ( 9, 0):
+    Min: 66.3 ns (max: 93.4 ns, avg: 80.2 ns)
+   Pair ( 9, 1):
+    Min: 66.3 ns (max: 86.9 ns, avg: 79.8 ns)
+   Pair ( 9, 2):
+    Min: 66.3 ns (max: 100.8 ns, avg: 80.8 ns)
+   Pair ( 9, 3):
+    Min: 66.3 ns (max: 88.7 ns, avg: 80.7 ns)
+   Pair ( 9, 4):
+    Min: 67.8 ns (max: 91.9 ns, avg: 79.8 ns)
+   Pair ( 9, 5):
+    Min: 67.8 ns (max: 84.5 ns, avg: 79.2 ns)
+   Pair ( 9, 6):
+    Min: 66.0 ns (max: 86.1 ns, avg: 78.3 ns)
+   Pair ( 9, 7):
+    Min: 66.0 ns (max: 90.8 ns, avg: 79.0 ns)
+   Pair ( 9, 8):
+    Min: 28.0 ns (max: 30.4 ns, avg: 28.4 ns)
+   Pair ( 9,10):
+    Min: 68.1 ns (max: 108.0 ns, avg: 79.5 ns)
+   Pair ( 9,11):
+    Min: 67.7 ns (max: 85.7 ns, avg: 77.9 ns)
+   Pair ( 9,12):
+    Min: 66.5 ns (max: 122.7 ns, avg: 89.6 ns)
+   Pair ( 9,13):
+    Min: 66.6 ns (max: 122.7 ns, avg: 88.8 ns)
+   Pair ( 9,14):
+    Min: 67.2 ns (max: 122.4 ns, avg: 88.3 ns)
+   Pair ( 9,15):
+    Min: 67.0 ns (max: 121.9 ns, avg: 87.5 ns)
+   Pair ( 9,16):
+    Min: 64.3 ns (max: 125.7 ns, avg: 90.5 ns)
+   Pair ( 9,17):
+    Min: 64.7 ns (max: 125.8 ns, avg: 90.6 ns)
+   Pair ( 9,18):
+    Min: 65.3 ns (max: 123.0 ns, avg: 89.0 ns)
+   Pair ( 9,19):
+    Min: 65.1 ns (max: 124.7 ns, avg: 89.1 ns)
+   Pair ( 9,20):
+    Min: 66.6 ns (max: 121.2 ns, avg: 88.7 ns)
+   Pair ( 9,21):
+    Min: 66.6 ns (max: 122.8 ns, avg: 88.3 ns)
+   Pair ( 9,22):
+    Min: 67.1 ns (max: 121.6 ns, avg: 88.6 ns)
+   Pair ( 9,23):
+    Min: 66.9 ns (max: 119.0 ns, avg: 87.6 ns)
+   Pair ( 9,24):
+    Min: 62.8 ns (max: 95.5 ns, avg: 78.7 ns)
+   Pair ( 9,25):
+    Min: 63.1 ns (max: 93.0 ns, avg: 78.8 ns)
+   Pair ( 9,26):
+    Min: 63.4 ns (max: 96.5 ns, avg: 78.1 ns)
+   Pair ( 9,27):
+    Min: 63.3 ns (max: 96.5 ns, avg: 78.6 ns)
+   Pair ( 9,28):
+    Min: 65.1 ns (max: 86.1 ns, avg: 76.0 ns)
+   Pair ( 9,29):
+    Min: 65.3 ns (max: 87.0 ns, avg: 76.3 ns)
+   Pair ( 9,30):
+    Min: 65.4 ns (max: 88.5 ns, avg: 76.3 ns)
+   Pair ( 9,31):
+    Min: 64.6 ns (max: 87.6 ns, avg: 76.0 ns)
+   Pair ( 9,32):
+    Min: 64.8 ns (max: 115.3 ns, avg: 80.1 ns)
+   Pair ( 9,33):
+    Min: 64.8 ns (max: 99.7 ns, avg: 78.4 ns)
+   Pair ( 9,34):
+    Min: 64.1 ns (max: 98.3 ns, avg: 78.4 ns)
+   Pair ( 9,35):
+    Min: 64.4 ns (max: 97.4 ns, avg: 78.3 ns)
+   Pair ( 9,36):
+    Min: 73.4 ns (max: 101.7 ns, avg: 81.0 ns)
+   Pair ( 9,37):
+    Min: 73.1 ns (max: 101.6 ns, avg: 80.7 ns)
+   Pair ( 9,38):
+    Min: 72.5 ns (max: 104.5 ns, avg: 81.2 ns)
+   Pair ( 9,39):
+    Min: 72.4 ns (max: 100.5 ns, avg: 80.8 ns)
+   Pair ( 9,40):
+    Min: 71.6 ns (max: 104.5 ns, avg: 79.1 ns)
+   Pair ( 9,41):
+    Min: 71.5 ns (max: 107.2 ns, avg: 79.7 ns)
+   Pair ( 9,42):
+    Min: 64.6 ns (max: 144.4 ns, avg: 95.2 ns)
+   Pair ( 9,43):
+    Min: 63.8 ns (max: 145.4 ns, avg: 95.3 ns)
+   Pair ( 9,44):
+    Min: 62.6 ns (max: 140.6 ns, avg: 92.8 ns)
+   Pair ( 9,45):
+    Min: 63.0 ns (max: 140.7 ns, avg: 92.5 ns)
+   Pair ( 9,46):
+    Min: 63.8 ns (max: 142.2 ns, avg: 92.6 ns)
+   Pair ( 9,47):
+    Min: 63.4 ns (max: 142.0 ns, avg: 92.6 ns)
+   Pair ( 9,48):
+    Min: 71.3 ns (max: 118.4 ns, avg: 89.8 ns)
+   Pair ( 9,49):
+    Min: 75.0 ns (max: 120.4 ns, avg: 92.2 ns)
+   Pair ( 9,50):
+    Min: 72.3 ns (max: 95.0 ns, avg: 85.2 ns)
+   Pair ( 9,51):
+    Min: 72.1 ns (max: 95.3 ns, avg: 85.3 ns)
+   Pair ( 9,52):
+    Min: 72.6 ns (max: 91.6 ns, avg: 82.8 ns)
+   Pair ( 9,53):
+    Min: 72.1 ns (max: 89.2 ns, avg: 82.6 ns)
+   Pair ( 9,54):
+    Min: 69.6 ns (max: 98.1 ns, avg: 85.3 ns)
+   Pair ( 9,55):
+    Min: 69.8 ns (max: 98.3 ns, avg: 85.5 ns)
+   Pair ( 9,56):
+    Min: 70.6 ns (max: 96.5 ns, avg: 82.8 ns)
+   Pair ( 9,57):
+    Min: 70.1 ns (max: 93.5 ns, avg: 82.1 ns)
+   Pair ( 9,58):
+    Min: 71.9 ns (max: 89.4 ns, avg: 83.1 ns)
+   Pair ( 9,59):
+    Min: 72.2 ns (max: 91.8 ns, avg: 83.2 ns)
+   Pair ( 9,60):
+    Min: 70.1 ns (max: 104.8 ns, avg: 87.7 ns)
+   Pair ( 9,61):
+    Min: 70.1 ns (max: 107.3 ns, avg: 87.9 ns)
+   Pair ( 9,62):
+    Min: 70.5 ns (max: 105.2 ns, avg: 85.4 ns)
+   Pair ( 9,63):
+    Min: 69.8 ns (max: 103.3 ns, avg: 84.8 ns)
+   Pair ( 9,64):
+    Min: 69.5 ns (max: 99.4 ns, avg: 86.2 ns)
+   Pair ( 9,65):
+    Min: 69.7 ns (max: 100.5 ns, avg: 86.5 ns)
+   Pair ( 9,66):
+    Min: 69.9 ns (max: 101.4 ns, avg: 84.1 ns)
+   Pair ( 9,67):
+    Min: 69.7 ns (max: 102.0 ns, avg: 84.6 ns)
+   Pair ( 9,68):
+    Min: 69.9 ns (max: 105.8 ns, avg: 88.8 ns)
+   Pair ( 9,69):
+    Min: 70.2 ns (max: 103.2 ns, avg: 88.3 ns)
+   Pair ( 9,70):
+    Min: 71.4 ns (max: 108.1 ns, avg: 86.6 ns)
+   Pair ( 9,71):
+    Min: 71.5 ns (max: 108.1 ns, avg: 86.5 ns)
+   Pair ( 9,72):
+    Min: 66.9 ns (max: 112.9 ns, avg: 76.0 ns)
+   Pair ( 9,73):
+    Min: 66.9 ns (max: 112.1 ns, avg: 76.0 ns)
+   Pair ( 9,74):
+    Min: 65.6 ns (max: 106.6 ns, avg: 74.9 ns)
+   Pair ( 9,75):
+    Min: 65.7 ns (max: 106.7 ns, avg: 74.9 ns)
+   Pair ( 9,76):
+    Min: 67.8 ns (max: 115.3 ns, avg: 77.7 ns)
+   Pair ( 9,77):
+    Min: 68.0 ns (max: 114.0 ns, avg: 77.7 ns)
+   Pair ( 9,78):
+    Min: 68.3 ns (max: 114.9 ns, avg: 79.6 ns)
+   Pair ( 9,79):
+    Min: 68.4 ns (max: 112.3 ns, avg: 77.0 ns)
+   Pair ( 9,80):
+    Min: 67.2 ns (max: 121.7 ns, avg: 83.7 ns)
+   Pair ( 9,81):
+    Min: 66.9 ns (max: 121.5 ns, avg: 83.4 ns)
+   Pair ( 9,82):
+    Min: 67.6 ns (max: 117.4 ns, avg: 83.1 ns)
+   Pair ( 9,83):
+    Min: 67.6 ns (max: 117.2 ns, avg: 83.0 ns)
+   Pair ( 9,84):
+    Min: 68.0 ns (max: 122.2 ns, avg: 81.4 ns)
+   Pair ( 9,85):
+    Min: 67.9 ns (max: 122.0 ns, avg: 81.7 ns)
+   Pair ( 9,86):
+    Min: 66.9 ns (max: 124.1 ns, avg: 81.8 ns)
+   Pair ( 9,87):
+    Min: 66.9 ns (max: 124.1 ns, avg: 80.3 ns)
+   Pair ( 9,88):
+    Min: 69.6 ns (max: 126.1 ns, avg: 81.6 ns)
+   Pair ( 9,89):
+    Min: 69.6 ns (max: 129.4 ns, avg: 83.2 ns)
+   Pair ( 9,90):
+    Min: 69.1 ns (max: 128.7 ns, avg: 87.3 ns)
+   Pair ( 9,91):
+    Min: 68.9 ns (max: 125.8 ns, avg: 87.1 ns)
+   Pair ( 9,92):
+    Min: 67.2 ns (max: 125.3 ns, avg: 85.8 ns)
+   Pair ( 9,93):
+    Min: 67.3 ns (max: 126.0 ns, avg: 86.0 ns)
+   Pair ( 9,94):
+    Min: 70.0 ns (max: 120.5 ns, avg: 85.7 ns)
+   Pair ( 9,95):
+    Min: 69.9 ns (max: 119.5 ns, avg: 85.1 ns)
+   Pair ( 9,96):
+    Min: 166.2 ns (max: 199.6 ns, avg: 180.5 ns)
+   Pair ( 9,97):
+    Min: 166.1 ns (max: 199.6 ns, avg: 180.5 ns)
+   Pair ( 9,98):
+    Min: 166.2 ns (max: 198.4 ns, avg: 179.9 ns)
+   Pair ( 9,99):
+    Min: 166.1 ns (max: 245.9 ns, avg: 182.4 ns)
+   Pair (10, 0):
+    Min: 66.4 ns (max: 86.3 ns, avg: 79.5 ns)
+   Pair (10, 1):
+    Min: 66.5 ns (max: 87.3 ns, avg: 78.5 ns)
+   Pair (10, 2):
+    Min: 66.4 ns (max: 87.7 ns, avg: 80.4 ns)
+   Pair (10, 3):
+    Min: 66.7 ns (max: 87.2 ns, avg: 80.8 ns)
+   Pair (10, 4):
+    Min: 67.9 ns (max: 84.8 ns, avg: 78.5 ns)
+   Pair (10, 5):
+    Min: 68.0 ns (max: 84.9 ns, avg: 78.7 ns)
+   Pair (10, 6):
+    Min: 66.6 ns (max: 87.9 ns, avg: 78.2 ns)
+   Pair (10, 7):
+    Min: 66.3 ns (max: 88.3 ns, avg: 77.9 ns)
+   Pair (10, 8):
+    Min: 67.5 ns (max: 113.6 ns, avg: 79.2 ns)
+   Pair (10, 9):
+    Min: 67.6 ns (max: 97.4 ns, avg: 77.9 ns)
+   Pair (10,11):
+    Min: 28.3 ns (max: 29.5 ns, avg: 28.5 ns)
+   Pair (10,12):
+    Min: 66.8 ns (max: 122.9 ns, avg: 88.6 ns)
+   Pair (10,13):
+    Min: 66.9 ns (max: 531.8 ns, avg: 110.1 ns)
+   Pair (10,14):
+    Min: 67.5 ns (max: 120.0 ns, avg: 88.2 ns)
+   Pair (10,15):
+    Min: 67.5 ns (max: 123.7 ns, avg: 88.9 ns)
+   Pair (10,16):
+    Min: 64.9 ns (max: 123.0 ns, avg: 89.7 ns)
+   Pair (10,17):
+    Min: 64.9 ns (max: 122.8 ns, avg: 90.7 ns)
+   Pair (10,18):
+    Min: 65.5 ns (max: 122.5 ns, avg: 88.6 ns)
+   Pair (10,19):
+    Min: 65.4 ns (max: 120.9 ns, avg: 88.2 ns)
+   Pair (10,20):
+    Min: 67.0 ns (max: 120.1 ns, avg: 87.7 ns)
+   Pair (10,21):
+    Min: 67.2 ns (max: 121.1 ns, avg: 88.1 ns)
+   Pair (10,22):
+    Min: 67.2 ns (max: 119.6 ns, avg: 87.4 ns)
+   Pair (10,23):
+    Min: 67.3 ns (max: 120.6 ns, avg: 87.2 ns)
+   Pair (10,24):
+    Min: 62.9 ns (max: 91.0 ns, avg: 78.6 ns)
+   Pair (10,25):
+    Min: 63.1 ns (max: 97.0 ns, avg: 78.5 ns)
+   Pair (10,26):
+    Min: 63.6 ns (max: 93.6 ns, avg: 78.5 ns)
+   Pair (10,27):
+    Min: 63.9 ns (max: 94.8 ns, avg: 78.4 ns)
+   Pair (10,28):
+    Min: 65.1 ns (max: 92.1 ns, avg: 76.7 ns)
+   Pair (10,29):
+    Min: 65.2 ns (max: 84.7 ns, avg: 76.1 ns)
+   Pair (10,30):
+    Min: 65.0 ns (max: 106.5 ns, avg: 79.7 ns)
+   Pair (10,31):
+    Min: 65.1 ns (max: 90.4 ns, avg: 77.2 ns)
+   Pair (10,32):
+    Min: 64.2 ns (max: 101.8 ns, avg: 80.3 ns)
+   Pair (10,33):
+    Min: 64.1 ns (max: 119.1 ns, avg: 81.0 ns)
+   Pair (10,34):
+    Min: 64.5 ns (max: 95.9 ns, avg: 79.0 ns)
+   Pair (10,35):
+    Min: 64.3 ns (max: 96.2 ns, avg: 77.7 ns)
+   Pair (10,36):
+    Min: 72.5 ns (max: 101.5 ns, avg: 79.7 ns)
+   Pair (10,37):
+    Min: 72.6 ns (max: 101.5 ns, avg: 80.2 ns)
+   Pair (10,38):
+    Min: 71.6 ns (max: 105.0 ns, avg: 81.1 ns)
+   Pair (10,39):
+    Min: 71.6 ns (max: 103.0 ns, avg: 80.7 ns)
+   Pair (10,40):
+    Min: 70.8 ns (max: 109.3 ns, avg: 79.4 ns)
+   Pair (10,41):
+    Min: 71.2 ns (max: 116.3 ns, avg: 82.3 ns)
+   Pair (10,42):
+    Min: 63.9 ns (max: 145.7 ns, avg: 96.8 ns)
+   Pair (10,43):
+    Min: 64.1 ns (max: 145.7 ns, avg: 95.2 ns)
+   Pair (10,44):
+    Min: 63.1 ns (max: 140.6 ns, avg: 92.9 ns)
+   Pair (10,45):
+    Min: 63.4 ns (max: 140.8 ns, avg: 92.1 ns)
+   Pair (10,46):
+    Min: 63.6 ns (max: 140.5 ns, avg: 92.4 ns)
+   Pair (10,47):
+    Min: 63.9 ns (max: 141.3 ns, avg: 92.8 ns)
+   Pair (10,48):
+    Min: 70.5 ns (max: 97.8 ns, avg: 85.2 ns)
+   Pair (10,49):
+    Min: 70.5 ns (max: 97.7 ns, avg: 84.1 ns)
+   Pair (10,50):
+    Min: 72.8 ns (max: 122.7 ns, avg: 85.4 ns)
+   Pair (10,51):
+    Min: 73.1 ns (max: 99.1 ns, avg: 83.9 ns)
+   Pair (10,52):
+    Min: 72.6 ns (max: 93.9 ns, avg: 82.2 ns)
+   Pair (10,53):
+    Min: 72.3 ns (max: 94.0 ns, avg: 82.3 ns)
+   Pair (10,54):
+    Min: 69.8 ns (max: 101.3 ns, avg: 84.1 ns)
+   Pair (10,55):
+    Min: 69.2 ns (max: 97.0 ns, avg: 84.2 ns)
+   Pair (10,56):
+    Min: 70.4 ns (max: 90.7 ns, avg: 79.9 ns)
+   Pair (10,57):
+    Min: 70.4 ns (max: 101.4 ns, avg: 81.1 ns)
+   Pair (10,58):
+    Min: 72.3 ns (max: 101.7 ns, avg: 83.7 ns)
+   Pair (10,59):
+    Min: 72.4 ns (max: 94.5 ns, avg: 82.7 ns)
+   Pair (10,60):
+    Min: 69.4 ns (max: 106.5 ns, avg: 89.4 ns)
+   Pair (10,61):
+    Min: 69.8 ns (max: 104.7 ns, avg: 87.8 ns)
+   Pair (10,62):
+    Min: 70.0 ns (max: 104.0 ns, avg: 85.9 ns)
+   Pair (10,63):
+    Min: 69.7 ns (max: 103.8 ns, avg: 84.5 ns)
+   Pair (10,64):
+    Min: 69.3 ns (max: 99.3 ns, avg: 86.1 ns)
+   Pair (10,65):
+    Min: 69.0 ns (max: 98.8 ns, avg: 86.0 ns)
+   Pair (10,66):
+    Min: 69.7 ns (max: 102.1 ns, avg: 85.4 ns)
+   Pair (10,67):
+    Min: 70.7 ns (max: 104.7 ns, avg: 85.8 ns)
+   Pair (10,68):
+    Min: 70.5 ns (max: 102.8 ns, avg: 87.6 ns)
+   Pair (10,69):
+    Min: 70.3 ns (max: 103.7 ns, avg: 87.4 ns)
+   Pair (10,70):
+    Min: 71.2 ns (max: 105.2 ns, avg: 87.0 ns)
+   Pair (10,71):
+    Min: 71.5 ns (max: 103.4 ns, avg: 85.5 ns)
+   Pair (10,72):
+    Min: 66.6 ns (max: 113.1 ns, avg: 75.8 ns)
+   Pair (10,73):
+    Min: 66.6 ns (max: 114.1 ns, avg: 76.8 ns)
+   Pair (10,74):
+    Min: 65.9 ns (max: 101.3 ns, avg: 73.8 ns)
+   Pair (10,75):
+    Min: 66.1 ns (max: 102.1 ns, avg: 73.8 ns)
+   Pair (10,76):
+    Min: 67.2 ns (max: 112.1 ns, avg: 76.5 ns)
+   Pair (10,77):
+    Min: 67.1 ns (max: 114.0 ns, avg: 76.8 ns)
+   Pair (10,78):
+    Min: 67.8 ns (max: 111.4 ns, avg: 75.8 ns)
+   Pair (10,79):
+    Min: 67.3 ns (max: 112.9 ns, avg: 76.0 ns)
+   Pair (10,80):
+    Min: 67.2 ns (max: 120.6 ns, avg: 82.6 ns)
+   Pair (10,81):
+    Min: 67.4 ns (max: 120.4 ns, avg: 83.0 ns)
+   Pair (10,82):
+    Min: 67.7 ns (max: 117.7 ns, avg: 83.4 ns)
+   Pair (10,83):
+    Min: 67.5 ns (max: 116.6 ns, avg: 82.9 ns)
+   Pair (10,84):
+    Min: 66.8 ns (max: 123.7 ns, avg: 81.6 ns)
+   Pair (10,85):
+    Min: 66.9 ns (max: 121.5 ns, avg: 81.8 ns)
+   Pair (10,86):
+    Min: 66.8 ns (max: 124.5 ns, avg: 78.8 ns)
+   Pair (10,87):
+    Min: 67.4 ns (max: 121.7 ns, avg: 78.5 ns)
+   Pair (10,88):
+    Min: 68.3 ns (max: 130.7 ns, avg: 80.4 ns)
+   Pair (10,89):
+    Min: 68.2 ns (max: 128.9 ns, avg: 80.8 ns)
+   Pair (10,90):
+    Min: 68.9 ns (max: 126.5 ns, avg: 87.0 ns)
+   Pair (10,91):
+    Min: 69.0 ns (max: 123.2 ns, avg: 87.3 ns)
+   Pair (10,92):
+    Min: 66.4 ns (max: 120.2 ns, avg: 84.2 ns)
+   Pair (10,93):
+    Min: 66.3 ns (max: 126.0 ns, avg: 85.0 ns)
+   Pair (10,94):
+    Min: 68.4 ns (max: 119.9 ns, avg: 84.6 ns)
+   Pair (10,95):
+    Min: 68.4 ns (max: 118.8 ns, avg: 85.3 ns)
+   Pair (10,96):
+    Min: 166.2 ns (max: 198.5 ns, avg: 180.1 ns)
+   Pair (10,97):
+    Min: 165.8 ns (max: 199.8 ns, avg: 180.0 ns)
+   Pair (10,98):
+    Min: 166.0 ns (max: 198.0 ns, avg: 180.0 ns)
+   Pair (10,99):
+    Min: 166.3 ns (max: 198.8 ns, avg: 180.0 ns)
+   Pair (11, 0):
+    Min: 66.7 ns (max: 85.9 ns, avg: 78.8 ns)
+   Pair (11, 1):
+    Min: 66.7 ns (max: 87.3 ns, avg: 78.9 ns)
+   Pair (11, 2):
+    Min: 66.9 ns (max: 91.7 ns, avg: 80.9 ns)
+   Pair (11, 3):
+    Min: 66.7 ns (max: 85.2 ns, avg: 80.3 ns)
+   Pair (11, 4):
+    Min: 68.2 ns (max: 85.4 ns, avg: 78.8 ns)
+   Pair (11, 5):
+    Min: 68.2 ns (max: 83.9 ns, avg: 78.4 ns)
+   Pair (11, 6):
+    Min: 65.9 ns (max: 87.4 ns, avg: 78.7 ns)
+   Pair (11, 7):
+    Min: 66.2 ns (max: 99.8 ns, avg: 78.9 ns)
+   Pair (11, 8):
+    Min: 67.8 ns (max: 84.4 ns, avg: 76.3 ns)
+   Pair (11, 9):
+    Min: 67.5 ns (max: 88.8 ns, avg: 77.1 ns)
+   Pair (11,10):
+    Min: 28.2 ns (max: 29.9 ns, avg: 28.5 ns)
+   Pair (11,12):
+    Min: 66.9 ns (max: 123.8 ns, avg: 88.1 ns)
+   Pair (11,13):
+    Min: 67.2 ns (max: 122.5 ns, avg: 88.0 ns)
+   Pair (11,14):
+    Min: 67.5 ns (max: 122.0 ns, avg: 88.7 ns)
+   Pair (11,15):
+    Min: 67.5 ns (max: 121.2 ns, avg: 88.1 ns)
+   Pair (11,16):
+    Min: 64.8 ns (max: 120.8 ns, avg: 89.6 ns)
+   Pair (11,17):
+    Min: 65.1 ns (max: 122.3 ns, avg: 89.6 ns)
+   Pair (11,18):
+    Min: 65.3 ns (max: 123.3 ns, avg: 88.5 ns)
+   Pair (11,19):
+    Min: 65.7 ns (max: 122.2 ns, avg: 88.6 ns)
+   Pair (11,20):
+    Min: 67.1 ns (max: 119.7 ns, avg: 88.2 ns)
+   Pair (11,21):
+    Min: 66.7 ns (max: 120.6 ns, avg: 87.2 ns)
+   Pair (11,22):
+    Min: 67.0 ns (max: 129.0 ns, avg: 88.5 ns)
+   Pair (11,23):
+    Min: 67.6 ns (max: 117.0 ns, avg: 86.5 ns)
+   Pair (11,24):
+    Min: 62.8 ns (max: 88.6 ns, avg: 77.5 ns)
+   Pair (11,25):
+    Min: 63.4 ns (max: 87.1 ns, avg: 77.7 ns)
+   Pair (11,26):
+    Min: 64.3 ns (max: 93.7 ns, avg: 78.3 ns)
+   Pair (11,27):
+    Min: 64.6 ns (max: 94.8 ns, avg: 78.5 ns)
+   Pair (11,28):
+    Min: 65.9 ns (max: 86.9 ns, avg: 76.5 ns)
+   Pair (11,29):
+    Min: 65.4 ns (max: 111.8 ns, avg: 78.2 ns)
+   Pair (11,30):
+    Min: 65.2 ns (max: 90.2 ns, avg: 77.0 ns)
+   Pair (11,31):
+    Min: 65.0 ns (max: 116.6 ns, avg: 79.6 ns)
+   Pair (11,32):
+    Min: 64.2 ns (max: 97.1 ns, avg: 78.3 ns)
+   Pair (11,33):
+    Min: 63.8 ns (max: 95.9 ns, avg: 78.5 ns)
+   Pair (11,34):
+    Min: 64.5 ns (max: 97.0 ns, avg: 78.2 ns)
+   Pair (11,35):
+    Min: 64.8 ns (max: 96.8 ns, avg: 79.0 ns)
+   Pair (11,36):
+    Min: 72.8 ns (max: 102.2 ns, avg: 79.9 ns)
+   Pair (11,37):
+    Min: 72.4 ns (max: 101.8 ns, avg: 80.3 ns)
+   Pair (11,38):
+    Min: 71.5 ns (max: 103.5 ns, avg: 80.8 ns)
+   Pair (11,39):
+    Min: 71.4 ns (max: 100.1 ns, avg: 80.9 ns)
+   Pair (11,40):
+    Min: 71.2 ns (max: 120.5 ns, avg: 82.4 ns)
+   Pair (11,41):
+    Min: 71.2 ns (max: 105.4 ns, avg: 79.7 ns)
+   Pair (11,42):
+    Min: 63.7 ns (max: 146.0 ns, avg: 94.3 ns)
+   Pair (11,43):
+    Min: 63.6 ns (max: 145.6 ns, avg: 95.3 ns)
+   Pair (11,44):
+    Min: 63.2 ns (max: 140.6 ns, avg: 92.2 ns)
+   Pair (11,45):
+    Min: 63.5 ns (max: 141.0 ns, avg: 92.8 ns)
+   Pair (11,46):
+    Min: 63.8 ns (max: 140.6 ns, avg: 93.8 ns)
+   Pair (11,47):
+    Min: 63.5 ns (max: 140.8 ns, avg: 92.6 ns)
+   Pair (11,48):
+    Min: 70.3 ns (max: 101.7 ns, avg: 84.5 ns)
+   Pair (11,49):
+    Min: 70.5 ns (max: 99.4 ns, avg: 84.6 ns)
+   Pair (11,50):
+    Min: 72.5 ns (max: 98.0 ns, avg: 84.1 ns)
+   Pair (11,51):
+    Min: 73.1 ns (max: 98.0 ns, avg: 84.3 ns)
+   Pair (11,52):
+    Min: 72.7 ns (max: 92.6 ns, avg: 81.9 ns)
+   Pair (11,53):
+    Min: 72.3 ns (max: 94.4 ns, avg: 82.5 ns)
+   Pair (11,54):
+    Min: 69.7 ns (max: 95.4 ns, avg: 83.3 ns)
+   Pair (11,55):
+    Min: 69.3 ns (max: 113.9 ns, avg: 84.2 ns)
+   Pair (11,56):
+    Min: 69.7 ns (max: 96.9 ns, avg: 79.6 ns)
+   Pair (11,57):
+    Min: 69.7 ns (max: 91.6 ns, avg: 79.6 ns)
+   Pair (11,58):
+    Min: 72.6 ns (max: 92.4 ns, avg: 82.3 ns)
+   Pair (11,59):
+    Min: 72.3 ns (max: 93.8 ns, avg: 82.4 ns)
+   Pair (11,60):
+    Min: 69.5 ns (max: 107.7 ns, avg: 88.5 ns)
+   Pair (11,61):
+    Min: 69.5 ns (max: 106.4 ns, avg: 88.7 ns)
+   Pair (11,62):
+    Min: 69.7 ns (max: 99.7 ns, avg: 83.6 ns)
+   Pair (11,63):
+    Min: 69.4 ns (max: 101.1 ns, avg: 84.0 ns)
+   Pair (11,64):
+    Min: 68.8 ns (max: 103.3 ns, avg: 86.1 ns)
+   Pair (11,65):
+    Min: 68.7 ns (max: 100.3 ns, avg: 86.2 ns)
+   Pair (11,66):
+    Min: 69.4 ns (max: 99.3 ns, avg: 84.8 ns)
+   Pair (11,67):
+    Min: 70.4 ns (max: 111.8 ns, avg: 86.5 ns)
+   Pair (11,68):
+    Min: 70.8 ns (max: 101.9 ns, avg: 87.3 ns)
+   Pair (11,69):
+    Min: 70.8 ns (max: 107.1 ns, avg: 90.4 ns)
+   Pair (11,70):
+    Min: 71.3 ns (max: 105.3 ns, avg: 85.3 ns)
+   Pair (11,71):
+    Min: 71.3 ns (max: 106.9 ns, avg: 85.8 ns)
+   Pair (11,72):
+    Min: 67.0 ns (max: 110.3 ns, avg: 75.4 ns)
+   Pair (11,73):
+    Min: 66.8 ns (max: 112.9 ns, avg: 75.4 ns)
+   Pair (11,74):
+    Min: 65.6 ns (max: 100.5 ns, avg: 73.5 ns)
+   Pair (11,75):
+    Min: 65.6 ns (max: 101.7 ns, avg: 73.6 ns)
+   Pair (11,76):
+    Min: 66.9 ns (max: 112.6 ns, avg: 76.3 ns)
+   Pair (11,77):
+    Min: 67.1 ns (max: 113.5 ns, avg: 76.6 ns)
+   Pair (11,78):
+    Min: 66.9 ns (max: 112.5 ns, avg: 75.8 ns)
+   Pair (11,79):
+    Min: 67.2 ns (max: 112.2 ns, avg: 75.6 ns)
+   Pair (11,80):
+    Min: 66.9 ns (max: 119.9 ns, avg: 82.3 ns)
+   Pair (11,81):
+    Min: 67.0 ns (max: 121.7 ns, avg: 82.6 ns)
+   Pair (11,82):
+    Min: 67.6 ns (max: 115.5 ns, avg: 82.5 ns)
+   Pair (11,83):
+    Min: 67.1 ns (max: 116.1 ns, avg: 82.3 ns)
+   Pair (11,84):
+    Min: 66.9 ns (max: 124.9 ns, avg: 81.0 ns)
+   Pair (11,85):
+    Min: 66.9 ns (max: 120.9 ns, avg: 80.6 ns)
+   Pair (11,86):
+    Min: 66.6 ns (max: 124.9 ns, avg: 78.7 ns)
+   Pair (11,87):
+    Min: 66.6 ns (max: 125.0 ns, avg: 78.3 ns)
+   Pair (11,88):
+    Min: 68.1 ns (max: 128.7 ns, avg: 80.0 ns)
+   Pair (11,89):
+    Min: 68.0 ns (max: 128.4 ns, avg: 80.2 ns)
+   Pair (11,90):
+    Min: 68.9 ns (max: 124.3 ns, avg: 86.5 ns)
+   Pair (11,91):
+    Min: 68.9 ns (max: 125.9 ns, avg: 86.5 ns)
+   Pair (11,92):
+    Min: 66.1 ns (max: 120.3 ns, avg: 83.6 ns)
+   Pair (11,93):
+    Min: 65.9 ns (max: 122.2 ns, avg: 83.8 ns)
+   Pair (11,94):
+    Min: 68.6 ns (max: 119.2 ns, avg: 84.2 ns)
+   Pair (11,95):
+    Min: 68.1 ns (max: 118.8 ns, avg: 84.0 ns)
+   Pair (11,96):
+    Min: 166.4 ns (max: 199.4 ns, avg: 180.0 ns)
+   Pair (11,97):
+    Min: 166.2 ns (max: 199.4 ns, avg: 180.0 ns)
+   Pair (11,98):
+    Min: 165.8 ns (max: 200.5 ns, avg: 180.2 ns)
+   Pair (11,99):
+    Min: 165.8 ns (max: 199.2 ns, avg: 179.9 ns)
+   Pair (12, 0):
+    Min: 65.9 ns (max: 120.8 ns, avg: 88.4 ns)
+   Pair (12, 1):
+    Min: 65.9 ns (max: 109.1 ns, avg: 86.9 ns)
+   Pair (12, 2):
+    Min: 65.9 ns (max: 111.0 ns, avg: 86.8 ns)
+   Pair (12, 3):
+    Min: 65.8 ns (max: 109.3 ns, avg: 87.5 ns)
+   Pair (12, 4):
+    Min: 67.5 ns (max: 102.9 ns, avg: 84.9 ns)
+   Pair (12, 5):
+    Min: 67.7 ns (max: 102.7 ns, avg: 84.8 ns)
+   Pair (12, 6):
+    Min: 65.1 ns (max: 106.5 ns, avg: 84.4 ns)
+   Pair (12, 7):
+    Min: 65.1 ns (max: 134.8 ns, avg: 86.9 ns)
+   Pair (12, 8):
+    Min: 66.6 ns (max: 104.4 ns, avg: 83.4 ns)
+   Pair (12, 9):
+    Min: 66.9 ns (max: 104.0 ns, avg: 83.1 ns)
+   Pair (12,10):
+    Min: 67.3 ns (max: 101.6 ns, avg: 84.1 ns)
+   Pair (12,11):
+    Min: 67.1 ns (max: 104.3 ns, avg: 84.2 ns)
+   Pair (12,13):
+    Min: 27.9 ns (max: 29.3 ns, avg: 28.4 ns)
+   Pair (12,14):
+    Min: 66.9 ns (max: 123.5 ns, avg: 88.2 ns)
+   Pair (12,15):
+    Min: 66.7 ns (max: 120.9 ns, avg: 87.8 ns)
+   Pair (12,16):
+    Min: 64.0 ns (max: 120.2 ns, avg: 96.0 ns)
+   Pair (12,17):
+    Min: 64.1 ns (max: 122.2 ns, avg: 96.8 ns)
+   Pair (12,18):
+    Min: 64.8 ns (max: 123.4 ns, avg: 96.8 ns)
+   Pair (12,19):
+    Min: 65.1 ns (max: 127.9 ns, avg: 95.8 ns)
+   Pair (12,20):
+    Min: 66.2 ns (max: 118.1 ns, avg: 93.6 ns)
+   Pair (12,21):
+    Min: 66.0 ns (max: 119.1 ns, avg: 95.2 ns)
+   Pair (12,22):
+    Min: 66.1 ns (max: 119.2 ns, avg: 95.4 ns)
+   Pair (12,23):
+    Min: 66.4 ns (max: 116.8 ns, avg: 94.0 ns)
+   Pair (12,24):
+    Min: 63.0 ns (max: 136.6 ns, avg: 89.0 ns)
+   Pair (12,25):
+    Min: 62.8 ns (max: 117.7 ns, avg: 88.8 ns)
+   Pair (12,26):
+    Min: 62.1 ns (max: 119.3 ns, avg: 89.3 ns)
+   Pair (12,27):
+    Min: 62.3 ns (max: 118.9 ns, avg: 89.6 ns)
+   Pair (12,28):
+    Min: 63.9 ns (max: 120.2 ns, avg: 86.6 ns)
+   Pair (12,29):
+    Min: 64.1 ns (max: 116.6 ns, avg: 86.2 ns)
+   Pair (12,30):
+    Min: 64.4 ns (max: 121.9 ns, avg: 88.0 ns)
+   Pair (12,31):
+    Min: 63.6 ns (max: 114.9 ns, avg: 86.6 ns)
+   Pair (12,32):
+    Min: 63.5 ns (max: 114.0 ns, avg: 87.6 ns)
+   Pair (12,33):
+    Min: 64.0 ns (max: 114.0 ns, avg: 87.6 ns)
+   Pair (12,34):
+    Min: 63.4 ns (max: 115.5 ns, avg: 88.0 ns)
+   Pair (12,35):
+    Min: 63.6 ns (max: 117.0 ns, avg: 88.1 ns)
+   Pair (12,36):
+    Min: 72.3 ns (max: 118.6 ns, avg: 90.2 ns)
+   Pair (12,37):
+    Min: 72.7 ns (max: 118.7 ns, avg: 90.3 ns)
+   Pair (12,38):
+    Min: 71.8 ns (max: 152.2 ns, avg: 92.2 ns)
+   Pair (12,39):
+    Min: 71.8 ns (max: 116.9 ns, avg: 91.1 ns)
+   Pair (12,40):
+    Min: 71.1 ns (max: 134.8 ns, avg: 90.8 ns)
+   Pair (12,41):
+    Min: 71.4 ns (max: 114.1 ns, avg: 90.8 ns)
+   Pair (12,42):
+    Min: 64.6 ns (max: 145.3 ns, avg: 105.0 ns)
+   Pair (12,43):
+    Min: 63.6 ns (max: 144.4 ns, avg: 104.9 ns)
+   Pair (12,44):
+    Min: 62.0 ns (max: 141.1 ns, avg: 101.7 ns)
+   Pair (12,45):
+    Min: 61.9 ns (max: 140.5 ns, avg: 101.1 ns)
+   Pair (12,46):
+    Min: 62.6 ns (max: 141.0 ns, avg: 102.4 ns)
+   Pair (12,47):
+    Min: 62.7 ns (max: 141.8 ns, avg: 102.2 ns)
+   Pair (12,48):
+    Min: 74.7 ns (max: 122.3 ns, avg: 89.1 ns)
+   Pair (12,49):
+    Min: 74.5 ns (max: 99.3 ns, avg: 87.4 ns)
+   Pair (12,50):
+    Min: 74.6 ns (max: 98.7 ns, avg: 86.7 ns)
+   Pair (12,51):
+    Min: 74.0 ns (max: 102.9 ns, avg: 86.8 ns)
+   Pair (12,52):
+    Min: 74.6 ns (max: 93.4 ns, avg: 85.5 ns)
+   Pair (12,53):
+    Min: 74.4 ns (max: 93.4 ns, avg: 85.0 ns)
+   Pair (12,54):
+    Min: 73.7 ns (max: 97.9 ns, avg: 86.6 ns)
+   Pair (12,55):
+    Min: 73.3 ns (max: 97.8 ns, avg: 86.6 ns)
+   Pair (12,56):
+    Min: 73.3 ns (max: 95.2 ns, avg: 84.4 ns)
+   Pair (12,57):
+    Min: 73.9 ns (max: 118.5 ns, avg: 87.6 ns)
+   Pair (12,58):
+    Min: 73.8 ns (max: 98.6 ns, avg: 85.6 ns)
+   Pair (12,59):
+    Min: 73.6 ns (max: 95.8 ns, avg: 85.3 ns)
+   Pair (12,60):
+    Min: 73.6 ns (max: 103.2 ns, avg: 88.9 ns)
+   Pair (12,61):
+    Min: 73.3 ns (max: 104.0 ns, avg: 89.0 ns)
+   Pair (12,62):
+    Min: 73.1 ns (max: 103.6 ns, avg: 86.1 ns)
+   Pair (12,63):
+    Min: 72.4 ns (max: 116.7 ns, avg: 87.9 ns)
+   Pair (12,64):
+    Min: 73.1 ns (max: 99.6 ns, avg: 88.5 ns)
+   Pair (12,65):
+    Min: 73.4 ns (max: 103.4 ns, avg: 88.4 ns)
+   Pair (12,66):
+    Min: 73.7 ns (max: 99.6 ns, avg: 87.1 ns)
+   Pair (12,67):
+    Min: 73.9 ns (max: 116.9 ns, avg: 89.0 ns)
+   Pair (12,68):
+    Min: 72.7 ns (max: 108.7 ns, avg: 90.9 ns)
+   Pair (12,69):
+    Min: 73.2 ns (max: 101.8 ns, avg: 89.1 ns)
+   Pair (12,70):
+    Min: 72.9 ns (max: 98.8 ns, avg: 87.9 ns)
+   Pair (12,71):
+    Min: 72.7 ns (max: 101.3 ns, avg: 88.4 ns)
+   Pair (12,72):
+    Min: 66.2 ns (max: 110.7 ns, avg: 84.6 ns)
+   Pair (12,73):
+    Min: 66.1 ns (max: 110.9 ns, avg: 84.2 ns)
+   Pair (12,74):
+    Min: 66.2 ns (max: 104.9 ns, avg: 83.1 ns)
+   Pair (12,75):
+    Min: 66.1 ns (max: 105.5 ns, avg: 82.6 ns)
+   Pair (12,76):
+    Min: 67.7 ns (max: 126.6 ns, avg: 85.6 ns)
+   Pair (12,77):
+    Min: 67.8 ns (max: 114.4 ns, avg: 85.2 ns)
+   Pair (12,78):
+    Min: 67.4 ns (max: 112.2 ns, avg: 84.3 ns)
+   Pair (12,79):
+    Min: 67.5 ns (max: 111.7 ns, avg: 84.3 ns)
+   Pair (12,80):
+    Min: 68.3 ns (max: 120.3 ns, avg: 90.8 ns)
+   Pair (12,81):
+    Min: 68.2 ns (max: 121.5 ns, avg: 90.6 ns)
+   Pair (12,82):
+    Min: 67.4 ns (max: 116.3 ns, avg: 90.3 ns)
+   Pair (12,83):
+    Min: 66.5 ns (max: 115.8 ns, avg: 89.7 ns)
+   Pair (12,84):
+    Min: 66.2 ns (max: 120.9 ns, avg: 89.0 ns)
+   Pair (12,85):
+    Min: 66.3 ns (max: 122.9 ns, avg: 89.3 ns)
+   Pair (12,86):
+    Min: 66.8 ns (max: 123.2 ns, avg: 87.1 ns)
+   Pair (12,87):
+    Min: 66.7 ns (max: 119.4 ns, avg: 86.9 ns)
+   Pair (12,88):
+    Min: 69.0 ns (max: 566.7 ns, avg: 106.7 ns)
+   Pair (12,89):
+    Min: 68.6 ns (max: 125.2 ns, avg: 89.5 ns)
+   Pair (12,90):
+    Min: 68.0 ns (max: 125.5 ns, avg: 95.2 ns)
+   Pair (12,91):
+    Min: 68.0 ns (max: 127.1 ns, avg: 95.2 ns)
+   Pair (12,92):
+    Min: 67.0 ns (max: 126.1 ns, avg: 92.2 ns)
+   Pair (12,93):
+    Min: 66.4 ns (max: 124.5 ns, avg: 92.6 ns)
+   Pair (12,94):
+    Min: 69.5 ns (max: 117.7 ns, avg: 92.3 ns)
+   Pair (12,95):
+    Min: 69.6 ns (max: 119.4 ns, avg: 92.6 ns)
+   Pair (12,96):
+    Min: 166.1 ns (max: 198.7 ns, avg: 179.7 ns)
+   Pair (12,97):
+    Min: 165.7 ns (max: 198.6 ns, avg: 179.6 ns)
+   Pair (12,98):
+    Min: 165.5 ns (max: 197.4 ns, avg: 179.3 ns)
+   Pair (12,99):
+    Min: 165.7 ns (max: 197.7 ns, avg: 179.2 ns)
+   Pair (13, 0):
+    Min: 65.9 ns (max: 116.1 ns, avg: 86.9 ns)
+   Pair (13, 1):
+    Min: 66.0 ns (max: 121.6 ns, avg: 87.8 ns)
+   Pair (13, 2):
+    Min: 65.9 ns (max: 107.2 ns, avg: 86.8 ns)
+   Pair (13, 3):
+    Min: 65.7 ns (max: 106.4 ns, avg: 86.5 ns)
+   Pair (13, 4):
+    Min: 67.4 ns (max: 124.7 ns, avg: 86.0 ns)
+   Pair (13, 5):
+    Min: 67.6 ns (max: 102.4 ns, avg: 84.9 ns)
+   Pair (13, 6):
+    Min: 65.2 ns (max: 117.6 ns, avg: 85.9 ns)
+   Pair (13, 7):
+    Min: 65.4 ns (max: 106.0 ns, avg: 85.6 ns)
+   Pair (13, 8):
+    Min: 66.8 ns (max: 105.9 ns, avg: 83.1 ns)
+   Pair (13, 9):
+    Min: 66.7 ns (max: 104.7 ns, avg: 83.3 ns)
+   Pair (13,10):
+    Min: 67.2 ns (max: 103.1 ns, avg: 84.2 ns)
+   Pair (13,11):
+    Min: 67.7 ns (max: 102.9 ns, avg: 84.1 ns)
+   Pair (13,12):
+    Min: 27.9 ns (max: 28.8 ns, avg: 28.3 ns)
+   Pair (13,14):
+    Min: 67.0 ns (max: 120.2 ns, avg: 88.0 ns)
+   Pair (13,15):
+    Min: 66.7 ns (max: 120.2 ns, avg: 87.9 ns)
+   Pair (13,16):
+    Min: 63.8 ns (max: 121.2 ns, avg: 96.8 ns)
+   Pair (13,17):
+    Min: 64.0 ns (max: 143.8 ns, avg: 97.3 ns)
+   Pair (13,18):
+    Min: 64.6 ns (max: 122.2 ns, avg: 95.4 ns)
+   Pair (13,19):
+    Min: 65.0 ns (max: 123.2 ns, avg: 96.1 ns)
+   Pair (13,20):
+    Min: 65.6 ns (max: 118.4 ns, avg: 93.6 ns)
+   Pair (13,21):
+    Min: 65.9 ns (max: 119.1 ns, avg: 93.8 ns)
+   Pair (13,22):
+    Min: 66.6 ns (max: 117.3 ns, avg: 93.9 ns)
+   Pair (13,23):
+    Min: 66.1 ns (max: 120.3 ns, avg: 94.7 ns)
+   Pair (13,24):
+    Min: 62.9 ns (max: 125.3 ns, avg: 89.1 ns)
+   Pair (13,25):
+    Min: 63.0 ns (max: 116.4 ns, avg: 88.4 ns)
+   Pair (13,26):
+    Min: 62.3 ns (max: 139.0 ns, avg: 90.5 ns)
+   Pair (13,27):
+    Min: 62.5 ns (max: 119.0 ns, avg: 88.9 ns)
+   Pair (13,28):
+    Min: 63.8 ns (max: 115.0 ns, avg: 86.0 ns)
+   Pair (13,29):
+    Min: 64.0 ns (max: 120.7 ns, avg: 86.7 ns)
+   Pair (13,30):
+    Min: 63.7 ns (max: 131.4 ns, avg: 87.2 ns)
+   Pair (13,31):
+    Min: 64.1 ns (max: 116.7 ns, avg: 87.2 ns)
+   Pair (13,32):
+    Min: 63.7 ns (max: 114.5 ns, avg: 87.9 ns)
+   Pair (13,33):
+    Min: 63.3 ns (max: 123.8 ns, avg: 87.9 ns)
+   Pair (13,34):
+    Min: 63.2 ns (max: 117.0 ns, avg: 88.2 ns)
+   Pair (13,35):
+    Min: 63.8 ns (max: 117.3 ns, avg: 88.7 ns)
+   Pair (13,36):
+    Min: 72.7 ns (max: 120.2 ns, avg: 90.5 ns)
+   Pair (13,37):
+    Min: 72.6 ns (max: 118.9 ns, avg: 90.3 ns)
+   Pair (13,38):
+    Min: 71.8 ns (max: 118.4 ns, avg: 91.0 ns)
+   Pair (13,39):
+    Min: 72.0 ns (max: 120.0 ns, avg: 91.2 ns)
+   Pair (13,40):
+    Min: 71.3 ns (max: 114.9 ns, avg: 88.7 ns)
+   Pair (13,41):
+    Min: 71.2 ns (max: 116.6 ns, avg: 88.6 ns)
+   Pair (13,42):
+    Min: 63.8 ns (max: 144.7 ns, avg: 104.9 ns)
+   Pair (13,43):
+    Min: 63.4 ns (max: 145.5 ns, avg: 105.2 ns)
+   Pair (13,44):
+    Min: 62.3 ns (max: 140.1 ns, avg: 101.0 ns)
+   Pair (13,45):
+    Min: 62.0 ns (max: 139.1 ns, avg: 101.9 ns)
+   Pair (13,46):
+    Min: 62.6 ns (max: 140.9 ns, avg: 101.9 ns)
+   Pair (13,47):
+    Min: 63.0 ns (max: 141.8 ns, avg: 102.5 ns)
+   Pair (13,48):
+    Min: 74.8 ns (max: 200.5 ns, avg: 92.3 ns)
+   Pair (13,49):
+    Min: 74.7 ns (max: 98.5 ns, avg: 87.5 ns)
+   Pair (13,50):
+    Min: 74.5 ns (max: 94.9 ns, avg: 86.0 ns)
+   Pair (13,51):
+    Min: 74.0 ns (max: 98.6 ns, avg: 86.5 ns)
+   Pair (13,52):
+    Min: 74.6 ns (max: 93.0 ns, avg: 85.3 ns)
+   Pair (13,53):
+    Min: 74.5 ns (max: 92.9 ns, avg: 84.9 ns)
+   Pair (13,54):
+    Min: 73.6 ns (max: 99.1 ns, avg: 86.9 ns)
+   Pair (13,55):
+    Min: 73.6 ns (max: 106.5 ns, avg: 87.4 ns)
+   Pair (13,56):
+    Min: 73.9 ns (max: 95.4 ns, avg: 84.1 ns)
+   Pair (13,57):
+    Min: 74.1 ns (max: 96.4 ns, avg: 84.5 ns)
+   Pair (13,58):
+    Min: 73.6 ns (max: 95.5 ns, avg: 85.6 ns)
+   Pair (13,59):
+    Min: 73.8 ns (max: 95.5 ns, avg: 85.3 ns)
+   Pair (13,60):
+    Min: 72.6 ns (max: 106.0 ns, avg: 88.4 ns)
+   Pair (13,61):
+    Min: 73.3 ns (max: 105.8 ns, avg: 89.2 ns)
+   Pair (13,62):
+    Min: 73.6 ns (max: 100.6 ns, avg: 85.6 ns)
+   Pair (13,63):
+    Min: 73.1 ns (max: 99.0 ns, avg: 85.3 ns)
+   Pair (13,64):
+    Min: 73.2 ns (max: 102.4 ns, avg: 88.4 ns)
+   Pair (13,65):
+    Min: 73.3 ns (max: 102.8 ns, avg: 88.9 ns)
+   Pair (13,66):
+    Min: 73.9 ns (max: 116.2 ns, avg: 89.8 ns)
+   Pair (13,67):
+    Min: 73.6 ns (max: 102.1 ns, avg: 87.6 ns)
+   Pair (13,68):
+    Min: 72.7 ns (max: 103.6 ns, avg: 89.0 ns)
+   Pair (13,69):
+    Min: 72.2 ns (max: 106.2 ns, avg: 89.9 ns)
+   Pair (13,70):
+    Min: 72.8 ns (max: 122.2 ns, avg: 91.8 ns)
+   Pair (13,71):
+    Min: 72.6 ns (max: 104.0 ns, avg: 88.3 ns)
+   Pair (13,72):
+    Min: 66.1 ns (max: 113.0 ns, avg: 84.1 ns)
+   Pair (13,73):
+    Min: 65.9 ns (max: 112.5 ns, avg: 84.3 ns)
+   Pair (13,74):
+    Min: 66.1 ns (max: 106.4 ns, avg: 82.6 ns)
+   Pair (13,75):
+    Min: 65.9 ns (max: 105.9 ns, avg: 82.7 ns)
+   Pair (13,76):
+    Min: 67.4 ns (max: 115.5 ns, avg: 84.8 ns)
+   Pair (13,77):
+    Min: 67.5 ns (max: 115.2 ns, avg: 84.8 ns)
+   Pair (13,78):
+    Min: 67.7 ns (max: 110.5 ns, avg: 83.7 ns)
+   Pair (13,79):
+    Min: 67.7 ns (max: 111.2 ns, avg: 83.7 ns)
+   Pair (13,80):
+    Min: 68.2 ns (max: 120.9 ns, avg: 90.7 ns)
+   Pair (13,81):
+    Min: 68.3 ns (max: 120.7 ns, avg: 90.8 ns)
+   Pair (13,82):
+    Min: 67.0 ns (max: 114.7 ns, avg: 89.7 ns)
+   Pair (13,83):
+    Min: 66.6 ns (max: 117.2 ns, avg: 90.1 ns)
+   Pair (13,84):
+    Min: 66.3 ns (max: 122.7 ns, avg: 89.4 ns)
+   Pair (13,85):
+    Min: 66.1 ns (max: 121.4 ns, avg: 89.2 ns)
+   Pair (13,86):
+    Min: 66.6 ns (max: 123.7 ns, avg: 87.1 ns)
+   Pair (13,87):
+    Min: 66.8 ns (max: 123.7 ns, avg: 87.0 ns)
+   Pair (13,88):
+    Min: 68.6 ns (max: 126.7 ns, avg: 88.9 ns)
+   Pair (13,89):
+    Min: 69.0 ns (max: 127.8 ns, avg: 88.9 ns)
+   Pair (13,90):
+    Min: 68.4 ns (max: 127.5 ns, avg: 95.5 ns)
+   Pair (13,91):
+    Min: 67.9 ns (max: 128.4 ns, avg: 95.2 ns)
+   Pair (13,92):
+    Min: 66.4 ns (max: 127.8 ns, avg: 92.7 ns)
+   Pair (13,93):
+    Min: 66.3 ns (max: 121.6 ns, avg: 91.8 ns)
+   Pair (13,94):
+    Min: 69.5 ns (max: 118.4 ns, avg: 92.6 ns)
+   Pair (13,95):
+    Min: 69.3 ns (max: 119.7 ns, avg: 92.8 ns)
+   Pair (13,96):
+    Min: 165.8 ns (max: 198.7 ns, avg: 179.8 ns)
+   Pair (13,97):
+    Min: 165.7 ns (max: 198.6 ns, avg: 179.8 ns)
+   Pair (13,98):
+    Min: 165.8 ns (max: 198.1 ns, avg: 179.2 ns)
+   Pair (13,99):
+    Min: 165.9 ns (max: 197.9 ns, avg: 179.3 ns)
+   Pair (14, 0):
+    Min: 66.1 ns (max: 118.3 ns, avg: 87.9 ns)
+   Pair (14, 1):
+    Min: 66.3 ns (max: 117.4 ns, avg: 88.0 ns)
+   Pair (14, 2):
+    Min: 66.4 ns (max: 120.7 ns, avg: 89.7 ns)
+   Pair (14, 3):
+    Min: 66.5 ns (max: 115.8 ns, avg: 88.9 ns)
+   Pair (14, 4):
+    Min: 68.2 ns (max: 120.5 ns, avg: 88.9 ns)
+   Pair (14, 5):
+    Min: 68.1 ns (max: 117.1 ns, avg: 88.3 ns)
+   Pair (14, 6):
+    Min: 66.6 ns (max: 119.0 ns, avg: 87.2 ns)
+   Pair (14, 7):
+    Min: 66.6 ns (max: 117.3 ns, avg: 87.0 ns)
+   Pair (14, 8):
+    Min: 67.6 ns (max: 115.5 ns, avg: 85.9 ns)
+   Pair (14, 9):
+    Min: 67.2 ns (max: 119.0 ns, avg: 85.7 ns)
+   Pair (14,10):
+    Min: 67.8 ns (max: 116.7 ns, avg: 87.9 ns)
+   Pair (14,11):
+    Min: 67.9 ns (max: 116.5 ns, avg: 87.4 ns)
+   Pair (14,12):
+    Min: 67.1 ns (max: 119.6 ns, avg: 86.4 ns)
+   Pair (14,13):
+    Min: 66.7 ns (max: 120.7 ns, avg: 86.7 ns)
+   Pair (14,15):
+    Min: 28.1 ns (max: 29.9 ns, avg: 28.4 ns)
+   Pair (14,16):
+    Min: 64.7 ns (max: 121.6 ns, avg: 97.8 ns)
+   Pair (14,17):
+    Min: 64.7 ns (max: 121.6 ns, avg: 97.9 ns)
+   Pair (14,18):
+    Min: 65.3 ns (max: 120.4 ns, avg: 98.2 ns)
+   Pair (14,19):
+    Min: 65.1 ns (max: 542.4 ns, avg: 112.2 ns)
+   Pair (14,20):
+    Min: 66.5 ns (max: 118.9 ns, avg: 96.8 ns)
+   Pair (14,21):
+    Min: 66.6 ns (max: 120.7 ns, avg: 97.0 ns)
+   Pair (14,22):
+    Min: 67.1 ns (max: 119.5 ns, avg: 97.5 ns)
+   Pair (14,23):
+    Min: 67.4 ns (max: 119.5 ns, avg: 97.6 ns)
+   Pair (14,24):
+    Min: 62.2 ns (max: 125.1 ns, avg: 89.7 ns)
+   Pair (14,25):
+    Min: 61.8 ns (max: 133.3 ns, avg: 89.9 ns)
+   Pair (14,26):
+    Min: 62.7 ns (max: 129.6 ns, avg: 91.6 ns)
+   Pair (14,27):
+    Min: 62.4 ns (max: 127.8 ns, avg: 91.3 ns)
+   Pair (14,28):
+    Min: 64.5 ns (max: 121.8 ns, avg: 88.2 ns)
+   Pair (14,29):
+    Min: 64.1 ns (max: 120.9 ns, avg: 88.2 ns)
+   Pair (14,30):
+    Min: 65.0 ns (max: 118.9 ns, avg: 88.3 ns)
+   Pair (14,31):
+    Min: 65.1 ns (max: 121.5 ns, avg: 88.9 ns)
+   Pair (14,32):
+    Min: 62.7 ns (max: 132.0 ns, avg: 92.0 ns)
+   Pair (14,33):
+    Min: 63.2 ns (max: 130.7 ns, avg: 94.0 ns)
+   Pair (14,34):
+    Min: 64.3 ns (max: 121.4 ns, avg: 90.9 ns)
+   Pair (14,35):
+    Min: 64.6 ns (max: 124.3 ns, avg: 90.7 ns)
+   Pair (14,36):
+    Min: 72.3 ns (max: 130.4 ns, avg: 94.3 ns)
+   Pair (14,37):
+    Min: 72.2 ns (max: 133.0 ns, avg: 93.7 ns)
+   Pair (14,38):
+    Min: 71.7 ns (max: 128.5 ns, avg: 94.1 ns)
+   Pair (14,39):
+    Min: 71.4 ns (max: 128.5 ns, avg: 94.1 ns)
+   Pair (14,40):
+    Min: 70.8 ns (max: 132.8 ns, avg: 91.6 ns)
+   Pair (14,41):
+    Min: 70.8 ns (max: 125.1 ns, avg: 91.5 ns)
+   Pair (14,42):
+    Min: 63.3 ns (max: 144.2 ns, avg: 107.0 ns)
+   Pair (14,43):
+    Min: 63.0 ns (max: 144.5 ns, avg: 106.7 ns)
+   Pair (14,44):
+    Min: 62.8 ns (max: 139.9 ns, avg: 104.5 ns)
+   Pair (14,45):
+    Min: 62.7 ns (max: 140.5 ns, avg: 105.1 ns)
+   Pair (14,46):
+    Min: 64.6 ns (max: 139.7 ns, avg: 104.8 ns)
+   Pair (14,47):
+    Min: 64.7 ns (max: 140.0 ns, avg: 105.0 ns)
+   Pair (14,48):
+    Min: 70.5 ns (max: 102.6 ns, avg: 87.0 ns)
+   Pair (14,49):
+    Min: 70.7 ns (max: 101.0 ns, avg: 86.5 ns)
+   Pair (14,50):
+    Min: 72.1 ns (max: 99.6 ns, avg: 86.9 ns)
+   Pair (14,51):
+    Min: 72.5 ns (max: 101.9 ns, avg: 86.4 ns)
+   Pair (14,52):
+    Min: 72.9 ns (max: 98.0 ns, avg: 86.3 ns)
+   Pair (14,53):
+    Min: 72.6 ns (max: 100.5 ns, avg: 86.0 ns)
+   Pair (14,54):
+    Min: 69.5 ns (max: 102.6 ns, avg: 84.8 ns)
+   Pair (14,55):
+    Min: 69.7 ns (max: 102.7 ns, avg: 85.3 ns)
+   Pair (14,56):
+    Min: 69.8 ns (max: 101.5 ns, avg: 82.7 ns)
+   Pair (14,57):
+    Min: 69.6 ns (max: 102.3 ns, avg: 82.4 ns)
+   Pair (14,58):
+    Min: 72.7 ns (max: 99.0 ns, avg: 85.0 ns)
+   Pair (14,59):
+    Min: 72.3 ns (max: 98.6 ns, avg: 85.0 ns)
+   Pair (14,60):
+    Min: 69.9 ns (max: 103.4 ns, avg: 86.6 ns)
+   Pair (14,61):
+    Min: 69.9 ns (max: 100.7 ns, avg: 87.1 ns)
+   Pair (14,62):
+    Min: 70.1 ns (max: 108.4 ns, avg: 87.8 ns)
+   Pair (14,63):
+    Min: 69.7 ns (max: 102.6 ns, avg: 85.9 ns)
+   Pair (14,64):
+    Min: 68.6 ns (max: 100.5 ns, avg: 86.9 ns)
+   Pair (14,65):
+    Min: 69.0 ns (max: 100.7 ns, avg: 87.1 ns)
+   Pair (14,66):
+    Min: 70.0 ns (max: 100.1 ns, avg: 86.4 ns)
+   Pair (14,67):
+    Min: 70.1 ns (max: 100.9 ns, avg: 86.7 ns)
+   Pair (14,68):
+    Min: 70.6 ns (max: 104.4 ns, avg: 88.5 ns)
+   Pair (14,69):
+    Min: 70.5 ns (max: 105.8 ns, avg: 88.6 ns)
+   Pair (14,70):
+    Min: 71.3 ns (max: 100.1 ns, avg: 88.1 ns)
+   Pair (14,71):
+    Min: 71.3 ns (max: 100.5 ns, avg: 87.8 ns)
+   Pair (14,72):
+    Min: 66.0 ns (max: 114.5 ns, avg: 85.6 ns)
+   Pair (14,73):
+    Min: 66.4 ns (max: 114.7 ns, avg: 86.1 ns)
+   Pair (14,74):
+    Min: 66.0 ns (max: 109.1 ns, avg: 84.1 ns)
+   Pair (14,75):
+    Min: 66.0 ns (max: 109.1 ns, avg: 83.6 ns)
+   Pair (14,76):
+    Min: 67.2 ns (max: 118.7 ns, avg: 86.8 ns)
+   Pair (14,77):
+    Min: 67.2 ns (max: 118.9 ns, avg: 87.3 ns)
+   Pair (14,78):
+    Min: 66.7 ns (max: 117.1 ns, avg: 86.1 ns)
+   Pair (14,79):
+    Min: 67.4 ns (max: 118.3 ns, avg: 86.1 ns)
+   Pair (14,80):
+    Min: 69.2 ns (max: 121.3 ns, avg: 92.9 ns)
+   Pair (14,81):
+    Min: 69.2 ns (max: 120.9 ns, avg: 92.9 ns)
+   Pair (14,82):
+    Min: 66.7 ns (max: 116.8 ns, avg: 92.5 ns)
+   Pair (14,83):
+    Min: 66.3 ns (max: 117.3 ns, avg: 92.1 ns)
+   Pair (14,84):
+    Min: 66.6 ns (max: 122.7 ns, avg: 91.3 ns)
+   Pair (14,85):
+    Min: 66.3 ns (max: 123.9 ns, avg: 91.3 ns)
+   Pair (14,86):
+    Min: 67.0 ns (max: 125.0 ns, avg: 89.1 ns)
+   Pair (14,87):
+    Min: 67.0 ns (max: 124.9 ns, avg: 89.3 ns)
+   Pair (14,88):
+    Min: 68.4 ns (max: 128.9 ns, avg: 90.8 ns)
+   Pair (14,89):
+    Min: 68.1 ns (max: 126.5 ns, avg: 90.7 ns)
+   Pair (14,90):
+    Min: 68.8 ns (max: 127.1 ns, avg: 97.2 ns)
+   Pair (14,91):
+    Min: 68.5 ns (max: 126.0 ns, avg: 96.9 ns)
+   Pair (14,92):
+    Min: 66.4 ns (max: 124.2 ns, avg: 94.2 ns)
+   Pair (14,93):
+    Min: 66.8 ns (max: 119.8 ns, avg: 93.5 ns)
+   Pair (14,94):
+    Min: 68.7 ns (max: 119.2 ns, avg: 93.7 ns)
+   Pair (14,95):
+    Min: 67.8 ns (max: 117.7 ns, avg: 93.5 ns)
+   Pair (14,96):
+    Min: 165.9 ns (max: 198.7 ns, avg: 179.9 ns)
+   Pair (14,97):
+    Min: 166.0 ns (max: 198.8 ns, avg: 179.9 ns)
+   Pair (14,98):
+    Min: 165.4 ns (max: 198.7 ns, avg: 178.9 ns)
+   Pair (14,99):
+    Min: 165.3 ns (max: 198.5 ns, avg: 179.1 ns)
+   Pair (15, 0):
+    Min: 66.1 ns (max: 127.9 ns, avg: 88.5 ns)
+   Pair (15, 1):
+    Min: 66.1 ns (max: 117.3 ns, avg: 88.1 ns)
+   Pair (15, 2):
+    Min: 66.3 ns (max: 128.9 ns, avg: 89.6 ns)
+   Pair (15, 3):
+    Min: 66.4 ns (max: 116.4 ns, avg: 88.6 ns)
+   Pair (15, 4):
+    Min: 67.9 ns (max: 117.1 ns, avg: 88.5 ns)
+   Pair (15, 5):
+    Min: 68.3 ns (max: 117.4 ns, avg: 88.0 ns)
+   Pair (15, 6):
+    Min: 67.0 ns (max: 116.5 ns, avg: 87.5 ns)
+   Pair (15, 7):
+    Min: 66.4 ns (max: 127.6 ns, avg: 87.3 ns)
+   Pair (15, 8):
+    Min: 67.3 ns (max: 115.5 ns, avg: 85.5 ns)
+   Pair (15, 9):
+    Min: 67.4 ns (max: 115.5 ns, avg: 86.3 ns)
+   Pair (15,10):
+    Min: 67.7 ns (max: 116.5 ns, avg: 87.3 ns)
+   Pair (15,11):
+    Min: 67.8 ns (max: 116.5 ns, avg: 87.5 ns)
+   Pair (15,12):
+    Min: 67.0 ns (max: 120.5 ns, avg: 86.9 ns)
+   Pair (15,13):
+    Min: 66.6 ns (max: 118.6 ns, avg: 86.2 ns)
+   Pair (15,14):
+    Min: 28.0 ns (max: 29.9 ns, avg: 28.2 ns)
+   Pair (15,16):
+    Min: 64.8 ns (max: 120.8 ns, avg: 97.3 ns)
+   Pair (15,17):
+    Min: 64.4 ns (max: 119.8 ns, avg: 97.2 ns)
+   Pair (15,18):
+    Min: 65.2 ns (max: 117.2 ns, avg: 97.5 ns)
+   Pair (15,19):
+    Min: 65.1 ns (max: 121.9 ns, avg: 98.2 ns)
+   Pair (15,20):
+    Min: 66.4 ns (max: 121.0 ns, avg: 97.1 ns)
+   Pair (15,21):
+    Min: 66.9 ns (max: 119.8 ns, avg: 97.1 ns)
+   Pair (15,22):
+    Min: 67.8 ns (max: 119.8 ns, avg: 98.3 ns)
+   Pair (15,23):
+    Min: 67.3 ns (max: 118.9 ns, avg: 98.4 ns)
+   Pair (15,24):
+    Min: 62.0 ns (max: 125.8 ns, avg: 89.7 ns)
+   Pair (15,25):
+    Min: 62.3 ns (max: 124.3 ns, avg: 90.1 ns)
+   Pair (15,26):
+    Min: 63.2 ns (max: 128.7 ns, avg: 90.9 ns)
+   Pair (15,27):
+    Min: 62.8 ns (max: 126.9 ns, avg: 90.9 ns)
+   Pair (15,28):
+    Min: 64.8 ns (max: 121.5 ns, avg: 89.2 ns)
+   Pair (15,29):
+    Min: 64.4 ns (max: 122.0 ns, avg: 88.6 ns)
+   Pair (15,30):
+    Min: 65.7 ns (max: 124.0 ns, avg: 88.9 ns)
+   Pair (15,31):
+    Min: 65.4 ns (max: 119.3 ns, avg: 88.8 ns)
+   Pair (15,32):
+    Min: 62.9 ns (max: 124.8 ns, avg: 90.2 ns)
+   Pair (15,33):
+    Min: 63.6 ns (max: 126.5 ns, avg: 90.3 ns)
+   Pair (15,34):
+    Min: 64.6 ns (max: 122.7 ns, avg: 90.8 ns)
+   Pair (15,35):
+    Min: 64.6 ns (max: 128.8 ns, avg: 90.9 ns)
+   Pair (15,36):
+    Min: 72.3 ns (max: 127.2 ns, avg: 93.3 ns)
+   Pair (15,37):
+    Min: 72.3 ns (max: 127.9 ns, avg: 93.6 ns)
+   Pair (15,38):
+    Min: 71.5 ns (max: 128.4 ns, avg: 94.8 ns)
+   Pair (15,39):
+    Min: 71.4 ns (max: 136.4 ns, avg: 94.5 ns)
+   Pair (15,40):
+    Min: 70.8 ns (max: 126.2 ns, avg: 92.0 ns)
+   Pair (15,41):
+    Min: 70.8 ns (max: 125.5 ns, avg: 91.6 ns)
+   Pair (15,42):
+    Min: 63.1 ns (max: 144.3 ns, avg: 107.9 ns)
+   Pair (15,43):
+    Min: 63.6 ns (max: 143.2 ns, avg: 107.1 ns)
+   Pair (15,44):
+    Min: 63.2 ns (max: 140.2 ns, avg: 104.4 ns)
+   Pair (15,45):
+    Min: 63.1 ns (max: 140.6 ns, avg: 104.7 ns)
+   Pair (15,46):
+    Min: 65.0 ns (max: 141.2 ns, avg: 104.9 ns)
+   Pair (15,47):
+    Min: 65.2 ns (max: 140.5 ns, avg: 105.6 ns)
+   Pair (15,48):
+    Min: 70.5 ns (max: 103.2 ns, avg: 86.5 ns)
+   Pair (15,49):
+    Min: 70.8 ns (max: 103.7 ns, avg: 86.9 ns)
+   Pair (15,50):
+    Min: 72.3 ns (max: 100.3 ns, avg: 86.9 ns)
+   Pair (15,51):
+    Min: 72.2 ns (max: 131.2 ns, avg: 89.4 ns)
+   Pair (15,52):
+    Min: 72.6 ns (max: 97.9 ns, avg: 85.5 ns)
+   Pair (15,53):
+    Min: 72.5 ns (max: 99.2 ns, avg: 85.6 ns)
+   Pair (15,54):
+    Min: 70.0 ns (max: 101.2 ns, avg: 85.3 ns)
+   Pair (15,55):
+    Min: 69.3 ns (max: 100.9 ns, avg: 84.9 ns)
+   Pair (15,56):
+    Min: 69.6 ns (max: 101.0 ns, avg: 82.5 ns)
+   Pair (15,57):
+    Min: 69.7 ns (max: 100.0 ns, avg: 82.8 ns)
+   Pair (15,58):
+    Min: 72.4 ns (max: 96.4 ns, avg: 84.5 ns)
+   Pair (15,59):
+    Min: 72.6 ns (max: 98.9 ns, avg: 85.4 ns)
+   Pair (15,60):
+    Min: 69.6 ns (max: 101.7 ns, avg: 86.6 ns)
+   Pair (15,61):
+    Min: 69.9 ns (max: 104.6 ns, avg: 86.8 ns)
+   Pair (15,62):
+    Min: 70.0 ns (max: 102.7 ns, avg: 86.1 ns)
+   Pair (15,63):
+    Min: 69.6 ns (max: 103.7 ns, avg: 86.6 ns)
+   Pair (15,64):
+    Min: 68.7 ns (max: 100.4 ns, avg: 87.1 ns)
+   Pair (15,65):
+    Min: 68.7 ns (max: 101.8 ns, avg: 86.9 ns)
+   Pair (15,66):
+    Min: 69.7 ns (max: 101.3 ns, avg: 86.3 ns)
+   Pair (15,67):
+    Min: 69.7 ns (max: 100.9 ns, avg: 86.4 ns)
+   Pair (15,68):
+    Min: 70.3 ns (max: 101.8 ns, avg: 88.2 ns)
+   Pair (15,69):
+    Min: 70.5 ns (max: 101.9 ns, avg: 88.3 ns)
+   Pair (15,70):
+    Min: 71.4 ns (max: 104.9 ns, avg: 88.5 ns)
+   Pair (15,71):
+    Min: 71.3 ns (max: 106.4 ns, avg: 88.4 ns)
+   Pair (15,72):
+    Min: 66.1 ns (max: 115.3 ns, avg: 85.6 ns)
+   Pair (15,73):
+    Min: 66.1 ns (max: 114.3 ns, avg: 85.7 ns)
+   Pair (15,74):
+    Min: 66.0 ns (max: 109.1 ns, avg: 83.6 ns)
+   Pair (15,75):
+    Min: 65.9 ns (max: 109.1 ns, avg: 83.7 ns)
+   Pair (15,76):
+    Min: 67.0 ns (max: 118.7 ns, avg: 87.1 ns)
+   Pair (15,77):
+    Min: 66.6 ns (max: 117.7 ns, avg: 87.4 ns)
+   Pair (15,78):
+    Min: 66.9 ns (max: 117.0 ns, avg: 85.8 ns)
+   Pair (15,79):
+    Min: 67.4 ns (max: 117.9 ns, avg: 86.0 ns)
+   Pair (15,80):
+    Min: 69.2 ns (max: 119.6 ns, avg: 92.7 ns)
+   Pair (15,81):
+    Min: 68.7 ns (max: 120.0 ns, avg: 92.8 ns)
+   Pair (15,82):
+    Min: 66.5 ns (max: 117.6 ns, avg: 91.9 ns)
+   Pair (15,83):
+    Min: 66.5 ns (max: 119.2 ns, avg: 91.9 ns)
+   Pair (15,84):
+    Min: 66.6 ns (max: 123.4 ns, avg: 91.2 ns)
+   Pair (15,85):
+    Min: 66.0 ns (max: 123.6 ns, avg: 91.2 ns)
+   Pair (15,86):
+    Min: 66.7 ns (max: 124.3 ns, avg: 88.8 ns)
+   Pair (15,87):
+    Min: 66.8 ns (max: 126.5 ns, avg: 89.0 ns)
+   Pair (15,88):
+    Min: 68.2 ns (max: 129.2 ns, avg: 90.7 ns)
+   Pair (15,89):
+    Min: 68.0 ns (max: 129.1 ns, avg: 90.7 ns)
+   Pair (15,90):
+    Min: 68.9 ns (max: 124.8 ns, avg: 96.3 ns)
+   Pair (15,91):
+    Min: 68.7 ns (max: 126.5 ns, avg: 97.0 ns)
+   Pair (15,92):
+    Min: 66.2 ns (max: 124.8 ns, avg: 94.3 ns)
+   Pair (15,93):
+    Min: 66.1 ns (max: 123.5 ns, avg: 93.9 ns)
+   Pair (15,94):
+    Min: 68.0 ns (max: 118.4 ns, avg: 94.0 ns)
+   Pair (15,95):
+    Min: 67.7 ns (max: 117.5 ns, avg: 93.7 ns)
+   Pair (15,96):
+    Min: 166.1 ns (max: 198.7 ns, avg: 179.7 ns)
+   Pair (15,97):
+    Min: 166.2 ns (max: 198.4 ns, avg: 179.7 ns)
+   Pair (15,98):
+    Min: 164.9 ns (max: 197.6 ns, avg: 179.0 ns)
+   Pair (15,99):
+    Min: 165.1 ns (max: 197.7 ns, avg: 178.7 ns)
+   Pair (16, 0):
+    Min: 63.6 ns (max: 116.1 ns, avg: 88.0 ns)
+   Pair (16, 1):
+    Min: 63.8 ns (max: 109.6 ns, avg: 87.7 ns)
+   Pair (16, 2):
+    Min: 63.8 ns (max: 109.1 ns, avg: 91.0 ns)
+   Pair (16, 3):
+    Min: 63.8 ns (max: 113.3 ns, avg: 91.3 ns)
+   Pair (16, 4):
+    Min: 65.4 ns (max: 107.0 ns, avg: 86.8 ns)
+   Pair (16, 5):
+    Min: 65.4 ns (max: 106.9 ns, avg: 87.1 ns)
+   Pair (16, 6):
+    Min: 63.4 ns (max: 106.2 ns, avg: 87.1 ns)
+   Pair (16, 7):
+    Min: 63.3 ns (max: 110.5 ns, avg: 88.0 ns)
+   Pair (16, 8):
+    Min: 64.9 ns (max: 109.7 ns, avg: 84.8 ns)
+   Pair (16, 9):
+    Min: 65.2 ns (max: 109.1 ns, avg: 85.2 ns)
+   Pair (16,10):
+    Min: 65.0 ns (max: 104.1 ns, avg: 86.4 ns)
+   Pair (16,11):
+    Min: 64.8 ns (max: 114.5 ns, avg: 86.8 ns)
+   Pair (16,12):
+    Min: 63.8 ns (max: 129.3 ns, avg: 97.8 ns)
+   Pair (16,13):
+    Min: 64.1 ns (max: 129.0 ns, avg: 97.8 ns)
+   Pair (16,14):
+    Min: 64.6 ns (max: 128.4 ns, avg: 97.4 ns)
+   Pair (16,15):
+    Min: 64.4 ns (max: 127.5 ns, avg: 97.8 ns)
+   Pair (16,17):
+    Min: 28.2 ns (max: 29.9 ns, avg: 28.4 ns)
+   Pair (16,18):
+    Min: 62.3 ns (max: 122.6 ns, avg: 90.0 ns)
+   Pair (16,19):
+    Min: 62.5 ns (max: 121.4 ns, avg: 90.6 ns)
+   Pair (16,20):
+    Min: 64.0 ns (max: 119.0 ns, avg: 87.8 ns)
+   Pair (16,21):
+    Min: 64.0 ns (max: 118.2 ns, avg: 87.1 ns)
+   Pair (16,22):
+    Min: 64.0 ns (max: 119.7 ns, avg: 88.9 ns)
+   Pair (16,23):
+    Min: 63.9 ns (max: 119.7 ns, avg: 89.7 ns)
+   Pair (16,24):
+    Min: 59.8 ns (max: 113.6 ns, avg: 88.9 ns)
+   Pair (16,25):
+    Min: 59.6 ns (max: 111.0 ns, avg: 89.1 ns)
+   Pair (16,26):
+    Min: 60.2 ns (max: 114.8 ns, avg: 90.7 ns)
+   Pair (16,27):
+    Min: 60.5 ns (max: 115.4 ns, avg: 90.7 ns)
+   Pair (16,28):
+    Min: 61.8 ns (max: 117.6 ns, avg: 86.9 ns)
+   Pair (16,29):
+    Min: 61.9 ns (max: 115.8 ns, avg: 87.0 ns)
+   Pair (16,30):
+    Min: 62.1 ns (max: 110.4 ns, avg: 87.0 ns)
+   Pair (16,31):
+    Min: 61.8 ns (max: 109.8 ns, avg: 87.5 ns)
+   Pair (16,32):
+    Min: 60.9 ns (max: 115.5 ns, avg: 88.2 ns)
+   Pair (16,33):
+    Min: 61.1 ns (max: 115.5 ns, avg: 88.9 ns)
+   Pair (16,34):
+    Min: 61.8 ns (max: 117.6 ns, avg: 89.0 ns)
+   Pair (16,35):
+    Min: 61.6 ns (max: 112.8 ns, avg: 89.4 ns)
+   Pair (16,36):
+    Min: 76.1 ns (max: 120.2 ns, avg: 92.4 ns)
+   Pair (16,37):
+    Min: 75.9 ns (max: 127.4 ns, avg: 92.7 ns)
+   Pair (16,38):
+    Min: 75.4 ns (max: 114.1 ns, avg: 94.1 ns)
+   Pair (16,39):
+    Min: 75.7 ns (max: 128.0 ns, avg: 94.8 ns)
+   Pair (16,40):
+    Min: 73.7 ns (max: 121.4 ns, avg: 90.4 ns)
+   Pair (16,41):
+    Min: 73.6 ns (max: 116.5 ns, avg: 89.8 ns)
+   Pair (16,42):
+    Min: 61.2 ns (max: 147.2 ns, avg: 105.1 ns)
+   Pair (16,43):
+    Min: 60.9 ns (max: 147.4 ns, avg: 104.9 ns)
+   Pair (16,44):
+    Min: 60.7 ns (max: 142.0 ns, avg: 102.8 ns)
+   Pair (16,45):
+    Min: 61.0 ns (max: 143.3 ns, avg: 102.8 ns)
+   Pair (16,46):
+    Min: 61.1 ns (max: 142.7 ns, avg: 103.8 ns)
+   Pair (16,47):
+    Min: 61.4 ns (max: 142.8 ns, avg: 104.1 ns)
+   Pair (16,48):
+    Min: 71.7 ns (max: 99.5 ns, avg: 87.7 ns)
+   Pair (16,49):
+    Min: 72.1 ns (max: 100.6 ns, avg: 88.0 ns)
+   Pair (16,50):
+    Min: 73.2 ns (max: 99.9 ns, avg: 86.3 ns)
+   Pair (16,51):
+    Min: 73.3 ns (max: 100.6 ns, avg: 86.3 ns)
+   Pair (16,52):
+    Min: 73.4 ns (max: 98.4 ns, avg: 85.5 ns)
+   Pair (16,53):
+    Min: 73.3 ns (max: 99.1 ns, avg: 85.2 ns)
+   Pair (16,54):
+    Min: 71.5 ns (max: 98.9 ns, avg: 86.9 ns)
+   Pair (16,55):
+    Min: 70.7 ns (max: 98.1 ns, avg: 87.2 ns)
+   Pair (16,56):
+    Min: 71.3 ns (max: 96.8 ns, avg: 84.5 ns)
+   Pair (16,57):
+    Min: 71.8 ns (max: 95.4 ns, avg: 84.3 ns)
+   Pair (16,58):
+    Min: 73.0 ns (max: 102.8 ns, avg: 85.2 ns)
+   Pair (16,59):
+    Min: 73.3 ns (max: 97.2 ns, avg: 84.6 ns)
+   Pair (16,60):
+    Min: 71.6 ns (max: 112.4 ns, avg: 91.6 ns)
+   Pair (16,61):
+    Min: 71.3 ns (max: 112.7 ns, avg: 91.4 ns)
+   Pair (16,62):
+    Min: 71.6 ns (max: 113.7 ns, avg: 90.7 ns)
+   Pair (16,63):
+    Min: 71.3 ns (max: 111.0 ns, avg: 89.0 ns)
+   Pair (16,64):
+    Min: 70.8 ns (max: 104.3 ns, avg: 87.7 ns)
+   Pair (16,65):
+    Min: 70.9 ns (max: 106.5 ns, avg: 87.2 ns)
+   Pair (16,66):
+    Min: 70.9 ns (max: 100.9 ns, avg: 83.8 ns)
+   Pair (16,67):
+    Min: 70.8 ns (max: 121.9 ns, avg: 87.2 ns)
+   Pair (16,68):
+    Min: 72.0 ns (max: 102.2 ns, avg: 87.6 ns)
+   Pair (16,69):
+    Min: 71.2 ns (max: 106.9 ns, avg: 87.9 ns)
+   Pair (16,70):
+    Min: 72.5 ns (max: 107.1 ns, avg: 86.2 ns)
+   Pair (16,71):
+    Min: 72.4 ns (max: 107.0 ns, avg: 85.2 ns)
+   Pair (16,72):
+    Min: 66.5 ns (max: 113.6 ns, avg: 85.9 ns)
+   Pair (16,73):
+    Min: 66.3 ns (max: 113.7 ns, avg: 85.4 ns)
+   Pair (16,74):
+    Min: 67.1 ns (max: 101.8 ns, avg: 82.2 ns)
+   Pair (16,75):
+    Min: 67.0 ns (max: 106.5 ns, avg: 83.4 ns)
+   Pair (16,76):
+    Min: 68.1 ns (max: 115.7 ns, avg: 87.9 ns)
+   Pair (16,77):
+    Min: 67.8 ns (max: 113.1 ns, avg: 86.2 ns)
+   Pair (16,78):
+    Min: 68.4 ns (max: 106.8 ns, avg: 84.2 ns)
+   Pair (16,79):
+    Min: 68.3 ns (max: 107.1 ns, avg: 84.4 ns)
+   Pair (16,80):
+    Min: 66.0 ns (max: 118.6 ns, avg: 91.0 ns)
+   Pair (16,81):
+    Min: 65.9 ns (max: 120.1 ns, avg: 90.5 ns)
+   Pair (16,82):
+    Min: 67.6 ns (max: 118.7 ns, avg: 91.2 ns)
+   Pair (16,83):
+    Min: 67.6 ns (max: 594.7 ns, avg: 107.2 ns)
+   Pair (16,84):
+    Min: 70.4 ns (max: 117.3 ns, avg: 90.7 ns)
+   Pair (16,85):
+    Min: 70.5 ns (max: 116.8 ns, avg: 90.9 ns)
+   Pair (16,86):
+    Min: 69.0 ns (max: 119.9 ns, avg: 87.7 ns)
+   Pair (16,87):
+    Min: 68.3 ns (max: 119.4 ns, avg: 87.2 ns)
+   Pair (16,88):
+    Min: 70.9 ns (max: 117.9 ns, avg: 87.9 ns)
+   Pair (16,89):
+    Min: 70.7 ns (max: 122.0 ns, avg: 87.9 ns)
+   Pair (16,90):
+    Min: 65.8 ns (max: 129.8 ns, avg: 96.4 ns)
+   Pair (16,91):
+    Min: 65.7 ns (max: 127.6 ns, avg: 96.1 ns)
+   Pair (16,92):
+    Min: 66.5 ns (max: 127.7 ns, avg: 93.2 ns)
+   Pair (16,93):
+    Min: 66.4 ns (max: 124.7 ns, avg: 93.0 ns)
+   Pair (16,94):
+    Min: 68.3 ns (max: 121.8 ns, avg: 94.6 ns)
+   Pair (16,95):
+    Min: 68.2 ns (max: 123.2 ns, avg: 94.4 ns)
+   Pair (16,96):
+    Min: 166.5 ns (max: 199.4 ns, avg: 181.1 ns)
+   Pair (16,97):
+    Min: 165.8 ns (max: 199.2 ns, avg: 181.2 ns)
+   Pair (16,98):
+    Min: 166.4 ns (max: 198.7 ns, avg: 180.0 ns)
+   Pair (16,99):
+    Min: 166.4 ns (max: 199.3 ns, avg: 179.8 ns)
+   Pair (17, 0):
+    Min: 63.5 ns (max: 120.6 ns, avg: 88.0 ns)
+   Pair (17, 1):
+    Min: 63.6 ns (max: 119.6 ns, avg: 87.9 ns)
+   Pair (17, 2):
+    Min: 63.3 ns (max: 123.8 ns, avg: 91.1 ns)
+   Pair (17, 3):
+    Min: 63.3 ns (max: 126.9 ns, avg: 92.2 ns)
+   Pair (17, 4):
+    Min: 65.2 ns (max: 108.3 ns, avg: 87.3 ns)
+   Pair (17, 5):
+    Min: 65.3 ns (max: 106.3 ns, avg: 86.8 ns)
+   Pair (17, 6):
+    Min: 63.8 ns (max: 108.0 ns, avg: 87.2 ns)
+   Pair (17, 7):
+    Min: 63.7 ns (max: 114.3 ns, avg: 87.7 ns)
+   Pair (17, 8):
+    Min: 64.7 ns (max: 111.7 ns, avg: 85.5 ns)
+   Pair (17, 9):
+    Min: 64.8 ns (max: 110.0 ns, avg: 84.9 ns)
+   Pair (17,10):
+    Min: 64.9 ns (max: 104.7 ns, avg: 86.3 ns)
+   Pair (17,11):
+    Min: 64.7 ns (max: 102.7 ns, avg: 86.1 ns)
+   Pair (17,12):
+    Min: 63.7 ns (max: 128.9 ns, avg: 98.7 ns)
+   Pair (17,13):
+    Min: 63.9 ns (max: 128.2 ns, avg: 97.4 ns)
+   Pair (17,14):
+    Min: 64.6 ns (max: 127.2 ns, avg: 96.9 ns)
+   Pair (17,15):
+    Min: 64.5 ns (max: 126.1 ns, avg: 97.0 ns)
+   Pair (17,16):
+    Min: 28.0 ns (max: 30.4 ns, avg: 28.4 ns)
+   Pair (17,18):
+    Min: 62.3 ns (max: 123.7 ns, avg: 90.7 ns)
+   Pair (17,19):
+    Min: 62.5 ns (max: 124.0 ns, avg: 90.9 ns)
+   Pair (17,20):
+    Min: 64.0 ns (max: 117.1 ns, avg: 87.3 ns)
+   Pair (17,21):
+    Min: 63.8 ns (max: 120.8 ns, avg: 88.0 ns)
+   Pair (17,22):
+    Min: 64.1 ns (max: 120.5 ns, avg: 89.2 ns)
+   Pair (17,23):
+    Min: 63.7 ns (max: 120.9 ns, avg: 89.6 ns)
+   Pair (17,24):
+    Min: 59.7 ns (max: 113.7 ns, avg: 89.0 ns)
+   Pair (17,25):
+    Min: 59.6 ns (max: 112.4 ns, avg: 88.9 ns)
+   Pair (17,26):
+    Min: 60.3 ns (max: 112.9 ns, avg: 91.3 ns)
+   Pair (17,27):
+    Min: 60.3 ns (max: 123.8 ns, avg: 91.1 ns)
+   Pair (17,28):
+    Min: 61.9 ns (max: 113.0 ns, avg: 86.8 ns)
+   Pair (17,29):
+    Min: 62.2 ns (max: 115.0 ns, avg: 86.9 ns)
+   Pair (17,30):
+    Min: 61.9 ns (max: 110.5 ns, avg: 86.8 ns)
+   Pair (17,31):
+    Min: 62.1 ns (max: 110.4 ns, avg: 87.2 ns)
+   Pair (17,32):
+    Min: 61.4 ns (max: 110.5 ns, avg: 87.8 ns)
+   Pair (17,33):
+    Min: 61.0 ns (max: 110.4 ns, avg: 87.8 ns)
+   Pair (17,34):
+    Min: 61.8 ns (max: 111.8 ns, avg: 88.8 ns)
+   Pair (17,35):
+    Min: 61.4 ns (max: 130.0 ns, avg: 89.7 ns)
+   Pair (17,36):
+    Min: 75.8 ns (max: 135.1 ns, avg: 93.9 ns)
+   Pair (17,37):
+    Min: 75.7 ns (max: 126.5 ns, avg: 92.4 ns)
+   Pair (17,38):
+    Min: 75.4 ns (max: 121.4 ns, avg: 94.2 ns)
+   Pair (17,39):
+    Min: 75.3 ns (max: 116.9 ns, avg: 94.0 ns)
+   Pair (17,40):
+    Min: 73.6 ns (max: 135.4 ns, avg: 91.0 ns)
+   Pair (17,41):
+    Min: 73.6 ns (max: 122.4 ns, avg: 91.0 ns)
+   Pair (17,42):
+    Min: 61.0 ns (max: 147.2 ns, avg: 105.2 ns)
+   Pair (17,43):
+    Min: 60.9 ns (max: 147.2 ns, avg: 104.1 ns)
+   Pair (17,44):
+    Min: 60.6 ns (max: 143.0 ns, avg: 104.6 ns)
+   Pair (17,45):
+    Min: 60.8 ns (max: 144.1 ns, avg: 103.0 ns)
+   Pair (17,46):
+    Min: 61.3 ns (max: 142.9 ns, avg: 103.7 ns)
+   Pair (17,47):
+    Min: 61.1 ns (max: 143.2 ns, avg: 103.6 ns)
+   Pair (17,48):
+    Min: 71.9 ns (max: 99.7 ns, avg: 87.6 ns)
+   Pair (17,49):
+    Min: 72.0 ns (max: 113.0 ns, avg: 89.4 ns)
+   Pair (17,50):
+    Min: 73.0 ns (max: 99.9 ns, avg: 86.2 ns)
+   Pair (17,51):
+    Min: 72.9 ns (max: 99.1 ns, avg: 86.1 ns)
+   Pair (17,52):
+    Min: 73.6 ns (max: 98.6 ns, avg: 85.2 ns)
+   Pair (17,53):
+    Min: 73.3 ns (max: 97.0 ns, avg: 84.8 ns)
+   Pair (17,54):
+    Min: 71.0 ns (max: 97.1 ns, avg: 86.7 ns)
+   Pair (17,55):
+    Min: 71.2 ns (max: 100.0 ns, avg: 86.7 ns)
+   Pair (17,56):
+    Min: 71.3 ns (max: 96.8 ns, avg: 83.9 ns)
+   Pair (17,57):
+    Min: 71.5 ns (max: 112.6 ns, avg: 86.4 ns)
+   Pair (17,58):
+    Min: 73.2 ns (max: 97.3 ns, avg: 84.2 ns)
+   Pair (17,59):
+    Min: 73.3 ns (max: 96.5 ns, avg: 83.8 ns)
+   Pair (17,60):
+    Min: 71.3 ns (max: 112.6 ns, avg: 91.2 ns)
+   Pair (17,61):
+    Min: 71.3 ns (max: 111.9 ns, avg: 91.1 ns)
+   Pair (17,62):
+    Min: 71.5 ns (max: 107.8 ns, avg: 88.5 ns)
+   Pair (17,63):
+    Min: 71.3 ns (max: 111.5 ns, avg: 89.0 ns)
+   Pair (17,64):
+    Min: 70.9 ns (max: 99.2 ns, avg: 86.8 ns)
+   Pair (17,65):
+    Min: 70.7 ns (max: 100.1 ns, avg: 87.0 ns)
+   Pair (17,66):
+    Min: 70.5 ns (max: 101.6 ns, avg: 84.1 ns)
+   Pair (17,67):
+    Min: 70.5 ns (max: 100.6 ns, avg: 83.6 ns)
+   Pair (17,68):
+    Min: 71.5 ns (max: 109.4 ns, avg: 88.4 ns)
+   Pair (17,69):
+    Min: 71.6 ns (max: 104.6 ns, avg: 88.2 ns)
+   Pair (17,70):
+    Min: 72.9 ns (max: 100.9 ns, avg: 84.7 ns)
+   Pair (17,71):
+    Min: 72.3 ns (max: 103.9 ns, avg: 84.5 ns)
+   Pair (17,72):
+    Min: 66.3 ns (max: 167.3 ns, avg: 88.4 ns)
+   Pair (17,73):
+    Min: 66.3 ns (max: 115.3 ns, avg: 85.0 ns)
+   Pair (17,74):
+    Min: 66.8 ns (max: 102.1 ns, avg: 81.9 ns)
+   Pair (17,75):
+    Min: 67.1 ns (max: 102.4 ns, avg: 82.1 ns)
+   Pair (17,76):
+    Min: 68.0 ns (max: 113.7 ns, avg: 85.9 ns)
+   Pair (17,77):
+    Min: 68.2 ns (max: 114.6 ns, avg: 85.8 ns)
+   Pair (17,78):
+    Min: 68.4 ns (max: 105.2 ns, avg: 83.9 ns)
+   Pair (17,79):
+    Min: 68.0 ns (max: 105.1 ns, avg: 84.0 ns)
+   Pair (17,80):
+    Min: 66.3 ns (max: 119.9 ns, avg: 90.6 ns)
+   Pair (17,81):
+    Min: 65.9 ns (max: 120.4 ns, avg: 90.6 ns)
+   Pair (17,82):
+    Min: 67.5 ns (max: 120.1 ns, avg: 91.3 ns)
+   Pair (17,83):
+    Min: 67.4 ns (max: 120.2 ns, avg: 90.7 ns)
+   Pair (17,84):
+    Min: 70.3 ns (max: 118.9 ns, avg: 90.8 ns)
+   Pair (17,85):
+    Min: 70.7 ns (max: 119.4 ns, avg: 90.8 ns)
+   Pair (17,86):
+    Min: 68.7 ns (max: 112.6 ns, avg: 87.2 ns)
+   Pair (17,87):
+    Min: 68.6 ns (max: 119.0 ns, avg: 86.9 ns)
+   Pair (17,88):
+    Min: 71.0 ns (max: 124.1 ns, avg: 88.8 ns)
+   Pair (17,89):
+    Min: 70.5 ns (max: 124.5 ns, avg: 88.6 ns)
+   Pair (17,90):
+    Min: 65.8 ns (max: 130.3 ns, avg: 96.5 ns)
+   Pair (17,91):
+    Min: 65.6 ns (max: 127.9 ns, avg: 96.3 ns)
+   Pair (17,92):
+    Min: 66.9 ns (max: 124.7 ns, avg: 93.5 ns)
+   Pair (17,93):
+    Min: 66.8 ns (max: 127.5 ns, avg: 93.6 ns)
+   Pair (17,94):
+    Min: 68.3 ns (max: 121.6 ns, avg: 93.8 ns)
+   Pair (17,95):
+    Min: 68.4 ns (max: 121.0 ns, avg: 94.0 ns)
+   Pair (17,96):
+    Min: 166.4 ns (max: 200.0 ns, avg: 180.9 ns)
+   Pair (17,97):
+    Min: 166.5 ns (max: 199.7 ns, avg: 181.0 ns)
+   Pair (17,98):
+    Min: 166.2 ns (max: 199.9 ns, avg: 180.1 ns)
+   Pair (17,99):
+    Min: 166.0 ns (max: 198.3 ns, avg: 179.8 ns)
+   Pair (18, 0):
+    Min: 63.9 ns (max: 135.8 ns, avg: 93.1 ns)
+   Pair (18, 1):
+    Min: 64.3 ns (max: 125.7 ns, avg: 91.2 ns)
+   Pair (18, 2):
+    Min: 64.0 ns (max: 119.9 ns, avg: 92.3 ns)
+   Pair (18, 3):
+    Min: 63.8 ns (max: 121.2 ns, avg: 93.5 ns)
+   Pair (18, 4):
+    Min: 65.6 ns (max: 117.9 ns, avg: 89.6 ns)
+   Pair (18, 5):
+    Min: 65.6 ns (max: 116.7 ns, avg: 89.8 ns)
+   Pair (18, 6):
+    Min: 64.3 ns (max: 119.7 ns, avg: 89.9 ns)
+   Pair (18, 7):
+    Min: 64.7 ns (max: 120.2 ns, avg: 89.7 ns)
+   Pair (18, 8):
+    Min: 65.6 ns (max: 116.2 ns, avg: 86.6 ns)
+   Pair (18, 9):
+    Min: 65.3 ns (max: 116.3 ns, avg: 87.0 ns)
+   Pair (18,10):
+    Min: 66.1 ns (max: 115.4 ns, avg: 89.0 ns)
+   Pair (18,11):
+    Min: 66.9 ns (max: 117.9 ns, avg: 89.6 ns)
+   Pair (18,12):
+    Min: 64.5 ns (max: 514.9 ns, avg: 117.9 ns)
+   Pair (18,13):
+    Min: 64.6 ns (max: 125.8 ns, avg: 99.0 ns)
+   Pair (18,14):
+    Min: 65.0 ns (max: 127.1 ns, avg: 99.0 ns)
+   Pair (18,15):
+    Min: 64.8 ns (max: 161.5 ns, avg: 101.4 ns)
+   Pair (18,16):
+    Min: 62.3 ns (max: 122.0 ns, avg: 91.2 ns)
+   Pair (18,17):
+    Min: 62.3 ns (max: 121.9 ns, avg: 89.7 ns)
+   Pair (18,19):
+    Min: 27.5 ns (max: 32.3 ns, avg: 28.0 ns)
+   Pair (18,20):
+    Min: 64.3 ns (max: 120.7 ns, avg: 87.1 ns)
+   Pair (18,21):
+    Min: 64.4 ns (max: 121.0 ns, avg: 87.2 ns)
+   Pair (18,22):
+    Min: 64.7 ns (max: 115.5 ns, avg: 88.1 ns)
+   Pair (18,23):
+    Min: 64.9 ns (max: 118.2 ns, avg: 88.5 ns)
+   Pair (18,24):
+    Min: 59.3 ns (max: 125.1 ns, avg: 91.2 ns)
+   Pair (18,25):
+    Min: 59.8 ns (max: 125.6 ns, avg: 91.3 ns)
+   Pair (18,26):
+    Min: 61.4 ns (max: 127.5 ns, avg: 92.8 ns)
+   Pair (18,27):
+    Min: 61.3 ns (max: 125.6 ns, avg: 94.1 ns)
+   Pair (18,28):
+    Min: 62.3 ns (max: 123.0 ns, avg: 89.1 ns)
+   Pair (18,29):
+    Min: 61.9 ns (max: 130.2 ns, avg: 89.7 ns)
+   Pair (18,30):
+    Min: 62.6 ns (max: 126.5 ns, avg: 90.1 ns)
+   Pair (18,31):
+    Min: 62.6 ns (max: 124.4 ns, avg: 90.4 ns)
+   Pair (18,32):
+    Min: 61.5 ns (max: 124.3 ns, avg: 91.1 ns)
+   Pair (18,33):
+    Min: 61.5 ns (max: 125.1 ns, avg: 91.2 ns)
+   Pair (18,34):
+    Min: 62.7 ns (max: 124.5 ns, avg: 91.8 ns)
+   Pair (18,35):
+    Min: 63.0 ns (max: 127.7 ns, avg: 91.8 ns)
+   Pair (18,36):
+    Min: 76.2 ns (max: 128.6 ns, avg: 93.9 ns)
+   Pair (18,37):
+    Min: 76.1 ns (max: 126.1 ns, avg: 93.6 ns)
+   Pair (18,38):
+    Min: 76.0 ns (max: 127.2 ns, avg: 95.8 ns)
+   Pair (18,39):
+    Min: 75.4 ns (max: 129.2 ns, avg: 95.6 ns)
+   Pair (18,40):
+    Min: 74.1 ns (max: 131.1 ns, avg: 93.2 ns)
+   Pair (18,41):
+    Min: 74.4 ns (max: 132.0 ns, avg: 93.4 ns)
+   Pair (18,42):
+    Min: 60.2 ns (max: 147.2 ns, avg: 109.1 ns)
+   Pair (18,43):
+    Min: 60.9 ns (max: 753.5 ns, avg: 133.1 ns)
+   Pair (18,44):
+    Min: 60.8 ns (max: 142.3 ns, avg: 106.8 ns)
+   Pair (18,45):
+    Min: 60.5 ns (max: 143.1 ns, avg: 106.7 ns)
+   Pair (18,46):
+    Min: 62.5 ns (max: 142.1 ns, avg: 107.4 ns)
+   Pair (18,47):
+    Min: 62.5 ns (max: 257.0 ns, avg: 111.0 ns)
+   Pair (18,48):
+    Min: 70.7 ns (max: 107.5 ns, avg: 89.1 ns)
+   Pair (18,49):
+    Min: 70.8 ns (max: 103.2 ns, avg: 88.3 ns)
+   Pair (18,50):
+    Min: 73.1 ns (max: 103.5 ns, avg: 87.0 ns)
+   Pair (18,51):
+    Min: 72.7 ns (max: 103.6 ns, avg: 87.7 ns)
+   Pair (18,52):
+    Min: 73.1 ns (max: 103.6 ns, avg: 86.4 ns)
+   Pair (18,53):
+    Min: 73.2 ns (max: 104.2 ns, avg: 86.4 ns)
+   Pair (18,54):
+    Min: 69.8 ns (max: 105.0 ns, avg: 89.3 ns)
+   Pair (18,55):
+    Min: 69.5 ns (max: 104.4 ns, avg: 88.1 ns)
+   Pair (18,56):
+    Min: 70.7 ns (max: 101.8 ns, avg: 85.5 ns)
+   Pair (18,57):
+    Min: 70.4 ns (max: 101.1 ns, avg: 84.7 ns)
+   Pair (18,58):
+    Min: 72.6 ns (max: 102.9 ns, avg: 85.9 ns)
+   Pair (18,59):
+    Min: 72.2 ns (max: 103.7 ns, avg: 85.8 ns)
+   Pair (18,60):
+    Min: 69.6 ns (max: 113.7 ns, avg: 90.4 ns)
+   Pair (18,61):
+    Min: 69.8 ns (max: 111.0 ns, avg: 90.6 ns)
+   Pair (18,62):
+    Min: 70.1 ns (max: 111.2 ns, avg: 90.6 ns)
+   Pair (18,63):
+    Min: 70.3 ns (max: 108.1 ns, avg: 90.6 ns)
+   Pair (18,64):
+    Min: 69.0 ns (max: 98.4 ns, avg: 87.0 ns)
+   Pair (18,65):
+    Min: 69.0 ns (max: 101.5 ns, avg: 87.3 ns)
+   Pair (18,66):
+    Min: 69.3 ns (max: 99.8 ns, avg: 84.2 ns)
+   Pair (18,67):
+    Min: 69.4 ns (max: 101.5 ns, avg: 84.8 ns)
+   Pair (18,68):
+    Min: 71.2 ns (max: 103.2 ns, avg: 87.3 ns)
+   Pair (18,69):
+    Min: 71.2 ns (max: 101.9 ns, avg: 86.9 ns)
+   Pair (18,70):
+    Min: 71.8 ns (max: 105.3 ns, avg: 84.1 ns)
+   Pair (18,71):
+    Min: 71.7 ns (max: 103.2 ns, avg: 84.0 ns)
+   Pair (18,72):
+    Min: 66.7 ns (max: 108.3 ns, avg: 85.8 ns)
+   Pair (18,73):
+    Min: 66.8 ns (max: 108.6 ns, avg: 85.2 ns)
+   Pair (18,74):
+    Min: 66.9 ns (max: 106.8 ns, avg: 84.3 ns)
+   Pair (18,75):
+    Min: 66.9 ns (max: 107.0 ns, avg: 84.7 ns)
+   Pair (18,76):
+    Min: 68.4 ns (max: 116.3 ns, avg: 87.0 ns)
+   Pair (18,77):
+    Min: 68.4 ns (max: 116.6 ns, avg: 87.0 ns)
+   Pair (18,78):
+    Min: 68.5 ns (max: 109.9 ns, avg: 86.4 ns)
+   Pair (18,79):
+    Min: 68.6 ns (max: 109.7 ns, avg: 86.9 ns)
+   Pair (18,80):
+    Min: 66.8 ns (max: 117.5 ns, avg: 92.6 ns)
+   Pair (18,81):
+    Min: 66.6 ns (max: 117.6 ns, avg: 92.3 ns)
+   Pair (18,82):
+    Min: 67.9 ns (max: 116.7 ns, avg: 91.8 ns)
+   Pair (18,83):
+    Min: 68.2 ns (max: 119.5 ns, avg: 93.0 ns)
+   Pair (18,84):
+    Min: 71.2 ns (max: 115.1 ns, avg: 89.5 ns)
+   Pair (18,85):
+    Min: 70.8 ns (max: 118.9 ns, avg: 89.8 ns)
+   Pair (18,86):
+    Min: 68.9 ns (max: 129.0 ns, avg: 88.4 ns)
+   Pair (18,87):
+    Min: 68.9 ns (max: 114.1 ns, avg: 88.5 ns)
+   Pair (18,88):
+    Min: 70.4 ns (max: 124.3 ns, avg: 90.5 ns)
+   Pair (18,89):
+    Min: 70.1 ns (max: 123.3 ns, avg: 90.5 ns)
+   Pair (18,90):
+    Min: 66.6 ns (max: 129.4 ns, avg: 97.5 ns)
+   Pair (18,91):
+    Min: 66.4 ns (max: 125.3 ns, avg: 97.2 ns)
+   Pair (18,92):
+    Min: 66.9 ns (max: 127.1 ns, avg: 94.6 ns)
+   Pair (18,93):
+    Min: 66.9 ns (max: 127.5 ns, avg: 94.8 ns)
+   Pair (18,94):
+    Min: 68.4 ns (max: 120.7 ns, avg: 94.6 ns)
+   Pair (18,95):
+    Min: 68.5 ns (max: 121.5 ns, avg: 94.5 ns)
+   Pair (18,96):
+    Min: 166.5 ns (max: 199.7 ns, avg: 180.9 ns)
+   Pair (18,97):
+    Min: 166.0 ns (max: 198.4 ns, avg: 180.9 ns)
+   Pair (18,98):
+    Min: 165.9 ns (max: 197.9 ns, avg: 179.7 ns)
+   Pair (18,99):
+    Min: 165.8 ns (max: 199.7 ns, avg: 179.8 ns)
+   Pair (19, 0):
+    Min: 63.8 ns (max: 120.1 ns, avg: 90.0 ns)
+   Pair (19, 1):
+    Min: 63.7 ns (max: 120.7 ns, avg: 90.4 ns)
+   Pair (19, 2):
+    Min: 64.1 ns (max: 121.5 ns, avg: 92.2 ns)
+   Pair (19, 3):
+    Min: 64.3 ns (max: 121.5 ns, avg: 92.6 ns)
+   Pair (19, 4):
+    Min: 65.7 ns (max: 118.1 ns, avg: 89.6 ns)
+   Pair (19, 5):
+    Min: 65.9 ns (max: 117.2 ns, avg: 90.7 ns)
+   Pair (19, 6):
+    Min: 64.5 ns (max: 119.7 ns, avg: 89.6 ns)
+   Pair (19, 7):
+    Min: 64.3 ns (max: 141.5 ns, avg: 90.6 ns)
+   Pair (19, 8):
+    Min: 65.6 ns (max: 131.8 ns, avg: 87.4 ns)
+   Pair (19, 9):
+    Min: 65.7 ns (max: 116.5 ns, avg: 86.9 ns)
+   Pair (19,10):
+    Min: 66.2 ns (max: 116.9 ns, avg: 89.1 ns)
+   Pair (19,11):
+    Min: 66.1 ns (max: 116.4 ns, avg: 89.2 ns)
+   Pair (19,12):
+    Min: 64.3 ns (max: 126.5 ns, avg: 98.9 ns)
+   Pair (19,13):
+    Min: 64.5 ns (max: 127.2 ns, avg: 99.4 ns)
+   Pair (19,14):
+    Min: 64.8 ns (max: 125.9 ns, avg: 99.1 ns)
+   Pair (19,15):
+    Min: 64.8 ns (max: 126.1 ns, avg: 99.0 ns)
+   Pair (19,16):
+    Min: 62.0 ns (max: 121.5 ns, avg: 89.9 ns)
+   Pair (19,17):
+    Min: 62.1 ns (max: 121.9 ns, avg: 90.3 ns)
+   Pair (19,18):
+    Min: 27.8 ns (max: 30.3 ns, avg: 28.4 ns)
+   Pair (19,20):
+    Min: 64.4 ns (max: 120.3 ns, avg: 87.7 ns)
+   Pair (19,21):
+    Min: 64.7 ns (max: 117.1 ns, avg: 87.1 ns)
+   Pair (19,22):
+    Min: 65.3 ns (max: 116.0 ns, avg: 88.5 ns)
+   Pair (19,23):
+    Min: 65.2 ns (max: 118.1 ns, avg: 88.7 ns)
+   Pair (19,24):
+    Min: 59.7 ns (max: 125.3 ns, avg: 90.8 ns)
+   Pair (19,25):
+    Min: 59.6 ns (max: 125.4 ns, avg: 91.0 ns)
+   Pair (19,26):
+    Min: 61.6 ns (max: 126.3 ns, avg: 92.7 ns)
+   Pair (19,27):
+    Min: 61.6 ns (max: 129.3 ns, avg: 93.3 ns)
+   Pair (19,28):
+    Min: 62.2 ns (max: 122.5 ns, avg: 89.1 ns)
+   Pair (19,29):
+    Min: 62.0 ns (max: 125.4 ns, avg: 89.1 ns)
+   Pair (19,30):
+    Min: 62.6 ns (max: 129.3 ns, avg: 90.8 ns)
+   Pair (19,31):
+    Min: 63.4 ns (max: 122.8 ns, avg: 90.4 ns)
+   Pair (19,32):
+    Min: 61.4 ns (max: 125.7 ns, avg: 91.7 ns)
+   Pair (19,33):
+    Min: 61.6 ns (max: 129.6 ns, avg: 91.2 ns)
+   Pair (19,34):
+    Min: 62.4 ns (max: 128.4 ns, avg: 92.0 ns)
+   Pair (19,35):
+    Min: 63.1 ns (max: 128.5 ns, avg: 92.3 ns)
+   Pair (19,36):
+    Min: 76.2 ns (max: 127.1 ns, avg: 93.8 ns)
+   Pair (19,37):
+    Min: 76.4 ns (max: 133.3 ns, avg: 94.0 ns)
+   Pair (19,38):
+    Min: 75.7 ns (max: 127.1 ns, avg: 95.4 ns)
+   Pair (19,39):
+    Min: 75.5 ns (max: 128.9 ns, avg: 95.8 ns)
+   Pair (19,40):
+    Min: 74.1 ns (max: 126.8 ns, avg: 93.0 ns)
+   Pair (19,41):
+    Min: 74.4 ns (max: 126.0 ns, avg: 93.3 ns)
+   Pair (19,42):
+    Min: 60.2 ns (max: 146.8 ns, avg: 108.7 ns)
+   Pair (19,43):
+    Min: 60.4 ns (max: 147.2 ns, avg: 108.7 ns)
+   Pair (19,44):
+    Min: 60.4 ns (max: 577.0 ns, avg: 123.1 ns)
+   Pair (19,45):
+    Min: 60.5 ns (max: 142.5 ns, avg: 106.7 ns)
+   Pair (19,46):
+    Min: 62.4 ns (max: 142.7 ns, avg: 106.3 ns)
+   Pair (19,47):
+    Min: 62.5 ns (max: 142.6 ns, avg: 107.7 ns)
+   Pair (19,48):
+    Min: 70.7 ns (max: 109.9 ns, avg: 89.4 ns)
+   Pair (19,49):
+    Min: 70.9 ns (max: 106.6 ns, avg: 88.4 ns)
+   Pair (19,50):
+    Min: 73.1 ns (max: 104.3 ns, avg: 87.0 ns)
+   Pair (19,51):
+    Min: 72.7 ns (max: 104.2 ns, avg: 86.8 ns)
+   Pair (19,52):
+    Min: 73.0 ns (max: 105.3 ns, avg: 86.5 ns)
+   Pair (19,53):
+    Min: 73.1 ns (max: 105.0 ns, avg: 86.3 ns)
+   Pair (19,54):
+    Min: 69.7 ns (max: 105.3 ns, avg: 88.3 ns)
+   Pair (19,55):
+    Min: 69.6 ns (max: 104.5 ns, avg: 88.2 ns)
+   Pair (19,56):
+    Min: 70.3 ns (max: 103.2 ns, avg: 84.7 ns)
+   Pair (19,57):
+    Min: 70.4 ns (max: 101.0 ns, avg: 84.8 ns)
+   Pair (19,58):
+    Min: 72.7 ns (max: 101.6 ns, avg: 85.5 ns)
+   Pair (19,59):
+    Min: 72.4 ns (max: 102.4 ns, avg: 85.5 ns)
+   Pair (19,60):
+    Min: 70.1 ns (max: 114.0 ns, avg: 91.1 ns)
+   Pair (19,61):
+    Min: 69.8 ns (max: 114.9 ns, avg: 90.7 ns)
+   Pair (19,62):
+    Min: 70.1 ns (max: 108.9 ns, avg: 90.4 ns)
+   Pair (19,63):
+    Min: 70.7 ns (max: 110.7 ns, avg: 90.8 ns)
+   Pair (19,64):
+    Min: 69.0 ns (max: 101.6 ns, avg: 87.2 ns)
+   Pair (19,65):
+    Min: 68.9 ns (max: 99.8 ns, avg: 87.0 ns)
+   Pair (19,66):
+    Min: 69.2 ns (max: 98.9 ns, avg: 83.6 ns)
+   Pair (19,67):
+    Min: 69.0 ns (max: 100.7 ns, avg: 84.2 ns)
+   Pair (19,68):
+    Min: 70.3 ns (max: 105.5 ns, avg: 86.8 ns)
+   Pair (19,69):
+    Min: 70.8 ns (max: 103.7 ns, avg: 86.7 ns)
+   Pair (19,70):
+    Min: 71.5 ns (max: 105.0 ns, avg: 83.7 ns)
+   Pair (19,71):
+    Min: 71.4 ns (max: 102.2 ns, avg: 83.6 ns)
+   Pair (19,72):
+    Min: 66.6 ns (max: 107.9 ns, avg: 85.3 ns)
+   Pair (19,73):
+    Min: 66.6 ns (max: 108.0 ns, avg: 85.1 ns)
+   Pair (19,74):
+    Min: 67.0 ns (max: 106.1 ns, avg: 84.0 ns)
+   Pair (19,75):
+    Min: 66.9 ns (max: 111.6 ns, avg: 84.1 ns)
+   Pair (19,76):
+    Min: 68.4 ns (max: 116.9 ns, avg: 86.9 ns)
+   Pair (19,77):
+    Min: 68.1 ns (max: 117.0 ns, avg: 86.7 ns)
+   Pair (19,78):
+    Min: 68.3 ns (max: 110.6 ns, avg: 86.5 ns)
+   Pair (19,79):
+    Min: 68.4 ns (max: 110.9 ns, avg: 86.3 ns)
+   Pair (19,80):
+    Min: 66.5 ns (max: 118.4 ns, avg: 92.5 ns)
+   Pair (19,81):
+    Min: 66.7 ns (max: 117.7 ns, avg: 92.3 ns)
+   Pair (19,82):
+    Min: 67.8 ns (max: 116.6 ns, avg: 91.8 ns)
+   Pair (19,83):
+    Min: 68.0 ns (max: 117.5 ns, avg: 92.1 ns)
+   Pair (19,84):
+    Min: 71.0 ns (max: 120.4 ns, avg: 89.5 ns)
+   Pair (19,85):
+    Min: 70.7 ns (max: 115.4 ns, avg: 89.4 ns)
+   Pair (19,86):
+    Min: 68.7 ns (max: 117.8 ns, avg: 88.0 ns)
+   Pair (19,87):
+    Min: 68.7 ns (max: 120.0 ns, avg: 88.0 ns)
+   Pair (19,88):
+    Min: 70.4 ns (max: 119.6 ns, avg: 90.6 ns)
+   Pair (19,89):
+    Min: 70.4 ns (max: 123.1 ns, avg: 90.5 ns)
+   Pair (19,90):
+    Min: 66.4 ns (max: 129.0 ns, avg: 98.0 ns)
+   Pair (19,91):
+    Min: 66.6 ns (max: 128.7 ns, avg: 98.0 ns)
+   Pair (19,92):
+    Min: 67.1 ns (max: 125.6 ns, avg: 94.0 ns)
+   Pair (19,93):
+    Min: 66.7 ns (max: 125.9 ns, avg: 93.9 ns)
+   Pair (19,94):
+    Min: 68.5 ns (max: 122.2 ns, avg: 94.6 ns)
+   Pair (19,95):
+    Min: 68.3 ns (max: 120.3 ns, avg: 94.7 ns)
+   Pair (19,96):
+    Min: 166.6 ns (max: 199.8 ns, avg: 180.9 ns)
+   Pair (19,97):
+    Min: 166.2 ns (max: 199.2 ns, avg: 180.7 ns)
+   Pair (19,98):
+    Min: 166.1 ns (max: 199.3 ns, avg: 179.7 ns)
+   Pair (19,99):
+    Min: 166.0 ns (max: 198.6 ns, avg: 179.7 ns)
