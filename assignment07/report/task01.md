@@ -67,13 +67,11 @@ We now access the worst case scenario of memory accesses where each load has to 
 
 Looking at the `MILAN2` system we see very similar results to `SAP3`. For the linear access the increase is not as much when the list sizes gets larger then the last level cache. Also the increase is much more subtle for `indexload` and we get an almost completely constant performance. This could be due to larger caches or better prefetching capabilities. Overall the latencies are also faster in comparison to `SAP3`. 
 
-This also applies for the pseudo random accesses where even `indexload` is still significantly faster. We also notice that the cache level steps are only visible for the `indexcalc` function and are much more gradual. There even is a substantial dip in between 10^5 and 10^7, which we can not explain directly. *We think that the smoother steps could be explained by the more extensive distribution of caches in the `MILAN2` system which would spread out the areas where both caches store partial parts of the list. This leads to the gradual increase as some accesses miss on the lower levels while other hit.*
-
-However we cannot explain why there is another jump in latency around a list size of `N=29` which is present in all variations except linear access `indexcalc`.
+This also applies for the pseudo random accesses where even `indexload` is still significantly faster. We also notice that the cache level steps are only visible for the `indexcalc` function and are much more gradual. There even is a substantial dip in between 10^5 and 10^7 and another jump in latency around a list size of `N=29` which is present in all variations except linear access `indexcalc`. For both observations we didn't come up with a reason immediately why they occur and additionally hadn't enough time to investigate further, due to our limited team size.
 
 ![MILAN2 overview of all measures](plots/task1_milan2.svg)
 
-Examining `GH3` shows even better overall latencies and again very similar behavior with increasing list sizes to the `SAP3` system. For linear access we see a much more substantial increase just above the 10^6 mark in comparison to `MILAN2` where `GH3` seems more similar to `SAP3`. However the is increase smooth and not a sudden step which may be because of the same reason we proposed for the `MILAN1` system. In addition the `indexload` function latency doesn't change similar to the `MILAN2` system, as the processor may be again more effective in hiding the increase in latency due to fetching multiple list entries from memory in parallel.
+Examining `GH3` shows even better overall latencies and again very similar behavior with increasing list sizes to the `SAP3` system. For linear access we see a much more substantial increase just above the 10^6 mark in comparison to `MILAN2` where `GH3` seems more similar to `SAP3`. However the is increase smooth and not a sudden step which may be because of the same reason we proposed for the `MILAN2` system. In addition the `indexload` function latency doesn't change similar to the `MILAN2` system, as the processor may be again more effective in hiding the increase in latency due to fetching multiple list entries from memory in parallel.
 
 For the pseudo random accesses we can see the increases in latency according to the different levels of the memory hierarchy, although they are again much more smooth in comparison to the `SAP3` system. What is also noticeable is that the difference between `indexcalc` and `indexload` is much small then for other system. This could be due to the much faster main memory of `GH3` where the differences between cache and DRAM is not as significant. We also see that `indexload` plateaus above `N=26` when we have to rely fully on main memory when accessing list elements. However after `N=27` we see a sudden very significant spike in the latency that afterwards for `N=30` comes down again. We would love to investigate this peak further and find a reason for it, unfortunately due to our limited team size we were not able to look into this further.
 
@@ -114,25 +112,29 @@ mem_bandwidth [bytes/s] = cache_line_size [bytes] / (time_per_element [ns] * 1.e
 
 Using `getconf` we can read out the line sizes for each system and calculate the memory bandwidth utilization with a vector size `N=26` which is way larger than the LLC on every system and compute the following utilizations:
 
-| System | Cache Line Size | Latency per Element | Memory bandwidth utilization |
-|--------|-----------------|---------------------|------------------------------|
-| SAP3   | 64 B            | 139.616625 ns       | 4.58e8 B/s = 0.46 GB/s       |
-| MILAN1 | 64 B            | 88.152659 ns        | 7.26e8 B/s = 0.73 GB/s       |
-| GH3    | 64 B            | 41.830499 ns        | 1.53e9 B/s = 1.53 GB/s       |
-| CS7    | 256 B           | 242.502391 ns       | 1.06e9 B/s = 1.06 GB/s       |
+| System        | Cache Line Size | Latency per Element | Memory bandwidth utilization |
+|---------------|-----------------|---------------------|------------------------------|
+| SAP3 (N=26)   | 64 B            | 116.349815 ns       | 5.5e8 B/s = 0.55 GB/s        |
+| MILAN2 (N=26) | 64 B            | 87.438492 ns        | 7.3e8 B/s = 0.73 GB/s        |
+| GH3 (N=26)    | 64 B            | 22.077212 ns        | 2.9e9 B/s = 2.9 GB/s         |
+| CS2 (N=26)    | 256 B           | 183.417589 ns       | 1.40e9 B/s = 1.40 GB/s       |
+| CS2 (N=20)    | 256 B           | 83.841245 ns        | 3.05e9 B/s = 3.05 GB/s       |
+
+For `CS2` we also looked at two different list sizes as both are already in the main memory and we wanted to give a result for a list size that isn't affected by the latency spike visible for sizes beyond `N=22` on the `CS2` system.
 
 If we instead look at the `indexcalc` function the dependencies between iteration disappears. This would mean that multiple entries can be fetched simultaneously by the CPU. We would therefore expect a significantly higher memory bandwidth utilization which for the measurements would mean a lower latency per element. If we take a look at our results our assumptions gets confirmed:
 
-| System | Cache Line Size | Latency per Element | Memory bandwidth utilization |
-|--------|-----------------|---------------------|------------------------------|
-| SAP3   | 64 B            | 6.200622 ns         | 1.03e10 B/s = 10.3 GB/s      |
-| MILAN1 | 64 B            | 5.206658 ns         | 1.23e10 B/s = 12.3 GB/s      |
-| GH3    | 64 B            | 9.957564 ns         | 6.43e9 B/s = 6.4 GB/s        |
-| CS7    | 256 B           | 245.684702 ns       | 1.04e9 B/s = 1.04 GB/s       |
+| System        | Cache Line Size | Latency per Element | Memory bandwidth utilization |
+|---------------|-----------------|---------------------|------------------------------|
+| SAP3 (N=26)   | 64 B            | 4.616390 ns         | 1.39e10 B/s = 13.9 GB/s      |
+| MILAN2 (N=26) | 64 B            | 5.460480 ns         | 1.17e10 B/s = 11.7 GB/s      |
+| GH3 (N=26)    | 64 B            | 7.008448 ns         | 9.13e9 B/s = 9.1 GB/s        |
+| CS2 (N=26)    | 256 B           | 116.682491 ns       | 2.19e9 B/s = 2.19 GB/s       |
+| CS2 (N=20)    | 256 B           | 13.599827 ns        | 1.88e10 B/s = 18.8 GB/s      |
 
 However these values are still far behind the maximal stated memory bandwidth of the systems. This can be explained by the fact that although we are capable of issuing multiple loads at once we still only go along the one single memory stream of the list. Accessing only a single list cannot fully utilize the available memory bandwidth and we would need far more accesses per iteration to be able to reach a bandwidth limitation.
 
-One thing we noticed too was that maybe our initial guess that CS7 can't fetch multiple list entries isn't the reason for the similar latencies of both `indecalc` and `indexload`. Instead the 256 cache line size might be the reason we get higher latencies in comparison to other systems. As larger cache lines don't help with our pseudo random access pattern we are loading much more unnecessary data from main memory which should increases the access time. 
+One thing we noticed too was that maybe our initial guess that CS2 can't fetch multiple list entries isn't the reason for the similar latencies of both `indecalc` and `indexload`. Instead the 256 cache line size might be the reason we get higher latencies in comparison to other systems. As larger cache lines don't help with our pseudo random access pattern we are loading much more unnecessary data from main memory which should increases the access time. 
 
 ## d)
 
@@ -142,14 +144,14 @@ To be able to extract the main memory latency we can use the setup to archive th
  - Choose the pseudo random access pattern to eliminate the possibility for prefetching being effective because of spatial locality. This can be achieved by using `k=golden` to simulate random access pattern
  - Choose the `indexload` function so the CPU can't use any memory parallelism, as every iteration depends on the last one.
 
-Now the measured latency per element basically reports the main memory access latency if we use the assumption that secondary accesses to the same memory block are negligible. We also assume that we only access local memory within a numa domain as we pinned the measurements to a specific core and presume that memory gets allocated optimally for that core. We chose the largest measured value `N=30` for the list size as most systems are already saturated at this point.
+Now the measured latency per element basically reports the main memory access latency if we use the assumption that secondary accesses to the same memory block are negligible. We also assume that we only access local memory within a numa domain as we pinned the measurements to a specific core and presume that memory gets allocated optimally for that core. We chose the largest measured value `N=26` for the list size as most systems are already saturated at this point.
 
 | System | Main memory access latency |
 |--------|----------------------------|
-| SAP3   | 139.616625 ns              |
-| MILAN1 | 88.152659 ns               |
-| GH3    | 41.830499 ns               |
-| CS7    | 242.502391 ns              |
+| SAP3   | 116.349815 ns              |
+| MILAN2 | 87.438492 ns               |
+| GH3    | 22.077212 ns               |
+| CS2    | 183.417589 ns              |
 
 ## e)
 
@@ -160,18 +162,18 @@ First we have to find a suitable `N` the fit the individual cache levels, for th
 | System | L1                   | L2                      | L3                      |
 |--------|----------------------|-------------------------|-------------------------|
 | SAP3   | 48 kB / 16 B = 3000  | 2048 kB / 16 B = 128000 | 105 MB / 16 B = 6562500 |
-| MILAN1 | 32 kB / 16 B = 2000  | 512 kB / 16 B = 32000   | 96 MB / 16 B = 6000000  |
+| MILAN2 | 32 kB / 16 B = 2000  | 512 kB / 16 B = 32000   | 96 MB / 16 B = 6000000  |
 | GH3    | 64 kB / 16 B = 4000  | 1024 kB / 16 B = 64000  | 114 MB / 16 B = 7125000 |
-| CS7    | 64 kiB / 16 B = 4000 | 8 MB / 16 B = 500000    |                         |
+| CS2    | 64 kiB / 16 B = 4000 | 8 MB / 16 B = 500000    |                         |
 
 We now look at values that are at most as large as the numbers we calculated in the table to make sure the list fits in its entirety into the desired cache level. With this setup we gained the following `N` values:
 
 **SAP3**:
  - L1: 2048
- - L2: 121072
+ - L2: 65536
  - L3: 4194304
 
-**MILAN1**:
+**MILAN2**:
  - L1: 1024
  - L2: 16384
  - L3: 4194304
@@ -181,30 +183,31 @@ We now look at values that are at most as large as the numbers we calculated in 
  - L2: 32768
  - L3: 4194304
 
-**CS7**:
+**CS2**:
  - L1: 2048
  - L2: 262144
 
-Note that for CS7 the last level cache before main memory is the L2 cache.
+Note that for CS2 the last level cache before main memory is the L2 cache.
 Looking at the latencies for these `N`-values in our measurements reveal the following access latencies for the different cache sizes:
 
 | System | L1 access latency | L2 access latency | L3 access latency | Memory access latency |
 |--------|-------------------|-------------------|-------------------|-----------------------|
-| SAP3   | 1.697743 ns       | 9.567669 ns       | 37.391673 ns      | 139.616625 ns         |
-| MILAN1 | 1.675693 ns       | 3.326702 ns       | 9.829455 ns       | 88.152659 ns          |
-| GH3    | 1.521333 ns       | 3.384762 ns       | 10.253689 ns      | 41.830499 ns          |
-| CS7    | 4.987112 ns       | 41.627935 ns      |                   | 242.502391 ns         |
+| SAP3   | 1.697925 ns       | 8.607187 ns       | 37.772017 ns      | 116.349815 ns         |
+| MILAN2 | 1.681881 ns       | 2.916996 ns       | 13.561596 ns      | 87.438492 ns          |
+| GH3    | 1.505857 ns       | 3.295837 ns       | 8.688876 ns       | 22.077212 ns          |
+| CS2    | 4.429744 ns       | 35.954261 ns      |                   | 183.417589 ns         |
 
 
 ## f)
 
-Comparing our calculated latencies for the CS7 to the specifications given by the manufacture we can see substantial differences. Specifically our results seem to be much slower than anticipated.
+Comparing our calculated latencies for the `CS2` to the specifications given by the manufacture we can see substantial differences. Specifically our results seem to be much slower than anticipated.
 
-For the L1 data cache the specifications state a latency of 5 cycles. Assuming the processor operates at 1.8 GHz clock rate (cycles per ns) this would mean we would expect a latency of:
+For the L1 data cache the specifications state a latency of 5 cycles. We used the clock frequency reported by `perf` during execution. Assuming that the processor operates at the outputted `1.8 GHz` clock rate (cycles per ns) this would mean we would expect a latency of:
 
 ```
 5 cycles / 1.8 GHz = 2.777777777777778 ns
 ```
+
 However our results measure a latency close ti double the amount.
 The same holds for the L2 access latency were we also would expect slightly faster performance than actually measured
 
@@ -214,9 +217,11 @@ The same holds for the L2 access latency were we also would expect slightly fast
 
 These expected values should also be taken with caution as we assume the clock frequency of the processor is 1.8 GHz which we didn't actually measured during execution. A more robust way to calculate the latencies would be to calculate the necessary cycles needed until the data could be used. For that we in addition have to measure the clock frequency during the execution of the list traversal. 
 
-The greatest absolute difference between specification and measured values, however, is present for the memory latency where the specification states a latency of `135.5 ns` at a core frequency of `2.0 GHz`. We on the other side measure a latency of around `242 ns`.
+We think these deviations could be caused by the additional instruction executed during the loop iteration or the loop overhead itself. In addition the benchmark bases its latency calculation per entry solely on software timing measurements which do not include any presumable factors that could disrupt the measurements e.g. other processes or the OS. This could especially matter for small vector sizes where the ratio between loop overhead and actual memory accesses is skewed towards loop overhead.
 
-We think these deviations could be caused by the additional instruction executed during the loop iteration or the loop overhead itself. In addition the benchmark bases its latency calculation per entry solely on software timing measurements which do not include any presumable factors that could disrupt the measurements e.g. other processes or the OS.
+The greatest absolute difference between specification and measured values, however, is present for the memory latency where the specification states a latency of `135.5 ns` at a core frequency of `2.0 GHz`. We on the other side measure a latency of around `183.4 ns` however at a clock frequency of `1.8 GHz`. If we normalize the measured value to `2.0 GHz` we get closer with `165 ns` but still far off from the value in the specifications
+
+We now tried to compare the access latency with a smaller list size of `N=22` to avoid the previously mentioned sudden increase above `N=23`. This list size should still be utilizing main memory as it would not fit into the L2 cache of one package. At that list size we measured a latency of `150.9 ns` at `1.8 GHz` which would be very close to the specified values if we normalize it to the `2 GHz` resulting in a latency of `136 ns`. This further iterates that the sudden pea after that point doesn't represents the raw main memory latency, but instead has some factor that slows down the memory access, like e.g. having to fetch from remote memory.
 
 ## g)
 
