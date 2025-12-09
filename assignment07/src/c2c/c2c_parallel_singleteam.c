@@ -86,6 +86,10 @@ int main(int argc, char* argv[])
                     continue;
                 }
 
+                // announce pair once
+                if (tid == 0)
+                    printf("   Pair (%2d,%2d):\n", t1, t2);
+
                 // Warmup
                 if (tid == t1 || tid == t2) {
                     double tsum = 0.0;
