@@ -1,6 +1,5 @@
-Report on Task 3
-=== 
-# a)
+# Report on Task 2
+## a)
   Amount of cores for each system:
   - GH: 72 cores (1 socket)
   - SAP: 96 (48 cores per socket, 2 sockets)
@@ -15,18 +14,18 @@ Useful env variables:
 - `GOMP_CPU_AFFINITY` 
   - can be used to choose specific cores for threads like: GOMP_CPU_AFFINITY="0 1" for core 0 and 1
 
-# b)
+## b)
 |                             | GH                                                                                                                                                                                      | SAP                                                                                                                                                                                   | MILAN                                                                                                                                                                                  | CS                                                                                                                                                                                     |
 |-----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | near side                   | X                                                                                                                                                                                       | using Core 0, 1: Threads: 2, Base addr: 0x203f380    Pair ( 0, 1):     **Min: 158.0 ns (max: 236.7 ns, avg: 187.5 ns)**    Pair ( 1, 0):     **Min: 158.0 ns (max: 237.4 ns, avg: 187.5 ns)** | using Core 0, 1: Threads: 2, Base addr: 0x22f53a0    Pair ( 0, 1):     **Min: 25.2 ns (max: 51.5 ns, avg: 41.3 ns)**    Pair ( 1, 0):     **Min: 24.3 ns (max: 51.4 ns, avg: 41.4 ns)**        | using Core 0, 1: Threads: 2, Base addr: 0x1de0360    Pair ( 0, 1):     **Min: 143.3 ns (max: 188.8 ns, avg: 170.2 ns)**    Pair ( 1, 0):     **Min: 164.5 ns (max: 188.7 ns, avg: 172.3 ns)**  |
 | cores different socket      | using Core 0, 71: Threads: 2, Base addr: 0x35d30370    Pair ( 0, 1):     **Min: 172.2 ns (max: 204.6 ns, avg: 196.4 ns)**    Pair ( 1, 0):     **Min: 172.2 ns (max: 204.5 ns, avg: 196.4 ns)** | using Core 0, 97: Threads: 2, Base addr: 0xb94380    Pair ( 0, 1):     **Min: 113.5 ns (max: 238.3 ns, avg: 188.9 ns)**    Pair ( 1, 0):     **Min: 113.5 ns (max: 239.5 ns, avg: 189.6 ns)** | using Core 0, 127: Threads: 2, Base addr: 0xbfa3a0    Pair ( 0, 1):     **Min: 535.7 ns (max: 554.5 ns, avg: 545.0 ns)**    Pair ( 1, 0):     **Min: 534.9 ns (max: 556.3 ns, avg: 545.9 ns)** | using Core 0, 36:Threads: 2, Base addr: 0x20f0360    Pair ( 0, 1):     **Min: 354.1 ns (max: 451.5 ns, avg: 410.6 ns)**    Pair ( 1, 0):     **Min: 355.2 ns (max: 377.5 ns, avg: 364.5 ns)**  |
 | same socket not sharing LLC | X                                                                                                                                                                                       | X                                                                                                                                                                                     | using Core 0, 47: Threads: 2, Base addr: 0x7db3a0    Pair ( 0, 1):     **Min: 505.8 ns (max: 633.2 ns, avg: 576.5 ns)**    Pair ( 1, 0):     **Min: 501.1 ns (max: 632.4 ns, avg: 575.9 ns)**  | using Core 0, 12: Threads: 2, Base addr: 0x9570360    Pair ( 0, 1):     **Min: 381.6 ns (max: 400.6 ns, avg: 391.3 ns)**    Pair ( 1, 0):     **Min: 381.6 ns (max: 400.6 ns, avg: 391.3 ns)** |
 |                             |                                                                                                                                                                                         |                                                                                                                                                                                       |                                                                                                                                                                                        |                                                                                                                                                                                        |
-# c) 
+## c) 
 The warmup phase is important to ensure that caches, tlb's and branch predictors are populated with relevant information before measurements are taken. Without a warmup phase, the initial accesses may result in misses, leading to higher latency measurements for te first accesses that do not accurately reflect the typical performance of the system. The 20ms per thread pair is rather genous, the measurement time already is in lign with the actual measurement times for all four systems and all types of accesses.
 
-# d)
-## SAP
+## d)
+### SAP
 ```
     Pair ( 1,91):
     Addr 0x9f1da0, warm: 111.4 ns
@@ -113,7 +112,7 @@ The warmup phase is important to ensure that caches, tlb's and branch predictors
     Min: 159.8 ns (max: 190.9 ns, avg: 177.4 ns)
 
 
-## milan
+### MILAN
 ``` 
     Pair ( 2,82):
     Addr 0x4c5db0, warm: 645.4 ns
@@ -178,7 +177,7 @@ The warmup phase is important to ensure that caches, tlb's and branch predictors
     Addr 0x406e40: 243.8 ns
     Min: 241.4 ns (max: 262.5 ns, avg: 252.3 ns)
 ```
-## GH
+### GH
 ```
 Pair ( 1,14):
     Addr 0xaaacd2e10bf0, warm: 204.0 ns
@@ -253,12 +252,12 @@ Pair ( 0,69):
     Min: 155.9 ns (max: 363.9 ns, avg: 204.9 ns)
 ```
 
-## Analysis
+### Analysis
 The verbose data shows that different memory addresses yield different latencies even when accessed from the same core pairs. Those different latencys are rather consistent for close paris eg. Pair `0,82` and  `0,83` have similar timings and Pair `1,82` and `1,83` (on MILAN but as can be seen also holds for SAP and GH) also have the same but they differ from the first two Pairs. We expected to see timing differences especially when comparing cross socket and same socket accesses but the timing differences were also noticable when comparing different memory addresses for the same socket. This shows that the memory system is more complex than just socket and core locality. We expect that this is due to the complex mapping of physical addresses to memory controllers and channels. Different addresses might be mapped to different memory channels or controllers, leading to varying access latencies.
 
-# e)
+## e)
 
-## CS
+### CS
 ![](/assignment07/report/plots/heatmap_avg_c2clatency_cs.png)
 ![](/assignment07/report/plots/cs2.svg)
 The heatmap sows a 4x4 grid with internal 12x12 blocks. Each of the four big blocks represents one socket. Inside each socket the 12x12 blocks represent the cores inside the socket. The diagonal of each big block is very fast because those are the accesses within one socket. 
@@ -281,14 +280,13 @@ This partly explains the heatmap for cross core communication latenzy difference
 Grace hopper has only one socket so we would asume a uniform heatmp howerver this is not the case we can see a repetitive pattern in the heatmap. Our theory is that this is caused by the complex cache structure of grace hopper. The total timing within these blocks is very small compared to those of other systems. In the case of gh the differernce between the absolute lowest and highest measuremet is 100ns. Therefore it is possible that this difference is due to internal wireing or cach layout.  However we were unable to verify this theory.
 
 
-## SAP
+### SAP
 ![](/assignment07/report/plots/heatmap_avg_c2clatency_sap.png)
 ![](/assignment07/report/plots/sap3.svg)
 The heat map shows three distinct parts top left is a fast block(**S0**), bottom left and top right(**S01**) a slower block and bottom right a slow block(**S1**). The **S0** and **S1** correspond to socket on which the individual cores reside. The **S01** block represents cross socket communication. The inresting part is that **S1** is much slower than **S0** even though all cores reside on the same socket enabling fast communication because all cores share one L3 cache. However due to the benchmark the data is linked with the socket 0 so accessing data from socket 1 causes additional latency. In the case of **S01** the latency is lower than **S1** because one thread of the pair has direct access to the data in socket 0 as it resides there, whereass the other thread has to access the data cross socket. By pining the used memory to one socket we could verify this theory. 
 >**Note:** SAP (and MILAN) have two hardware threads per core. Those are the white lines in the heatmap. Theses are obvioulsy faster than communication between two different cores.
 
-## MILAN
+### MILAN
 ![](/assignment07/report/plots/heatmap_avg_c2clatency_milan.png)
 ![](/assignment07/report/plots/milan2.svg)
 The heat map is nearly identiccal to the one of sap there a just a few differences. For one on the diagonal one can see that there is always a. very fast block this is because milan only share L3 cach among 8 cores therefore those groups are especialyl fast. The rest is similar which to sap and can be explained the same way and was verified by pinning the memory to one socket.
-
