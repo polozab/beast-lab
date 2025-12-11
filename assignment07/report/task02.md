@@ -12,7 +12,7 @@ Useful env variables:
   - `OMP_PROC_BIND=true`
     - OMP_PROC_BIND controls whether threads are pinned to those places and how they spread:
 - `GOMP_CPU_AFFINITY` 
-  - can be used to choose specific cores for threads like: GOMP_CPU_AFFINITY="0 1" for core 0 and 1
+  - can be used to choose specific cores for threads like: GOMP_CPU_AFFINITY="0 1" for core 0 and 1. (We used this to pin the threads to specific cores for the measurements)
 
 ## b)
 |                             | GH                                                                                                                                                                                      | SAP                                                                                                                                                                                   | MILAN                                                                                                                                                                                  | CS                                                                                                                                                                                     |
@@ -23,7 +23,41 @@ Useful env variables:
 |                             |                                                                                                                                                                                         |                                                                                                                                                                                       |                                                                                                                                                                                        |                                                                                                                                                                                        |
 ### Analysis
 
-The table shows that near side accesses are the fastest, which is expected as the data is located in the same socket and the cores share the caches. However one discrepency is that on `milan` and `cs` is accesses across cores are faster than accesses within the same socket but not sharing the LLC. This is unexpected as we would expect that accesses within the same socket are faster than across sockets. Importantly the timing differecnes are very small (~5%). 
+The table shows that near side accesses are the fastest, which is expected as the data is located in the same socket and the cores share the caches. However one discrepency is that on `milan` and `cs` accesses across cores are faster than accesses within the same socket but not sharing the LLC. This is unexpected as we would expect that accesses within the same socket are faster than across sockets. Importantly the timing differecnes are very small (~5%). 
+
+We ran the test individually as well as together like this:
+```
+OMP_NUM_THREADS=4 GOMP_CPU_AFFINITY="0 1 47 127"
+
+Running 10.0 K ping-pongs using 30 different addresses for each pair from 4 threads
+Threads: 4, Base addr: 0x23493f0
+   Pair ( 0, 1):
+    Min: 29.9 ns (max: 50.9 ns, avg: 41.6 ns)
+   Pair ( 0, 2):
+    Min: 566.6 ns (max: 637.8 ns, avg: 623.2 ns)
+   Pair ( 0, 3):
+    Min: 542.1 ns (max: 556.0 ns, avg: 548.6 ns)
+   Pair ( 1, 0):
+    Min: 27.0 ns (max: 51.8 ns, avg: 41.5 ns)
+   Pair ( 1, 2):
+    Min: 206.4 ns (max: 642.8 ns, avg: 551.4 ns)
+   Pair ( 1, 3):
+    Min: 487.1 ns (max: 537.2 ns, avg: 521.7 ns)
+   Pair ( 2, 0):
+    Min: 236.7 ns (max: 262.1 ns, avg: 245.6 ns)
+   Pair ( 2, 1):
+    Min: 236.5 ns (max: 256.8 ns, avg: 245.5 ns)
+   Pair ( 2, 3):
+    Min: 542.5 ns (max: 554.8 ns, avg: 548.0 ns)
+   Pair ( 3, 0):
+    Min: 517.8 ns (max: 534.4 ns, avg: 527.0 ns)
+   Pair ( 3, 1):
+    Min: 516.6 ns (max: 537.2 ns, avg: 527.8 ns)
+   Pair ( 3, 2):
+    Min: 541.7 ns (max: 553.1 ns, avg: 547.3 ns)
+```
+
+When doing them this way we noticed that 2 -> 0 is much faster than 0 -> 2 which is unexpected as well (this was no measuremtn noise but repeatable). 
 
 ## c) 
 The warmup phase is important to ensure that caches, tlb's and branch predictors are populated with relevant information before measurements are taken. Without a warmup phase, the initial accesses may result in misses, leading to higher latency measurements for te first accesses that do not accurately reflect the typical performance of the system. The 20ms per thread pair is rather genous, the measurement time already is in lign with the actual measurement times for all four systems and all types of accesses.
