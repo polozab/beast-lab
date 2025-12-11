@@ -24,6 +24,8 @@ make NUM_TEAMS=256 NUM_THREADS=256
 rm -rf "./data/t2"
 mkdir -p "./data/t2"
 
+OMP_DYNAMIC=false OMP_PROC_BIND=true ./c2c | tee gh.csv
+
 stdbuf --output=L ./mm-gpu-offload_explicit.out | tee ./data/t2/explicit_row.csv
 stdbuf --output=L ./mm-gpu-offload_implicit.out | tee ./data/t2/implicit_row.csv
 stdbuf --output=L ./mm-gpu-offload_explicit_col.out | tee ./data/t2/explicit_col.csv
@@ -33,5 +35,5 @@ for ((t=8; t<=70; t+=2)); do
   make clean
   make NUM_TEAMS=256 NUM_THREADS=256 TILE_SIZE=$t
   stdbuf --output=L ./mm-gpu-offload_explicit_tiling.out | tee ./data/t2/tiling_row_$t.csv
-  stdbuf --output=L ./mm-gpu-offload_explicit_tiling_col.out | tee ./data/t2/tiling_col_$t.csv
+  stdbuf --output=L ./mm-gpu-offload_explicit_tiling_col.out ./data/t2| tee /tiling_col_$t.csv
 done

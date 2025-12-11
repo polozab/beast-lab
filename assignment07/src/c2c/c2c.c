@@ -161,10 +161,10 @@ int main(int argc, char* argv[])
 	}
 
     // write output file
-    // printf("------------------------------------\n");
-    // char filename[] = "./avg_matrix.csv";
-    // out2file(filename, avg_arr, tc);
-    // printf("------------------------------------\n");
+    printf("------------------------------------\n");
+    char filename[] = "./avg_matrix.csv";
+    out2file(filename, avg_arr, tc);
+    printf("------------------------------------\n");
 
     // free memory
     free(a);
