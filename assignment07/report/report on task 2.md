@@ -9,7 +9,7 @@ Report on Task 3
    
 Useful env variables: 
   - `OMP_PLACES=cores`
-    - cores: one place per core (all SMT siblings together).
+    - cores: one place per core
   - `OMP_PROC_BIND=true`
     - OMP_PROC_BIND controls whether threads are pinned to those places and how they spread:
 - `GOMP_CPU_AFFINITY` 
