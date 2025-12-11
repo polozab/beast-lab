@@ -57,7 +57,7 @@ Threads: 4, Base addr: 0x23493f0
     Min: 541.7 ns (max: 553.1 ns, avg: 547.3 ns)
 ```
 
-When doing them this way we noticed that 2 -> 0 is much faster than 0 -> 2 which is unexpected as well (this was no measuremtn noise but repeatable). 
+When doing them this way we noticed that 2 -> 0 is much faster than 0 -> 2 which is unexpected as well (this was no measuremtn noise but repeatable). The reverse way gives us the data which we expected in the beginning. 3 -> 0 cross socker being slower than 2 -> 0 same socket not sharing LLC being slower than 1 -> 0 near side.
 
 ## c) 
 The warmup phase is important to ensure that caches, tlb's and branch predictors are populated with relevant information before measurements are taken. Without a warmup phase, the initial accesses may result in misses, leading to higher latency measurements for te first accesses that do not accurately reflect the typical performance of the system. The 20ms per thread pair is rather genous, the measurement time already is in lign with the actual measurement times for all four systems and all types of accesses.
