@@ -21,6 +21,10 @@ Useful env variables:
 | cores different socket      | using Core 0, 71: Threads: 2, Base addr: 0x35d30370    Pair ( 0, 1):     **Min: 172.2 ns (max: 204.6 ns, avg: 196.4 ns)**    Pair ( 1, 0):     **Min: 172.2 ns (max: 204.5 ns, avg: 196.4 ns)** | using Core 0, 97: Threads: 2, Base addr: 0xb94380    Pair ( 0, 1):     **Min: 113.5 ns (max: 238.3 ns, avg: 188.9 ns)**    Pair ( 1, 0):     **Min: 113.5 ns (max: 239.5 ns, avg: 189.6 ns)** | using Core 0, 127: Threads: 2, Base addr: 0xbfa3a0    Pair ( 0, 1):     **Min: 535.7 ns (max: 554.5 ns, avg: 545.0 ns)**    Pair ( 1, 0):     **Min: 534.9 ns (max: 556.3 ns, avg: 545.9 ns)** | using Core 0, 36:Threads: 2, Base addr: 0x20f0360    Pair ( 0, 1):     **Min: 354.1 ns (max: 451.5 ns, avg: 410.6 ns)**    Pair ( 1, 0):     **Min: 355.2 ns (max: 377.5 ns, avg: 364.5 ns)**  |
 | same socket not sharing LLC | X                                                                                                                                                                                       | X                                                                                                                                                                                     | using Core 0, 47: Threads: 2, Base addr: 0x7db3a0    Pair ( 0, 1):     **Min: 505.8 ns (max: 633.2 ns, avg: 576.5 ns)**    Pair ( 1, 0):     **Min: 501.1 ns (max: 632.4 ns, avg: 575.9 ns)**  | using Core 0, 12: Threads: 2, Base addr: 0x9570360    Pair ( 0, 1):     **Min: 381.6 ns (max: 400.6 ns, avg: 391.3 ns)**    Pair ( 1, 0):     **Min: 381.6 ns (max: 400.6 ns, avg: 391.3 ns)** |
 |                             |                                                                                                                                                                                         |                                                                                                                                                                                       |                                                                                                                                                                                        |                                                                                                                                                                                        |
+### Analysis
+
+The table shows that near side accesses are the fastest, which is expected as the data is located in the same socket and the cores share the caches. However one discrepency is that on `milan` and `cs` is accesses across cores are faster than accesses within the same socket but not sharing the LLC. This is unexpected as we would expect that accesses within the same socket are faster than across sockets. Importantly the timing differecnes are very small (~5%). 
+
 ## c) 
 The warmup phase is important to ensure that caches, tlb's and branch predictors are populated with relevant information before measurements are taken. Without a warmup phase, the initial accesses may result in misses, leading to higher latency measurements for te first accesses that do not accurately reflect the typical performance of the system. The 20ms per thread pair is rather genous, the measurement time already is in lign with the actual measurement times for all four systems and all types of accesses.
 
@@ -260,6 +264,7 @@ The verbose data shows that different memory addresses yield different latencies
 ### CS
 ![](/assignment07/report/plots/heatmap_avg_c2clatency_cs.png)
 ![](/assignment07/report/plots/cs2.svg)
+
 The heatmap sows a 4x4 grid with internal 12x12 blocks. Each of the four big blocks represents one socket. Inside each socket the 12x12 blocks represent the cores inside the socket. The diagonal of each big block is very fast because those are the accesses within one socket. 
 
 
@@ -283,10 +288,15 @@ Grace hopper has only one socket so we would asume a uniform heatmp howerver thi
 ### SAP
 ![](/assignment07/report/plots/heatmap_avg_c2clatency_sap.png)
 ![](/assignment07/report/plots/sap3.svg)
+
 The heat map shows three distinct parts top left is a fast block(**S0**), bottom left and top right(**S01**) a slower block and bottom right a slow block(**S1**). The **S0** and **S1** correspond to socket on which the individual cores reside. The **S01** block represents cross socket communication. The inresting part is that **S1** is much slower than **S0** even though all cores reside on the same socket enabling fast communication because all cores share one L3 cache. However due to the benchmark the data is linked with the socket 0 so accessing data from socket 1 causes additional latency. In the case of **S01** the latency is lower than **S1** because one thread of the pair has direct access to the data in socket 0 as it resides there, whereass the other thread has to access the data cross socket. By pining the used memory to one socket we could verify this theory. 
->**Note:** SAP (and MILAN) have two hardware threads per core. Those are the white lines in the heatmap. Theses are obvioulsy faster than communication between two different cores.
+>**Note:** SAP (and MILAN) have two hardware threads per core. When looking at the diagonal in the SAP heat map two white spots are located in between every black spot. This is becasue they are the measurements of a pair of hardwarethreads on the same socket, therfore they are expreemtly fast as they share the same L1 chach.
 
 ### MILAN
 ![](/assignment07/report/plots/heatmap_avg_c2clatency_milan.png)
 ![](/assignment07/report/plots/milan2.svg)
+
 The heat map is nearly identiccal to the one of sap there a just a few differences. For one on the diagonal one can see that there is always a. very fast block this is because milan only share L3 cach among 8 cores therefore those groups are especialyl fast. The rest is similar which to sap and can be explained the same way and was verified by pinning the memory to one socket.
+
+## f)
+Due to team size limitation we could not do this task in its full extent. However the parallalization of the benchmark is not reliably possible (except to cut it in half by assuming 0 -> 1 is identical to 1 -> 0) however when parallelizing conflicts in cach accessing and therefore timing differences would occur. This is because the benchmark is designed to measure the latency of memory accesses and therefore it is not possible to parallelize it without introducing additional noise making it unreliable.
