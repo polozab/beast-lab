@@ -14,12 +14,12 @@ cd build
 
 ### Setup the environment
 ```bash
-module load tbb/2022.0
-module load compiler-rt/2023.1.0
+module load tbb/latest
+module load compiler-rt/latest
 module load cmake
-module load compiler/2023.1.0
-module load dpl/2022.7
-module load vtune/2025.0
+module load compiler/latest
+module load dpl/latest
+module load vtune/latest
 
 export KOKKOS_ROOT=<your home directory>/kokkos_intel/install/
 export KOKKOS_SRC=<your home directory>/kokkos_install/
@@ -35,7 +35,7 @@ make install
 
 ### Build the assignment codes
 ```bash
-cd assignment05/src/mm-gpu-kokkos
+cd assignment05/src/mm-gpu-kokkos # Alter aus welchem Jahr ist die Datei (┛◉Д◉)┛彡┻━┻
 make -f Makefile.intel
 ```
 
