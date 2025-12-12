@@ -8,8 +8,6 @@
 # Serial, OpenMP (threads) and SYCL backends. So you should have that
 # environment module loaded and include compiler flags for sycl and openmp:
 
-$(shell module load compiler/latest)
-
 # Aurora MPICH wrapper for C++ and C compilers:
 CXX="icpx"
 CC="icx"
