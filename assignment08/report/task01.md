@@ -9,7 +9,7 @@ We also had to manually specify the GCC root so the newer `libstdc++` provided b
 
 ## b)
 
-For execution of the various executables we used th from Kokkos suggested OMP flags. As the environment implements OpenMP 4.5 this would be:
+For execution of the various executables we used the suggested OMP flags from Kokkos. As the environment implements OpenMP 4.5 these would be:
 
 ```sh
 OMP_PROC_BIND=spread
