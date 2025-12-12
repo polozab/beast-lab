@@ -36,13 +36,13 @@ make install
 
 ### Build the assignment codes
 ```bash
-cd assignment05/src/mm-gpu-kokkos # Alter aus welchem Jahr ist die Datei (┛◉Д◉)┛彡┻━┻
-make -f Makefile.intel
+cd assignment08/src/mm-gpu-kokkos # Alter aus welchem Jahr ist die Datei (┛◉Д◉)┛彡┻━┻
+make
 ```
 
 ### Simple test run of the assignment codes
 ```bash
-make -f Makefile.intel run_all
+make run_all
 ```
 
 ## Nvidia systems
