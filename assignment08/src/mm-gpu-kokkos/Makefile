@@ -17,7 +17,7 @@ SYCL_AOT_LDFLAGS=-Xsycl-target-backend "-device pvc"
 
 CPPFLAGS=-g -O3 -fiopenmp -I $(KOKKOS_ROOT)/include $(SYCL_AOT_CPPFLAGS) -Wno-deprecated-declarations -Wno-tautological-constant-compare -Wno-unknown-attributes -ffp-model=precise
 
-LDFLAGS=$(CPPFLAGS) $(SYCL_AOT_LDFLAGS)
+LDFLAGS=$(CPPFLAGS) $(SYCL_AOT_LDFLAGS) -Wl,-rpath,$(GCC_ROOT)/lib64
 LDLIBS=-L$(KOKKOS_ROOT)/lib64 -lkokkoscore -lkokkossimd -lkokkoscontainers -lpthread
 
 SRCS=hello_kokkos.cpp kokkos_mm.cpp kokkos_device_props_sycl.cpp
