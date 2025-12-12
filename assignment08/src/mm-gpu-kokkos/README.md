@@ -14,6 +14,7 @@ cd build
 
 ### Setup the environment
 ```bash
+module load gcc/latest
 module load tbb/latest
 module load compiler-rt/latest
 module load cmake
