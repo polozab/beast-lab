@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
         std::ostringstream str;
         for (auto i : subGroupSizes)
             str << i << " ";
-        std::cout << "Max Sub Work Group Size: " << str << "\n";
+        std::cout << "Max Sub Work Group Size: " << str.str() << "\n";
         std::cout << "Max Number Of Sub Work Groups: " << dev.get_info<sycl::info::device::max_num_sub_groups>() << "\n";
 
     }
