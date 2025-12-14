@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
         std::cout << "Device Name: " << dev.get_info<sycl::info::device::name>() << "\n";
         std::cout << "Vendor: " << dev.get_info<sycl::info::device::vendor>() << "\n";
 
-        std::count << "\n";
+        std::cout << "\n";
 
         std::cout << "Max Work Group Size: " << dev.get_info<sycl::info::device::max_work_group_size>() << "\n";
         std::cout << "Max Work Group Size per dimension (2 dimensions): " << dev.get_info<sycl::info::device::max_work_item_sizes<2>>() << "\n";
@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
         std::cout << "Max Compute Units: " << dev.get_info<sycl::info::device::max_compute_units>() << "\n";
         std::cout << "Local Memory: " << dev.get_info<sycl::info::device::local_mem_size>() << " bytes\n";
         
-        std::count << "\n";
+        std::cout << "\n";
 
         std::cout << "Preferred Vector Width (double): " << dev.get_info<sycl::info::device::preferred_vector_width_double>() << "\n";
         //std::cout << "Max Sub Work Group Size: " << dev.get_info<sycl::info::device::sub_group_sizes>() << "\n";
