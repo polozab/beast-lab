@@ -20,8 +20,13 @@ int main(int argc, char* argv[]) {
         
         std::cout << "\n";
 
+
         std::cout << "Preferred Vector Width (double): " << dev.get_info<sycl::info::device::preferred_vector_width_double>() << "\n";
-        std::cout << "Max Sub Work Group Size: " << dev.get_info<sycl::info::device::sub_group_sizes>() << "\n";
+        auto subGroupSizes = dev.get_info<sycl::info::device::sub_group_sizes>();
+        std::ostringstream str;
+        for (auto i : subGroupSizes)
+            str << i << " ";
+        std::cout << "Max Sub Work Group Size: " << str << "\n";
         std::cout << "Max Number Of Sub Work Groups: " << dev.get_info<sycl::info::device::max_num_sub_groups>() << "\n";
 
     }
