@@ -30,7 +30,7 @@ void cpu_matmul(const HostView2D A, const HostView2D B, HostView2D C, size_t N) 
 void device_matmul(const DevView2D A, const DevView2D B, DevView2D C, size_t N) {
     using ExecSpace = Kokkos::DefaultExecutionSpace;
 int team_size   = 128;
-int vec_len     = Kokkos::AUTO;
+auto vec_len   = Kokkos::AUTO;
 
 auto policy = Kokkos::TeamPolicy<ExecSpace>(N, team_size, vec_len);
 
