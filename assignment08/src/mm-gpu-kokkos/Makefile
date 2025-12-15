@@ -24,16 +24,36 @@ ONEAPI_ROOT:=/opt/software/x86/oneAPI/compiler/2023.1.0/linux/lib/
 LDFLAGS=$(CPPFLAGS) -Wl,-rpath,$(GCC_ROOT)/lib64 $(SYCL_AOT_LDFLAGS)
 LDLIBS=-L$(KOKKOS_ROOT)/lib64 -lkokkoscore -lkokkossimd -lkokkoscontainers -lpthread
 
-SRCS=hello_kokkos.cpp kokkos_mm.cpp kokkos_device_props_sycl.cpp
+SRCS=hello_kokkos.cpp kokkos_mm.cpp kokkos_device_props_sycl.cpp \
+     kokkos_mm_TT_RRR.cpp kokkos_mm_TT_RRL.cpp kokkos_mm_TT_RLR.cpp kokkos_mm_TT_RLL.cpp \
+     kokkos_mm_TT_LRR.cpp kokkos_mm_TT_LRL.cpp kokkos_mm_TT_LLR.cpp kokkos_mm_TT_LLL.cpp
 OBJS=$(subst .cpp,.o,$(SRCS))
 
-all: hello_kokkos kokkos_mm kokkos_device_props_sycl
+all: hello_kokkos kokkos_mm kokkos_device_props_sycl \
+     kokkos_mm_TT_RRR kokkos_mm_TT_RRL kokkos_mm_TT_RLR kokkos_mm_TT_RLL \
+     kokkos_mm_TT_LRR kokkos_mm_TT_LRL kokkos_mm_TT_LLR kokkos_mm_TT_LLL
 
 hello_kokkos: hello_kokkos.o
 	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
 kokkos_mm: kokkos_mm.o
 	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
 kokkos_device_props_sycl: kokkos_device_props_sycl.o
+	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
+kokkos_mm_TT_RRR: kokkos_mm_TT_RRR.o
+	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
+kokkos_mm_TT_RRL: kokkos_mm_TT_RRL.o
+	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
+kokkos_mm_TT_RLR: kokkos_mm_TT_RLR.o
+	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
+kokkos_mm_TT_RLL: kokkos_mm_TT_RLL.o
+	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
+kokkos_mm_TT_LRR: kokkos_mm_TT_LRR.o
+	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
+kokkos_mm_TT_LRL: kokkos_mm_TT_LRL.o
+	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
+kokkos_mm_TT_LLR: kokkos_mm_TT_LLR.o
+	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
+kokkos_mm_TT_LLL: kokkos_mm_TT_LLL.o
 	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
 
 run_all: hello_kokkos kokkos_mm kokkos_device_props_sycl
