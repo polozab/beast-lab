@@ -27,10 +27,8 @@ void cpu_matmul(const HostView2D A, const HostView2D B, HostView2D C, size_t N) 
     Kokkos::fence();
 }
 
-void device_matmul(const DevView2D A, const DevView2D B, DevView2D C, size_t N, int AmountOfTeams, int threads_per_team) {
+void device_matmul(const DevView2D A, const DevView2D B, DevView2D C, size_t N, int AmountOfTeams, int threads_per_team, int vec_len ) {
     using ExecSpace = Kokkos::DefaultExecutionSpace;
-auto vec_len   = Kokkos::AUTO;
-
 auto policy = Kokkos::TeamPolicy<ExecSpace>(AmountOfTeams, threads_per_team, vec_len);
 
 Kokkos::parallel_for("TeamMatMul", policy, KOKKOS_LAMBDA(const auto& team) {
@@ -57,8 +55,8 @@ scalar_t checksum(const HostView2D& mat) {
 int main(int argc, char* argv[]) {
     Kokkos::initialize(argc, argv);
     {
-        if (argc < 4) {
-            std::cerr << "Usage: " << argv[0] << " <matrix_size_N> <AmountOfTeams> <threads_per_team> <opt.: set 1 for CPU>\n";
+        if (argc < 5) {
+            std::cerr << "Usage: " << argv[0] << " <matrix_size_N> <AmountOfTeams> <threads_per_team> <vec len (-1 = AUTO)> <opt.: set 1 for CPU>\n";
 
             Kokkos::finalize();
             return 1;
@@ -67,6 +65,9 @@ int main(int argc, char* argv[]) {
         size_t N = std::atoi(argv[1]);
         int AmountOfTeams = std::atoi(argv[2]);
         int threads_per_team = std::atoi(argv[3]);
+        int vec_len = std::atoi(argv[4]);
+
+
         if (N == 0) {
             std::cerr << "Invalid size N.\n";
             Kokkos::finalize();
@@ -87,7 +88,7 @@ int main(int argc, char* argv[]) {
 
         // --- CPU Kokkos matmul ---
         scalar_t cpu_sum;
-        if (argc == 5) {
+        if (argc == 6) {
         Kokkos::Timer cpu_timer;
         cpu_matmul(h_A, h_B, h_C_ref, N);
         double cpu_time = cpu_timer.seconds();
@@ -107,7 +108,7 @@ int main(int argc, char* argv[]) {
         Kokkos::deep_copy(d_B, h_B);
 
         Kokkos::Timer gpu_timer;
-        device_matmul(d_A, d_B, d_C, N, AmountOfTeams, threads_per_team);
+        device_matmul(d_A, d_B, d_C, N, AmountOfTeams, threads_per_team, vec_len);
         double gpu_time = gpu_timer.seconds();
         double gpu_gflops = total_flops / (gpu_time * 1e9);
 
