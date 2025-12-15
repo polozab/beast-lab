@@ -15,16 +15,16 @@ CC="icx"
 SYCL_AOT_CPPFLAGS=-fsycl -fsycl-targets=spir64_gen -fno-sycl-id-queries-fit-in-int -fsycl-dead-args-optimization -fsycl-unnamed-lambda -std=c++20
 SYCL_AOT_LDFLAGS=-Xsycl-target-backend "-device pvc"
 
-CPPFLAGS=-g -O3 -fiopenmp -I $(KOKKOS_ROOT)/include $(SYCL_AOT_CPPFLAGS) -Wno-deprecated-declarations -Wno-tautological-constant-compare -Wno-unknown-attributes -ffp-model=precise
+CPPFLAGS=-g -O3 -fiopenmp -I $(KOKKOS_ROOT)/include -I $(KOKKOS_KERNEL_ROOT)/include $(SYCL_AOT_CPPFLAGS) -Wno-deprecated-declarations -Wno-tautological-constant-compare -Wno-unknown-attributes -ffp-model=precise
 
-GCC_ROOT:=/home/sw/spack_new/spack_stack_dev/sap/spack/opt/spack/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder_/linux-sles15-icelake/gcc-13.2.0/gcc-14.2.0-57z6vikjlbeafvcvfuq5u65hgsjsi5bk
+GCC_ROOT:=/home/sw/spack_new/spack_stack_dev/sap/spack/opt/spack/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder_/linux-sles15-skylake_avx512/gcc-7.5.0/gcc-13.2.0-kv6jgtumk27vhunessefvgbwq5twgtom/bin/gcc
 
 ONEAPI_ROOT:=/opt/software/x86/oneAPI/compiler/2023.1.0/linux
 
 LDFLAGS=$(CPPFLAGS) -Wl,-rpath,$(GCC_ROOT)/lib64:$(ONEAPI_ROOT)/lib:$(KOKKOS_ROOT)/lib64:$(KOKKOS_KERNEL_ROOT)/lib64 $(SYCL_AOT_LDFLAGS)
-LDLIBS=-L$(KOKKOS_ROOT)/lib64 -lkokkoscore -lkokkossimd -lkokkoscontainers -lpthread
+LDLIBS=-L$(KOKKOS_ROOT)/lib64 -L$(KOKKOS_KERNEL_ROOT)/lib64 -lkokkoscore -lkokkossimd -lkokkoscontainers -lpthread -lkokkoskernels
 
-SRCS=hello_kokkos.cpp kokkos_mm.cpp kokkos_device_props_sycl.cpp
+SRCS=hello_kokkos.cpp kokkos_mm.cpp kokkos_device_props_sycl.cpp kokkos_kernel_mm.cpp
 OBJS=$(subst .cpp,.o,$(SRCS))
 
 all: hello_kokkos kokkos_mm kokkos_device_props_sycl

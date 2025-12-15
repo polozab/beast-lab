@@ -14,7 +14,7 @@ cd build
 
 ### Setup the environment
 ```bash
-module load gcc/14.2.0-gcc-13.2.0-57z6vik
+module load gcc/13.2.0-gcc-7.5.0-kv6jgtu
 module load tbb/latest
 module load compiler-rt/latest
 module load cmake
@@ -22,8 +22,8 @@ module load compiler/latest
 module load dpl/latest
 module load vtune/latest
 
-export KOKKOS_ROOT=<your home directory>/kokkos_intel/install/
-export KOKKOS_SRC=<your home directory>/kokkos_install/
+export KOKKOS_ROOT=~/kokkos_intel/install/
+export KOKKOS_SRC=~/kokkos_install/
 ```
 
 ### Building Kokkos

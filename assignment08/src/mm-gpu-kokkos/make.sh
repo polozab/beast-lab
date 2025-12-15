@@ -1,9 +1,9 @@
 #!/usr/bin/bash
 
-module load gcc/14.2.0-gcc-13.2.0-57z6vik
+module load gcc/13.2.0-gcc-7.5.0-kv6jgtu
 module load compiler/latest
 
-export GCC_ROOT=/home/sw/spack_new/spack_stack_dev/sap/spack/opt/spack/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder_/linux-sles15-icelake/gcc-13.2.0/gcc-14.2.0-57z6vikjlbeafvcvfuq5u65hgsjsi5bk
+export GCC_ROOT=/home/sw/spack_new/spack_stack_dev/sap/spack/opt/spack/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder_/linux-sles15-skylake_avx512/gcc-7.5.0/gcc-13.2.0-kv6jgtumk27vhunessefvgbwq5twgtom/bin/gcc
 
 export KOKKOS_ROOT=~/kokkos_intel/install
 
