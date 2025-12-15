@@ -19,9 +19,9 @@ CPPFLAGS=-g -O3 -fiopenmp -I $(KOKKOS_ROOT)/include $(SYCL_AOT_CPPFLAGS) -Wno-de
 
 GCC_ROOT:=/home/sw/spack_new/spack_stack_dev/sap/spack/opt/spack/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder_/linux-sles15-icelake/gcc-13.2.0/gcc-14.2.0-57z6vikjlbeafvcvfuq5u65hgsjsi5bk
 
-ONEAPI_ROOT:=/opt/software/x86/oneAPI/compiler/2023.1.0/linux/lib/
+ONEAPI_ROOT:=/opt/software/x86/oneAPI/compiler/2023.1.0/linux
 
-LDFLAGS=$(CPPFLAGS) -Wl,-rpath,$(GCC_ROOT)/lib64:$(KOKKOS_ROOT)/lib64 $(SYCL_AOT_LDFLAGS)
+LDFLAGS=$(CPPFLAGS) -Wl,-rpath,$(GCC_ROOT)/lib64:$(ONEAPI_ROOT)/lib:$(KOKKOS_ROOT)/lib64:$(KOKKOS_KERNEL_ROOT)/lib64 $(SYCL_AOT_LDFLAGS)
 LDLIBS=-L$(KOKKOS_ROOT)/lib64 -lkokkoscore -lkokkossimd -lkokkoscontainers -lpthread
 
 SRCS=hello_kokkos.cpp kokkos_mm.cpp kokkos_device_props_sycl.cpp
