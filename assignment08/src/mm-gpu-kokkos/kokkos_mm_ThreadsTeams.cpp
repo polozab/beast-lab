@@ -29,17 +29,23 @@ void cpu_matmul(const HostView2D A, const HostView2D B, HostView2D C, size_t N) 
 
 void device_matmul(const DevView2D A, const DevView2D B, DevView2D C, size_t N, int AmountOfTeams, int threads_per_team, int vec_len ) {
     using ExecSpace = Kokkos::DefaultExecutionSpace;
-auto policy = Kokkos::TeamPolicy<ExecSpace>(AmountOfTeams, threads_per_team, vec_len);
+    const int rows_per_team = (N + AmountOfTeams - 1) / AmountOfTeams;
+
+    // Allow AUTO vector length via -1 on the CLI.
+    auto policy = vec_len < 0
+        ? Kokkos::TeamPolicy<ExecSpace>(AmountOfTeams, threads_per_team, Kokkos::AUTO)
+        : Kokkos::TeamPolicy<ExecSpace>(AmountOfTeams, threads_per_team, vec_len);
 
 Kokkos::parallel_for("TeamMatMul", policy, KOKKOS_LAMBDA(const auto& team) {
-  int t = team.league_rank();
-  int row_start = t * rows_per_team;
-  int row_end   = Kokkos::min(row_start + rows_per_team, (int)N);
+  const int t = team.league_rank();
+  const int row_start = t * rows_per_team;
+  const int row_end   = row_start + rows_per_team < (int)N ? row_start + rows_per_team : (int)N;
 
   for (int i = row_start; i < row_end; ++i) {
     Kokkos::parallel_for(Kokkos::TeamThreadRange(team, N), [=](int j) {
-      scalar_t sum = 0;
-      for (int k = 0; k < N; ++k) sum += A(i,k) * B(k,j);
+      scalar_t sum = 0.0;
+      Kokkos::parallel_reduce(Kokkos::ThreadVectorRange(team, N),
+        [&](int k, scalar_t& lsum){ lsum += A(i,k)*B(k,j); }, sum);
       C(i,j) = sum;
     });
   }
@@ -89,10 +95,11 @@ int main(int argc, char* argv[]) {
         initialize_matrix(h_A);
         initialize_matrix(h_B);
 
+        bool run_cpu = (argc >= 6);
+        scalar_t cpu_sum = 0.0;
 
         // --- CPU Kokkos matmul ---
-        scalar_t cpu_sum;
-        if (argc == 6) {
+        if (run_cpu) {
         Kokkos::Timer cpu_timer;
         cpu_matmul(h_A, h_B, h_C_ref, N);
         double cpu_time = cpu_timer.seconds();
@@ -124,7 +131,7 @@ int main(int argc, char* argv[]) {
         std::cout << "[GPU] Checksum:   " << gpu_sum << "\n";
 
         // --- Result Comparison ---
-        if (argc == 5) {
+        if (run_cpu) {
         double rel_err = std::abs(cpu_sum - gpu_sum) / (std::abs(cpu_sum) + 1e-10);
         std::cout << "[CHECK] Relative Error: " << rel_err << "\n";
         std::cout << (rel_err < 1e-8 ? "[PASS] Results match.\n" : "[FAIL] Results differ.\n");
