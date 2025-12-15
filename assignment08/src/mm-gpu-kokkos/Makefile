@@ -43,7 +43,6 @@ kokkos_device_props_sycl: kokkos_device_props_sycl.o
 	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
 kokkos_mm_ThreadsTeams: kokkos_mm_ThreadsTeams.o
 	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
-	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
 kokkos_mm_TT_RRR: kokkos_mm_TT_RRR.o
 	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
 kokkos_mm_TT_RRL: kokkos_mm_TT_RRL.o
