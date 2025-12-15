@@ -32,13 +32,17 @@ void device_matmul(const DevView2D A, const DevView2D B, DevView2D C, size_t N, 
 auto policy = Kokkos::TeamPolicy<ExecSpace>(AmountOfTeams, threads_per_team, vec_len);
 
 Kokkos::parallel_for("TeamMatMul", policy, KOKKOS_LAMBDA(const auto& team) {
-  const int i = team.league_rank(); // row
-  Kokkos::parallel_for(Kokkos::TeamThreadRange(team, N), [=](int j) {
-    scalar_t sum = 0.0;
-    Kokkos::parallel_reduce(Kokkos::ThreadVectorRange(team, N),
-      [&](int k, scalar_t& lsum){ lsum += A(i,k)*B(k,j); }, sum);
-    C(i,j) = sum;
-  });
+  int t = team.league_rank();
+  int row_start = t * rows_per_team;
+  int row_end   = Kokkos::min(row_start + rows_per_team, (int)N);
+
+  for (int i = row_start; i < row_end; ++i) {
+    Kokkos::parallel_for(Kokkos::TeamThreadRange(team, N), [=](int j) {
+      scalar_t sum = 0;
+      for (int k = 0; k < N; ++k) sum += A(i,k) * B(k,j);
+      C(i,j) = sum;
+    });
+  }
 });
 Kokkos::fence();
 
