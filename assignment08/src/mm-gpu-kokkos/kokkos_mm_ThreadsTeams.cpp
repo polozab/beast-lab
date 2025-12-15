@@ -84,13 +84,15 @@ int main(int argc, char* argv[]) {
         initialize_matrix(h_A);
         initialize_matrix(h_B);
 
+
         // --- CPU Kokkos matmul ---
+        scalar_t cpu_sum
         if (argc == 5) {
         Kokkos::Timer cpu_timer;
         cpu_matmul(h_A, h_B, h_C_ref, N);
         double cpu_time = cpu_timer.seconds();
         double cpu_gflops = total_flops / (cpu_time * 1e9);
-        scalar_t cpu_sum = checksum(h_C_ref);
+        cpu_sum = checksum(h_C_ref);
 
         std::cout << "[CPU] Time:       " << cpu_time << " s\n";
         std::cout << "[CPU] GFLOP/s:    " << cpu_gflops << "\n";
