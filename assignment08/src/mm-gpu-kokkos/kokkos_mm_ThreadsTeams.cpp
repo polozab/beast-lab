@@ -86,7 +86,7 @@ int main(int argc, char* argv[]) {
 
         // --- CPU Kokkos matmul ---
         Kokkos::Timer cpu_timer;
-        cpu_matmul(h_A, h_B, h_C_ref, N, AmountOfTeams, threads_per_team);
+        cpu_matmul(h_A, h_B, h_C_ref, N);
         double cpu_time = cpu_timer.seconds();
         double cpu_gflops = total_flops / (cpu_time * 1e9);
         scalar_t cpu_sum = checksum(h_C_ref);
@@ -104,7 +104,7 @@ int main(int argc, char* argv[]) {
         Kokkos::deep_copy(d_B, h_B);
 
         Kokkos::Timer gpu_timer;
-        device_matmul(d_A, d_B, d_C, N);
+        device_matmul(d_A, d_B, d_C, N, AmountOfTeams, threads_per_team);
         double gpu_time = gpu_timer.seconds();
         double gpu_gflops = total_flops / (gpu_time * 1e9);
 
