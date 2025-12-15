@@ -25,13 +25,13 @@ LDFLAGS=$(CPPFLAGS) -Wl,-rpath,$(GCC_ROOT)/lib64 $(SYCL_AOT_LDFLAGS)
 LDLIBS=-L$(KOKKOS_ROOT)/lib64 -lkokkoscore -lkokkossimd -lkokkoscontainers -lpthread
 
 SRCS=hello_kokkos.cpp kokkos_mm.cpp kokkos_device_props_sycl.cpp \
-     kokkos_mm_ThreadsTeams.cpp kokkos_mm_TT_LRL_hostRight.cpp \
+     kokkos_mm_ThreadsTeams.cpp \
      kokkos_mm_TT_RRR.cpp kokkos_mm_TT_RRL.cpp kokkos_mm_TT_RLR.cpp kokkos_mm_TT_RLL.cpp \
      kokkos_mm_TT_LRR.cpp kokkos_mm_TT_LRL.cpp kokkos_mm_TT_LLR.cpp kokkos_mm_TT_LLL.cpp
 OBJS=$(subst .cpp,.o,$(SRCS))
 
 all: hello_kokkos kokkos_mm kokkos_device_props_sycl \
-     kokkos_mm_ThreadsTeams kokkos_mm_TT_LRL_hostRight \
+     kokkos_mm_ThreadsTeams \
      kokkos_mm_TT_RRR kokkos_mm_TT_RRL kokkos_mm_TT_RLR kokkos_mm_TT_RLL \
      kokkos_mm_TT_LRR kokkos_mm_TT_LRL kokkos_mm_TT_LLR kokkos_mm_TT_LLL
 
@@ -43,7 +43,6 @@ kokkos_device_props_sycl: kokkos_device_props_sycl.o
 	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
 kokkos_mm_ThreadsTeams: kokkos_mm_ThreadsTeams.o
 	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
-kokkos_mm_TT_LRL_hostRight: kokkos_mm_TT_LRL_hostRight.o
 	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
 kokkos_mm_TT_RRR: kokkos_mm_TT_RRR.o
 	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
