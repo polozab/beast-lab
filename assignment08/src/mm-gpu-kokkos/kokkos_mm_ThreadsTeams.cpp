@@ -86,7 +86,7 @@ int main(int argc, char* argv[]) {
 
 
         // --- CPU Kokkos matmul ---
-        scalar_t cpu_sum
+        scalar_t cpu_sum;
         if (argc == 5) {
         Kokkos::Timer cpu_timer;
         cpu_matmul(h_A, h_B, h_C_ref, N);
