@@ -21,7 +21,7 @@ GCC_ROOT:=/home/sw/spack_new/spack_stack_dev/sap/spack/opt/spack/__spack_path_pl
 
 ONEAPI_ROOT:=/opt/software/x86/oneAPI/compiler/2023.1.0/linux/lib/
 
-LDFLAGS=$(CPPFLAGS) -Wl,-rpath,$(GCC_ROOT)/lib64 $(SYCL_AOT_LDFLAGS)
+LDFLAGS=$(CPPFLAGS) -Wl,-rpath,$(GCC_ROOT)/lib64:$(KOKKOS_ROOT)/lib64 $(SYCL_AOT_LDFLAGS)
 LDLIBS=-L$(KOKKOS_ROOT)/lib64 -lkokkoscore -lkokkossimd -lkokkoscontainers -lpthread
 
 SRCS=hello_kokkos.cpp kokkos_mm.cpp kokkos_device_props_sycl.cpp

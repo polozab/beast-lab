@@ -28,7 +28,7 @@ export KOKKOS_SRC=<your home directory>/kokkos_install/
 
 ### Building Kokkos
 ```bash
-cmake    -DCMAKE_CXX_COMPILER=icpx    -DKokkos_ENABLE_SERIAL=ON    -DKokkos_ENABLE_OPENMP=ON   -DCMAKE_CXX_STANDARD=20 -DKokkos_ENABLE_SYCL=ON    -DKokkos_ARCH_INTEL_PVC=ON    -DCMAKE_CXX_FLAGS="-fp-model=precise" -DKokkos_ENABLE_LIBDL=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../install ..
+cmake    -DCMAKE_CXX_COMPILER=icpx    -DKokkos_ENABLE_SERIAL=ON    -DKokkos_ENABLE_OPENMP=ON   -DCMAKE_CXX_STANDARD=20  -DBUILD_SHARED_LIBS=ON -DKokkos_ENABLE_SYCL=ON    -DKokkos_ARCH_INTEL_PVC=ON    -DCMAKE_CXX_FLAGS="-fp-model=precise" -DKokkos_ENABLE_LIBDL=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../install ..
 
 make -j
 make install
