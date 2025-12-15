@@ -27,12 +27,11 @@ void cpu_matmul(const HostView2D A, const HostView2D B, HostView2D C, size_t N) 
     Kokkos::fence();
 }
 
-void device_matmul(const DevView2D A, const DevView2D B, DevView2D C, size_t N) {
+void device_matmul(const DevView2D A, const DevView2D B, DevView2D C, size_t N, int AmountOfTeams, int threads_per_team) {
     using ExecSpace = Kokkos::DefaultExecutionSpace;
-int team_size   = 128;
 auto vec_len   = Kokkos::AUTO;
 
-auto policy = Kokkos::TeamPolicy<ExecSpace>(N, team_size, vec_len);
+auto policy = Kokkos::TeamPolicy<ExecSpace>(AmountOfTeams, threads_per_team, vec_len);
 
 Kokkos::parallel_for("TeamMatMul", policy, KOKKOS_LAMBDA(const auto& team) {
   const int i = team.league_rank(); // row
@@ -58,13 +57,16 @@ scalar_t checksum(const HostView2D& mat) {
 int main(int argc, char* argv[]) {
     Kokkos::initialize(argc, argv);
     {
-        if (argc < 2) {
-            std::cerr << "Usage: " << argv[0] << " <matrix_size_N>\n";
+        if (argc < 4) {
+            std::cerr << "Usage: " << argv[0] << " <matrix_size_N> <AmountOfTeams> <threads_per_team>\n";
+
             Kokkos::finalize();
             return 1;
         }
 
         size_t N = std::atoi(argv[1]);
+        int AmountOfTeams = std::atoi(argv[2]);
+        int threads_per_team = std::atoi(argv[3]);
         if (N == 0) {
             std::cerr << "Invalid size N.\n";
             Kokkos::finalize();
