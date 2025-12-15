@@ -58,7 +58,7 @@ int main(int argc, char* argv[]) {
     Kokkos::initialize(argc, argv);
     {
         if (argc < 4) {
-            std::cerr << "Usage: " << argv[0] << " <matrix_size_N> <AmountOfTeams> <threads_per_team>\n";
+            std::cerr << "Usage: " << argv[0] << " <matrix_size_N> <AmountOfTeams> <threads_per_team> <opt.: set 1 for CPU>\n";
 
             Kokkos::finalize();
             return 1;
@@ -85,6 +85,7 @@ int main(int argc, char* argv[]) {
         initialize_matrix(h_B);
 
         // --- CPU Kokkos matmul ---
+        if (argc == 5) {
         Kokkos::Timer cpu_timer;
         cpu_matmul(h_A, h_B, h_C_ref, N);
         double cpu_time = cpu_timer.seconds();
@@ -94,7 +95,7 @@ int main(int argc, char* argv[]) {
         std::cout << "[CPU] Time:       " << cpu_time << " s\n";
         std::cout << "[CPU] GFLOP/s:    " << cpu_gflops << "\n";
         std::cout << "[CPU] Checksum:   " << cpu_sum << "\n";
-
+        }
         // --- Device matmul ---
         DevView2D d_A("A_dev", N, N);
         DevView2D d_B("B_dev", N, N);
