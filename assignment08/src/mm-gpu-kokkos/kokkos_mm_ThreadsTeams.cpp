@@ -117,9 +117,11 @@ int main(int argc, char* argv[]) {
         std::cout << "[GPU] Checksum:   " << gpu_sum << "\n";
 
         // --- Result Comparison ---
+        if (argc == 5) {
         double rel_err = std::abs(cpu_sum - gpu_sum) / (std::abs(cpu_sum) + 1e-10);
         std::cout << "[CHECK] Relative Error: " << rel_err << "\n";
         std::cout << (rel_err < 1e-8 ? "[PASS] Results match.\n" : "[FAIL] Results differ.\n");
+        }
     }
     Kokkos::finalize();
     return 0;
