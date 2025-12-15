@@ -1,0 +1,79 @@
+h039y08@sap4:~/Group-101/assignment08/src/mm-gpu-kokkos> ./kokkos_mm_TT_RRR 6144 6144 128 -1
+Kokkos::OpenMP::initialize WARNING: OMP_PROC_BIND environment variable not set
+  In general, for best performance with OpenMP 4.0 or better set OMP_PROC_BIND=spread and OMP_PLACES=threads
+  For best performance with OpenMP 3.1 set OMP_PROC_BIND=true
+  For unit testing set OMP_PROC_BIND=false
+
+[GPU] Time:       0.762582 s
+[GPU] GFLOP/s:    608.271
+[GPU] Checksum:   5.91474e+14
+---
+h039y08@sap4:~/Group-101/assignment08/src/mm-gpu-kokkos> ./kokkos_mm_TT_RRL 6144 6144 128 -1
+Kokkos::OpenMP::initialize WARNING: OMP_PROC_BIND environment variable not set
+  In general, for best performance with OpenMP 4.0 or better set OMP_PROC_BIND=spread and OMP_PLACES=threads
+  For best performance with OpenMP 3.1 set OMP_PROC_BIND=true
+  For unit testing set OMP_PROC_BIND=false
+
+[GPU] Time:       0.715334 s
+[GPU] GFLOP/s:    648.447
+[GPU] Checksum:   5.91474e+14
+---
+h039y08@sap4:~/Group-101/assignment08/src/mm-gpu-kokkos> ./kokkos_mm_TT_RLR 6144 6144 128 -1
+Kokkos::OpenMP::initialize WARNING: OMP_PROC_BIND environment variable not set
+  In general, for best performance with OpenMP 4.0 or better set OMP_PROC_BIND=spread and OMP_PLACES=threads
+  For best performance with OpenMP 3.1 set OMP_PROC_BIND=true
+  For unit testing set OMP_PROC_BIND=false
+
+[GPU] Time:       1.33155 s
+[GPU] GFLOP/s:    348.358
+[GPU] Checksum:   5.91474e+14
+---
+h039y08@sap4:~/Group-101/assignment08/src/mm-gpu-kokkos> ./kokkos_mm_TT_RLL 6144 6144 128 -1
+Kokkos::OpenMP::initialize WARNING: OMP_PROC_BIND environment variable not set
+  In general, for best performance with OpenMP 4.0 or better set OMP_PROC_BIND=spread and OMP_PLACES=threads
+  For best performance with OpenMP 3.1 set OMP_PROC_BIND=true
+  For unit testing set OMP_PROC_BIND=false
+
+[GPU] Time:       1.51098 s
+[GPU] GFLOP/s:    306.991
+[GPU] Checksum:   5.91474e+14
+---
+h039y08@sap4:~/Group-101/assignment08/src/mm-gpu-kokkos> ./kokkos_mm_TT_LRR 6144 6144 128 -1
+Kokkos::OpenMP::initialize WARNING: OMP_PROC_BIND environment variable not set
+  In general, for best performance with OpenMP 4.0 or better set OMP_PROC_BIND=spread and OMP_PLACES=threads
+  For best performance with OpenMP 3.1 set OMP_PROC_BIND=true
+  For unit testing set OMP_PROC_BIND=false
+
+[GPU] Time:       1.23594 s
+[GPU] GFLOP/s:    375.305
+[GPU] Checksum:   5.91474e+14
+---
+h039y08@sap4:~/Group-101/assignment08/src/mm-gpu-kokkos> ./kokkos_mm_TT_LRL 6144 6144 128 -1
+Kokkos::OpenMP::initialize WARNING: OMP_PROC_BIND environment variable not set
+  In general, for best performance with OpenMP 4.0 or better set OMP_PROC_BIND=spread and OMP_PLACES=threads
+  For best performance with OpenMP 3.1 set OMP_PROC_BIND=true
+  For unit testing set OMP_PROC_BIND=false
+
+[GPU] Time:       1.32064 s
+[GPU] GFLOP/s:    351.236
+[GPU] Checksum:   5.91474e+14
+---
+h039y08@sap4:~/Group-101/assignment08/src/mm-gpu-kokkos> ./kokkos_mm_TT_LLR 6144 6144 128 -1
+Kokkos::OpenMP::initialize WARNING: OMP_PROC_BIND environment variable not set
+  In general, for best performance with OpenMP 4.0 or better set OMP_PROC_BIND=spread and OMP_PLACES=threads
+  For best performance with OpenMP 3.1 set OMP_PROC_BIND=true
+  For unit testing set OMP_PROC_BIND=false
+
+[GPU] Time:       2.21515 s
+[GPU] GFLOP/s:    209.402
+[GPU] Checksum:   5.91474e+14
+---
+h039y08@sap4:~/Group-101/assignment08/src/mm-gpu-kokkos> ./kokkos_mm_TT_LLL 6144 6144 128 -1
+Kokkos::OpenMP::initialize WARNING: OMP_PROC_BIND environment variable not set
+  In general, for best performance with OpenMP 4.0 or better set OMP_PROC_BIND=spread and OMP_PLACES=threads
+  For best performance with OpenMP 3.1 set OMP_PROC_BIND=true
+  For unit testing set OMP_PROC_BIND=false
+
+[GPU] Time:       2.20496 s
+[GPU] GFLOP/s:    210.369
+[GPU] Checksum:   5.91474e+14
