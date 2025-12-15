@@ -28,7 +28,7 @@ export KOKKOS_SRC=~/kokkos_intel/install
 
 ### Building Kokkos
 ```bash
-cmake    -DCMAKE_CXX_COMPILER=icpx   -DCMAKE_CXX_STANDARD=20  -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../install -DBUILD_SHARED_LIBS=ON -DKokkos_ROOT=${KOKKOS_SRC} -DKokkos_DIR=${KOKKOS_ROOT} ..
+cmake    -DCMAKE_CXX_COMPILER=icpx   -DCMAKE_CXX_STANDARD=20  -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../install -DBUILD_SHARED_LIBS=ON -DKokkos_ROOT=${KOKKOS_SRC} -DKokkos_DIR=${KOKKOS_ROOT} -DKokkosKernels_ENABLED_COMPONENTS=BLAS ..
 
 make -j
 make install
