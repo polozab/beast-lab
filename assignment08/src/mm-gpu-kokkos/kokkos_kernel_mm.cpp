@@ -65,9 +65,7 @@ int main(int argc, char* argv[]) {
         }
 
 
-        bool runCPU = false;
-        if (argc > 2) runCPU = true;
-
+        bool run_cpu = (argc > 2);
         double total_flops = 2.0 * N * N * N;
 
         HostViewA h_A("A_host", N, N);
@@ -77,15 +75,15 @@ int main(int argc, char* argv[]) {
 
         initialize_matrix(h_A);
         initialize_matrix(h_B);
-
-        bool run_cpu = (argc >= 6);
-        scalar_t cpu_sum = 0.0;
-
-        std::cout << "[INFO] N:         " << N << "\n\n";
+        
+        std::cout << "[INFO] N:         " << N << "\n";
         if (run_cpu) std::cout << "[INFO] CPU ON\n\n";
         else std::cout << "[INFO] CPU OFF\n\n";
-
+        
         if (run_cpu) {
+            
+            scalar_t cpu_sum = 0.0;
+
             Kokkos::Timer cpu_timer;
             cpu_matmul(h_A, h_B, h_C_ref, N);
             double cpu_time = cpu_timer.seconds();
