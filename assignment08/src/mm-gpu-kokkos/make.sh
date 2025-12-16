@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 module load gcc/13.2.0-gcc-7.5.0-kv6jgtu
 module load compiler/latest
