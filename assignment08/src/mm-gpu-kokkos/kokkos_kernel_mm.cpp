@@ -29,15 +29,9 @@ void cpu_matmul(const HostView2D A, const HostView2D B, HostView2D C, size_t N) 
 }
 
 void device_matmul(const DevView2D A, const DevView2D B, DevView2D C, size_t N) {
-    Kokkos::parallel_for("GPUMatMul",
-        Kokkos::MDRangePolicy<Kokkos::DefaultExecutionSpace, Kokkos::Rank<2>>({0, 0}, {N, N}),
-        KOKKOS_LAMBDA(int i, int j) {
-            scalar_t sum = 0.0;
-            for (size_t k = 0; k < N; ++k)
-                sum += A(i, k) * B(k, j);
-            C(i, j) = sum;
-        });
-    Kokkos::fence();
+    const double alpha = 1.0;
+    const double beta  = 0.0;
+    KokkosBlas::gemm("N", "N", alpha, A, B, beta, C);
 }
 
 scalar_t checksum(const HostView2D& mat) {
