@@ -31,6 +31,7 @@ for n in $(seq "$start" "$step" "$end"); do
     for i in $(seq 1 "$runs"); do
         echo "Size $n run $i/$runs" >&2
         output=$(OMP_PROC_BIND=spread OMP_PLACES=threads "./kokkos_kernel_mm" "$n")
+        echo $output >&2
 
         cpu=$(printf "%s\n" "$output" | awk '/\[CPU\] GFLOP\/s:/ {print $3; exit}')
         gpu=$(printf "%s\n" "$output" | awk '/\[GPU\] GFLOP\/s:/ {print $3; exit}')
