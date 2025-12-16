@@ -64,6 +64,10 @@ int main(int argc, char* argv[]) {
             return 1;
         }
 
+
+        bool runCPU = false;
+        if (argc > 2) runCPU = true;
+
         double total_flops = 2.0 * N * N * N;
 
         HostViewA h_A("A_host", N, N);
@@ -77,16 +81,21 @@ int main(int argc, char* argv[]) {
         bool run_cpu = (argc >= 6);
         scalar_t cpu_sum = 0.0;
 
-        Kokkos::Timer cpu_timer;
-        cpu_matmul(h_A, h_B, h_C_ref, N);
-        double cpu_time = cpu_timer.seconds();
-        double cpu_gflops = total_flops / (cpu_time * 1e9);
-        cpu_sum = checksum(h_C_ref);
-
         std::cout << "[INFO] N:         " << N << "\n\n";
-        std::cout << "[CPU] Time:       " << cpu_time << " s\n";
-        std::cout << "[CPU] GFLOP/s:    " << cpu_gflops << "\n";
-        std::cout << "[CPU] Checksum:   " << cpu_sum << "\n";
+        if (run_cpu) std::cout << "[INFO] CPU ON\n\n";
+        else std::cout << "[INFO] CPU OFF\n\n";
+
+        if (run_cpu) {
+            Kokkos::Timer cpu_timer;
+            cpu_matmul(h_A, h_B, h_C_ref, N);
+            double cpu_time = cpu_timer.seconds();
+            double cpu_gflops = total_flops / (cpu_time * 1e9);
+            cpu_sum = checksum(h_C_ref);
+            
+            std::cout << "[CPU] Time:       " << cpu_time << " s\n";
+            std::cout << "[CPU] GFLOP/s:    " << cpu_gflops << "\n";
+            std::cout << "[CPU] Checksum:   " << cpu_sum << "\n";
+        }
         
         DevViewA d_A("A_dev", N, N);
         DevViewB d_B("B_dev", N, N);
@@ -107,9 +116,11 @@ int main(int argc, char* argv[]) {
         std::cout << "[GPU] GFLOP/s:    " << gpu_gflops << "\n";
         std::cout << "[GPU] Checksum:   " << gpu_sum << "\n";
 
-        double rel_err = std::abs(cpu_sum - gpu_sum) / (std::abs(cpu_sum) + 1e-10);
-        std::cout << "[CHECK] Relative Error: " << rel_err << "\n";
-        std::cout << (rel_err < 1e-8 ? "[PASS] Results match.\n" : "[FAIL] Results differ.\n");
+        if (run_cpu) {
+            double rel_err = std::abs(cpu_sum - gpu_sum) / (std::abs(cpu_sum) + 1e-10);
+            std::cout << "[CHECK] Relative Error: " << rel_err << "\n";
+            std::cout << (rel_err < 1e-8 ? "[PASS] Results match.\n" : "[FAIL] Results differ.\n");
+        }
 
     }
     Kokkos::finalize();
