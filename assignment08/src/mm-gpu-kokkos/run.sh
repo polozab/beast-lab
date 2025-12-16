@@ -8,7 +8,7 @@ export LD_LIBRARY_PATH=/opt/software/x86/oneAPI/compiler/2023.1.0/linux/lib/oclf
 
 runs=${1:-5}
 start=${2:-200}
-end=${3:-4000}
+end=${3:-10000}
 step=${4:-200}
 
 calc_stats() {
