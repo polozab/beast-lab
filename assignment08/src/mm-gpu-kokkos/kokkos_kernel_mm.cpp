@@ -145,11 +145,11 @@ int main(int argc, char* argv[]) {
             double cpu_gflops_min = 0.0, cpu_gflops_max = 0.0;
             double gpu_gflops_min = 0.0, gpu_gflops_max = 0.0;
 
-            for (int iter = 1; iter <= iterations; ++iter)
+            for (int i = 1; i <= iterations; ++i)
             {
                 bench_result res = bench(N);
 
-                if (iter == 1) {
+                if (i == 1) {
                     cpu_time_min = cpu_time_max = res.cpu_time;
                     gpu_time_min = gpu_time_max = res.gpu_time;
                     cpu_gflops_min = cpu_gflops_max = res.cpu_gflops;
@@ -170,9 +170,6 @@ int main(int argc, char* argv[]) {
                 cpu_gflops_sum += res.cpu_gflops;
                 gpu_gflops_sum += res.gpu_gflops;
 
-                std::cout << N << "," << iter << ","
-                          << res.cpu_time << "," << res.cpu_gflops << ","
-                          << res.gpu_time << "," << res.gpu_gflops << "\n";
             }
 
             double cpu_time_avg = cpu_time_sum / iterations;
