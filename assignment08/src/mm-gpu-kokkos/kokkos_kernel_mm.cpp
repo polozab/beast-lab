@@ -50,16 +50,13 @@ scalar_t checksum(const HostViewC& mat) {
 int main(int argc, char* argv[]) {
     Kokkos::initialize(argc, argv);
     {
-        if (argc < 5) {
-            std::cerr << "Usage: " << argv[0] << " <matrix_size_N> <teams> <threads_per_team> <vec len (-1 = AUTO)> <opt.: set 1 for CPU>\n";
+        if (argc < 2) {
+            std::cerr << "Usage: " << argv[0] << " <matrix_size_N>\n";
             Kokkos::finalize();
             return 1;
         }
 
         size_t N = std::atoi(argv[1]);
-        int teams = std::atoi(argv[2]);
-        int threads_per_team = std::atoi(argv[3]);
-        int vec_len = std::atoi(argv[4]);
 
         if (N == 0) {
             std::cerr << "Invalid size N.\n";
@@ -80,18 +77,16 @@ int main(int argc, char* argv[]) {
         bool run_cpu = (argc >= 6);
         scalar_t cpu_sum = 0.0;
 
-        if (run_cpu) {
-            Kokkos::Timer cpu_timer;
-            cpu_matmul(h_A, h_B, h_C_ref, N);
-            double cpu_time = cpu_timer.seconds();
-            double cpu_gflops = total_flops / (cpu_time * 1e9);
-            cpu_sum = checksum(h_C_ref);
+        Kokkos::Timer cpu_timer;
+        cpu_matmul(h_A, h_B, h_C_ref, N);
+        double cpu_time = cpu_timer.seconds();
+        double cpu_gflops = total_flops / (cpu_time * 1e9);
+        cpu_sum = checksum(h_C_ref);
 
-            std::cout << "[CPU] Time:       " << cpu_time << " s\n";
-            std::cout << "[CPU] GFLOP/s:    " << cpu_gflops << "\n";
-            std::cout << "[CPU] Checksum:   " << cpu_sum << "\n";
-        }
-
+        std::cout << "[CPU] Time:       " << cpu_time << " s\n";
+        std::cout << "[CPU] GFLOP/s:    " << cpu_gflops << "\n";
+        std::cout << "[CPU] Checksum:   " << cpu_sum << "\n";
+        
         DevViewA d_A("A_dev", N, N);
         DevViewB d_B("B_dev", N, N);
         DevViewC d_C("C_dev", N, N);
@@ -111,11 +106,10 @@ int main(int argc, char* argv[]) {
         std::cout << "[GPU] GFLOP/s:    " << gpu_gflops << "\n";
         std::cout << "[GPU] Checksum:   " << gpu_sum << "\n";
 
-        if (run_cpu) {
-            double rel_err = std::abs(cpu_sum - gpu_sum) / (std::abs(cpu_sum) + 1e-10);
-            std::cout << "[CHECK] Relative Error: " << rel_err << "\n";
-            std::cout << (rel_err < 1e-8 ? "[PASS] Results match.\n" : "[FAIL] Results differ.\n");
-        }
+        double rel_err = std::abs(cpu_sum - gpu_sum) / (std::abs(cpu_sum) + 1e-10);
+        std::cout << "[CHECK] Relative Error: " << rel_err << "\n";
+        std::cout << (rel_err < 1e-8 ? "[PASS] Results match.\n" : "[FAIL] Results differ.\n");
+
     }
     Kokkos::finalize();
     return 0;
