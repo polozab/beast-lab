@@ -80,10 +80,10 @@ int main(int argc, char* argv[]) {
         if (run_cpu) std::cout << "[INFO] CPU ON\n\n";
         else std::cout << "[INFO] CPU OFF\n\n";
         
+        scalar_t cpu_sum = 0.0;
+        
         if (run_cpu) {
             
-            scalar_t cpu_sum = 0.0;
-
             Kokkos::Timer cpu_timer;
             cpu_matmul(h_A, h_B, h_C_ref, N);
             double cpu_time = cpu_timer.seconds();
