@@ -1,5 +1,5 @@
 #include <Kokkos_Core.hpp>
-#include <KokkosBlas1_nrm1.hpp>
+#include<KokkosBlas3_gemm.hpp>
 #include <iostream>
 #include <cmath>
 #include <cstdlib>
