@@ -42,21 +42,18 @@ scalar_t checksum(const HostView2D& mat) {
     return sum;
 }
 
-int main(int argc, char* argv[]) {
-    Kokkos::initialize(argc, argv);
-    {
-        if (argc < 2) {
-            std::cerr << "Usage: " << argv[0] << " <matrix_size_N>\n";
-            Kokkos::finalize();
-            return 1;
-        }
+struct bench_result
+{
+    double cpu_time;
+    double cpu_gflops;
+    double gpu_time;
+    double gpu_gflops;
+};
 
-        size_t N = std::atoi(argv[1]);
-        if (N == 0) {
-            std::cerr << "Invalid size N.\n";
-            Kokkos::finalize();
-            return 1;
-        }
+
+void bench(size_t N, bench_result* res) {
+    Kokkos::initialize(N, res);
+    {
 
         double total_flops = 2.0 * N * N * N;
 
@@ -76,9 +73,9 @@ int main(int argc, char* argv[]) {
         double cpu_gflops = total_flops / (cpu_time * 1e9);
         scalar_t cpu_sum = checksum(h_C_ref);
 
-        std::cout << "[CPU] Time:       " << cpu_time << " s\n";
-        std::cout << "[CPU] GFLOP/s:    " << cpu_gflops << "\n";
-        std::cout << "[CPU] Checksum:   " << cpu_sum << "\n";
+        std::cerr << "[CPU] Time:       " << cpu_time << " s\n";
+        std::cerr << "[CPU] GFLOP/s:    " << cpu_gflops << "\n";
+        std::cerr << "[CPU] Checksum:   " << cpu_sum << "\n";
 
         // --- Device matmul ---
         DevView2D d_A("A_dev", N, N);
@@ -96,15 +93,47 @@ int main(int argc, char* argv[]) {
         Kokkos::deep_copy(h_C_gpu, d_C);
         scalar_t gpu_sum = checksum(h_C_gpu);
 
-        std::cout << "[GPU] Time:       " << gpu_time << " s\n";
-        std::cout << "[GPU] GFLOP/s:    " << gpu_gflops << "\n";
-        std::cout << "[GPU] Checksum:   " << gpu_sum << "\n";
+        std::cerr << "[GPU] Time:       " << gpu_time << " s\n";
+        std::cerr << "[GPU] GFLOP/s:    " << gpu_gflops << "\n";
+        std::cerr << "[GPU] Checksum:   " << gpu_sum << "\n";
 
         // --- Result Comparison ---
         double rel_err = std::abs(cpu_sum - gpu_sum) / (std::abs(cpu_sum) + 1e-10);
-        std::cout << "[CHECK] Relative Error: " << rel_err << "\n";
-        std::cout << (rel_err < 1e-8 ? "[PASS] Results match.\n" : "[FAIL] Results differ.\n");
+        std::cerr << "[CHECK] Relative Error: " << rel_err << "\n";
+        std::cerr << (rel_err < 1e-8 ? "[PASS] Results match.\n" : "[FAIL] Results differ.\n");
+
+        // Return results
+        res->cpu_time = cpu_time;
+        res->cpu_gflops = cpu_gflops;
+        res->gpu_time = gpu_time;
+        res->gpu_gflops = gpu_gflops;
     }
     Kokkos::finalize();
-    return 0;
+    return;
+}
+
+int main(int argc, char* argv[]) {
+
+    if (argc < 2) {
+        std::cerr << "Usage: " << argv[0] << " <matrix_size_N>\n";
+        return 1;
+    }
+
+    size_t N_max = std::atoi(argv[1]);
+    if (N_max == 0) {
+        std::cerr << "Invalid size N.\n";
+        return 1;
+    }
+
+    std::cout << "N, CPU_Time, GPU_Time, CPU_FLOPS, GPU_FLOPS" << "\n";
+
+    for (size_t N = 200; N < N_max; N += 200)
+    {
+        bench_result *res = new bench_result;
+        bench(N, res)
+        
+    }
+    
+    
+
 }
