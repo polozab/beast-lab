@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cmath>
 #include <cstdlib>
+#include <algorithm>
 
 using scalar_t = double;
 using HostView2D = Kokkos::View<scalar_t**, Kokkos::LayoutRight, Kokkos::HostSpace>;
@@ -51,65 +52,58 @@ struct bench_result
 };
 
 
-void bench(size_t N, bench_result* res) {
-    Kokkos::initialize(N, res);
-    {
+bench_result bench(size_t N) {
 
-        double total_flops = 2.0 * N * N * N;
+    double total_flops = 2.0 * N * N * N;
 
-        // Allocate host matrices
-        HostView2D h_A("A_host", N, N);
-        HostView2D h_B("B_host", N, N);
-        HostView2D h_C_ref("C_host_ref", N, N);
-        HostView2D h_C_gpu("C_host_result", N, N);
+    // Allocate host matrices
+    HostView2D h_A("A_host", N, N);
+    HostView2D h_B("B_host", N, N);
+    HostView2D h_C_ref("C_host_ref", N, N);
+    HostView2D h_C_gpu("C_host_result", N, N);
 
-        initialize_matrix(h_A);
-        initialize_matrix(h_B);
+    initialize_matrix(h_A);
+    initialize_matrix(h_B);
 
-        // --- CPU Kokkos matmul ---
-        Kokkos::Timer cpu_timer;
-        cpu_matmul(h_A, h_B, h_C_ref, N);
-        double cpu_time = cpu_timer.seconds();
-        double cpu_gflops = total_flops / (cpu_time * 1e9);
-        scalar_t cpu_sum = checksum(h_C_ref);
+    // --- CPU Kokkos matmul ---
+    Kokkos::Timer cpu_timer;
+    cpu_matmul(h_A, h_B, h_C_ref, N);
+    double cpu_time = cpu_timer.seconds();
+    double cpu_gflops = total_flops / (cpu_time * 1e9);
+    scalar_t cpu_sum = checksum(h_C_ref);
 
-        std::cerr << "[CPU] Time:       " << cpu_time << " s\n";
-        std::cerr << "[CPU] GFLOP/s:    " << cpu_gflops << "\n";
-        std::cerr << "[CPU] Checksum:   " << cpu_sum << "\n";
+    std::cerr << "[CPU] Time:       " << cpu_time << " s\n";
+    std::cerr << "[CPU] GFLOP/s:    " << cpu_gflops << "\n";
+    std::cerr << "[CPU] Checksum:   " << cpu_sum << "\n";
 
-        // --- Device matmul ---
-        DevView2D d_A("A_dev", N, N);
-        DevView2D d_B("B_dev", N, N);
-        DevView2D d_C("C_dev", N, N);
+    // --- Device matmul ---
+    DevView2D d_A("A_dev", N, N);
+    DevView2D d_B("B_dev", N, N);
+    DevView2D d_C("C_dev", N, N);
 
-        Kokkos::deep_copy(d_A, h_A);
-        Kokkos::deep_copy(d_B, h_B);
+    Kokkos::deep_copy(d_A, h_A);
+    Kokkos::deep_copy(d_B, h_B);
 
-        Kokkos::Timer gpu_timer;
-        device_matmul(d_A, d_B, d_C, N);
-        double gpu_time = gpu_timer.seconds();
-        double gpu_gflops = total_flops / (gpu_time * 1e9);
+    Kokkos::fence(); // ensure copies complete before timing
+    Kokkos::Timer gpu_timer;
+    device_matmul(d_A, d_B, d_C, N);
+    Kokkos::fence(); // ensure kernel finished before reading time
+    double gpu_time = gpu_timer.seconds();
+    double gpu_gflops = total_flops / (gpu_time * 1e9);
 
-        Kokkos::deep_copy(h_C_gpu, d_C);
-        scalar_t gpu_sum = checksum(h_C_gpu);
+    Kokkos::deep_copy(h_C_gpu, d_C);
+    scalar_t gpu_sum = checksum(h_C_gpu);
 
-        std::cerr << "[GPU] Time:       " << gpu_time << " s\n";
-        std::cerr << "[GPU] GFLOP/s:    " << gpu_gflops << "\n";
-        std::cerr << "[GPU] Checksum:   " << gpu_sum << "\n";
+    std::cerr << "[GPU] Time:       " << gpu_time << " s\n";
+    std::cerr << "[GPU] GFLOP/s:    " << gpu_gflops << "\n";
+    std::cerr << "[GPU] Checksum:   " << gpu_sum << "\n";
 
-        // --- Result Comparison ---
-        double rel_err = std::abs(cpu_sum - gpu_sum) / (std::abs(cpu_sum) + 1e-10);
-        std::cerr << "[CHECK] Relative Error: " << rel_err << "\n";
-        std::cerr << (rel_err < 1e-8 ? "[PASS] Results match.\n" : "[FAIL] Results differ.\n");
+    // --- Result Comparison ---
+    double rel_err = std::abs(cpu_sum - gpu_sum) / (std::abs(cpu_sum) + 1e-10);
+    std::cerr << "[CHECK] Relative Error: " << rel_err << "\n";
+    std::cerr << (rel_err < 1e-8 ? "[PASS] Results match.\n" : "[FAIL] Results differ.\n");
 
-        // Return results
-        res->cpu_time = cpu_time;
-        res->cpu_gflops = cpu_gflops;
-        res->gpu_time = gpu_time;
-        res->gpu_gflops = gpu_gflops;
-    }
-    Kokkos::finalize();
-    return;
+    return bench_result{cpu_time, cpu_gflops, gpu_time, gpu_gflops};
 }
 
 int main(int argc, char* argv[]) {
@@ -125,15 +119,73 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    std::cout << "N, CPU_Time, GPU_Time, CPU_FLOPS, GPU_FLOPS" << "\n";
-
-    for (size_t N = 200; N < N_max; N += 200)
-    {
-        bench_result *res = new bench_result;
-        bench(N, res)
-        
+    int iterations = 3;
+    if (argc >= 3) {
+        iterations = std::atoi(argv[2]);
     }
-    
-    
+    if (iterations <= 0) {
+        std::cerr << "Invalid iteration count, using 3.\n";
+        iterations = 3;
+    }
 
+    Kokkos::initialize(argc, argv);
+    {
+        std::cout << "N,Iteration,CPU_Time,CPU_GFLOPS,GPU_Time,GPU_GFLOPS\n";
+        std::cout << "N,CPU_Time_Min,CPU_Time_Avg,CPU_Time_Max,"
+                     "CPU_GFLOPS_Min,CPU_GFLOPS_Avg,CPU_GFLOPS_Max,"
+                     "GPU_Time_Min,GPU_Time_Avg,GPU_Time_Max,"
+                     "GPU_GFLOPS_Min,GPU_GFLOPS_Avg,GPU_GFLOPS_Max\n";
+
+        for (size_t N = 200; N <= N_max; N += 200)
+        {
+            double cpu_time_sum = 0.0, gpu_time_sum = 0.0;
+            double cpu_gflops_sum = 0.0, gpu_gflops_sum = 0.0;
+            double cpu_time_min = 0.0, cpu_time_max = 0.0;
+            double gpu_time_min = 0.0, gpu_time_max = 0.0;
+            double cpu_gflops_min = 0.0, cpu_gflops_max = 0.0;
+            double gpu_gflops_min = 0.0, gpu_gflops_max = 0.0;
+
+            for (int iter = 1; iter <= iterations; ++iter)
+            {
+                bench_result res = bench(N);
+
+                if (iter == 1) {
+                    cpu_time_min = cpu_time_max = res.cpu_time;
+                    gpu_time_min = gpu_time_max = res.gpu_time;
+                    cpu_gflops_min = cpu_gflops_max = res.cpu_gflops;
+                    gpu_gflops_min = gpu_gflops_max = res.gpu_gflops;
+                } else {
+                    cpu_time_min = std::min(cpu_time_min, res.cpu_time);
+                    cpu_time_max = std::max(cpu_time_max, res.cpu_time);
+                    gpu_time_min = std::min(gpu_time_min, res.gpu_time);
+                    gpu_time_max = std::max(gpu_time_max, res.gpu_time);
+                    cpu_gflops_min = std::min(cpu_gflops_min, res.cpu_gflops);
+                    cpu_gflops_max = std::max(cpu_gflops_max, res.cpu_gflops);
+                    gpu_gflops_min = std::min(gpu_gflops_min, res.gpu_gflops);
+                    gpu_gflops_max = std::max(gpu_gflops_max, res.gpu_gflops);
+                }
+
+                cpu_time_sum += res.cpu_time;
+                gpu_time_sum += res.gpu_time;
+                cpu_gflops_sum += res.cpu_gflops;
+                gpu_gflops_sum += res.gpu_gflops;
+
+                std::cout << N << "," << iter << ","
+                          << res.cpu_time << "," << res.cpu_gflops << ","
+                          << res.gpu_time << "," << res.gpu_gflops << "\n";
+            }
+
+            double cpu_time_avg = cpu_time_sum / iterations;
+            double gpu_time_avg = gpu_time_sum / iterations;
+            double cpu_gflops_avg = cpu_gflops_sum / iterations;
+            double gpu_gflops_avg = gpu_gflops_sum / iterations;
+
+            std::cout << N << ","
+                      << cpu_time_min << "," << cpu_time_avg << "," << cpu_time_max << ","
+                      << cpu_gflops_min << "," << cpu_gflops_avg << "," << cpu_gflops_max << ","
+                      << gpu_time_min << "," << gpu_time_avg << "," << gpu_time_max << ","
+                      << gpu_gflops_min << "," << gpu_gflops_avg << "," << gpu_gflops_max << "\n";
+        }
+    }
+    Kokkos::finalize();
 }
