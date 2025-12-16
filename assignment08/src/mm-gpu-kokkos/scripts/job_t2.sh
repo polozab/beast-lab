@@ -14,4 +14,3 @@
 
 
 stdbuf -oL ./run.sh | tee ./data/kokkos_kernel_mm.csv
-stdbuf -oL ./run_gpu.sh | tee ./data/kokkos_kernel_mm_gpu.csv
