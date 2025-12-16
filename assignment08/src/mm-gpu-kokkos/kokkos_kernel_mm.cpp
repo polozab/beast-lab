@@ -33,7 +33,7 @@ void cpu_matmul(const HostViewA A, const HostViewB B, HostViewC C, size_t N) {
     Kokkos::fence();
 }
 
-void device_matmul(const DevViewA A, const DevViewB B, DevViewC C, size_t N, int teams, int threads_per_team, int vec_len) {
+void device_matmul(const DevViewA A, const DevViewB B, DevViewC C) {
     const double alpha = 1.0;
     const double beta  = 0.0;
     KokkosBlas::gemm("N", "N", alpha, A, B, beta, C);
@@ -78,7 +78,7 @@ int main(int argc, char* argv[]) {
         scalar_t cpu_sum = 0.0;
 
         Kokkos::Timer cpu_timer;
-        cpu_matmul(h_A, h_B, h_C_ref, N);
+        cpu_matmul(h_A, h_B, h_C_ref);
         double cpu_time = cpu_timer.seconds();
         double cpu_gflops = total_flops / (cpu_time * 1e9);
         cpu_sum = checksum(h_C_ref);
@@ -95,7 +95,7 @@ int main(int argc, char* argv[]) {
         Kokkos::deep_copy(d_B, h_B);
 
         Kokkos::Timer gpu_timer;
-        device_matmul(d_A, d_B, d_C, N, teams, threads_per_team, vec_len);
+        device_matmul(d_A, d_B, d_C);
         double gpu_time = gpu_timer.seconds();
         double gpu_gflops = total_flops / (gpu_time * 1e9);
 
