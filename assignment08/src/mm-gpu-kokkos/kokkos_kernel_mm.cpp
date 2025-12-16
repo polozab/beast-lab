@@ -78,7 +78,7 @@ int main(int argc, char* argv[]) {
         scalar_t cpu_sum = 0.0;
 
         Kokkos::Timer cpu_timer;
-        cpu_matmul(h_A, h_B, h_C_ref);
+        cpu_matmul(h_A, h_B, h_C_ref, N);
         double cpu_time = cpu_timer.seconds();
         double cpu_gflops = total_flops / (cpu_time * 1e9);
         cpu_sum = checksum(h_C_ref);
