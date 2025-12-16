@@ -83,6 +83,7 @@ int main(int argc, char* argv[]) {
         double cpu_gflops = total_flops / (cpu_time * 1e9);
         cpu_sum = checksum(h_C_ref);
 
+        std::cout << "[INFO] N:         " << N << "\n\n";
         std::cout << "[CPU] Time:       " << cpu_time << " s\n";
         std::cout << "[CPU] GFLOP/s:    " << cpu_gflops << "\n";
         std::cout << "[CPU] Checksum:   " << cpu_sum << "\n";
