@@ -130,7 +130,6 @@ int main(int argc, char* argv[]) {
 
     Kokkos::initialize(argc, argv);
     {
-        std::cout << "N,Iteration,CPU_Time,CPU_GFLOPS,GPU_Time,GPU_GFLOPS\n";
         std::cout << "N,CPU_Time_Min,CPU_Time_Avg,CPU_Time_Max,"
                      "CPU_GFLOPS_Min,CPU_GFLOPS_Avg,CPU_GFLOPS_Max,"
                      "GPU_Time_Min,GPU_Time_Avg,GPU_Time_Max,"
