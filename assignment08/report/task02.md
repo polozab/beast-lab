@@ -45,3 +45,17 @@ We think this clearly show an important tradeoff scheme. While using generalized
 In conclusion we can say that we always have to check whether optimization is worth the time it takes.
 
 ## Comparison to OpenMP kernel
+
+![OMP Comparison FLOPS](plots/kernel_omp_flops.svg)
+
+Before going into the analysis we first want to mention that the recorded OmpenMP performance used the implicit `for`-construction and no tiling saving the B matrix in column-major order. The data was recorded on the `MILAN2` system and therefore has to be taken with caution as the underlying hardware specification differ severely from the current Implementations using Kokkos. Finally we only recorded data for OpenMP in the predefined range given by the assignment which goes up to a matrix size of `4000`.
+
+We can see that the OpenMP offloading implementation has significantly better performance for smaller matrix sizes but also reaches its saturation point much quicker. Noticeably the Kokkos kernel implementation cannot compete for any measured matrix size, while our own Kokkos implementation will outperform the OpenMP one for matrix sizes larger than `2800`. 
+
+We think one of the main reasons why our Kokkos implementation gets a much higher performance is due to the more developer friendly API Kokkos supplies. In OpenMP it was much harder to understand what specific impact a pragam flag had on the overall generated kernel. Thus we were not able to easily test and refine parameters to better tune the kernel for our system. This especially holds true for the implicit `for`-construct which gets used here for comparison as it archived the fastest results. It abstracts many aspect of the construction of the kernel and obfuscates necessary details for tuning. But even when using the explicit construction of OpenMP we didn't archive the same performance using tiling and various other optimization also applied in our Kokkos kernel implementation. It was even worse than the implicit OpenMP implementation but got very close to it.
+
+Again this shows that while abstraction may help to simply complex task and shorten development time, it also takes away optimization capabilities or at least obfuscates them so it is harder to work with them if necessary.
+
+## Further work
+
+It would be interesting to investigate the vendor specific oneMLK `gemm` kernel implementation and compare it against our own tuned variant. Especially because Kokkos won't use this backend and it would be interesting to see if the vendor library with much less work could archive similar performance to our own implementation.
