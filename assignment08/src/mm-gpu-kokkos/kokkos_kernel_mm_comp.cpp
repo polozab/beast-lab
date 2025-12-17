@@ -159,15 +159,24 @@ int main(int argc, char* argv[]) {
 
         initialize_matrix(h_A);
         initialize_matrix(h_B);
+
+        DevViewA d_hw_A("hw_A_dev", N, N);
+        DevViewB d_hw_B("hw_B_dev", N, N);
+        DevViewC d_hw_C("hw_C_dev", N, N);
+
+        Kokkos::deep_copy(d_hw_A, h_A);
+        Kokkos::deep_copy(d_hw_B, h_B);
         
         std::cout << "[INFO] N:         " << N << "\n";
         
         scalar_t hw_sum = 0.0;
             
         Kokkos::Timer hw_timer;
-        handwritten_matmul(h_A, h_B, h_C_ref, N, 64, 16, 64, 16);
+        handwritten_matmul(d_hw_A, d_hw_B, d_hw_C, N, 64, 16, 64, 16);
         double hw_time = hw_timer.seconds();
         double hw_gflops = total_flops / (hw_time * 1e9);
+
+        Kokkos::deep_copy(h_C_ref, d_hw_C);
         hw_sum = checksum(h_C_ref);
         
         std::cout << "[Handwritten] Time:       " << hw_time << " s\n";
