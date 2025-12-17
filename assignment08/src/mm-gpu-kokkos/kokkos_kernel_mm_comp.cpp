@@ -176,11 +176,12 @@ int main(int argc, char* argv[]) {
         double hw_time = hw_timer.seconds();
         double hw_gflops = total_flops / (hw_time * 1e9);
 
+        std::cout << "[Handwritten] Time:       " << hw_time << " s\n";
+        std::cout << "[Handwritten] GFLOP/s:    " << hw_gflops << "\n";
+
         Kokkos::deep_copy(h_C_ref, d_hw_C);
         hw_sum = checksum(h_C_ref);
         
-        std::cout << "[Handwritten] Time:       " << hw_time << " s\n";
-        std::cout << "[Handwritten] GFLOP/s:    " << hw_gflops << "\n";
         std::cout << "[Handwritten] Checksum:   " << hw_sum << "\n";
         
         DevViewA d_A("A_dev", N, N);
@@ -194,12 +195,13 @@ int main(int argc, char* argv[]) {
         kernel_matmul(d_A, d_B, d_C);
         double gpu_time = gpu_timer.seconds();
         double gpu_gflops = total_flops / (gpu_time * 1e9);
+        
+        std::cout << "[Kernel] Time:       " << gpu_time << " s\n";
+        std::cout << "[Kernel] GFLOP/s:    " << gpu_gflops << "\n";
 
         Kokkos::deep_copy(h_C_gpu, d_C);
         scalar_t gpu_sum = checksum(h_C_gpu);
 
-        std::cout << "[Kernel] Time:       " << gpu_time << " s\n";
-        std::cout << "[Kernel] GFLOP/s:    " << gpu_gflops << "\n";
         std::cout << "[Kernel] Checksum:   " << gpu_sum << "\n\n";
 
         ErrorMetrics err = compute_error_metrics(h_C_ref, h_C_gpu);
