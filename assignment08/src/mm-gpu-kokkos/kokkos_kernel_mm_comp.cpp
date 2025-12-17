@@ -66,6 +66,7 @@ void kernel_matmul(const DevViewA A, const DevViewB B, DevViewC C) {
     const double alpha = 1.0;
     const double beta  = 0.0;
     KokkosBlas::gemm("N", "N", alpha, A, B, beta, C);
+    Kokkos::fence();
 }
 
 scalar_t checksum(const HostViewC& mat) {
