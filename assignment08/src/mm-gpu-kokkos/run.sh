@@ -22,30 +22,42 @@ calc_stats() {
     '
 }
 
-echo "size,cpu_min_gflops,cpu_max_gflops,cpu_avg_gflops,gpu_min_gflops,gpu_max_gflops,gpu_avg_gflops"
+echo "size,cpu_min_gflops,cpu_max_gflops,cpu_avg_gflops,gpu_min_gflops,gpu_max_gflops,gpu_avg_gflops,cpu_min_time_s,cpu_max_time_s,cpu_avg_time_s,gpu_min_time_s,gpu_max_time_s,gpu_avg_time_s"
 
 for n in $(seq "$start" "$step" "$end"); do
+
     cpu_vals=()
     gpu_vals=()
+    cpu_time_vals=()
+    gpu_time_vals=()
 
     for i in $(seq 1 "$runs"); do
+
         echo "Size $n run $i/$runs" >&2
         output=$(OMP_PROC_BIND=spread OMP_PLACES=threads "./kokkos_kernel_mm" "$n" "1")
         echo $output >&2
 
         cpu=$(printf "%s\n" "$output" | awk '/\[CPU\] GFLOP\/s:/ {print $3; exit}')
         gpu=$(printf "%s\n" "$output" | awk '/\[GPU\] GFLOP\/s:/ {print $3; exit}')
+        cpu_time=$(printf "%s\n" "$output" | awk '/\[CPU\] Time:/ {print $3; exit}')
+        gpu_time=$(printf "%s\n" "$output" | awk '/\[GPU\] Time:/ {print $3; exit}')
 
-        if [[ -z "$cpu" || -z "$gpu" ]]; then
-            echo "failed to parse GFLOP/s for size $n run $i" >&2
+        if [[ -z "$cpu" || -z "$gpu" || -z "$cpu_time" || -z "$gpu_time" ]]; then
+            echo "failed to parse GFLOP/s or Time for size $n run $i" >&2
             exit 1
         fi
 
         cpu_vals+=("$cpu")
         gpu_vals+=("$gpu")
+        cpu_time_vals+=("$cpu_time")
+        gpu_time_vals+=("$gpu_time")
+
     done
 
     cpu_stats=$(printf "%s\n" "${cpu_vals[@]}" | calc_stats)
     gpu_stats=$(printf "%s\n" "${gpu_vals[@]}" | calc_stats)
-    echo "$n,$cpu_stats,$gpu_stats"
+    cpu_time_stats=$(printf "%s\n" "${cpu_time_vals[@]}" | calc_stats)
+    gpu_time_stats=$(printf "%s\n" "${gpu_time_vals[@]}" | calc_stats)
+    echo "$n,$cpu_stats,$gpu_stats,$cpu_time_stats,$gpu_time_stats"
+
 done

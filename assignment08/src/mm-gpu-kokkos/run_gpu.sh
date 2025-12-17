@@ -8,7 +8,7 @@ export LD_LIBRARY_PATH=/opt/software/x86/oneAPI/compiler/2023.1.0/linux/lib/oclf
 
 runs=${1:-5}
 start=${2:-200}
-end=${3:-20000}
+end=${3:-10000}
 step=${4:-200}
 
 calc_stats() {
@@ -22,26 +22,34 @@ calc_stats() {
     '
 }
 
-echo "size,gpu_min_gflops,gpu_max_gflops,gpu_avg_gflops"
+echo "size,gpu_min_gflops,gpu_max_gflops,gpu_avg_gflops,gpu_min_time_s,gpu_max_time_s,gpu_avg_time_s"
 
 for n in $(seq "$start" "$step" "$end"); do
+
     gpu_vals=()
+    gpu_time_vals=()
 
     for i in $(seq 1 "$runs"); do
+
         echo "Size $n run $i/$runs" >&2
         output=$(OMP_PROC_BIND=spread OMP_PLACES=threads "./kokkos_kernel_mm" "$n")
         echo $output >&2
 
         gpu=$(printf "%s\n" "$output" | awk '/\[GPU\] GFLOP\/s:/ {print $3; exit}')
+        gpu_time=$(printf "%s\n" "$output" | awk '/\[GPU\] Time:/ {print $3; exit}')
 
-        if [[ -z "$gpu" ]]; then
-            echo "failed to parse GFLOP/s for size $n run $i" >&2
+        if [[ -z "$gpu" || -z "$gpu_time" ]]; then
+            echo "failed to parse GFLOP/s or Time for size $n run $i" >&2
             exit 1
         fi
 
         gpu_vals+=("$gpu")
+        gpu_time_vals+=("$gpu_time")
+
     done
 
     gpu_stats=$(printf "%s\n" "${gpu_vals[@]}" | calc_stats)
-    echo "$n,$gpu_stats"
+    gpu_time_stats=$(printf "%s\n" "${gpu_time_vals[@]}" | calc_stats)
+    echo "$n,$gpu_stats,$gpu_time_stats"
+
 done
