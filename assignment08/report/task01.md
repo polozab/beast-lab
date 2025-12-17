@@ -27,28 +27,35 @@ Max Compute Units: 1024
 Local Memory: 131072 bytes
 Max Work Group Size: 1024
 ```
-
+---
+>> For all of the following task the following hold true:
+>> - The measuremtns are the best result of six consecutive runs. No immense variance was observed between runs.
+>> - Despite this note: "In general, for best performance with OpenMP 4.0 or better set OMP_PROC_BIND=spread and OMP_PLACES=threads" we discovered no performance difference when setting these flags. 
 ## d)
 
-When running the matrix multiplication for `N=6144`, we observed the following execution times:
-
-```
-[CPU] Time:       32.9206 s
-[CPU] GFLOP/s:    14.0902
-[CPU] Checksum:   5.91474e+14
-[GPU] Time:       1.75779 s
-[GPU] GFLOP/s:    263.887
-[GPU] Checksum:   5.91474e+14
-``` 
+![](gpu_only_best.png)
 
 ### Bandwidth Calculation
 
-Data transferred = 3 * N * N * 8 = 0.906 GB
+Data transferred = 3 * N * N * 8
 
-|        | GPU     | CPU     |
-|--------|---------|---------|
-| Time (s) | 1.75779 | 32.9206 |
-| Bandwidth {Data Transferred / Time}(GB/s) | 0.515   | 0.0275 |
+| N    | time_s  | GFLOP/s | GB/s |
+|-----:|-------:|--------:|-----:|
+| 256  | 0.01530 | 2.192   | 0.103 |
+| 512  | 0.01536 | 17.479  | 0.410 |
+| 1024 | 0.02070 | 103.723 | 1.216 |
+| `2048` | 0.07519 | 228.493 | `1.339` |
+| 3072 | 0.22616 | 256.372 | 1.001 |
+| 4096 | 0.52173 | 263.431 | 0.772 |
+| 5120 | 1.02108 | 262.895 | 0.616 |
+| 6144 | 1.75421 | 264.424 | 0.516 |
+| 7168 | 2.79211 | 263.810 | 0.442 |
+| `8192` | 3.96987 | `276.964` | 0.406 |
+| 9216 | 5.88655 | 265.948 | 0.346 |
+
+The highest bandwidth is achieved for N=2048 with 1.339 GB/s. Which is far below the theoretical maximum Bandwidth for HBM. Refelcting that this is a compute bound problem and not memory bound. 
+> The highest Bandwidth utilization we could achieve in Task 1 is around 3.3 GB/s. Still far below the theoretical peak.
+
 
 ## e) 
 ### row wise distribution
@@ -120,3 +127,4 @@ Using the theoreticaly best layout from f) (RLR) and the best configuration from
 [GPU] GFLOP/s:    1693.24
 [GPU] Checksum:   5.91474e+14
 ```
+so no?
