@@ -23,7 +23,11 @@ We also used the recommended flags `OMP_PROC_BIND=spread` and `OMP_PLACES=thread
 
 ## Benchmark Results Kokkos kernel
 
-## Comparison to handwritten kernel
+> Top results table
+> CPU res
+> GPU res
+
+## Comparison to handwritten Kokkos GPU kernel
 
 ![Kernel Comparison FLOPS](plots/kernel_comp_flops.svg)
 ![Kernel Comparison Execution Time](plots/kernel_comp_time.svg)
