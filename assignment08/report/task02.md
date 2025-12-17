@@ -19,7 +19,7 @@ To validate that the kokkos kernel returns correct results we verified each chec
 
 We decided to not use any repetition logic for the execution as these would only affect the results of very small matrix sizes anyway. Instead we chose to run the benchmark multiple times (in our case 5 runs per matrix size) to eliminate side effects and run variances by averaging the resulting measurements. For completeness we also recorded minimum and maximum values.
 
-We also used the recommended flags ` ` and ` ` from Kokkos for every execution of the binary.
+We also used the recommended flags `OMP_PROC_BIND=spread` and `OMP_PLACES=threads` from Kokkos for every execution of the binary.
 
 ## Results of the Kokkos kernel
 
