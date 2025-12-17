@@ -27,13 +27,17 @@ LDLIBS=-L$(KOKKOS_ROOT)/lib64 -lkokkoscore -lkokkossimd -lkokkoscontainers -lpth
 SRCS=hello_kokkos.cpp kokkos_mm.cpp kokkos_device_props_sycl.cpp \
      kokkos_mm_ThreadsTeams.cpp \
      kokkos_mm_TT_RRR.cpp kokkos_mm_TT_RRL.cpp kokkos_mm_TT_RLR.cpp kokkos_mm_TT_RLL.cpp \
-     kokkos_mm_TT_LRR.cpp kokkos_mm_TT_LRL.cpp kokkos_mm_TT_LLR.cpp kokkos_mm_TT_LLL.cpp tmp2.cpp kokkos_mm_GPU_Only.cpp kokkos_mm_TT_tiled.cpp
+     kokkos_mm_TT_LRR.cpp kokkos_mm_TT_LRL.cpp kokkos_mm_TT_LLR.cpp kokkos_mm_TT_LLL.cpp \
+     kokkos_mm_TT_RRL_dual.cpp kokkos_mm_TT_RLR_dual_tiled.cpp \
+     tmp2.cpp kokkos_mm_GPU_Only.cpp kokkos_mm_TT_tiled.cpp
 OBJS=$(subst .cpp,.o,$(SRCS))
 
 all: hello_kokkos kokkos_mm kokkos_device_props_sycl \
      kokkos_mm_ThreadsTeams \
      kokkos_mm_TT_RRR kokkos_mm_TT_RRL kokkos_mm_TT_RLR kokkos_mm_TT_RLL \
-     kokkos_mm_TT_LRR kokkos_mm_TT_LRL kokkos_mm_TT_LLR kokkos_mm_TT_LLL tmp2 kokkos_mm_GPU_Only kokkos_mm_TT_tiled
+     kokkos_mm_TT_LRR kokkos_mm_TT_LRL kokkos_mm_TT_LLR kokkos_mm_TT_LLL \
+     kokkos_mm_TT_RRL_dual kokkos_mm_TT_RLR_dual_tiled \
+     tmp2 kokkos_mm_GPU_Only kokkos_mm_TT_tiled
 
 hello_kokkos: hello_kokkos.o
 	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
@@ -58,6 +62,10 @@ kokkos_mm_TT_LRL: kokkos_mm_TT_LRL.o
 kokkos_mm_TT_LLR: kokkos_mm_TT_LLR.o
 	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
 kokkos_mm_TT_LLL: kokkos_mm_TT_LLL.o
+	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
+kokkos_mm_TT_RRL_dual: kokkos_mm_TT_RRL_dual.o
+	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
+kokkos_mm_TT_RLR_dual_tiled: kokkos_mm_TT_RLR_dual_tiled.o
 	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
 kokkos_mm_GPU_Only: kokkos_mm_GPU_Only.o
 	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
