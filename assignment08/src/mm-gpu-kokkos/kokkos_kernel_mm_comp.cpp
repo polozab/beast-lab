@@ -195,13 +195,13 @@ int main(int argc, char* argv[]) {
         double gpu_time = gpu_timer.seconds();
         double gpu_gflops = total_flops / (gpu_time * 1e9);
 
-        Kokkos::deep_copy(h_C_gpu, d_C);
-        scalar_t gpu_sum = checksum(h_C_gpu);
-        ErrorMetrics err = compute_error_metrics(h_C_ref, h_C_gpu);
-
         std::cout << "[Kernel] Time:       " << gpu_time << " s\n";
         std::cout << "[Kernel] GFLOP/s:    " << gpu_gflops << "\n";
         std::cout << "[Kernel] Checksum:   " << gpu_sum << "\n\n";
+
+        Kokkos::deep_copy(h_C_gpu, d_C);
+        scalar_t gpu_sum = checksum(h_C_gpu);
+        ErrorMetrics err = compute_error_metrics(h_C_ref, h_C_gpu);
 
         double rel_err = std::abs(hw_sum - gpu_sum) / (std::abs(hw_sum) + 1e-10);
         std::cout << "[CHECK] Relative Error: " << rel_err << "\n";
