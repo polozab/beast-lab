@@ -13,24 +13,22 @@ using DevViewC  = Kokkos::View<scalar_t**, Kokkos::LayoutLeft>;
 
 template <typename ViewType>
 void initialize_matrix(ViewType A) {
-    auto rows = A.extent(0), cols = A.extent(1);
-    for (size_t i = 0; i < rows; ++i)
-        for (size_t j = 0; j < cols; ++j)
+    using HostExecSpace = Kokkos::DefaultHostExecutionSpace;
+    const int rows = static_cast<int>(A.extent(0));
+    const int cols = static_cast<int>(A.extent(1));
+    Kokkos::parallel_for(
+        "InitMatrix",
+        Kokkos::MDRangePolicy<HostExecSpace, Kokkos::Rank<2>>({0, 0}, {rows, cols}),
+        KOKKOS_LAMBDA(int i, int j) {
             A(i, j) = static_cast<scalar_t>((i * cols + j) % 100 + 1);
+        });
+    Kokkos::fence();
 }
 
 void cpu_matmul(const HostViewA A, const HostViewB B, HostViewC C, size_t N) {
-    using HostExecSpace = Kokkos::DefaultHostExecutionSpace;
-    Kokkos::parallel_for(
-        "CPUMatMul",
-        Kokkos::MDRangePolicy<HostExecSpace, Kokkos::Rank<2>>({0, 0}, {N, N}),
-        KOKKOS_LAMBDA(int i, int j) {
-            scalar_t sum = 0.0;
-            for (size_t k = 0; k < N; ++k)
-                sum += A(i, k) * B(k, j);
-            C(i, j) = sum;
-        });
-    Kokkos::fence();
+    const double alpha = 1.0;
+    const double beta  = 0.0;
+    KokkosBlas::gemm("N", "N", alpha, A, B, beta, C);
 }
 
 void device_matmul(const DevViewA A, const DevViewB B, DevViewC C) {
@@ -40,10 +38,15 @@ void device_matmul(const DevViewA A, const DevViewB B, DevViewC C) {
 }
 
 scalar_t checksum(const HostViewC& mat) {
+    using HostExecSpace = Kokkos::DefaultHostExecutionSpace;
+    const int rows = static_cast<int>(mat.extent(0));
+    const int cols = static_cast<int>(mat.extent(1));
     scalar_t sum = 0.0;
-    for (size_t i = 0; i < mat.extent(0); ++i)
-        for (size_t j = 0; j < mat.extent(1); ++j)
-            sum += mat(i, j);
+    Kokkos::parallel_reduce(
+        "Checksum",
+        Kokkos::MDRangePolicy<HostExecSpace, Kokkos::Rank<2>>({0, 0}, {rows, cols}),
+        KOKKOS_LAMBDA(int i, int j, scalar_t& lsum) { lsum += mat(i, j); },
+        sum);
     return sum;
 }
 
