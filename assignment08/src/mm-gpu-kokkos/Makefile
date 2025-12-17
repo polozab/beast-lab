@@ -23,7 +23,7 @@ ONEAPI_ROOT:=/opt/software/x86/oneAPI/compiler/2023.1.0/linux
 
 MKL_ROOT:=/opt/software/x86/oneAPI/mkl/latest
 
-LDFLAGS=$(CPPFLAGS) -Wl,-rpath,$(GCC_ROOT)/lib64:$(ONEAPI_ROOT)/lib:$(KOKKOS_ROOT)/lib64:$(KOKKOS_KERNEL_ROOT)/lib64:$(MKL_ROOT)/lib64 $(SYCL_AOT_LDFLAGS)
+LDFLAGS=$(CPPFLAGS) -Wl,-rpath,$(GCC_ROOT)/lib64:$(ONEAPI_ROOT)/lib:$(KOKKOS_ROOT)/lib64:$(KOKKOS_KERNEL_ROOT)/lib64:$(MKL_ROOT)/lib/intel64 $(SYCL_AOT_LDFLAGS)
 LDLIBS=-L$(KOKKOS_ROOT)/lib64 -L$(KOKKOS_KERNEL_ROOT)/lib64 -lkokkoscore -lkokkossimd -lkokkoscontainers -lpthread -lkokkoskernels
 
 SRCS=hello_kokkos.cpp kokkos_mm.cpp kokkos_device_props_sycl.cpp kokkos_kernel_mm.cpp kokkos_kernel_mm_comp.cpp
