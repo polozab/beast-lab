@@ -13,6 +13,8 @@ gemm(char transA, char transB, double alpha, View A, View B, double beta, View C
 
 For our benchmark we are only leveraging the simple `A * B` part without transforming any of the input matrices. Thus we set the scaling parameters to `1.0` and transA/B to `N`.
 
+However this kernel doesn't hook into the vendor specific implementation which is in case of Intel *oneMKL*. Instead it uses the Kokkos specific implementation of the `gemm` kernel
+
 ## Running the benchmark
 
 To validate that the kokkos kernel returns correct results we verified each checksum against the checksum of our best-performing handwritten kernel. As they matched exactly on every case we assume that the calculations done by the kokkos kernel is correct. In addition we also performed several difference checks between the result matrices and found no deviations at all. Thus all calculated matrix norms were also the same (e.g. euclidean norm).
@@ -26,6 +28,8 @@ We also used the recommended flags `OMP_PROC_BIND=spread` and `OMP_PLACES=thread
 > Top results table
 > CPU res
 > GPU res
+
+A possible reason for the 
 
 ## Comparison to handwritten Kokkos GPU kernel
 
