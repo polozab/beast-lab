@@ -165,7 +165,7 @@ int main(int argc, char* argv[]) {
         scalar_t hw_sum = 0.0;
             
         Kokkos::Timer hw_timer;
-        handwritten_matmul(h_A, h_B, h_C_ref, N);
+        handwritten_matmul(h_A, h_B, h_C_ref, N, 64, 16, 64, 16);
         double hw_time = hw_timer.seconds();
         double hw_gflops = total_flops / (hw_time * 1e9);
         hw_sum = checksum(h_C_ref);
