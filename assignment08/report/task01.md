@@ -2,7 +2,7 @@
 
 ## a)
 
-For compilation we used `icpx` version `2023.1.0` with the C++ toolchain provided by `GCC 14.2.0`.
+For compilation we used `icpx` version `2023.1.0` with the C++ toolchain provided by `GCC 13.2.0`.
 Additionally to the specified modules in the README we had to load the latest GCC version and also explicitly used the latest module tags to always use the newest versions of the compiler and tools.
 We also had to manually specify the GCC root so the newer `libstdc++` provided by the gcc module was linked instead of the old system installation under `/usr/lib64`.
 
