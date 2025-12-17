@@ -28,6 +28,10 @@ We also used the recommended flags `OMP_PROC_BIND=spread` and `OMP_PLACES=thread
 ![Kernel Comparison FLOPS](plots/kernel_comp_flops.svg)
 ![Kernel Comparison Execution Time](plots/kernel_comp_time.svg)
 
-> Optimizing parameters for different matrix sizes difficult, only for one good -> where as for kokkos kernel generally passable performance but not as good as handcrafted
+Comparing the precomputed Kokkos kernel to our best performing handwritten kernel we can see that for larger matrix sizes the Kokkos kernel cannot compete with our tuned version. While for very small matrix sizes the Kokkos implementation outperfroms our handwritten version it gets quickly outrun after the matrix size grows beyond 2000. At this point our own implementation still increases in performance while the Kokkos kernel already reached its saturation point.
+
+We think this clearly show an important tradeoff scheme. While using generalized methods often leads to passable results very quickly, tuning a program by hand can lead to significantly better performance. But this tuning comes at the cost of time and generality. We can observe that for small matrix sizes which we did not optimize for our tuned size parameters for leagues, threads and vectors are worse compared to the Kokkos implementation. Only for the special case of large matrix sizes our tuned kernel outperforms the Kokkos implementation. Additionally to find parameters that result in good performance took much effort and time, and we are still pretty sure that there might be a configuration that leads to even better performances in certain cases. On the other hand, calling the Kokkos implementation is very easy and took a single line of code. It also didn't require any previous knowledge about implementing matrix multiplication which is also a significant time investment when trying to optimize or create a certain kernel by hand.
+
+In conclusion we can say that we always have to check whether optimization is worth the time it takes.
 
 ## Comparison to OpenMP kernel
