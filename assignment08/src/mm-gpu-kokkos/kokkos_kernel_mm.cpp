@@ -29,6 +29,7 @@ void cpu_matmul(const HostViewA A, const HostViewB B, HostViewC C, size_t N) {
     const double alpha = 1.0;
     const double beta  = 0.0;
     KokkosBlas::gemm("N", "N", alpha, A, B, beta, C);
+    Kokkos::fence();
 }
 
 void device_matmul(const DevViewA A, const DevViewB B, DevViewC C) {

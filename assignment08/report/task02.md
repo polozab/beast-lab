@@ -23,3 +23,11 @@ We also used the recommended flags `OMP_PROC_BIND=spread` and `OMP_PLACES=thread
 
 ## Benchmark Results Kokkos kernel
 
+## Comparison to handwritten kernel
+
+![Kernel Comparison FLOPS](plots/kernel_comp_flops.svg)
+![Kernel Comparison Execution Time](plots/kernel_comp_time.svg)
+
+> Optimizing parameters for different matrix sizes difficult, only for one good -> where as for kokkos kernel generally passable performance but not as good as handcrafted
+
+## Comparison to OpenMP kernel
