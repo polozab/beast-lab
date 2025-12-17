@@ -32,28 +32,37 @@ void cpu_matmul(const HostViewA A, const HostViewB B, HostViewC C, size_t N) {
     Kokkos::fence();
 }
 
-void device_matmul(const DevViewA A, const DevViewB B, DevViewC C, size_t N, int teams, int threads_per_team, int vec_len) {
+void device_matmul(const DevViewA A, const DevViewB B, DevViewC C, size_t N,
+                   int tile_m, int tile_n, int threads_per_team, int vec_len) {
     using ExecSpace = Kokkos::DefaultExecutionSpace;
-    const int rows_per_team = (N + teams - 1) / teams;
+    const int tiles_m = (N + tile_m - 1) / tile_m;
+    const int tiles_n = (N + tile_n - 1) / tile_n;
+    const int league_size = tiles_m * tiles_n;
 
     auto policy = vec_len < 0
-        ? Kokkos::TeamPolicy<ExecSpace>(teams, threads_per_team, Kokkos::AUTO)
-        : Kokkos::TeamPolicy<ExecSpace>(teams, threads_per_team, vec_len);
+        ? Kokkos::TeamPolicy<ExecSpace>(league_size, threads_per_team, Kokkos::AUTO)
+        : Kokkos::TeamPolicy<ExecSpace>(league_size, threads_per_team, vec_len);
 
-    Kokkos::parallel_for("TeamMatMul", policy, KOKKOS_LAMBDA(const auto& team) {
-        const int t = team.league_rank();
-        const int row_start = t * rows_per_team;
-        const int row_end   = row_start + rows_per_team < (int)N ? row_start + rows_per_team : (int)N;
+    Kokkos::parallel_for("TeamMatMulTiled", policy, KOKKOS_LAMBDA(const auto& team) {
+        const int tile_id = team.league_rank();
+        const int bi = tile_id / tiles_n;
+        const int bj = tile_id - bi * tiles_n;
+        const int i0 = bi * tile_m;
+        const int j0 = bj * tile_n;
 
-        for (int i = row_start; i < row_end; ++i) {
-            Kokkos::parallel_for(Kokkos::TeamThreadRange(team, N), [=](int j) {
+        Kokkos::parallel_for(Kokkos::TeamThreadRange(team, tile_m), [&](int ii) {
+            const int i = i0 + ii;
+            if (i >= (int)N) return;
+            Kokkos::parallel_for(Kokkos::ThreadVectorRange(team, tile_n), [&](int jj) {
+                const int j = j0 + jj;
+                if (j >= (int)N) return;
                 scalar_t sum = 0.0;
-                Kokkos::parallel_reduce(
-                    Kokkos::ThreadVectorRange(team, N),
-                    [&](int k, scalar_t& lsum){ lsum += A(i,k)*B(k,j); }, sum);
+                for (int k = 0; k < (int)N; ++k) {
+                    sum += A(i,k)*B(k,j);
+                }
                 C(i,j) = sum;
             });
-        }
+        });
     });
     Kokkos::fence();
 }
@@ -69,19 +78,20 @@ scalar_t checksum(const HostViewC& mat) {
 int main(int argc, char* argv[]) {
     Kokkos::initialize(argc, argv);
     {
-        if (argc < 5) {
-            std::cerr << "Usage: " << argv[0] << " <matrix_size_N> <teams> <threads_per_team> <vec len (-1 = AUTO)> <opt.: set 1 for CPU>\n";
+        if (argc < 6) {
+            std::cerr << "Usage: " << argv[0] << " <matrix_size_N> <tile_m> <tile_n> <threads_per_team> <vec len (-1 = AUTO)> <opt.: set 1 for CPU>\n";
             Kokkos::finalize();
             return 1;
         }
 
         size_t N = std::atoi(argv[1]);
-        int teams = std::atoi(argv[2]);
-        int threads_per_team = std::atoi(argv[3]);
-        int vec_len = std::atoi(argv[4]);
+        int tile_m = std::atoi(argv[2]);
+        int tile_n = std::atoi(argv[3]);
+        int threads_per_team = std::atoi(argv[4]);
+        int vec_len = std::atoi(argv[5]);
 
-        if (N == 0) {
-            std::cerr << "Invalid size N.\n";
+        if (N == 0 || tile_m <= 0 || tile_n <= 0) {
+            std::cerr << "Invalid size or tile.\n";
             Kokkos::finalize();
             return 1;
         }
@@ -96,7 +106,7 @@ int main(int argc, char* argv[]) {
         initialize_matrix(h_A);
         initialize_matrix(h_B);
 
-        bool run_cpu = (argc >= 6);
+        bool run_cpu = (argc >= 7);
         scalar_t cpu_sum = 0.0;
 
         if (run_cpu) {
@@ -119,7 +129,7 @@ int main(int argc, char* argv[]) {
         Kokkos::deep_copy(d_B, h_B);
 
         Kokkos::Timer gpu_timer;
-        device_matmul(d_A, d_B, d_C, N, teams, threads_per_team, vec_len);
+        device_matmul(d_A, d_B, d_C, N, tile_m, tile_n, threads_per_team, vec_len);
         double gpu_time = gpu_timer.seconds();
         double gpu_gflops = total_flops / (gpu_time * 1e9);
 
