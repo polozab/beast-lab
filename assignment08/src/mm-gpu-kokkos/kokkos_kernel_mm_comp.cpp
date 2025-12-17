@@ -6,11 +6,11 @@
 
 using scalar_t = double;
 using HostViewA = Kokkos::View<scalar_t**, Kokkos::LayoutRight, Kokkos::HostSpace>;
-using HostViewB = Kokkos::View<scalar_t**, Kokkos::LayoutRight, Kokkos::HostSpace>;
-using HostViewC = Kokkos::View<scalar_t**, Kokkos::LayoutLeft, Kokkos::HostSpace>;
+using HostViewB = Kokkos::View<scalar_t**, Kokkos::LayoutLeft, Kokkos::HostSpace>;
+using HostViewC = Kokkos::View<scalar_t**, Kokkos::LayoutRight, Kokkos::HostSpace>;
 using DevViewA  = Kokkos::View<scalar_t**, Kokkos::LayoutRight>;
-using DevViewB  = Kokkos::View<scalar_t**, Kokkos::LayoutRight>;
-using DevViewC  = Kokkos::View<scalar_t**, Kokkos::LayoutLeft>;
+using DevViewB  = Kokkos::View<scalar_t**, Kokkos::LayoutLeft>;
+using DevViewC  = Kokkos::View<scalar_t**, Kokkos::LayoutRight>;
 
 template <typename ViewType>
 void initialize_matrix(ViewType A) {
