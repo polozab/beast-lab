@@ -13,16 +13,17 @@ echo "tile_m tile_n team_size vec_len time_s gflops" >> "$OUT_FILE"
 export OMP_PROC_BIND=spread
 export OMP_PLACES=threads
 
-# tile_m tile_n team_size vec_len
+# tile_m tile_n team_size vec_len (only combos with team_size*vec_len <= 1024)
 COMBOS=(
   "64 8 64 8"
   "64 8 64 4"
   "128 16 64 16"
   "128 16 64 8"
-  "128 16 128 16"
   "128 16 128 8"
   "128 8 64 4"
   "128 8 64 8"
+  "128 16 64 4"
+  "128 16 128 4"
 )
 
 for combo in "${COMBOS[@]}"; do
