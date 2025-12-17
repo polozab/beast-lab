@@ -33,6 +33,11 @@ Looking at the performance results of the Kokkos implementation we don't see any
 Interestingly for small matrix sizes the Kokkos implementation runs significantly faster on the CPU. Maybe because on the Host side Kokkos has to rely much more on its own implementation and thus it leads to faster results. 
 In addition we can see two prominent spikes in performance for very specific matrix sizes, where the execution time was way smaller than for any surrounding values. We think these can be justified by the proximity of the matrix sizes to a power of 2. Which we saw in previous assignments has almost always a positive effect on the performance.
 
+| Peak Performance:  | Matrix Size | MFLOPS     | Execution Time |
+|--------------------|-------------|------------|----------------|
+| Kokkos CPU         | 9200        | 506.126000 | 3.083540 s     |
+| Kokkos GPU         | 9200        | 168.990200 | 9.215764 s     |
+
 ## Comparison to handwritten Kokkos GPU kernel
 
 ![Kernel Comparison FLOPS](plots/kernel_comp_flops.svg)
@@ -43,6 +48,11 @@ Comparing the precomputed Kokkos kernel to our best performing handwritten kerne
 We think this clearly show an important tradeoff scheme. While using generalized methods often leads to passable results very quickly, tuning a program by hand can lead to significantly better performance. But this tuning comes at the cost of time and generality. We can observe that for small matrix sizes which we did not optimize for our tuned size parameters for leagues, threads and vectors are worse compared to the Kokkos implementation. Only for the special case of large matrix sizes our tuned kernel outperforms the Kokkos implementation. Additionally to find parameters that result in good performance took much effort and time, and we are still pretty sure that there might be a configuration that leads to even better performances in certain cases. On the other hand, calling the Kokkos implementation is very easy and took a single line of code. It also didn't require any previous knowledge about implementing matrix multiplication which is also a significant time investment when trying to optimize or create a certain kernel by hand.
 
 In conclusion we can say that we always have to check whether optimization is worth the time it takes.
+
+| Peak Performance:  | Matrix Size | MFLOPS      | Execution Time |
+|--------------------|-------------|-------------|----------------|
+| Kokkos Kernel      | 9200        | 168.990200  | 9.215764 s     |
+| Handwritten Kernel | 9200        | 1512.466000 | 1.029696 s     |
 
 ## Comparison to OpenMP kernel
 
@@ -55,6 +65,12 @@ We can see that the OpenMP offloading implementation has significantly better pe
 We think one of the main reasons why our Kokkos implementation gets a much higher performance is due to the more developer friendly API Kokkos supplies. In OpenMP it was much harder to understand what specific impact a pragam flag had on the overall generated kernel. Thus we were not able to easily test and refine parameters to better tune the kernel for our system. This especially holds true for the implicit `for`-construct which gets used here for comparison as it archived the fastest results. It abstracts many aspect of the construction of the kernel and obfuscates necessary details for tuning. But even when using the explicit construction of OpenMP we didn't archive the same performance using tiling and various other optimization also applied in our Kokkos kernel implementation. It was even worse than the implicit OpenMP implementation but got very close to it.
 
 Again this shows that while abstraction may help to simply complex task and shorten development time, it also takes away optimization capabilities or at least obfuscates them so it is harder to work with them if necessary.
+
+| Peak Performance:        | Matrix Size | MFLOPS      | Execution Time | System |
+|--------------------------|-------------|-------------|----------------|--------|
+| Kokkos Kernel            | 9200        | 168.990200  | 9.215764 s     | SAP4   |
+| Kokkos Handwritten       | 9200        | 1512.466000 | 1.029696 s     | SAP4   |
+| OpenMP Offloading Kernel | 2000        | 373.360530  | --             | MILAN2 |
 
 ## Further work
 

@@ -1,7 +1,7 @@
 import pandas as pd
 import plotnine as p9
 
-omp = pd.read_csv("./data/openmp.csv", skipinitialspace=True)
+omp = pd.read_csv("./data/omp_gpu.csv", skipinitialspace=True)
 omp["size"] = omp["N"]
 omp["value"] = omp["MFLOPS"] / 1000
 omp["kernel"] = "OMP"
