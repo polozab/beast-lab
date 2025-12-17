@@ -59,3 +59,5 @@ Again this shows that while abstraction may help to simply complex task and shor
 ## Further work
 
 It would be interesting to investigate the vendor specific oneMLK `gemm` kernel implementation and compare it against our own tuned variant. Especially because Kokkos won't use this backend and it would be interesting to see if the vendor library with much less work could archive similar performance to our own implementation.
+
+In addition comparing our OpenMP implementation on the same system would probably also allow a more detailed assessment of the different methods and extending our OpenMP implementation to support correct tiling even for the implicit constructions could also be an interesting aspect for comparison.
