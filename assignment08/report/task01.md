@@ -16,6 +16,10 @@ OMP_PROC_BIND=spread
 OMP_PLACES=threads
 ```
 
+We ran the following benchmarks without any repetition logic because we focused more on the larger matrix sizes, where this would not impact the results. However for smaller matrix sizes this could effect the result, as the CPU would first have to windup the clock from idle frequency. 
+
+In addition to combat per-run variance and eliminate any side effects from OS we ran the benchmark for each matrix size 5 times and took the average as our measurement of comparison. For completeness we also included minimum and maximum values in our datasets.
+
 ## c)
 
 When executing `kokkos_device_props_sycl` we get the following output:
@@ -27,10 +31,6 @@ Max Compute Units: 1024
 Local Memory: 131072 bytes
 Max Work Group Size: 1024
 ```
----
-> For all of the following task the following hold true:
-> - The measuremtns are the best result of six consecutive runs. No immense variance was observed between runs.
-> - Despite this note: "In general, for best performance with OpenMP 4.0 or better set OMP_PROC_BIND=spread and OMP_PLACES=threads" we discovered no performance difference when setting these flags. 
 
 ## d)
 
@@ -129,15 +129,47 @@ In theory the best layout should be Matrix A row-major, Matrix B column-major an
 
 ## g)
 
-Using the theoreticaly best layout from f) (RLR) and the best configuration from e) we got
+To implement dual views we first defined the different Kokkos views as follows:
+
+```cpp
+using scalar_t = double;
+using ExecSpace = Kokkos::DefaultExecutionSpace;
+using DualA = Kokkos::DualView<scalar_t**, Kokkos::LayoutRight, ExecSpace>;
+using DualB = Kokkos::DualView<scalar_t**, Kokkos::LayoutLeft, ExecSpace>;
+using DualC = Kokkos::DualView<scalar_t**, Kokkos::LayoutRight, ExecSpace>;
+using HostViewA = DualA::t_host;
+using HostViewB = DualB::t_host;
+using HostViewC = DualC::t_host;
+using DevViewA  = DualA::t_dev;
+using DevViewB  = DualB::t_dev;
+using DevViewC  = DualC::t_dev;
+```
+
+When executing the benchmark we transfer the data between Host and Device using the `sync` function on the dual view:
+
+```cpp
+/* Sync data between Host and Device after matrix init */
+dv_A.sync<ExecSpace>();
+dv_B.sync<ExecSpace>();
+
+/* Run benchmark */
+Kokkos::Timer gpu_timer;
+device_matmul(d_A, d_B, d_C, N, tile_m, tile_n, threads_per_team, vec_len);
+double gpu_time   = gpu_timer.seconds();
+double gpu_gflops = total_flops / (gpu_time * 1e9);
+
+/* Tell that the data was updated during computation and sync again */
+dv_C.modify<ExecSpace>();
+dv_C.sync<Kokkos::HostSpace>();
+```
+
+Using the theoretically best layout from f) (RLR) and the best configuration from e) we got we got no significant performance difference in comparison to the other implementations:
 
 ```
 [GPU] Time:       0.273946 s
 [GPU] GFLOP/s:    1693.24
 [GPU] Checksum:   5.91474e+14
 ```
-
-so no?
 
 ## i)
 
