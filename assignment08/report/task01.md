@@ -15,10 +15,11 @@ For execution of the various executables we used the suggested OMP flags from Ko
 OMP_PROC_BIND=spread
 OMP_PLACES=threads
 ```
+Note: in many test runs these environment variables had negligable impact on the performance, however we still used them for consistency.
 
 We ran the following benchmarks without any repetition logic because we focused more on the larger matrix sizes, where this would not impact the results. However for smaller matrix sizes this could effect the result, as the CPU would first have to windup the clock from idle frequency. 
 
-In addition to combat per-run variance and eliminate any side effects from OS we ran the benchmark for each matrix size 5 times and took the average as our measurement of comparison. For completeness we also included minimum and maximum values in our datasets.
+In addition to combat per-run variance and eliminate any side effects from OS we ran the benchmark for each matrix size 5 times and took the average as our measurement of comparison (or if stated otherwiese we used the best result of 6 exeutions if the variance was little), for completeness we also included minimum and maximum values in our datasets.
 
 ## c)
 
@@ -38,7 +39,7 @@ Max Work Group Size: 1024
 
 ### Bandwidth Calculation
 
-Data transferred = 3 * N * N * 8
+Data transferred = 3 * N * N * 8 Bytes
 
 | N    | time_s  | GFLOP/s | GB/s |
 |-----:|-------:|--------:|-----:|
@@ -54,36 +55,41 @@ Data transferred = 3 * N * N * 8
 | `8192` | 3.96987 | `276.964` | 0.406 |
 | 9216 | 5.88655 | 265.948 | 0.346 |
 
-The highest bandwidth is achieved for N=2048 with 1.339 GB/s. Which is far below the theoretical maximum Bandwidth for HBM. Refelcting that this is a compute bound problem and not memory bound.
+The highest bandwidth is achieved for N=2048 with 1.339 GB/s. Which is far below the theoretical maximum Bandwidth for HBM (~1.5 TB/s). Refelcting that this is a compute bound problem and not memory bound.
 
 > The highest Bandwidth utilization we could achieve in Task 1 is around 3.3 GB/s. Still far below the theoretical peak.
 
 ## e)
 
-### row wise distribution
-There are three parameters to tune: Number of Teams, Team size and Vector Length.
-For Vector Length it is important that Team size x vector length must be smaler than 1024 (max work group size).
-In our tests we found that vector length AUTO gave the best results.
-To parallelize the workload we wnt with an row wise distribution of the resulting matrix to the teams.
-
-For N=6144 the best configuration is 6114 Teams and 128 Threads per Team.
-With this configuration every Team calculates a row of the resulting matrix. Every other combination of Teams and Threads per Team resulted in longer execution times.
-With this configuration we achieved the following results:
-
+### row wise distribution (Disregard this approach tiled is better)
+>There are three parameters to tune: Number of Teams, Team size and Vector Length.
+>For Vector Length it is important that Team size x vector length must be smaler than 1024 (max work group size).
+>In our tests we found that vector length AUTO gave the best results.
+>To parallelize the workload we went with an row wise distribution of the resulting matrix to the teams.
+>For N=6144 the best configuration is 6114 Teams and 128 Threads per Team.
+>With this configuration every Team calculates a row of the resulting matrix. Every other combination of Teams and Threads per Team resulted in longer execution times.
+>With this configuration we achieved the following results:
 ``` 
 [GPU] Time:       0.761619 s
 [GPU] GFLOP/s:    609.04
 [GPU] Checksum:   5.91474e+14
 ```
-
 ![](rowwise_perf.png)
+>Although this configuration dosnt alightn with the device properties of max work group size of 1024, it seems to be the optimal configuration for this problem size on this hardware. Simply due to overhead minimization by not splitting the work whilst still having enough threads to cover memory latency.
 
-Although this configuration dosnt alightn with the device properties of max work group size of 1024, it seems to be the optimal configuration for this problem size on this hardware. Simply due to overhead minimization by not splitting the work whilst still having enough threads to cover memory latency.
+### tiling approach
+Params:
+- N=6144
+- tile_m= row size
+- tile_n= column size
+- Amount of Teams = Amount of tiles (so for m = 64 and n = 16: 36,864 Teams)
+- team_size: number of threads per team
+- vec_len= how many lanes run in parallel for the inner loop with `team_size * vec_len ≤ 1024` (note: the `AUTO` feature of Kokkos didn't yield the best results here)
+  
 
-### tiling for N=6144
 Top 10 configs by GFLOP/s ([for all measurements](../src/mm-gpu-kokkos/tiled_results_6144.txt)):
 
-| tile_m | tile_n | team | vec | time_s | gflops  |
+| tile_m | tile_n | team_size | vec_len| time_s | gflops  |
 |-------:|-------:|-----:|----:|-------:|-------:|
 | 64     | 16     | 64   | 16  | 0.428381 | 1082.81 |
 | 64     | 32     | 64   | 16  | 0.429695 | 1079.50 |
@@ -107,8 +113,10 @@ When runing those tiling configurations against N we got the following plot:
 All configurations behave very similar and for N around 6144 they all achive over 1 TFLOP/s. 
 
 ## f)
+Disregard row-wise approach, tiled is better
 
 Params for Row-wise: `N=6144`, `teams=6144`, `threads_per_team=128`, `vec_len=AUTO (-1)`
+
 Params for Tiled: `N=6144`, `tile_m=64`, `tile_n=16`, `teams=64`, `vec_len=16`
 
 | Layout | Row-wise GFLOP/s | Row-wise Time [s] | Tiled GFLOP/s | Tiled Time [s] |
