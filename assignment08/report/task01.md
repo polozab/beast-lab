@@ -64,7 +64,6 @@ The highest bandwidth is achieved for N=2048 with 1.339 GB/s. Which is far below
 ### row wise distribution (Disregard this approach tiled is better)
 >There are three parameters to tune: Number of Teams, Team size and Vector Length.
 >For Vector Length it is important that Team size x vector length must be smaler than 1024 (max work group size).
->In our tests we found that vector length AUTO gave the best results.
 >To parallelize the workload we went with an row wise distribution of the resulting matrix to the teams.
 >For N=6144 the best configuration is 6114 Teams and 128 Threads per Team.
 >With this configuration every Team calculates a row of the resulting matrix. Every other combination of Teams and Threads per Team resulted in longer execution times.
