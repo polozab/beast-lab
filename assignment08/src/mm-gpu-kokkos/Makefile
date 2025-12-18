@@ -15,21 +15,25 @@ CC="icx"
 SYCL_AOT_CPPFLAGS=-fsycl -fsycl-targets=spir64_gen -fno-sycl-id-queries-fit-in-int -fsycl-dead-args-optimization -fsycl-unnamed-lambda -std=c++20
 SYCL_AOT_LDFLAGS=-Xsycl-target-backend "-device pvc"
 
-CPPFLAGS=-g -O3 -fiopenmp -I $(KOKKOS_ROOT)/include $(SYCL_AOT_CPPFLAGS) -Wno-deprecated-declarations -Wno-tautological-constant-compare -Wno-unknown-attributes -ffp-model=precise
+CPPFLAGS=-g -O3 -fiopenmp -I $(KOKKOS_ROOT)/include -I $(KOKKOS_KERNEL_ROOT)/include $(SYCL_AOT_CPPFLAGS) -Wno-deprecated-declarations -Wno-tautological-constant-compare -Wno-unknown-attributes -ffp-model=precise
 
-GCC_ROOT:=/home/sw/spack_new/spack_stack_dev/sap/spack/opt/spack/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder_/linux-sles15-icelake/gcc-13.2.0/gcc-14.2.0-57z6vikjlbeafvcvfuq5u65hgsjsi5bk
+GCC_ROOT:=/home/sw/spack_new/spack_stack_dev/sap/spack/opt/spack/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder_/linux-sles15-skylake_avx512/gcc-7.5.0/gcc-13.2.0-kv6jgtumk27vhunessefvgbwq5twgtom
 
-ONEAPI_ROOT:=/opt/software/x86/oneAPI/compiler/2023.1.0/linux/lib/
+ONEAPI_ROOT:=/opt/software/x86/oneAPI/compiler/2023.1.0/linux
 
-LDFLAGS=$(CPPFLAGS) -Wl,-rpath,$(GCC_ROOT)/lib64 $(SYCL_AOT_LDFLAGS)
-LDLIBS=-L$(KOKKOS_ROOT)/lib64 -lkokkoscore -lkokkossimd -lkokkoscontainers -lpthread
+MKL_ROOT:=/opt/software/x86/oneAPI/mkl/latest
+
+LDFLAGS=$(CPPFLAGS) -Wl,-rpath,$(GCC_ROOT)/lib64:$(ONEAPI_ROOT)/lib:$(KOKKOS_ROOT)/lib64:$(KOKKOS_KERNEL_ROOT)/lib64:$(MKL_ROOT)/lib/intel64 $(SYCL_AOT_LDFLAGS)
+LDLIBS=-L$(KOKKOS_ROOT)/lib64 -L$(KOKKOS_KERNEL_ROOT)/lib64 -lkokkoscore -lkokkossimd -lkokkoscontainers -lpthread -lkokkoskernels
 
 SRCS=hello_kokkos.cpp kokkos_mm.cpp kokkos_device_props_sycl.cpp \
      kokkos_mm_ThreadsTeams.cpp \
      kokkos_mm_TT_RRR.cpp kokkos_mm_TT_RRL.cpp kokkos_mm_TT_RLR.cpp kokkos_mm_TT_RLL.cpp \
      kokkos_mm_TT_LRR.cpp kokkos_mm_TT_LRL.cpp kokkos_mm_TT_LLR.cpp kokkos_mm_TT_LLL.cpp \
      kokkos_mm_TT_RLR_dual_tiled.cpp \
-     tmp2.cpp kokkos_mm_GPU_Only.cpp kokkos_mm_TT_tiled.cpp
+     tmp2.cpp kokkos_mm_GPU_Only.cpp kokkos_mm_TT_tiled.cpp \
+		 kokkos_kernel_mm kokkos_kernel_mm_comp
+
 OBJS=$(subst .cpp,.o,$(SRCS))
 
 all: hello_kokkos kokkos_mm kokkos_device_props_sycl \
@@ -37,11 +41,16 @@ all: hello_kokkos kokkos_mm kokkos_device_props_sycl \
      kokkos_mm_TT_RRR kokkos_mm_TT_RRL kokkos_mm_TT_RLR kokkos_mm_TT_RLL \
      kokkos_mm_TT_LRR kokkos_mm_TT_LRL kokkos_mm_TT_LLR kokkos_mm_TT_LLL \
      kokkos_mm_TT_RLR_dual_tiled \
-     tmp2 kokkos_mm_GPU_Only kokkos_mm_TT_tiled
+     tmp2 kokkos_mm_GPU_Only kokkos_mm_TT_tiled \
+		 kokkos_kernel_mm kokkos_kernel_mm_comp
 
 hello_kokkos: hello_kokkos.o
 	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
 kokkos_mm: kokkos_mm.o
+	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
+kokkos_kernel_mm: kokkos_kernel_mm.o
+	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
+kokkos_kernel_mm_comp: kokkos_kernel_mm_comp.o
 	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
 kokkos_device_props_sycl: kokkos_device_props_sycl.o
 	$(CXX) $(LDFLAGS) -o $@ $< $(LDLIBS)
@@ -82,4 +91,4 @@ clean:
 	rm -f $(OBJS)
 
 distclean: clean
-	rm -f hello_kokkos kokkos_mm kokkos_device_props_sycl 
+	rm -f hello_kokkos kokkos_mm kokkos_device_props_sycl kokkos_kernel_mm kokkos_kernel_mm_comp

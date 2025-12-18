@@ -14,7 +14,7 @@ cd build
 
 ### Setup the environment
 ```bash
-module load gcc/14.2.0-gcc-13.2.0-57z6vik
+module load gcc/13.2.0-gcc-7.5.0-kv6jgtu
 module load tbb/latest
 module load compiler-rt/latest
 module load cmake
@@ -22,13 +22,13 @@ module load compiler/latest
 module load dpl/latest
 module load vtune/latest
 
-export KOKKOS_ROOT=<your home directory>/kokkos_intel/install/
-export KOKKOS_SRC=<your home directory>/kokkos_install/
+export KOKKOS_ROOT=~/kokkos_intel/install/
+export KOKKOS_SRC=~/kokkos_install/
 ```
 
 ### Building Kokkos
 ```bash
-cmake    -DCMAKE_CXX_COMPILER=icpx    -DKokkos_ENABLE_SERIAL=ON    -DKokkos_ENABLE_OPENMP=ON   -DCMAKE_CXX_STANDARD=20 -DKokkos_ENABLE_SYCL=ON    -DKokkos_ARCH_INTEL_PVC=ON    -DCMAKE_CXX_FLAGS="-fp-model=precise" -DKokkos_ENABLE_LIBDL=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../install ..
+cmake    -DCMAKE_CXX_COMPILER=icpx    -DKokkos_ENABLE_SERIAL=ON    -DKokkos_ENABLE_OPENMP=ON   -DCMAKE_CXX_STANDARD=20  -DBUILD_SHARED_LIBS=ON -DKokkos_ENABLE_SYCL=ON    -DKokkos_ARCH_INTEL_PVC=ON    -DCMAKE_CXX_FLAGS="-fp-model=precise" -DKokkos_ENABLE_LIBDL=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../install ..
 
 make -j
 make install
