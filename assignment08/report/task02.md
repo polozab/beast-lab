@@ -31,7 +31,7 @@ We also used the recommended flags `OMP_PROC_BIND=spread` and `OMP_PLACES=thread
 Looking at the performance results of the Kokkos implementation we don't see any spectacular performance. Instead it is quite slow and doesn't perform well. We think this manly is because of the incompatibility between the Kokkos Kernel Blas API and the vendor provided oneMKL API. Thus Kokkos can not leverage any significant performance advantage of the vendor platform and thus has to rely on its own implementation that is probably very generalized and doesn't apply any vendor specific tuning.
 
 Interestingly for small matrix sizes the Kokkos implementation runs significantly faster on the CPU. Maybe because on the Host side Kokkos has to rely much more on its own implementation and thus it leads to faster results. 
-In addition we can see two prominent spikes in performance for very specific matrix sizes, where the execution time was way smaller than for any surrounding values. We think these can be justified by the proximity of the matrix sizes to a power of 2. Which we saw in previous assignments has almost always a positive effect on the performance.
+In addition we can see two prominent spikes in performance for very specific matrix sizes, where the execution time was way smaller than for any surrounding values. We think these can be justified by the proximity of the matrix sizes to a multiple of the core count. Which we saw in previous assignments has almost always a positive effect on the performance.
 
 | Peak Performance:  | Matrix Size | MFLOPS     | Execution Time |
 |--------------------|-------------|------------|----------------|

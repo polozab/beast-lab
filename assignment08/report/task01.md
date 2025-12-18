@@ -82,7 +82,7 @@ Params:
 - N=6144
 - tile_m= row size
 - tile_n= column size
-- Amount of Teams = Amount of tiles (so for m = 64 and n = 16: 36,864 Teams)
+- Amount of Teams = Amount of tiles (so for N=6144, m = 64, n = 16: 36,864 Teams)
 - team_size: number of threads per team
 - vec_len= how many lanes run in parallel for the inner loop with `team_size * vec_len ≤ 1024` (note: the `AUTO` feature of Kokkos didn't yield the best results here)
   
