@@ -2,7 +2,7 @@
 
 ## Project and benchmark setup
 
-For compilation of the kokkos kernels we used the same compiler setup from task 1. This task is also the reason why we used `gcc 13.2.0` instead of the newest `gcc` version, as there exists a incapability between `ipx` and the newest version of `gcc`. This only gets triggered from the compilation of the kernels library. 
+For compilation of the kokkos kernels we used the same compiler setup from task 1. This task is also the reason why we used `gcc 13.2.0` instead of the newest `gcc` version, as there exists a incompatibility between `ipx` and the newest version of `gcc`. This only gets triggered from the compilation of the kernels library. 
 
 We choose to build upon our best performing source file with RRL layout and updated the code by replacing the kernel functions for both CPU and GPU with the call to a predefined kokkos kernel. We selected the `gemm`-kernel from the Blas API, which gives us several options for multiplying two matrices:
 
@@ -28,14 +28,14 @@ We also used the recommended flags `OMP_PROC_BIND=spread` and `OMP_PLACES=thread
 ![Kokkos Kernel FLOPS Performance](plots/kokkos_kernel_gflops.svg)
 ![Kokkos Kernel Execution Time](plots/kokkos_kernel_time.svg)
 
-Looking at the performance results of the Kokkos implementation we don't see any spectacular performance. Instead it is quite slow and doesn't perform well. We think this manly is because of the indomitability between the Kokkos Kernel Blis API and the vendor provided oneMKL API. Thus Kokkos can not leverage any significant performance advantage of the vendor platform and thus has to rely on its own implementation that is probably very generalized and doesn't apply any vendor specific tuning.
+Looking at the performance results of the Kokkos implementation we don't see any spectacular performance. Instead it is quite slow and doesn't perform well. We think this manly is because of the incompatibility between the Kokkos Kernel Blas API and the vendor provided oneMKL API. Thus Kokkos can not leverage any significant performance advantage of the vendor platform and thus has to rely on its own implementation that is probably very generalized and doesn't apply any vendor specific tuning.
 
 Interestingly for small matrix sizes the Kokkos implementation runs significantly faster on the CPU. Maybe because on the Host side Kokkos has to rely much more on its own implementation and thus it leads to faster results. 
 In addition we can see two prominent spikes in performance for very specific matrix sizes, where the execution time was way smaller than for any surrounding values. We think these can be justified by the proximity of the matrix sizes to a power of 2. Which we saw in previous assignments has almost always a positive effect on the performance.
 
 | Peak Performance:  | Matrix Size | MFLOPS     | Execution Time |
 |--------------------|-------------|------------|----------------|
-| Kokkos CPU         | 9200        | 506.126000 | 3.083540 s     |
+| Kokkos CPU         | 4600        | 601.624400 | 0.326160 s     |
 | Kokkos GPU         | 9200        | 168.990200 | 9.215764 s     |
 
 ## Comparison to handwritten Kokkos GPU kernel
