@@ -28,9 +28,10 @@ Local Memory: 131072 bytes
 Max Work Group Size: 1024
 ```
 ---
->> For all of the following task the following hold true:
->> - The measuremtns are the best result of six consecutive runs. No immense variance was observed between runs.
->> - Despite this note: "In general, for best performance with OpenMP 4.0 or better set OMP_PROC_BIND=spread and OMP_PLACES=threads" we discovered no performance difference when setting these flags. 
+> For all of the following task the following hold true:
+> - The measuremtns are the best result of six consecutive runs. No immense variance was observed between runs.
+> - Despite this note: "In general, for best performance with OpenMP 4.0 or better set OMP_PROC_BIND=spread and OMP_PLACES=threads" we discovered no performance difference when setting these flags. 
+
 ## d)
 
 ![](gpu_only_best.png)
@@ -53,11 +54,12 @@ Data transferred = 3 * N * N * 8
 | `8192` | 3.96987 | `276.964` | 0.406 |
 | 9216 | 5.88655 | 265.948 | 0.346 |
 
-The highest bandwidth is achieved for N=2048 with 1.339 GB/s. Which is far below the theoretical maximum Bandwidth for HBM. Refelcting that this is a compute bound problem and not memory bound. 
+The highest bandwidth is achieved for N=2048 with 1.339 GB/s. Which is far below the theoretical maximum Bandwidth for HBM. Refelcting that this is a compute bound problem and not memory bound.
+
 > The highest Bandwidth utilization we could achieve in Task 1 is around 3.3 GB/s. Still far below the theoretical peak.
 
+## e)
 
-## e) 
 ### row wise distribution
 There are three parameters to tune: Number of Teams, Team size and Vector Length.
 For Vector Length it is important that Team size x vector length must be smaler than 1024 (max work group size).
@@ -73,11 +75,14 @@ With this configuration we achieved the following results:
 [GPU] GFLOP/s:    609.04
 [GPU] Checksum:   5.91474e+14
 ```
+
 ![](rowwise_perf.png)
+
 Although this configuration dosnt alightn with the device properties of max work group size of 1024, it seems to be the optimal configuration for this problem size on this hardware. Simply due to overhead minimization by not splitting the work whilst still having enough threads to cover memory latency.
 
 ### tiling for N=6144
 Top 10 configs by GFLOP/s ([for all measurements](../src/mm-gpu-kokkos/tiled_results_6144.txt)):
+
 | tile_m | tile_n | team | vec | time_s | gflops  |
 |-------:|-------:|-----:|----:|-------:|-------:|
 | 64     | 16     | 64   | 16  | 0.428381 | 1082.81 |
@@ -96,10 +101,13 @@ For the best four results team size * vector length = 1024 which is the max work
 The best performances were achieved for rectangular tiles with tile_m > tile_n.
 The tiled aproach
 When runing those tiling configurations against N we got the following plot:
+
 ![](tiled_best_vs_n.png)
+
 All configurations behave very similar and for N around 6144 they all achive over 1 TFLOP/s. 
 
 ## f)
+
 Params for Row-wise: `N=6144`, `teams=6144`, `threads_per_team=128`, `vec_len=AUTO (-1)`
 Params for Tiled: `N=6144`, `tile_m=64`, `tile_n=16`, `teams=64`, `vec_len=16`
 
@@ -116,10 +124,11 @@ Params for Tiled: `N=6144`, `tile_m=64`, `tile_n=16`, `teams=64`, `vec_len=16`
 
 > The results are taken from the best of six consecutive runs for each configuration. No immense variance was observed between runs.
 
-Notes:
+**Notes:**
 In theory the best layout should be Matrix A row-major, Matrix B column-major and Matrix C row-major (RLR) to ensure best memory access for all three matrices during the innermost loop. For the tiled approach this is almost the case (RLL outperforms this by a tiny margin). However, for the row-wise approach RLR performs significantly worse than RRL and RRR. This could be due to cache effects or other hardware-specific optimizations that favor certain memory access patterns over others.
 
 ## g)
+
 Using the theoreticaly best layout from f) (RLR) and the best configuration from e) we got
 
 ```
@@ -127,7 +136,9 @@ Using the theoreticaly best layout from f) (RLR) and the best configuration from
 [GPU] GFLOP/s:    1693.24
 [GPU] Checksum:   5.91474e+14
 ```
+
 so no?
+
 ## i)
 
 ![Kokkos vs OMP Performance Comparison](plots/kokkos_omp.svg)
