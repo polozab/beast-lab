@@ -1,4 +1,4 @@
-CXXFLAGS=-fast -Mipa=fast -Munroll -Mvect -Minfo -O4 -mp -gopt
+CXXFLAGS=-fast -Munroll -Mvect=simd -Minfo -O4 -mp -gopt
 CXX?=nvc++
 
 OBJS = main.o
