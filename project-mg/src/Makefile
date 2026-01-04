@@ -1,4 +1,5 @@
-CXXFLAGS=-O2
+CXXFLAGS=-fast -Mipa=fast -Munroll -Mvect -Minfo -O4 -mp -gopt
+CXX?=nvc++
 
 OBJS = main.o
 
