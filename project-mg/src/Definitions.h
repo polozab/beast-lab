@@ -8,6 +8,13 @@
 // define type of floating point number to be used
 #define FLOAT double
 
+// define Jacobi smoothing type
+enum IterationType {
+    PreSmoothing,
+    PostSmoothing,
+    LowestLevel
+};
+
 // define nvtx macros for creating and closing ranges
 #include <nvtx3/nvToolsExt.h>
 #define NVTX_RANGE_START(_rangeIdVar, _argbColor, _msgCstr)                 \

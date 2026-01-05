@@ -111,7 +111,7 @@ public:
       //NVTX_RANGE_START(lowest_range, 0xFFb0315b, "Lowest");
       for (unsigned int i = 0; i < jacobiStepsCoarsestLevel; i++)
       {
-        _jacobi.iterate(readField, writeField, fineGridRhs);
+        _jacobi.iterate<LowestLevel>(readField, writeField, fineGridRhs);
         FLOAT *swap = readField;
         readField = writeField;
         writeField = swap;
@@ -127,7 +127,7 @@ public:
     //NVTX_RANGE_START(presmoothing_range, 0xFFbf8136, "Pre-Smoothing");
     for (unsigned int i = 0; i < preSmoothing; i++)
     {
-      _jacobi.iterate(readField, writeField, fineGridRhs);
+      _jacobi.iterate<PreSmoothing>(readField, writeField, fineGridRhs);
       FLOAT *swap = readField;
       readField = writeField;
       writeField = swap;
@@ -147,7 +147,7 @@ public:
     //NVTX_RANGE_START(postsmoothing_range, 0xFF7cb82e, "Post-Smoothing");
     for (unsigned int i = 0; i < postSmoothing; i++)
     {
-      _jacobi.iterate(readField, writeField, fineGridRhs);
+      _jacobi.iterate<PostSmoothing>(readField, writeField, fineGridRhs);
       FLOAT *swap = readField;
       readField = writeField;
       writeField = swap;
@@ -201,7 +201,7 @@ public:
     FLOAT *writeField = fineGridValues2;
     for (unsigned int i = 0; i < jacobiStepsCoarsestLevel; i++)
     {
-      _jacobi.iterate(readField, writeField, fineGridRhs);
+      _jacobi.iterate<LowestLevel>(readField, writeField, fineGridRhs);
       FLOAT *swap = readField;
       readField = writeField;
       writeField = swap;

@@ -15,6 +15,7 @@ public:
       : _nx(nx), _ny(ny), _X(getX(nx, ny)), _Y(getY(nx, ny)), _RHS(getRHS(nx, ny)) {}
   ~Jacobi() {}
 
+  template <IterationType IterationType>
   void iterate(const FLOAT *const readField, FLOAT *const writeField, const FLOAT *const rhs) const
   {
     // set pointers of 5-point stencil (only neighbour values) to very first inner grid point
