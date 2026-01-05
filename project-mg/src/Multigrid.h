@@ -176,4 +176,40 @@ private:
   const Restriction _restriction;
   const Prolongation _prolongation;
 };
+
+// base template specialization for Level==0 to terminate compile-time recursion
+template<>
+class Multigrid<0>
+{
+public:
+  Multigrid(const unsigned int nxFine, const unsigned int nyFine, const unsigned int level)
+      : _jacobi(nxFine, nyFine)
+  {
+    (void)level; // level is unused in the base case
+  }
+
+  FLOAT *solve(
+      const unsigned int preSmoothing, const unsigned int postSmoothing,
+      const unsigned int jacobiStepsCoarsestLevel,
+      FLOAT *const fineGridValues1, FLOAT *const fineGridValues2,
+      const FLOAT *const fineGridRhs)
+  {
+    (void)preSmoothing;
+    (void)postSmoothing;
+
+    FLOAT *readField = fineGridValues1;
+    FLOAT *writeField = fineGridValues2;
+    for (unsigned int i = 0; i < jacobiStepsCoarsestLevel; i++)
+    {
+      _jacobi.iterate(readField, writeField, fineGridRhs);
+      FLOAT *swap = readField;
+      readField = writeField;
+      writeField = swap;
+    }
+    return readField;
+  }
+
+private:
+  const Jacobi _jacobi;
+};
 #endif // _MULTIGRID_H_
