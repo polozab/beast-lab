@@ -62,23 +62,23 @@ int main(int argc, char *argv[])
   // Template dispatch so we can distinguish different calls
 
   switch (levels) {
-    case 0: { dispatch<0>(preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
-    case 1: { dispatch<1>(preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
-    case 2: { dispatch<2>(preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
-    case 3: { dispatch<3>(preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
-    case 4: { dispatch<4>(preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
-    case 5: { dispatch<5>(preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
-    case 6: { dispatch<6>(preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
-    case 7: { dispatch<7>(preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
-    case 8: { dispatch<8>(preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
-    case 9: { dispatch<9>(preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
-    case 10:{ dispatch<10>(preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
-    case 11:{ dispatch<11>(preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
-    case 12:{ dispatch<12>(preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
-    case 13:{ dispatch<13>(preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
-    case 14:{ dispatch<14>(preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
-    case 15:{ dispatch<15>(preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
-    case 16:{ dispatch<16>(preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
+    case 0: { dispatch<0>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
+    case 1: { dispatch<1>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
+    case 2: { dispatch<2>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
+    case 3: { dispatch<3>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
+    case 4: { dispatch<4>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
+    case 5: { dispatch<5>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
+    case 6: { dispatch<6>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
+    case 7: { dispatch<7>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
+    case 8: { dispatch<8>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
+    case 9: { dispatch<9>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
+    case 10:{ dispatch<10>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
+    case 11:{ dispatch<11>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
+    case 12:{ dispatch<12>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
+    case 13:{ dispatch<13>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
+    case 14:{ dispatch<14>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
+    case 15:{ dispatch<15>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
+    case 16:{ dispatch<16>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); }
     default: {
       std::cout << "ERROR unhandled level";
       exit(EXIT_FAILURE);

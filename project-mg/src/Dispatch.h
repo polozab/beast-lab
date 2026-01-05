@@ -7,6 +7,7 @@
 
 template <unsigned int Level>
 void dispatch(
+    const unsigned int nx,
     const unsigned int preSmoothing,
     const unsigned int postSmoothing,
     const unsigned int jacobiStepsCoarsestLevel,
@@ -17,7 +18,7 @@ void dispatch(
     FLOAT *rhs)
 {
 
-  Multigrid multigrid<Level>(nx, nx, levels);
+  Multigrid<Level> multigrid(nx, nx, levels);
   FLOAT *currentSolution = field1;
 
   ComputeError computeError(nx, nx);
