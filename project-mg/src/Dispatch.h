@@ -17,7 +17,7 @@ void dispatch(
     FLOAT *rhs)
 {
 
-  Multigrid multigrid(nx, nx, levels);
+  Multigrid multigrid<Level>(nx, nx, levels);
   FLOAT *currentSolution = field1;
 
   ComputeError computeError(nx, nx);
