@@ -156,7 +156,7 @@ private:
   FLOAT *_coarseGridValues2;
   FLOAT *_coarseGridRhs;
 
-  Multigrid *_multigrid;
+  Multigrid<Level + 1> *_multigrid;
   const Jacobi _jacobi;
   const Restriction _restriction;
   const Prolongation _prolongation;
