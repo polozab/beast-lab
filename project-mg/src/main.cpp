@@ -7,6 +7,7 @@
 
 #include "Multigrid.h"
 #include "ComputeError.h"
+#include <nvtx3/nvtx3.hpp>
 
 int main(int argc, char *argv[])
 {
@@ -58,7 +59,7 @@ int main(int argc, char *argv[])
   setBoundary.iterate(field1);
   setBoundary.iterate(field2);
 
-  Multigrid multigrid(nx, nx);
+  Multigrid multigrid(nx, nx, levels);
   FLOAT *currentSolution = field1;
 
   ComputeError computeError(nx, nx);
@@ -66,6 +67,7 @@ int main(int argc, char *argv[])
 
   for (unsigned int i = 0; i < multigridCycles; i++)
   {
+    nvtx3::scoped_range loop{"Iteration ", i};
     // always work on the correct field (either field1 or field2);
     // this switch is required due to the Jacobi method
     if (currentSolution == field1)

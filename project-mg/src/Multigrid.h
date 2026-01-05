@@ -13,6 +13,8 @@
 #include <iostream>
 #include <cstdlib>
 
+
+
 /* Multigrid algorithm.
  *
  * The Multigrid class is defined recursively: for each grid level,
@@ -30,14 +32,15 @@ public:
   // - _callRecursion must be initialised as very first one,
   //    as we re-use it in the constructor.
   // - nx/yCourseGrid must be initialised before the coarseGrid-fields are created
-  Multigrid(const unsigned int nxFine, const unsigned int nyFine)
+  Multigrid(const unsigned int nxFine, const unsigned int nyFine, const unsigned int level)
       : _callRecursion((nxFine > 2) && (nyFine > 2)),
+        _level(level),
         _nxFineGrid(nxFine), _nyFineGrid(nyFine),
         _nxCoarseGrid((nxFine - 1) / 2), _nyCoarseGrid((nyFine - 1) / 2),
         _coarseGridValues1(_callRecursion ? new FLOAT[(_nxCoarseGrid + 2) * (_nyCoarseGrid + 2)] : NULL),
         _coarseGridValues2(_callRecursion ? new FLOAT[(_nxCoarseGrid + 2) * (_nyCoarseGrid + 2)] : NULL),
         _coarseGridRhs(_callRecursion ? new FLOAT[(_nxCoarseGrid + 2) * (_nyCoarseGrid + 2)] : NULL),
-        _multigrid(_callRecursion ? new Multigrid(_nxCoarseGrid, _nyCoarseGrid) : NULL),
+        _multigrid(_callRecursion ? new Multigrid(_nxCoarseGrid, _nyCoarseGrid, level - 1) : NULL),
         _jacobi(nxFine, nyFine),
         _restriction(_nxCoarseGrid, _nyCoarseGrid),
         _prolongation(_nxCoarseGrid, _nyCoarseGrid)
@@ -144,6 +147,7 @@ public:
 
 private:
   const bool _callRecursion;
+  const unsigned int _level;
   const unsigned int _nxFineGrid;
   const unsigned int _nyFineGrid;
   const unsigned int _nxCoarseGrid;
