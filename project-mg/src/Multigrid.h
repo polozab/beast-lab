@@ -99,7 +99,7 @@ public:
 
     char msg[64];
     std::snprintf(msg, sizeof(msg), "Level %d", _level);
-    NVTX_RANGE_START(level_range, 0xFF99a1ad, msg);
+    NVTX_RANGE_START(level_range, 0xFF3e82c9, msg);
 
     FLOAT *readField = fineGridValues1;
     FLOAT *writeField = fineGridValues2;
@@ -116,6 +116,7 @@ public:
         writeField = swap;
       }
       NVTX_RANGE_END(lowest_range);
+      NVTX_RANGE_END(level_range);
       return readField;
     }
 
