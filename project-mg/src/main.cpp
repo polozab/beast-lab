@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
   setBoundary.iterate(field1);
   setBoundary.iterate(field2);
 
-  Multigrid multigrid(nx, nx, levels);
+  Multigrid<0> multigrid(nx, nx);
   FLOAT *currentSolution = field1;
 
   ComputeError computeError(nx, nx);
@@ -66,10 +66,6 @@ int main(int argc, char *argv[])
 
   for (unsigned int i = 0; i < multigridCycles; i++)
   {
-    
-    char msg[64];
-    std::snprintf(msg, sizeof(msg), "Iteration %d", i);
-    NVTX_RANGE_START(i_range, 0xFF51555C, msg);
     
     // always work on the correct field (either field1 or field2);
     // this switch is required due to the Jacobi method
@@ -88,8 +84,6 @@ int main(int argc, char *argv[])
 
     computeError.computePointwiseError(currentSolution);
     std::cout << "Iteration " << i << ", Max-error: " << computeError.getMaxError() << std::endl;
-
-    NVTX_RANGE_END(i_range);
 
   }
 
