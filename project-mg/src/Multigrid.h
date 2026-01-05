@@ -25,6 +25,7 @@
  * objects for smoothing (Jacobi), restriction (Restriction) and
  * prolongation (Prolongation).
  */
+template<unsigned int Level>
 class Multigrid
 {
 public:
@@ -99,7 +100,7 @@ public:
 
     char msg[64];
     std::snprintf(msg, sizeof(msg), "Level %d", _level);
-    NVTX_RANGE_START(level_range, 0xFF3e82c9, msg);
+    //NVTX_RANGE_START(level_range, 0xFF3e82c9, msg);
 
     FLOAT *readField = fineGridValues1;
     FLOAT *writeField = fineGridValues2;
@@ -107,7 +108,7 @@ public:
     // if we are on the coarsest level, just do Jacobi iterations and return (do swapping of read- and write fields correspondingly)
     if (!_callRecursion)
     {
-      NVTX_RANGE_START(lowest_range, 0xFFb0315b, "Lowest");
+      //NVTX_RANGE_START(lowest_range, 0xFFb0315b, "Lowest");
       for (unsigned int i = 0; i < jacobiStepsCoarsestLevel; i++)
       {
         _jacobi.iterate(readField, writeField, fineGridRhs);
@@ -115,15 +116,15 @@ public:
         readField = writeField;
         writeField = swap;
       }
-      NVTX_RANGE_END(lowest_range);
-      NVTX_RANGE_END(level_range);
+      //NVTX_RANGE_END(lowest_range);
+      //NVTX_RANGE_END(level_range);
       return readField;
     }
 
     // otherwise: do multigrid scheme --------------------------------------
 
     // pre-smoothing
-    NVTX_RANGE_START(presmoothing_range, 0xFFbf8136, "Pre-Smoothing");
+    //NVTX_RANGE_START(presmoothing_range, 0xFFbf8136, "Pre-Smoothing");
     for (unsigned int i = 0; i < preSmoothing; i++)
     {
       _jacobi.iterate(readField, writeField, fineGridRhs);
@@ -131,7 +132,7 @@ public:
       readField = writeField;
       writeField = swap;
     }
-    NVTX_RANGE_END(presmoothing_range);
+    //NVTX_RANGE_END(presmoothing_range);
     // restriction done by injection
     _restriction.injection(readField, fineGridRhs, _coarseGridRhs, _coarseGridValues1, _coarseGridValues2);
     // do recursive multigrid solving procedure; the returned pointer points to _coarseGridValues1 or _coarseGridValues2,
@@ -143,7 +144,7 @@ public:
     _prolongation.interpolation(coarseSolutionField, readField);
 
     // post-smoothing
-    NVTX_RANGE_START(postsmoothing_range, 0xFF7cb82e, "Post-Smoothing");
+    //NVTX_RANGE_START(postsmoothing_range, 0xFF7cb82e, "Post-Smoothing");
     for (unsigned int i = 0; i < postSmoothing; i++)
     {
       _jacobi.iterate(readField, writeField, fineGridRhs);
@@ -151,9 +152,9 @@ public:
       readField = writeField;
       writeField = swap;
     }
-    NVTX_RANGE_END(postsmoothing_range);
+    //NVTX_RANGE_END(postsmoothing_range);
 
-    NVTX_RANGE_END(level_range);
+    //NVTX_RANGE_END(level_range);
 
     // return pointer to current solution
     return readField;
