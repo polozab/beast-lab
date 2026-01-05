@@ -7,7 +7,6 @@
 
 #include "Multigrid.h"
 #include "ComputeError.h"
-#include <nvtx3/nvtx3.hpp>
 
 int main(int argc, char *argv[])
 {
@@ -67,7 +66,11 @@ int main(int argc, char *argv[])
 
   for (unsigned int i = 0; i < multigridCycles; i++)
   {
-    nvtx3::scoped_range loop{"Iteration ", i};
+    
+    char msg[64];
+    std::snprintf(msg, sizeof(msg), "Iteration %d", i);
+    NVTX_RANGE_START(i_range, 0xFF51555C, msg);
+    
     // always work on the correct field (either field1 or field2);
     // this switch is required due to the Jacobi method
     if (currentSolution == field1)
@@ -85,6 +88,9 @@ int main(int argc, char *argv[])
 
     computeError.computePointwiseError(currentSolution);
     std::cout << "Iteration " << i << ", Max-error: " << computeError.getMaxError() << std::endl;
+
+    NVTX_RANGE_END(i_range);
+
   }
 
   // commented out: result not interesting here
