@@ -40,7 +40,7 @@ public:
         _coarseGridValues1(_callRecursion ? new FLOAT[(_nxCoarseGrid + 2) * (_nyCoarseGrid + 2)] : NULL),
         _coarseGridValues2(_callRecursion ? new FLOAT[(_nxCoarseGrid + 2) * (_nyCoarseGrid + 2)] : NULL),
         _coarseGridRhs(_callRecursion ? new FLOAT[(_nxCoarseGrid + 2) * (_nyCoarseGrid + 2)] : NULL),
-        _multigrid(_callRecursion ? new Multigrid<Level + 1>(_nxCoarseGrid, _nyCoarseGrid, level - 1) : NULL),
+        _multigrid(_callRecursion ? new Multigrid<Level + 1>(_nxCoarseGrid, _nyCoarseGrid) : NULL),
         _jacobi(nxFine, nyFine),
         _restriction(_nxCoarseGrid, _nyCoarseGrid),
         _prolongation(_nxCoarseGrid, _nyCoarseGrid)
