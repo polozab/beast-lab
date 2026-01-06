@@ -8,4 +8,10 @@
 // define type of floating point number to be used
 #define FLOAT double
 
+enum JacobiType {
+  PreSmoothing,
+  PostSmoothing,
+  LowestLevel
+};
+
 #endif // _DEFINITIONS_H_

@@ -105,7 +105,7 @@ public:
     {
       for (unsigned int i = 0; i < jacobiStepsCoarsestLevel; i++)
       {
-        _jacobi.iterate(readField, writeField, fineGridRhs);
+        _jacobi.iterate<Level, LowestLevel>(readField, writeField, fineGridRhs);
         FLOAT *swap = readField;
         readField = writeField;
         writeField = swap;
@@ -118,7 +118,7 @@ public:
     // pre-smoothing
     for (unsigned int i = 0; i < preSmoothing; i++)
     {
-      _jacobi.iterate(readField, writeField, fineGridRhs);
+      _jacobi.iterate<Level, PreSmoothing>(readField, writeField, fineGridRhs);
       FLOAT *swap = readField;
       readField = writeField;
       writeField = swap;
@@ -136,7 +136,7 @@ public:
     // post-smoothing
     for (unsigned int i = 0; i < postSmoothing; i++)
     {
-      _jacobi.iterate(readField, writeField, fineGridRhs);
+      _jacobi.iterate<Level, PostSmoothing>(readField, writeField, fineGridRhs);
       FLOAT *swap = readField;
       readField = writeField;
       writeField = swap;
