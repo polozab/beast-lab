@@ -191,7 +191,7 @@ public:
     // if we are on the coarsest level, just do Jacobi iterations and return (do swapping of read- and write fields correspondingly)
     for (unsigned int i = 0; i < jacobiStepsCoarsestLevel; i++)
     {
-      _jacobi.iterate(readField, writeField, fineGridRhs);
+      _jacobi.iterate<67, LowestLevel>(readField, writeField, fineGridRhs);
       FLOAT *swap = readField;
       readField = writeField;
       writeField = swap;
