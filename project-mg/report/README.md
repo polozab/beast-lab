@@ -69,7 +69,7 @@ To select interesting events and metrics to record we took a look at the provide
 
 Running this profiler gives us the following overview:
 
-![nsys_no_nvtx](img/image.png)
+![nsys_no_annotation](img/nsys_no_annotation.png)
 
 We can clearly see the 8 iterations of the multigrid smoother but beyond that it is hard to tell what part corresponds to which part of the program.
 
@@ -99,6 +99,7 @@ To be able to differentiate the pre- from post-smoothing and the different multi
 
 With these we both annotated the calls to `solve`-methode on each Multigrid instance including the level of that instance and even provided ranges to differentiate between pre- and post-smoothing. Now the measured events and metrics could be associated with the correct multigrid level and the performed action:
 
+![nsys_annotation](nsys_annotation.png)
 
 **TODO: Add reference to NVTX branch**
 
