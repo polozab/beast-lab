@@ -1,682 +1,671 @@
 # To display the perf.data header info, please use --header/--header-only options.
 #
 #
-# Total Lost Samples: 7790
+# Total Lost Samples: 0
 #
-# Samples: 161K of event 'cycles'
-# Event count (approx.): 131353012268
+# Samples: 168K of event 'cycles'
+# Event count (approx.): 137597415397
 #
-# Children      Self  Command    Shared Object          Symbol                                 
-# ........  ........  .........  .....................  .......................................
+# Children      Self  Command    Shared Object          Symbol                                       
+# ........  ........  .........  .....................  .............................................
 #
-   100.00%     0.00%  multigrid  multigrid              [.] _start
+    99.99%     0.00%  multigrid  multigrid              [.] _start
             |
             ---_start
                __libc_start_main
                |          
-                --99.93%--0xfffeecec73fb
+                --99.93%--0xfffbbe0073fb
                           main
                           |          
-                          |--87.06%--Multigrid<0u>::solve
+                          |--86.15%--Multigrid<0u>::solve
                           |          |          
-                          |          |--56.43%--Jacobi::iterate
+                          |          |--34.06%--Jacobi::iterate<0u, (JacobiType)1>
                           |          |          
-                          |          |--21.73%--Multigrid<1u>::solve
+                          |          |--22.69%--Jacobi::iterate<0u, (JacobiType)0>
+                          |          |          
+                          |          |--20.60%--Multigrid<1u>::solve
                           |          |          |          
-                          |          |          |--14.37%--Jacobi::iterate
+                          |          |          |--8.09%--Jacobi::iterate<1u, (JacobiType)1>
                           |          |          |          
-                          |          |          |--5.04%--Multigrid<2u>::solve
+                          |          |          |--5.42%--Jacobi::iterate<1u, (JacobiType)0>
+                          |          |          |          
+                          |          |          |--4.88%--Multigrid<2u>::solve
                           |          |          |          |          
-                          |          |          |          |--3.44%--Jacobi::iterate
+                          |          |          |          |--2.00%--Jacobi::iterate<2u, (JacobiType)1>
                           |          |          |          |          
-                          |          |          |           --1.02%--Multigrid<3u>::solve
-                          |          |          |                     |          
-                          |          |          |                      --0.64%--Jacobi::iterate
+                          |          |          |          |--1.34%--Jacobi::iterate<2u, (JacobiType)0>
+                          |          |          |          |          
+                          |          |          |           --0.98%--Multigrid<3u>::solve
                           |          |          |          
-                          |          |          |--1.24%--Restriction::injection
+                          |          |          |--1.19%--Restriction::injection
                           |          |          |          
-                          |          |           --1.08%--Prolongation::interpolation
+                          |          |           --1.03%--Prolongation::interpolation
                           |          |          
-                          |          |--4.55%--Restriction::injection
+                          |          |--4.63%--Restriction::injection
                           |          |          
-                          |           --4.36%--Prolongation::interpolation
+                          |           --4.17%--Prolongation::interpolation
                           |          
-                          |--11.61%--ComputeError::computePointwiseError
+                          |--12.58%--ComputeError::computePointwiseError
                           |          
-                           --0.55%--0xfffeecf390d0
-                                     |          
-                                      --0.53%--0xffffa08120f71e14
-                                                0xffffa0812236b330
-                                                |          
-                                                 --0.52%--0xffffa0812236a608
-                                                           |          
-                                                            --0.52%--0xffffa08120fa7020
-                                                                      0xffffa08122380184
-                                                                      |          
-                                                                       --0.51%--0xffffa0812237fe34
-                                                                                 |          
-                                                                                  --0.50%--0xffffa08121323104
-                                                                                            |          
-                                                                                             --0.50%--0xffffa08121322d58
+                           --0.51%--0xfffbbe0790d0
 
-   100.00%     0.00%  multigrid  libc.so.6              [.] __libc_start_main
+    99.99%     0.00%  multigrid  libc.so.6              [.] __libc_start_main
             |
             ---__libc_start_main
                |          
-                --99.93%--0xfffeecec73fb
+                --99.93%--0xfffbbe0073fb
                           main
                           |          
-                          |--87.06%--Multigrid<0u>::solve
+                          |--86.15%--Multigrid<0u>::solve
                           |          |          
-                          |          |--56.43%--Jacobi::iterate
+                          |          |--34.06%--Jacobi::iterate<0u, (JacobiType)1>
                           |          |          
-                          |          |--21.73%--Multigrid<1u>::solve
+                          |          |--22.69%--Jacobi::iterate<0u, (JacobiType)0>
+                          |          |          
+                          |          |--20.60%--Multigrid<1u>::solve
                           |          |          |          
-                          |          |          |--14.37%--Jacobi::iterate
+                          |          |          |--8.09%--Jacobi::iterate<1u, (JacobiType)1>
                           |          |          |          
-                          |          |          |--5.04%--Multigrid<2u>::solve
+                          |          |          |--5.42%--Jacobi::iterate<1u, (JacobiType)0>
+                          |          |          |          
+                          |          |          |--4.88%--Multigrid<2u>::solve
                           |          |          |          |          
-                          |          |          |          |--3.44%--Jacobi::iterate
+                          |          |          |          |--2.00%--Jacobi::iterate<2u, (JacobiType)1>
                           |          |          |          |          
-                          |          |          |           --1.02%--Multigrid<3u>::solve
-                          |          |          |                     |          
-                          |          |          |                      --0.64%--Jacobi::iterate
+                          |          |          |          |--1.34%--Jacobi::iterate<2u, (JacobiType)0>
+                          |          |          |          |          
+                          |          |          |           --0.98%--Multigrid<3u>::solve
                           |          |          |          
-                          |          |          |--1.24%--Restriction::injection
+                          |          |          |--1.19%--Restriction::injection
                           |          |          |          
-                          |          |           --1.08%--Prolongation::interpolation
+                          |          |           --1.03%--Prolongation::interpolation
                           |          |          
-                          |          |--4.55%--Restriction::injection
+                          |          |--4.63%--Restriction::injection
                           |          |          
-                          |           --4.36%--Prolongation::interpolation
+                          |           --4.17%--Prolongation::interpolation
                           |          
-                          |--11.61%--ComputeError::computePointwiseError
+                          |--12.58%--ComputeError::computePointwiseError
                           |          
-                           --0.55%--0xfffeecf390d0
-                                     |          
-                                      --0.53%--0xffffa08120f71e14
-                                                0xffffa0812236b330
-                                                |          
-                                                 --0.52%--0xffffa0812236a608
-                                                           |          
-                                                            --0.52%--0xffffa08120fa7020
-                                                                      0xffffa08122380184
-                                                                      |          
-                                                                       --0.51%--0xffffa0812237fe34
-                                                                                 |          
-                                                                                  --0.50%--0xffffa08121323104
-                                                                                            |          
-                                                                                             --0.50%--0xffffa08121322d58
+                           --0.51%--0xfffbbe0790d0
 
-    99.93%     0.00%  multigrid  libc.so.6              [.] 0x0000fffeecec73fb
+    99.93%     0.00%  multigrid  libc.so.6              [.] 0x0000fffbbe0073fb
             |
-            ---0xfffeecec73fb
+            ---0xfffbbe0073fb
                main
                |          
-               |--87.06%--Multigrid<0u>::solve
+               |--86.15%--Multigrid<0u>::solve
                |          |          
-               |          |--56.43%--Jacobi::iterate
+               |          |--34.06%--Jacobi::iterate<0u, (JacobiType)1>
                |          |          
-               |          |--21.73%--Multigrid<1u>::solve
+               |          |--22.69%--Jacobi::iterate<0u, (JacobiType)0>
+               |          |          
+               |          |--20.60%--Multigrid<1u>::solve
                |          |          |          
-               |          |          |--14.37%--Jacobi::iterate
+               |          |          |--8.09%--Jacobi::iterate<1u, (JacobiType)1>
                |          |          |          
-               |          |          |--5.04%--Multigrid<2u>::solve
+               |          |          |--5.42%--Jacobi::iterate<1u, (JacobiType)0>
+               |          |          |          
+               |          |          |--4.88%--Multigrid<2u>::solve
                |          |          |          |          
-               |          |          |          |--3.44%--Jacobi::iterate
+               |          |          |          |--2.00%--Jacobi::iterate<2u, (JacobiType)1>
                |          |          |          |          
-               |          |          |           --1.02%--Multigrid<3u>::solve
-               |          |          |                     |          
-               |          |          |                      --0.64%--Jacobi::iterate
+               |          |          |          |--1.34%--Jacobi::iterate<2u, (JacobiType)0>
+               |          |          |          |          
+               |          |          |           --0.98%--Multigrid<3u>::solve
                |          |          |          
-               |          |          |--1.24%--Restriction::injection
+               |          |          |--1.19%--Restriction::injection
                |          |          |          
-               |          |           --1.08%--Prolongation::interpolation
+               |          |           --1.03%--Prolongation::interpolation
                |          |          
-               |          |--4.55%--Restriction::injection
+               |          |--4.63%--Restriction::injection
                |          |          
-               |           --4.36%--Prolongation::interpolation
+               |           --4.17%--Prolongation::interpolation
                |          
-               |--11.61%--ComputeError::computePointwiseError
+               |--12.58%--ComputeError::computePointwiseError
                |          
-                --0.55%--0xfffeecf390d0
-                          |          
-                           --0.53%--0xffffa08120f71e14
-                                     0xffffa0812236b330
-                                     |          
-                                      --0.52%--0xffffa0812236a608
-                                                |          
-                                                 --0.52%--0xffffa08120fa7020
-                                                           0xffffa08122380184
-                                                           |          
-                                                            --0.51%--0xffffa0812237fe34
-                                                                      |          
-                                                                       --0.50%--0xffffa08121323104
-                                                                                 |          
-                                                                                  --0.50%--0xffffa08121322d58
+                --0.51%--0xfffbbe0790d0
 
     99.93%     0.00%  multigrid  multigrid              [.] main
             |
             ---main
                |          
-               |--87.06%--Multigrid<0u>::solve
+               |--86.15%--Multigrid<0u>::solve
                |          |          
-               |          |--56.43%--Jacobi::iterate
+               |          |--34.06%--Jacobi::iterate<0u, (JacobiType)1>
                |          |          
-               |          |--21.73%--Multigrid<1u>::solve
+               |          |--22.69%--Jacobi::iterate<0u, (JacobiType)0>
+               |          |          
+               |          |--20.60%--Multigrid<1u>::solve
                |          |          |          
-               |          |          |--14.37%--Jacobi::iterate
+               |          |          |--8.09%--Jacobi::iterate<1u, (JacobiType)1>
                |          |          |          
-               |          |          |--5.04%--Multigrid<2u>::solve
+               |          |          |--5.42%--Jacobi::iterate<1u, (JacobiType)0>
+               |          |          |          
+               |          |          |--4.88%--Multigrid<2u>::solve
                |          |          |          |          
-               |          |          |          |--3.44%--Jacobi::iterate
+               |          |          |          |--2.00%--Jacobi::iterate<2u, (JacobiType)1>
                |          |          |          |          
-               |          |          |           --1.02%--Multigrid<3u>::solve
-               |          |          |                     |          
-               |          |          |                      --0.64%--Jacobi::iterate
+               |          |          |          |--1.34%--Jacobi::iterate<2u, (JacobiType)0>
+               |          |          |          |          
+               |          |          |           --0.98%--Multigrid<3u>::solve
                |          |          |          
-               |          |          |--1.24%--Restriction::injection
+               |          |          |--1.19%--Restriction::injection
                |          |          |          
-               |          |           --1.08%--Prolongation::interpolation
+               |          |           --1.03%--Prolongation::interpolation
                |          |          
-               |          |--4.55%--Restriction::injection
+               |          |--4.63%--Restriction::injection
                |          |          
-               |           --4.36%--Prolongation::interpolation
+               |           --4.17%--Prolongation::interpolation
                |          
-               |--11.61%--ComputeError::computePointwiseError
+               |--12.58%--ComputeError::computePointwiseError
                |          
-                --0.55%--0xfffeecf390d0
-                          |          
-                           --0.53%--0xffffa08120f71e14
-                                     0xffffa0812236b330
-                                     |          
-                                      --0.52%--0xffffa0812236a608
-                                                |          
-                                                 --0.52%--0xffffa08120fa7020
-                                                           0xffffa08122380184
-                                                           |          
-                                                            --0.51%--0xffffa0812237fe34
-                                                                      |          
-                                                                       --0.50%--0xffffa08121323104
-                                                                                 |          
-                                                                                  --0.50%--0xffffa08121322d58
+                --0.51%--0xfffbbe0790d0
 
-    87.06%     0.00%  multigrid  multigrid              [.] Multigrid<0u>::solve
+    86.15%     0.00%  multigrid  multigrid              [.] Multigrid<0u>::solve
             |
             ---Multigrid<0u>::solve
                |          
-               |--56.43%--Jacobi::iterate
+               |--34.06%--Jacobi::iterate<0u, (JacobiType)1>
                |          
-               |--21.73%--Multigrid<1u>::solve
+               |--22.69%--Jacobi::iterate<0u, (JacobiType)0>
+               |          
+               |--20.60%--Multigrid<1u>::solve
                |          |          
-               |          |--14.37%--Jacobi::iterate
+               |          |--8.09%--Jacobi::iterate<1u, (JacobiType)1>
                |          |          
-               |          |--5.04%--Multigrid<2u>::solve
+               |          |--5.42%--Jacobi::iterate<1u, (JacobiType)0>
+               |          |          
+               |          |--4.88%--Multigrid<2u>::solve
                |          |          |          
-               |          |          |--3.44%--Jacobi::iterate
+               |          |          |--2.00%--Jacobi::iterate<2u, (JacobiType)1>
                |          |          |          
-               |          |           --1.02%--Multigrid<3u>::solve
-               |          |                     |          
-               |          |                      --0.64%--Jacobi::iterate
+               |          |          |--1.34%--Jacobi::iterate<2u, (JacobiType)0>
+               |          |          |          
+               |          |           --0.98%--Multigrid<3u>::solve
                |          |          
-               |          |--1.24%--Restriction::injection
+               |          |--1.19%--Restriction::injection
                |          |          
-               |           --1.08%--Prolongation::interpolation
+               |           --1.03%--Prolongation::interpolation
                |          
-               |--4.55%--Restriction::injection
+               |--4.63%--Restriction::injection
                |          
-                --4.36%--Prolongation::interpolation
+                --4.17%--Prolongation::interpolation
 
-    75.06%    75.06%  multigrid  multigrid              [.] Jacobi::iterate
+    34.06%    34.06%  multigrid  multigrid              [.] Jacobi::iterate<0u, (JacobiType)1>
             |
             ---_start
                __libc_start_main
-               0xfffeecec73fb
+               0xfffbbe0073fb
                main
                Multigrid<0u>::solve
-               |          
-               |--56.43%--Jacobi::iterate
-               |          
-                --18.63%--Multigrid<1u>::solve
-                          |          
-                          |--14.37%--Jacobi::iterate
-                          |          
-                           --4.26%--Multigrid<2u>::solve
-                                     |          
-                                     |--3.44%--Jacobi::iterate
-                                     |          
-                                      --0.82%--Multigrid<3u>::solve
-                                                |          
-                                                 --0.64%--Jacobi::iterate
+               Jacobi::iterate<0u, (JacobiType)1>
 
-    21.73%     0.00%  multigrid  multigrid              [.] Multigrid<1u>::solve
+    22.69%    22.69%  multigrid  multigrid              [.] Jacobi::iterate<0u, (JacobiType)0>
+            |
+            ---_start
+               __libc_start_main
+               0xfffbbe0073fb
+               main
+               Multigrid<0u>::solve
+               Jacobi::iterate<0u, (JacobiType)0>
+
+    20.60%     0.00%  multigrid  multigrid              [.] Multigrid<1u>::solve
             |
             ---Multigrid<1u>::solve
                |          
-               |--14.37%--Jacobi::iterate
+               |--8.09%--Jacobi::iterate<1u, (JacobiType)1>
                |          
-               |--5.04%--Multigrid<2u>::solve
+               |--5.42%--Jacobi::iterate<1u, (JacobiType)0>
+               |          
+               |--4.88%--Multigrid<2u>::solve
                |          |          
-               |          |--3.44%--Jacobi::iterate
+               |          |--2.00%--Jacobi::iterate<2u, (JacobiType)1>
                |          |          
-               |           --1.02%--Multigrid<3u>::solve
-               |                     |          
-               |                      --0.64%--Jacobi::iterate
+               |          |--1.34%--Jacobi::iterate<2u, (JacobiType)0>
+               |          |          
+               |           --0.98%--Multigrid<3u>::solve
                |          
-               |--1.24%--Restriction::injection
+               |--1.19%--Restriction::injection
                |          
-                --1.08%--Prolongation::interpolation
+                --1.03%--Prolongation::interpolation
 
-    11.61%    11.61%  multigrid  multigrid              [.] ComputeError::computePointwiseError
+    12.58%    12.58%  multigrid  multigrid              [.] ComputeError::computePointwiseError
             |
             ---_start
                __libc_start_main
-               0xfffeecec73fb
+               0xfffbbe0073fb
                main
                ComputeError::computePointwiseError
 
-     6.21%     6.21%  multigrid  multigrid              [.] Restriction::injection
+     8.09%     8.09%  multigrid  multigrid              [.] Jacobi::iterate<1u, (JacobiType)1>
             |
             ---_start
                __libc_start_main
-               0xfffeecec73fb
+               0xfffbbe0073fb
                main
                Multigrid<0u>::solve
-               |          
-               |--4.55%--Restriction::injection
-               |          
-                --1.66%--Multigrid<1u>::solve
-                          |          
-                           --1.24%--Restriction::injection
+               Multigrid<1u>::solve
+               Jacobi::iterate<1u, (JacobiType)1>
 
-     5.79%     5.79%  multigrid  multigrid              [.] Prolongation::interpolation
+     6.22%     6.22%  multigrid  multigrid              [.] Restriction::injection
             |
             ---_start
                __libc_start_main
-               0xfffeecec73fb
+               0xfffbbe0073fb
                main
                Multigrid<0u>::solve
                |          
-               |--4.36%--Prolongation::interpolation
+               |--4.63%--Restriction::injection
                |          
-                --1.44%--Multigrid<1u>::solve
+                --1.59%--Multigrid<1u>::solve
                           |          
-                           --1.08%--Prolongation::interpolation
+                           --1.19%--Restriction::injection
 
-     5.04%     0.00%  multigrid  multigrid              [.] Multigrid<2u>::solve
+     5.54%     5.54%  multigrid  multigrid              [.] Prolongation::interpolation
             |
-            ---Multigrid<2u>::solve
+            ---_start
+               __libc_start_main
+               0xfffbbe0073fb
+               main
+               Multigrid<0u>::solve
                |          
-               |--3.44%--Jacobi::iterate
+               |--4.17%--Prolongation::interpolation
                |          
-                --1.02%--Multigrid<3u>::solve
+                --1.37%--Multigrid<1u>::solve
                           |          
-                           --0.64%--Jacobi::iterate
+                           --1.03%--Prolongation::interpolation
 
-     1.02%     0.00%  multigrid  multigrid              [.] Multigrid<3u>::solve
+     5.42%     5.42%  multigrid  multigrid              [.] Jacobi::iterate<1u, (JacobiType)0>
+            |
+            ---_start
+               __libc_start_main
+               0xfffbbe0073fb
+               main
+               Multigrid<0u>::solve
+               Multigrid<1u>::solve
+               Jacobi::iterate<1u, (JacobiType)0>
+
+     4.88%     0.00%  multigrid  multigrid              [.] Multigrid<2u>::solve
             |          
-             --1.02%--Multigrid<3u>::solve
+             --4.88%--Multigrid<2u>::solve
                        |          
-                        --0.64%--Jacobi::iterate
+                       |--2.00%--Jacobi::iterate<2u, (JacobiType)1>
+                       |          
+                       |--1.34%--Jacobi::iterate<2u, (JacobiType)0>
+                       |          
+                        --0.98%--Multigrid<3u>::solve
 
-     0.98%     0.00%  multigrid  [unknown]              [k] 0xffffa08120f71e14
+     2.00%     2.00%  multigrid  multigrid              [.] Jacobi::iterate<2u, (JacobiType)1>
+            |
+            ---_start
+               __libc_start_main
+               0xfffbbe0073fb
+               main
+               Multigrid<0u>::solve
+               Multigrid<1u>::solve
+               Multigrid<2u>::solve
+               Jacobi::iterate<2u, (JacobiType)1>
+
+     1.34%     1.34%  multigrid  multigrid              [.] Jacobi::iterate<2u, (JacobiType)0>
+            |
+            ---_start
+               __libc_start_main
+               0xfffbbe0073fb
+               main
+               Multigrid<0u>::solve
+               Multigrid<1u>::solve
+               Multigrid<2u>::solve
+               Jacobi::iterate<2u, (JacobiType)0>
+
+     0.98%     0.00%  multigrid  multigrid              [.] Multigrid<3u>::solve
+            |
+            ---Multigrid<3u>::solve
+
+     0.93%     0.00%  multigrid  [unknown]              [k] 0xffffa08120f71e14
             |
             ---0xffffa08120f71e14
                |          
-                --0.87%--0xffffa0812236b330
+                --0.83%--0xffffa0812236b330
                           |          
-                           --0.85%--0xffffa0812236a608
+                           --0.80%--0xffffa0812236a608
+                                     0xffffa08120fa7020
                                      |          
-                                      --0.84%--0xffffa08120fa7020
+                                      --0.80%--0xffffa08122380184
                                                 |          
-                                                 --0.84%--0xffffa08122380184
+                                                 --0.78%--0xffffa0812237fe34
                                                            |          
-                                                            --0.82%--0xffffa0812237fe34
+                                                            --0.77%--0xffffa08121323104
                                                                       |          
-                                                                       --0.82%--0xffffa08121323104
+                                                                       --0.77%--0xffffa08121322d58
                                                                                  |          
-                                                                                  --0.81%--0xffffa08121322d58
+                                                                                  --0.76%--0xffffa08121322788
                                                                                             |          
-                                                                                             --0.81%--0xffffa08121322788
+                                                                                             --0.63%--0xffffa0812131d534
                                                                                                        |          
-                                                                                                        --0.69%--0xffffa0812131d534
+                                                                                                        --0.63%--0xffffa08120fa7888
                                                                                                                   |          
-                                                                                                                   --0.69%--0xffffa08120fa7888
+                                                                                                                   --0.63%--0xffffa0812137fd2c
                                                                                                                              |          
-                                                                                                                              --0.69%--0xffffa0812137fd2c
+                                                                                                                              --0.63%--0xffffa08121351d34
                                                                                                                                         |          
-                                                                                                                                         --0.69%--0xffffa08121351d34
+                                                                                                                                         --0.62%--0xffffa08121351350
                                                                                                                                                    |          
-                                                                                                                                                    --0.68%--0xffffa08121351350
+                                                                                                                                                    --0.59%--0xffffa0812134fe58
                                                                                                                                                               |          
-                                                                                                                                                               --0.65%--0xffffa0812134fe58
-                                                                                                                                                                         |          
-                                                                                                                                                                          --0.61%--0xffffa0812230c564
+                                                                                                                                                               --0.55%--0xffffa0812230c564
 
-     0.87%     0.00%  multigrid  [unknown]              [.] 0xffffa0812236b330
+     0.83%     0.00%  multigrid  [unknown]              [.] 0xffffa0812236b330
             |
             ---0xffffa0812236b330
                |          
-                --0.85%--0xffffa0812236a608
+                --0.80%--0xffffa0812236a608
+                          0xffffa08120fa7020
                           |          
-                           --0.84%--0xffffa08120fa7020
+                           --0.80%--0xffffa08122380184
                                      |          
-                                      --0.84%--0xffffa08122380184
+                                      --0.78%--0xffffa0812237fe34
                                                 |          
-                                                 --0.82%--0xffffa0812237fe34
+                                                 --0.77%--0xffffa08121323104
                                                            |          
-                                                            --0.82%--0xffffa08121323104
+                                                            --0.77%--0xffffa08121322d58
                                                                       |          
-                                                                       --0.81%--0xffffa08121322d58
+                                                                       --0.76%--0xffffa08121322788
                                                                                  |          
-                                                                                  --0.81%--0xffffa08121322788
+                                                                                  --0.63%--0xffffa0812131d534
                                                                                             |          
-                                                                                             --0.69%--0xffffa0812131d534
+                                                                                             --0.63%--0xffffa08120fa7888
                                                                                                        |          
-                                                                                                        --0.69%--0xffffa08120fa7888
+                                                                                                        --0.63%--0xffffa0812137fd2c
                                                                                                                   |          
-                                                                                                                   --0.69%--0xffffa0812137fd2c
+                                                                                                                   --0.63%--0xffffa08121351d34
                                                                                                                              |          
-                                                                                                                              --0.69%--0xffffa08121351d34
+                                                                                                                              --0.62%--0xffffa08121351350
                                                                                                                                         |          
-                                                                                                                                         --0.68%--0xffffa08121351350
+                                                                                                                                         --0.59%--0xffffa0812134fe58
                                                                                                                                                    |          
-                                                                                                                                                    --0.65%--0xffffa0812134fe58
-                                                                                                                                                              |          
-                                                                                                                                                               --0.61%--0xffffa0812230c564
+                                                                                                                                                    --0.55%--0xffffa0812230c564
 
-     0.85%     0.00%  multigrid  [unknown]              [.] 0xffffa0812236a608
-            |
-            ---0xffffa0812236a608
-               |          
-                --0.84%--0xffffa08120fa7020
-                          |          
-                           --0.84%--0xffffa08122380184
-                                     |          
-                                      --0.82%--0xffffa0812237fe34
-                                                |          
-                                                 --0.82%--0xffffa08121323104
-                                                           |          
-                                                            --0.81%--0xffffa08121322d58
-                                                                      |          
-                                                                       --0.81%--0xffffa08121322788
-                                                                                 |          
-                                                                                  --0.69%--0xffffa0812131d534
-                                                                                            |          
-                                                                                             --0.69%--0xffffa08120fa7888
-                                                                                                       |          
-                                                                                                        --0.69%--0xffffa0812137fd2c
-                                                                                                                  |          
-                                                                                                                   --0.69%--0xffffa08121351d34
-                                                                                                                             |          
-                                                                                                                              --0.68%--0xffffa08121351350
-                                                                                                                                        |          
-                                                                                                                                         --0.65%--0xffffa0812134fe58
-                                                                                                                                                   |          
-                                                                                                                                                    --0.61%--0xffffa0812230c564
-
-     0.84%     0.00%  multigrid  [unknown]              [k] 0xffffa08120fa7020
+     0.80%     0.00%  multigrid  [unknown]              [k] 0xffffa08120fa7020
             |
             ---0xffffa08120fa7020
                |          
-                --0.84%--0xffffa08122380184
+                --0.80%--0xffffa08122380184
                           |          
-                           --0.82%--0xffffa0812237fe34
+                           --0.78%--0xffffa0812237fe34
                                      |          
-                                      --0.82%--0xffffa08121323104
+                                      --0.77%--0xffffa08121323104
                                                 |          
-                                                 --0.81%--0xffffa08121322d58
+                                                 --0.77%--0xffffa08121322d58
                                                            |          
-                                                            --0.81%--0xffffa08121322788
+                                                            --0.76%--0xffffa08121322788
                                                                       |          
-                                                                       --0.69%--0xffffa0812131d534
+                                                                       --0.63%--0xffffa0812131d534
                                                                                  |          
-                                                                                  --0.69%--0xffffa08120fa7888
+                                                                                  --0.63%--0xffffa08120fa7888
                                                                                             |          
-                                                                                             --0.69%--0xffffa0812137fd2c
+                                                                                             --0.63%--0xffffa0812137fd2c
                                                                                                        |          
-                                                                                                        --0.69%--0xffffa08121351d34
+                                                                                                        --0.63%--0xffffa08121351d34
                                                                                                                   |          
-                                                                                                                   --0.68%--0xffffa08121351350
+                                                                                                                   --0.62%--0xffffa08121351350
                                                                                                                              |          
-                                                                                                                              --0.65%--0xffffa0812134fe58
+                                                                                                                              --0.59%--0xffffa0812134fe58
                                                                                                                                         |          
-                                                                                                                                         --0.61%--0xffffa0812230c564
+                                                                                                                                         --0.55%--0xffffa0812230c564
 
-     0.84%     0.00%  multigrid  [unknown]              [k] 0xffffa08122380184
+     0.80%     0.00%  multigrid  [unknown]              [.] 0xffffa0812236a608
+            |
+            ---0xffffa0812236a608
+               0xffffa08120fa7020
+               |          
+                --0.80%--0xffffa08122380184
+                          |          
+                           --0.78%--0xffffa0812237fe34
+                                     |          
+                                      --0.77%--0xffffa08121323104
+                                                |          
+                                                 --0.77%--0xffffa08121322d58
+                                                           |          
+                                                            --0.76%--0xffffa08121322788
+                                                                      |          
+                                                                       --0.63%--0xffffa0812131d534
+                                                                                 |          
+                                                                                  --0.63%--0xffffa08120fa7888
+                                                                                            |          
+                                                                                             --0.63%--0xffffa0812137fd2c
+                                                                                                       |          
+                                                                                                        --0.63%--0xffffa08121351d34
+                                                                                                                  |          
+                                                                                                                   --0.62%--0xffffa08121351350
+                                                                                                                             |          
+                                                                                                                              --0.59%--0xffffa0812134fe58
+                                                                                                                                        |          
+                                                                                                                                         --0.55%--0xffffa0812230c564
+
+     0.80%     0.00%  multigrid  [unknown]              [k] 0xffffa08122380184
             |
             ---0xffffa08122380184
                |          
-                --0.82%--0xffffa0812237fe34
+                --0.78%--0xffffa0812237fe34
                           |          
-                           --0.82%--0xffffa08121323104
+                           --0.77%--0xffffa08121323104
                                      |          
-                                      --0.81%--0xffffa08121322d58
+                                      --0.77%--0xffffa08121322d58
                                                 |          
-                                                 --0.81%--0xffffa08121322788
+                                                 --0.76%--0xffffa08121322788
                                                            |          
-                                                            --0.69%--0xffffa0812131d534
+                                                            --0.63%--0xffffa0812131d534
                                                                       |          
-                                                                       --0.69%--0xffffa08120fa7888
+                                                                       --0.63%--0xffffa08120fa7888
                                                                                  |          
-                                                                                  --0.69%--0xffffa0812137fd2c
+                                                                                  --0.63%--0xffffa0812137fd2c
                                                                                             |          
-                                                                                             --0.69%--0xffffa08121351d34
+                                                                                             --0.63%--0xffffa08121351d34
                                                                                                        |          
-                                                                                                        --0.68%--0xffffa08121351350
+                                                                                                        --0.62%--0xffffa08121351350
                                                                                                                   |          
-                                                                                                                   --0.65%--0xffffa0812134fe58
+                                                                                                                   --0.59%--0xffffa0812134fe58
                                                                                                                              |          
-                                                                                                                              --0.61%--0xffffa0812230c564
+                                                                                                                              --0.55%--0xffffa0812230c564
 
-     0.82%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237fe34
+     0.78%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237fe34
             |
             ---0xffffa0812237fe34
                |          
-                --0.82%--0xffffa08121323104
+                --0.77%--0xffffa08121323104
                           |          
-                           --0.82%--0xffffa08121322d58
+                           --0.77%--0xffffa08121322d58
                                      |          
-                                      --0.81%--0xffffa08121322788
+                                      --0.76%--0xffffa08121322788
                                                 |          
-                                                 --0.69%--0xffffa0812131d534
+                                                 --0.63%--0xffffa0812131d534
                                                            |          
-                                                            --0.69%--0xffffa08120fa7888
+                                                            --0.63%--0xffffa08120fa7888
                                                                       |          
-                                                                       --0.69%--0xffffa0812137fd2c
+                                                                       --0.63%--0xffffa0812137fd2c
                                                                                  |          
-                                                                                  --0.69%--0xffffa08121351d34
+                                                                                  --0.63%--0xffffa08121351d34
                                                                                             |          
-                                                                                             --0.68%--0xffffa08121351350
+                                                                                             --0.62%--0xffffa08121351350
                                                                                                        |          
-                                                                                                        --0.65%--0xffffa0812134fe58
+                                                                                                        --0.59%--0xffffa0812134fe58
                                                                                                                   |          
-                                                                                                                   --0.61%--0xffffa0812230c564
+                                                                                                                   --0.55%--0xffffa0812230c564
 
-     0.82%     0.00%  multigrid  [unknown]              [k] 0xffffa08121323104
+     0.77%     0.00%  multigrid  [unknown]              [k] 0xffffa08121323104
             |
             ---0xffffa08121323104
                |          
-                --0.82%--0xffffa08121322d58
+                --0.77%--0xffffa08121322d58
                           |          
-                           --0.81%--0xffffa08121322788
+                           --0.76%--0xffffa08121322788
                                      |          
-                                      --0.69%--0xffffa0812131d534
+                                      --0.63%--0xffffa0812131d534
                                                 |          
-                                                 --0.69%--0xffffa08120fa7888
+                                                 --0.63%--0xffffa08120fa7888
                                                            |          
-                                                            --0.69%--0xffffa0812137fd2c
+                                                            --0.63%--0xffffa0812137fd2c
                                                                       |          
-                                                                       --0.69%--0xffffa08121351d34
+                                                                       --0.63%--0xffffa08121351d34
                                                                                  |          
-                                                                                  --0.68%--0xffffa08121351350
+                                                                                  --0.62%--0xffffa08121351350
                                                                                             |          
-                                                                                             --0.65%--0xffffa0812134fe58
+                                                                                             --0.59%--0xffffa0812134fe58
                                                                                                        |          
-                                                                                                        --0.61%--0xffffa0812230c564
+                                                                                                        --0.55%--0xffffa0812230c564
 
-     0.82%     0.00%  multigrid  [unknown]              [k] 0xffffa08121322d58
+     0.77%     0.00%  multigrid  [unknown]              [k] 0xffffa08121322d58
             |
             ---0xffffa08121322d58
                |          
-                --0.81%--0xffffa08121322788
+                --0.76%--0xffffa08121322788
                           |          
-                           --0.69%--0xffffa0812131d534
+                           --0.63%--0xffffa0812131d534
                                      |          
-                                      --0.69%--0xffffa08120fa7888
+                                      --0.63%--0xffffa08120fa7888
                                                 |          
-                                                 --0.69%--0xffffa0812137fd2c
+                                                 --0.63%--0xffffa0812137fd2c
                                                            |          
-                                                            --0.69%--0xffffa08121351d34
+                                                            --0.63%--0xffffa08121351d34
                                                                       |          
-                                                                       --0.68%--0xffffa08121351350
+                                                                       --0.62%--0xffffa08121351350
                                                                                  |          
-                                                                                  --0.65%--0xffffa0812134fe58
+                                                                                  --0.59%--0xffffa0812134fe58
                                                                                             |          
-                                                                                             --0.61%--0xffffa0812230c564
+                                                                                             --0.55%--0xffffa0812230c564
 
-     0.81%     0.00%  multigrid  [unknown]              [.] 0xffffa08121322788
+     0.76%     0.00%  multigrid  [unknown]              [.] 0xffffa08121322788
             |
             ---0xffffa08121322788
                |          
-                --0.69%--0xffffa0812131d534
+                --0.63%--0xffffa0812131d534
                           |          
-                           --0.69%--0xffffa08120fa7888
+                           --0.63%--0xffffa08120fa7888
                                      |          
-                                      --0.69%--0xffffa0812137fd2c
+                                      --0.63%--0xffffa0812137fd2c
                                                 |          
-                                                 --0.69%--0xffffa08121351d34
+                                                 --0.63%--0xffffa08121351d34
                                                            |          
-                                                            --0.68%--0xffffa08121351350
+                                                            --0.62%--0xffffa08121351350
                                                                       |          
-                                                                       --0.65%--0xffffa0812134fe58
+                                                                       --0.59%--0xffffa0812134fe58
                                                                                  |          
-                                                                                  --0.61%--0xffffa0812230c564
+                                                                                  --0.55%--0xffffa0812230c564
 
-     0.69%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131d534
+     0.63%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131d534
             |
             ---0xffffa0812131d534
                |          
-                --0.69%--0xffffa08120fa7888
+                --0.63%--0xffffa08120fa7888
                           |          
-                           --0.69%--0xffffa0812137fd2c
+                           --0.63%--0xffffa0812137fd2c
                                      |          
-                                      --0.69%--0xffffa08121351d34
+                                      --0.63%--0xffffa08121351d34
                                                 |          
-                                                 --0.68%--0xffffa08121351350
+                                                 --0.62%--0xffffa08121351350
                                                            |          
-                                                            --0.65%--0xffffa0812134fe58
+                                                            --0.59%--0xffffa0812134fe58
                                                                       |          
-                                                                       --0.61%--0xffffa0812230c564
+                                                                       --0.55%--0xffffa0812230c564
 
-     0.69%     0.00%  multigrid  [unknown]              [.] 0xffffa08120fa7888
+     0.63%     0.00%  multigrid  [unknown]              [.] 0xffffa08120fa7888
             |
             ---0xffffa08120fa7888
                |          
-                --0.69%--0xffffa0812137fd2c
+                --0.63%--0xffffa0812137fd2c
                           |          
-                           --0.69%--0xffffa08121351d34
+                           --0.63%--0xffffa08121351d34
                                      |          
-                                      --0.68%--0xffffa08121351350
+                                      --0.62%--0xffffa08121351350
                                                 |          
-                                                 --0.65%--0xffffa0812134fe58
+                                                 --0.59%--0xffffa0812134fe58
                                                            |          
-                                                            --0.61%--0xffffa0812230c564
+                                                            --0.55%--0xffffa0812230c564
 
-     0.69%     0.00%  multigrid  [unknown]              [.] 0xffffa0812137fd2c
+     0.63%     0.00%  multigrid  [unknown]              [.] 0xffffa0812137fd2c
             |
             ---0xffffa0812137fd2c
                |          
-                --0.69%--0xffffa08121351d34
+                --0.63%--0xffffa08121351d34
                           |          
-                           --0.68%--0xffffa08121351350
+                           --0.62%--0xffffa08121351350
                                      |          
-                                      --0.65%--0xffffa0812134fe58
+                                      --0.59%--0xffffa0812134fe58
                                                 |          
-                                                 --0.61%--0xffffa0812230c564
+                                                 --0.55%--0xffffa0812230c564
 
-     0.69%     0.00%  multigrid  [unknown]              [.] 0xffffa08121351d34
+     0.63%     0.00%  multigrid  [unknown]              [.] 0xffffa08121351d34
             |
             ---0xffffa08121351d34
                |          
-                --0.68%--0xffffa08121351350
+                --0.62%--0xffffa08121351350
                           |          
-                           --0.65%--0xffffa0812134fe58
+                           --0.59%--0xffffa0812134fe58
                                      |          
-                                      --0.61%--0xffffa0812230c564
+                                      --0.55%--0xffffa0812230c564
 
-     0.68%     0.00%  multigrid  [unknown]              [.] 0xffffa08121351350
+     0.62%     0.00%  multigrid  [unknown]              [.] 0xffffa08121351350
             |
             ---0xffffa08121351350
                |          
-                --0.65%--0xffffa0812134fe58
+                --0.59%--0xffffa0812134fe58
                           |          
-                           --0.61%--0xffffa0812230c564
+                           --0.55%--0xffffa0812230c564
 
-     0.65%     0.00%  multigrid  [unknown]              [.] 0xffffa0812134fe58
+     0.59%     0.00%  multigrid  [unknown]              [.] 0xffffa0812134fe58
             |
             ---0xffffa0812134fe58
                |          
-                --0.61%--0xffffa0812230c564
+                --0.55%--0xffffa0812230c564
 
-     0.61%     0.61%  multigrid  [unknown]              [k] 0xffffa0812230c564
+     0.55%     0.55%  multigrid  [unknown]              [k] 0xffffa0812230c564
             |
             ---_start
                __libc_start_main
-               0xfffeecec73fb
+               0xfffbbe0073fb
                main
 
-     0.55%     0.00%  multigrid  libc.so.6              [.] 0x0000fffeecf390d0
+     0.51%     0.00%  multigrid  libc.so.6              [.] 0x0000fffbbe0790d0
             |
-            ---0xfffeecf390d0
-               |          
-                --0.53%--0xffffa08120f71e14
-                          0xffffa0812236b330
-                          |          
-                           --0.52%--0xffffa0812236a608
-                                     |          
-                                      --0.52%--0xffffa08120fa7020
-                                                0xffffa08122380184
-                                                |          
-                                                 --0.51%--0xffffa0812237fe34
-                                                           |          
-                                                            --0.50%--0xffffa08121323104
-                                                                      |          
-                                                                       --0.50%--0xffffa08121322d58
+            ---0xfffbbe0790d0
 
-     0.38%     0.17%  multigrid  multigrid              [.] Multigrid<0u>::Multigrid
+     0.36%     0.14%  multigrid  multigrid              [.] Multigrid<0u>::Multigrid
+     0.36%     0.36%  multigrid  multigrid              [.] Jacobi::iterate<3u, (JacobiType)1>
+     0.25%     0.25%  multigrid  multigrid              [.] Jacobi::iterate<3u, (JacobiType)0>
      0.23%     0.00%  multigrid  multigrid              [.] Multigrid<4u>::solve
-     0.22%     0.00%  multigrid  multigrid              [.] ComputeError::ComputeError
-     0.22%     0.05%  multigrid  libnvc.so              [.] __c_mset8
-     0.11%     0.00%  multigrid  [unknown]              [k] 0xffffa0812236b378
-     0.11%     0.00%  multigrid  [unknown]              [k] 0xffffa0812236ad4c
-     0.11%     0.00%  multigrid  [unknown]              [k] 0xffffa08120f925b4
-     0.11%     0.00%  multigrid  [unknown]              [k] 0xffffa08120f92418
-     0.11%     0.00%  multigrid  [unknown]              [k] 0xffffa08120f9231c
+     0.21%     0.00%  multigrid  multigrid              [.] ComputeError::ComputeError
+     0.21%     0.05%  multigrid  libnvc.so              [.] __c_mset8
+     0.10%     0.00%  multigrid  [unknown]              [k] 0xffffa0812236b378
+     0.10%     0.00%  multigrid  [unknown]              [k] 0xffffa0812236ad4c
+     0.10%     0.00%  multigrid  [unknown]              [k] 0xffffa08120f925b4
+     0.10%     0.00%  multigrid  [unknown]              [k] 0xffffa08120f92418
+     0.10%     0.00%  multigrid  [unknown]              [k] 0xffffa08120f9231c
      0.09%     0.03%  multigrid  multigrid              [.] Multigrid<1u>::Multigrid
      0.09%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131f240
      0.09%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131ef74
-     0.08%     0.08%  multigrid  [unknown]              [k] 0xffffa0812237c3c8
-     0.07%     0.00%  multigrid  [unknown]              [.] 0xffffa0812133127c
-     0.07%     0.00%  multigrid  [unknown]              [.] 0xffffa08121021730
-     0.07%     0.00%  multigrid  [unknown]              [.] 0xffffa081210216ac
-     0.07%     0.00%  multigrid  libc.so.6              [.] 0x0000fffeecec73ff
-     0.07%     0.00%  multigrid  libc.so.6              [.] exit
-     0.07%     0.00%  multigrid  libc.so.6              [.] 0x0000fffeecedceab
-     0.07%     0.00%  multigrid  libc.so.6              [.] _exit
-     0.07%     0.00%  multigrid  [unknown]              [.] 0xffffa081210210bc
-     0.07%     0.00%  multigrid  [unknown]              [.] 0xffffa08121020eb0
-     0.07%     0.00%  multigrid  [unknown]              [.] 0xffffa0812101384c
-     0.07%     0.00%  multigrid  [unknown]              [.] 0xffffa08121013654
-     0.07%     0.00%  multigrid  [unknown]              [.] 0xffffa0812132e1e0
-     0.07%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131f7ec
-     0.07%     0.00%  multigrid  [unknown]              [.] 0xffffa08121361024
-     0.06%     0.06%  multigrid  libc.so.6              [.] 0x00000000000990d4
-     0.06%     0.00%  multigrid  libc.so.6              [.] 0x0000fffeecf390d4
+     0.08%     0.08%  multigrid  multigrid              [.] Jacobi::iterate<4u, (JacobiType)1>
+     0.07%     0.07%  multigrid  [unknown]              [k] 0xffffa0812237c3c8
+     0.07%     0.07%  multigrid  libc.so.6              [.] 0x00000000000990d4
+     0.07%     0.00%  multigrid  libc.so.6              [.] 0x0000fffbbe0790d4
+     0.07%     0.07%  multigrid  [unknown]              [k] 0xffffa0812237c8d0
+     0.06%     0.00%  multigrid  [unknown]              [.] 0xffffa08121021730
+     0.06%     0.00%  multigrid  [unknown]              [.] 0xffffa081210216ac
+     0.06%     0.00%  multigrid  libc.so.6              [.] 0x0000fffbbe0073ff
+     0.06%     0.00%  multigrid  libc.so.6              [.] exit
+     0.06%     0.00%  multigrid  libc.so.6              [.] 0x0000fffbbe01ceab
+     0.06%     0.00%  multigrid  libc.so.6              [.] _exit
+     0.06%     0.00%  multigrid  [unknown]              [.] 0xffffa081210210bc
+     0.06%     0.00%  multigrid  [unknown]              [.] 0xffffa08121020eb0
+     0.06%     0.00%  multigrid  [unknown]              [.] 0xffffa0812101384c
+     0.06%     0.00%  multigrid  [unknown]              [.] 0xffffa08121013654
+     0.06%     0.00%  multigrid  [unknown]              [.] 0xffffa0812132e1e0
+     0.06%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131f7ec
+     0.06%     0.00%  multigrid  [unknown]              [.] 0xffffa0812133127c
+     0.06%     0.00%  multigrid  [unknown]              [.] 0xffffa08121361024
      0.06%     0.00%  multigrid  multigrid              [.] Multigrid<5u>::solve
-     0.06%     0.06%  multigrid  [unknown]              [k] 0xffffa0812237c8d0
-     0.05%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131ec10
-     0.05%     0.00%  multigrid  [unknown]              [.] 0xffffa08121331c7c
+     0.06%     0.06%  multigrid  multigrid              [.] Jacobi::iterate<4u, (JacobiType)0>
+     0.04%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131ec10
+     0.04%     0.00%  multigrid  [unknown]              [.] 0xffffa08121331c7c
      0.04%     0.00%  multigrid  libnvmalloc.so         [.] je_free_default
      0.04%     0.00%  multigrid  libnvmalloc.so         [.] ifree (inlined)
      0.04%     0.00%  multigrid  libnvmalloc.so         [.] idalloctm (inlined)
@@ -695,277 +684,320 @@
      0.04%     0.00%  multigrid  [unknown]              [.] 0xffffa0812135dd6c
      0.04%     0.00%  multigrid  [unknown]              [.] 0xffffa0812135a700
      0.04%     0.00%  multigrid  [unknown]              [.] 0xffffa0812135d918
-     0.04%     0.00%  multigrid  [unknown]              [.] 0xffffa0812134fcec
+     0.03%     0.00%  multigrid  [unknown]              [.] 0xffffa0812134fcec
      0.03%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131d55c
-     0.03%     0.00%  multigrid  [unknown]              [.] 0xffffa0812134db04
      0.03%     0.03%  multigrid  [unknown]              [k] 0xffffa0812131e848
-     0.03%     0.00%  multigrid  [unknown]              [.] 0xffffa081212cdf98
-     0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa081213c2f44
-     0.02%     0.00%  multigrid  multigrid              [.] Multigrid<0u>::~Multigrid
+     0.03%     0.00%  multigrid  [unknown]              [.] 0xffffa0812134db04
+     0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa081212cdfa0
      0.02%     0.02%  multigrid  [unknown]              [k] 0xffffa0812236a600
-     0.02%     0.01%  multigrid  multigrid              [.] Multigrid<2u>::Multigrid
-     0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa081213c2c10
      0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131f99c
      0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131f3f0
-     0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa081212cdfa0
+     0.02%     0.00%  multigrid  multigrid              [.] Multigrid<0u>::~Multigrid
+     0.02%     0.01%  multigrid  multigrid              [.] Multigrid<2u>::Multigrid
+     0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa081213c2c10
      0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131d7a4
      0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa081212c98a8
+     0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa0812237fe10
+     0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa081212cf404
+     0.02%     0.02%  multigrid  multigrid              [.] Jacobi::iterate<5u, (JacobiType)1>
+     0.02%     0.02%  multigrid  [unknown]              [k] 0xffffa0812230c560
+     0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa081212cdf98
+     0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa081213c2f44
      0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa0812134eea0
      0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa081213498f0
-     0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa081213be804
-     0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa081212cf404
+     0.02%     0.02%  multigrid  [unknown]              [k] 0xffffa0812230c568
+     0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa081212ce69c
      0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131f9b8
      0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa08121331f1c
-     0.02%     0.02%  multigrid  [unknown]              [k] 0xffffa0812230c568
-     0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa0812237fe10
-     0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa081212ce69c
-     0.01%     0.01%  multigrid  libc.so.6              [.] 0x00000000000990d0
-     0.01%     0.00%  multigrid  [unknown]              [.] 0xffffa08121322808
+     0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa081213be804
+     0.02%     0.00%  multigrid  [unknown]              [.] 0xffffa08121322808
      0.01%     0.00%  multigrid  [unknown]              [.] 0xffffa0812132a5bc
-     0.01%     0.01%  multigrid  [unknown]              [k] 0xffffa0812230c560
+     0.01%     0.01%  multigrid  multigrid              [.] Jacobi::iterate<5u, (JacobiType)0>
      0.01%     0.00%  multigrid  multigrid              [.] Multigrid<6u>::solve
-     0.01%     0.01%  multigrid  [unknown]              [k] 0xffffa081213c0934
-     0.01%     0.01%  multigrid  libc.so.6              [.] 0x00000000000990dc
-     0.01%     0.00%  multigrid  libc.so.6              [.] 0x0000fffeecf390dc
-     0.01%     0.00%  multigrid  [unknown]              [.] 0xffffa08122325b34
+     0.01%     0.01%  multigrid  libc.so.6              [.] 0x00000000000990d0
      0.01%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131eb1c
      0.01%     0.01%  multigrid  [unknown]              [k] 0xffffa081213b86c4
      0.01%     0.00%  multigrid  [unknown]              [.] 0xffffa081213c08f4
-     0.01%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131d798
-     0.01%     0.01%  multigrid  [unknown]              [k] 0xffffa081213b86d4
-     0.01%     0.00%  multigrid  multigrid              [.] Multigrid<3u>::Multigrid
+     0.01%     0.00%  multigrid  [unknown]              [.] 0xffffa08122325b34
      0.01%     0.00%  multigrid  [unknown]              [.] 0xffffa081213c2bfc
+     0.01%     0.01%  multigrid  libc.so.6              [.] 0x00000000000990dc
+     0.01%     0.00%  multigrid  libc.so.6              [.] 0x0000fffbbe0790dc
+     0.01%     0.01%  multigrid  [unknown]              [k] 0xffffa081213c0934
      0.01%     0.01%  multigrid  [unknown]              [k] 0xffffa081210e120c
+     0.01%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131d798
+     0.01%     0.00%  multigrid  multigrid              [.] Multigrid<3u>::Multigrid
+     0.01%     0.00%  multigrid  [unknown]              [.] 0xffffa0812133adcc
+     0.01%     0.00%  multigrid  [unknown]              [.] 0xffffa081213bdf08
      0.01%     0.00%  multigrid  multigrid              [.] Multigrid<1u>::~Multigrid
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213bdf08
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812133b0fc
+     0.00%     0.00%  multigrid  multigrid              [.] Jacobi::iterate<6u, (JacobiType)1>
      0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f778
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812133adcc
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213c098c
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] je_malloc_default
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] imalloc (inlined)
-     0.00%     0.00%  multigrid  multigrid              [.] Multigrid<7u>::solve
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b5028
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237cd70
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122325b08
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213bde48
      0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812133b1b4
+     0.00%     0.00%  multigrid  multigrid              [.] Jacobi::iterate<6u, (JacobiType)0>
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b5028
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812133b0fc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122325b08
      0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121323038
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131d6c4
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121368950
      0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812237fe4c
      0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081212ce53c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121392fcc
-     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffeed8c7cc7
-     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffeed8b572b
-     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffeed8b5623
-     0.00%     0.00%  multigrid  libstdc++.so.6.0.30    [.] 0x0000fffeed54eaf7
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] imalloc_init_check (inlined)
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] malloc_init (inlined)
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] malloc_init_hard
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] malloc_mutex_lock (inlined)
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] malloc_mutex_trylock_final (inlined)
-     0.00%     0.00%  multigrid  libc.so.6              [.] pthread_mutex_trylock
-     0.00%     0.00%  multigrid  libc.so.6              [.] 0x0000fffeecfcfb20
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121322794
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213202d4
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131c584
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812133d5a0
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212f6994
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213bde34
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121351308
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213227ec
-     0.00%     0.00%  multigrid  multigrid              [.] SetBoundary::iterate
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e1210
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213c2c4c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212ce024
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b4630
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213c0004
-     0.00%     0.00%  multigrid  multigrid              [.] Multigrid<2u>::~Multigrid
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b445c
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213c2f64
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213be61c
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213b47a4
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213be6ec
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213be6e8
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b8728
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213bcc0c
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131e914
-     0.00%     0.00%  multigrid  multigrid              [.] Multigrid<8u>::solve
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08120fa701c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237cd44
-     0.00%     0.00%  multigrid  libstdc++.so.6.0.30    [.] operator new
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] imalloc_body (inlined)
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] imalloc_no_sample (inlined)
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] iallocztm (inlined)
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] arena_malloc (inlined)
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212ce688
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210b29fc
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212ce738
-     0.00%     0.00%  multigrid  multigrid              [.] Multigrid<4u>::Multigrid
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b94e8
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e1214
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f728
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f7c4
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213bde48
+     0.00%     0.00%  multigrid  multigrid              [.] Multigrid<7u>::solve
      0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210b24f0
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210b2500
-     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffeed8c7c4b
-     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffeed8c8cb7
-     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffeed8c730f
-     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffeed8ca933
-     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffeed8b33c3
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213c098c
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213227ec
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212ce024
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121322684
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131fc94
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212ba328
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffbbea07cc7
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffbbe9f572b
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffbbe9f5623
+     0.00%     0.00%  multigrid  libnvcpumath.so        [.] __math_dispatch
+     0.00%     0.00%  multigrid  libc.so.6              [.] getenv
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121321f1c
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121321b80
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081212babf8
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212ce688
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213c2c4c
+     0.00%     0.00%  multigrid  multigrid              [.] SetBoundary::iterate
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131e810
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812134ecf0
+     0.00%     0.00%  multigrid  multigrid              [.] Jacobi::iterate<7u, (JacobiType)1>
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f7c4
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131d77c
+     0.00%     0.00%  multigrid  multigrid              [.] Multigrid<4u>::Multigrid
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134ed38
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121392a2c
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffbbea07c4b
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffbbea08cb7
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffbbea0730f
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffbbea0a933
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffbbe9f33c3
      0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] _dl_catch_exception
-     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffeed8b2e6f
-     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffeed8b8acf
-     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffeed8b79cb
-     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffeed8cd7ac
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08120f85798
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812132cab4
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081212f38b8
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812133066c
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812132fb14
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812132dddc
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812132da94
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812132a174
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081212cfaf0
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081212cf534
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131eb2c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122380124
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213be828
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213be6f0
-     0.00%     0.00%  multigrid  multigrid              [.] Multigrid<3u>::~Multigrid
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bcbcc
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134ee80
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237cd54
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131db5c
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131e7c8
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121147274
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121351328
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812133b0e8
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b86c0
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e9360
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812133b1d0
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b8724
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffbbe9f2e6f
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffbbe9f8b83
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffbbe9f6247
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffbbe9f5ae3
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffbbea0d5b4
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213e0b0c
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213e055c
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213fd688
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213fc108
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213fbce0
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213f6398
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08119b53990
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08119b538f8
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08119b5a820
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08119b536b4
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08119b6141c
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0811a0b0c28
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0811a0b0818
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081193166cc
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08119315a3c
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08119338d1c
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081193386b0
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08119311a40
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0811931b4a8
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0811931a22c
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0811931ff0c
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0811931c488
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081220502a0
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081221b416c
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08122166970
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08122166264
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08122165078
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08122063b8c
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121351308
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b4b28
      0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121360e34
      0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812136100c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213c2f38
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131e80c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131e840
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b82c4
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131d3c0
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131d7c4
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121331950
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121331964
-     0.00%     0.00%  multigrid  multigrid              [.] Multigrid<9u>::solve
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131eb20
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812132301c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b94c4
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812137c750
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213c0170
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121348668
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134fccc
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121338a74
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] je_large_palloc
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] je_arena_extent_alloc_large
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] je_pa_alloc
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] pai_alloc (inlined)
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] pac_alloc_impl
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] pac_alloc_real (inlined)
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] je_ecache_alloc_grow
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] extent_alloc_retained (inlined)
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] extent_grow_retained (inlined)
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] extent_split_interior (inlined)
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] extent_split_impl (inlined)
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] je_emap_split_commit
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] emap_rtree_write_acquired (inlined)
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213512b4
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] rtree_leaf_elm_write (inlined)
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] rtree_leaf_elm_write_commit (inlined)
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] atomic_store_p (inlined)
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121322840
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b952c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134cf0c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812133add8
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122325b2c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b8278
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121322d38
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b82d0
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b9504
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b8270
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121710f48
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121322fec
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08120fa6fdc
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121348620
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] je_arena_choose_huge
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] je_arena_malloc_hard
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] arena_choose_maybe_huge (inlined)
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] arena_get (inlined)
-     0.00%     0.00%  multigrid  libnvmalloc.so         [.] atomic_load_p (inlined)
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122325af8
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134fc98
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bdecc
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213c0974
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134d350
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081211472a4
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237cd80
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812230fa60
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bde9c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bf3b4
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081212ce4e8
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b86ec
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f880
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812137fd04
-     0.00%     0.00%  multigrid  multigrid              [.] Multigrid<5u>::Multigrid
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134b504
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122325c10
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212ce6d0
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134d1ec
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bcc40
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812230c56c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237fce4
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134d30c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121322ffc
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213471b8
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e9374
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134870c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e1208
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08120fa705c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212ce6a8
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237ff94
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210b2a08
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b94dc
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131a9f4
-     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131d6b0
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e1204
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812137d468
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121710f58
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213c097c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213513b8
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121322d44
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e9378
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121351318
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f82c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134d250
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212ce62c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812137fd6c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bff88
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e936c
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213bde34
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213be6ec
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e11f0
+     0.00%     0.00%  multigrid  multigrid              [.] Multigrid<8u>::solve
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bff50
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210b29fc
      0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121322668
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212cdf00
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f770
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f888
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210b2a08
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134d28c
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213c0004
      0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213c08e4
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812133adb0
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bdf18
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131d668
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b94e0
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237c21c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e11fc
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213c0188
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212ce6ac
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f878
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bdef4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237cd70
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bcc18
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e9384
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b86d4
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffbbea021cb
+     0.00%     0.00%  multigrid  multigrid              [.] Multigrid<2u>::~Multigrid
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134ed40
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210213cc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812104bf28
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213e6118
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213486f0
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bdedc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b8724
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134eef8
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213be6e8
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213e5e48
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119b5c0bc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119b611f8
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119b5de04
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119c71804
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119c9d9bc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119c9d8ec
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119c844c4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0811932c190
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122373c1c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bdeb0
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212f6994
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131e8cc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b5e20
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812133b0e8
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213bfb8c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121349ae4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131db30
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121349ad4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134eea8
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b956c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812132281c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131e7bc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134eefc
+     0.00%     0.00%  multigrid  libnvmalloc.so         [.] je_edata_heap_empty
+     0.00%     0.00%  multigrid  libnvmalloc.so         [.] extent_deactivate_locked (inlined)
+     0.00%     0.00%  multigrid  libnvmalloc.so         [.] extent_deactivate_locked_impl (inlined)
+     0.00%     0.00%  multigrid  libnvmalloc.so         [.] je_eset_insert
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213be83c
      0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131e858
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131fd30
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bdf1c
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000000000009734
+     0.00%     0.00%  multigrid  multigrid              [.] std::operator<< <std::char_traits<char> >
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffbbea0007f
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffbbe9fa2eb
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffbbe9f9734
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121349b08
+     0.00%     0.00%  multigrid  multigrid              [.] Jacobi::iterate<8u, (JacobiType)1>
+     0.00%     0.00%  multigrid  multigrid              [.] Multigrid<9u>::solve
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213499ec
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b94e0
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b506c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213499f8
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b9564
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213512b0
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e938c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131aa44
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134fc04
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121349a50
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210b2500
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134d344
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812230fa00
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bde04
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b4b24
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131d4dc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f84c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134fbc4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b4634
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212ce620
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121338afc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213227e8
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134b518
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b94bc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121351d2c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121710f58
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131d6c4
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121368950
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e9388
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131d778
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134fccc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237c230
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812137fd54
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237c8d4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237c21c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bded0
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212ce738
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134871c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213513a4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bcc70
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122325ae0
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e9374
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b82c8
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bff7c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212ce61c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212f6980
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237c8d8
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812132266c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812181d6ac
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122325b1c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b4630
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b95a4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134cf08
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bff88
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134ff40
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121322840
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812230f9cc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bffb4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812132a590
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212ce528
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213512d8
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237c3e4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212cdf20
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081211472cc
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213bcc0c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e11fc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213225f4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bff70
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bdea0
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237c8a8
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812230f980
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134c444
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812132a5c4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812181d614
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bff58
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e9370
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134b504
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121322c5c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213c2c64
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237fee4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812137fbd0
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812137fd04
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e1204
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08120fa7858
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237fc78
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213c08b8
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237c3e0
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122325b38
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e9380
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122325b50
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121368930
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b4b20
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f848
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e11f4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213c2c6c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213bdec0
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213231a0
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812137fc70
+     0.00%     0.00%  multigrid  multigrid              [.] Multigrid<5u>::Multigrid
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f7bc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237fc8c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812132303c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b8270
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b8240
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121348638
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131d4e0
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213225d8
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237c3dc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131d680
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131d67c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812131aa00
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131d6b0
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121323110
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210b29d0
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x000000000000ffe8
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffbbe9f53bb
+     0.00%     0.00%  multigrid  libm.so.6              [.] 0x0000fffbbdf4cb0f
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000fffbbe9fffe8
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b86e4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213be744
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212f69d0
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119b69d90
      0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213f1018
      0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213f0d50
      0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213ef154
@@ -977,13 +1009,15 @@
      0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08120f71af8
      0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812236b148
      0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122369930
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121322684
      0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121321ea4
      0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121321d7c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210213cc
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812104bf28
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213e6118
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213e5de8
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212baff0
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212ca41c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212ca1d4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212c9d64
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119b6c390
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121675b10
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213e5ea0
      0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa08120f71e14
      0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa0812236b378
      0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa0812236ad4c
@@ -1000,24 +1034,13 @@
      0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa081213f1644
      0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa0812128dfa8
      0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa081212a08f4
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213e5e48
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119b5c0bc
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119b611f8
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119b5de04
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119c71804
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119c9d9bc
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119c9d8ec
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081193308a8
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119c8445c
-     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa081212a0860
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0811932c190
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119c844c4
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122373c1c
-     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122373a70
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119330880
      0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa081212a088c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122373a70
      0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122373a48
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa081212a085c
      0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0811932edc0
-     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa081212a084c
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa081212a0860
 
 
 #
