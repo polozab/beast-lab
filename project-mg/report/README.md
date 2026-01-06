@@ -77,7 +77,24 @@ We can clearly see the 8 iterations of the multigrid smoother but beyond that it
 
 To be able to differentiate the pre- from post-smoothing and the different multigrid levels we have to do additional annotations using the provided tools by `NVTX`. For that we had to adjust the compilation by including the `nvtx3` library. After that we could define events that should be visible in the report using ranges and markers. As the installed CUDA API only included the `C` header files we had to relay on the less abstracted API, which is why we defined the following macros:
 
-```
+```cpp
+#define NVTX_RANGE_START(_rangeIdVar, _argbColor, _msgCstr)                 \
+    nvtxRangeId_t _rangeIdVar = 0;                                          \
+    do {                                                                    \
+        nvtxEventAttributes_t _nvtx_evt = {0};                              \
+        _nvtx_evt.version = NVTX_VERSION;                                   \
+        _nvtx_evt.size = NVTX_EVENT_ATTRIB_STRUCT_SIZE;                     \
+        _nvtx_evt.colorType = NVTX_COLOR_ARGB;                              \
+        _nvtx_evt.color = (uint32_t)(_argbColor);                           \
+        _nvtx_evt.messageType = NVTX_MESSAGE_TYPE_ASCII;                    \
+        _nvtx_evt.message.ascii = (_msgCstr);                               \
+        (_rangeIdVar) = nvtxRangeStartEx(&_nvtx_evt);                       \
+    } while (0)
+
+#define NVTX_RANGE_END(_rangeIdVar)                                         \
+    do {                                                                    \
+        nvtxRangeEnd((_rangeIdVar));                                        \
+    } while (0)
 ```
 
 With these we both annotated the calls to `solve`-methode on each Multigrid instance including the level of that instance and even provided ranges to differentiate between pre- and post-smoothing. Now the measured events and metrics could be associated with the correct multigrid level and the performed action:
