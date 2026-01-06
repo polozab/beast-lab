@@ -1,5 +1,5 @@
 CXX?=nvc++
-CXXFLAGS:=-fast -Munroll -Mvect=simd -Minfo -Mnoautoinline -O2 -mp -gopt
+CXXFLAGS:=-fast -O4 -Minfo -Mnoautoinline -mp=multicore -gopt
 CPPFLAGS:=
 
 NVTX_ROOT:=/opt/nvidia/hpc_sdk/Linux_aarch64/24.1/cuda
