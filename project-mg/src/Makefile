@@ -1,5 +1,5 @@
 CXX?=nvc++
-CXXFLAGS:=-O2 -Munroll=c:1 -Mlre -Mpre -Mvect=simd -Mcache_align -Mflushz -Minfo -Mnoautoinline -mp=multicore -gopt
+CXXFLAGS:=-O2 -Munroll=c:1 -Mlre -Mpre -Mvect=simd -Mcache_align -Mflushz -Minfo -Mnoautoinline -Mnoinline -mp=multicore -gopt
 CPPFLAGS:=
 
 NVTX_ROOT:=/opt/nvidia/hpc_sdk/Linux_aarch64/24.1/cuda
