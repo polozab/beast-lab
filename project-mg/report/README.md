@@ -22,6 +22,16 @@ As we see it automatically picks up that our target platform will be `grace`.
 
 ### Compiler setting and flags
 
+The next decision was to pick initial compiler optimization flags that allows us to on one side approximate the real performance of the executable and on the other side use profiling tools effectively. For that we used the following official [User Guide](https://docs.nvidia.com/hpc-sdk/compilers/hpc-compilers-user-guide/index.html) for the NVIDIA HPC Compilers. It provides detailed information about compiler flags and common options useful for optimizing multi-core CPU performance. In addition it has an section that details usage of the OpenMP framework with the `nvc++` compiler which could come in handy latter on when we integrate OpenMP parallelism into the kernel.
 
+To start off we used the following flags:
 
-Added several compiler settings according to [NVIDIA developer manual](https://docs.nvidia.com/hpc-sdk/compilers/hpc-compilers-user-guide/index.html#frequently-used-options)
+- `fast`: Enable common options that optimize the multi-core CPU execution (loop unrolling, use of SIMD instructions)
+- `O4`: Enable various code optimizations (similar to -Ofast for GNU)
+- `Minfo`: Enable printing information about the vectorization of specific functions
+- `Mnoautoinline`: Disable function inlining for better profiling capabilities
+- `mp=multicore`: Enable OpenMP support for mulit-core CPU target
+- `gopt`: Enable debugging information without disabling compiler optimizations
+
+## Profiling tools
+
