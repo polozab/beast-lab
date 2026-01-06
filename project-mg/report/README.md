@@ -29,7 +29,8 @@ To start off we used the following flags:
 - `fast`: Enable common options that optimize the multi-core CPU execution (loop unrolling, use of SIMD instructions)
 - `O4`: Enable various code optimizations (similar to -Ofast for GNU)
 - `Minfo`: Enable printing information about the vectorization of specific functions
-- `Mnoautoinline`: Disable function inlining for better profiling capabilities
+- `Mnoautoinline`: Disable automatic function inlining for better profiling capabilities
+- `Mnoinline`: Disable inlining of annotated function for better profiling capabilities
 - `mp=multicore`: Enable OpenMP support for mulit-core CPU target
 - `gopt`: Enable debugging information without disabling compiler optimizations
 
