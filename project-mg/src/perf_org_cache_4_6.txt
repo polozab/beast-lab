@@ -1,0 +1,324 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 11271
+#
+# Samples: 149K of event 'cache-misses'
+# Event count (approx.): 5807336217
+#
+# Children      Self  Command    Shared Object          Symbol                                                                                                        
+# ........  ........  .........  .....................  ..............................................................................................................
+#
+   100.00%     0.00%  multigrid  multigrid              [.] _start
+            |
+            ---_start
+               __libc_start_main
+               0xffff423173fb
+               main
+               |          
+                --30.85%--Multigrid::solve
+                          |          
+                           --6.69%--Multigrid::solve
+                                     |          
+                                      --0.89%--Multigrid::solve
+
+   100.00%     0.00%  multigrid  libc.so.6              [.] __libc_start_main
+            |
+            ---__libc_start_main
+               0xffff423173fb
+               main
+               |          
+                --30.85%--Multigrid::solve
+                          |          
+                           --6.69%--Multigrid::solve
+                                     |          
+                                      --0.89%--Multigrid::solve
+
+   100.00%     0.00%  multigrid  libc.so.6              [.] 0x0000ffff423173fb
+            |
+            ---0xffff423173fb
+               main
+               |          
+                --30.85%--Multigrid::solve
+                          |          
+                           --6.69%--Multigrid::solve
+                                     |          
+                                      --0.89%--Multigrid::solve
+
+   100.00%    69.11%  multigrid  multigrid              [.] main
+            |          
+            |--69.11%--_start
+            |          __libc_start_main
+            |          0xffff423173fb
+            |          main
+            |          
+             --30.89%--main
+                       |          
+                        --30.85%--Multigrid::solve
+                                  |          
+                                   --6.69%--Multigrid::solve
+                                             |          
+                                              --0.89%--Multigrid::solve
+
+    30.85%    30.85%  multigrid  multigrid              [.] Multigrid::solve
+            |          
+             --30.85%--_start
+                       __libc_start_main
+                       0xffff423173fb
+                       main
+                       Multigrid::solve
+                       |          
+                        --6.69%--Multigrid::solve
+                                  |          
+                                   --0.89%--Multigrid::solve
+
+     0.03%     0.00%  multigrid  [unknown]              [.] 0xffffa08120f71e14
+     0.03%     0.00%  multigrid  [unknown]              [.] 0xffffa0812236b330
+     0.03%     0.00%  multigrid  [unknown]              [.] 0xffffa0812236a608
+     0.03%     0.00%  multigrid  [unknown]              [.] 0xffffa08120fa7020
+     0.03%     0.00%  multigrid  [unknown]              [.] 0xffffa08122380184
+     0.03%     0.00%  multigrid  [unknown]              [.] 0xffffa0812237fe34
+     0.03%     0.00%  multigrid  [unknown]              [.] 0xffffa08121323104
+     0.03%     0.00%  multigrid  [unknown]              [.] 0xffffa08121322d58
+     0.03%     0.00%  multigrid  [unknown]              [.] 0xffffa08121322788
+     0.03%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131d534
+     0.03%     0.00%  multigrid  [unknown]              [.] 0xffffa08120fa7888
+     0.03%     0.00%  multigrid  [unknown]              [.] 0xffffa0812137fd2c
+     0.03%     0.00%  multigrid  [unknown]              [.] 0xffffa08121351d34
+     0.03%     0.00%  multigrid  [unknown]              [.] 0xffffa08121351350
+     0.03%     0.00%  multigrid  [unknown]              [.] 0xffffa0812134fe58
+     0.03%     0.03%  multigrid  [unknown]              [k] 0xffffa0812230c564
+     0.02%     0.00%  multigrid  libc.so.6              [.] 0x0000ffff423890d0
+     0.01%     0.01%  multigrid  multigrid              [.] Multigrid::Multigrid
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08120f71fbc
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812236b3b4
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812236aa38
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812236a944
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121023288
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121022ec0
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08120f78104
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08120f77f24
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08120f780c8
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08120f70804
+     0.00%     0.00%  multigrid  libc.so.6              [.] 0x00000000000990d4
+     0.00%     0.00%  multigrid  libc.so.6              [.] 0x0000ffff423890d4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812230c560
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812237fe10
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812230c568
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237c3c8
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812236b378
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812236ad4c
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08120f925b4
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08120f92418
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08120f9231c
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000ffff42cf7c4b
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000ffff42cf8cb7
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000ffff42cf730f
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812128d728
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000ffff42cfadf3
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000ffff42cef5cf
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000ffff42cee727
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000ffff42cfd84c
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121333984
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121333780
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213333f0
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081212a0d44
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121293c78
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121293a44
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081212914b0
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121322808
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812132a5bc
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812134fcec
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812134db04
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237c8d0
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08120f70894
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08122325b34
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812107238c
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121089368
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121088dbc
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081210879c8
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081210876f0
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121087340
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121084b10
+     0.00%     0.00%  multigrid  libc.so.6              [.] 0x00000000000990dc
+     0.00%     0.00%  multigrid  libc.so.6              [.] 0x0000ffff423890dc
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131d7a4
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081212c98a8
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081212cf404
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081212ce69c
+     0.00%     0.00%  multigrid  libc.so.6              [.] 0x00000000000990d0
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213227ec
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121323038
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f778
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f728
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210b29fc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f7c4
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081212ce53c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212ce024
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122325b08
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131d55c
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213c2c10
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e9370
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000ffff42cfa933
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000ffff42ce33c3
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] _dl_catch_exception
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000ffff42ce2e6f
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000ffff42ce8b83
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000ffff42ce6383
+     0.00%     0.00%  multigrid  ld-linux-aarch64.so.1  [.] 0x0000ffff42cfd300
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213ed298
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213ed210
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213eccf8
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213ebe80
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213eb940
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08119b61c70
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812131d6c4
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121368950
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213c0934
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812236a600
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122325b40
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812134c454
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812230f98c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e9378
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210e1210
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f7fc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812132a580
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210b2a6c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08120fa701c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121710f54
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121322800
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213227d4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f84c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210b2a08
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f718
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812132a5b4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f788
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122380128
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081212cdf60
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f8bc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210b29d0
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237fc78
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210b2a50
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f780
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213b5028
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213c08f4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081223731ec
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812237fee4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812132a598
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121348720
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812231f848
+     0.00%     0.00%  multigrid  libstdc++.so.6.0.30    [.] std::ostream::_M_insert<double>
+     0.00%     0.00%  multigrid  libstdc++.so.6.0.30    [.] std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_float<double>
+     0.00%     0.00%  multigrid  libstdc++.so.6.0.30    [.] std::ostream::put
+     0.00%     0.00%  multigrid  libc.so.6              [.] _IO_file_overflow
+     0.00%     0.00%  multigrid  libc.so.6              [.] _IO_do_write
+     0.00%     0.00%  multigrid  libc.so.6              [.] 0x0000ffff4236442b
+     0.00%     0.00%  multigrid  libc.so.6              [.] _IO_file_write
+     0.00%     0.00%  multigrid  libc.so.6              [.] write
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081210ec678
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213e4c54
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213e4b84
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081213e4888
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121b707ec
+     0.00%     0.00%  multigrid  libstdc++.so.6.0.30    [.] std::use_facet<std::ctype<char> >
+     0.00%     0.00%  multigrid  libstdc++.so.6.0.30    [.] 0x0000ffff429f620f
+     0.00%     0.00%  multigrid  libc.so.6              [.] vsnprintf
+     0.00%     0.00%  multigrid  libstdc++.so.6.0.30    [.] std::ostream::_M_insert<unsigned long>
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081211089e4
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081211088a4
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812110847c
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08122185c08
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081221859ec
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812218414c
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08122180b04
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812217f9d8
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081221530bc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08120f92400
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081210ebf6c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210ebb00
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081210ebf64
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121044eb0
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121b70748
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121b70580
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121b760c4
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121b74dd4
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121b820b4
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08121b7d764
+     0.00%     0.00%  multigrid  libc.so.6              [.] 0x0000000000077764
+     0.00%     0.00%  multigrid  libc.so.6              [.] 0x0000ffff4236248b
+     0.00%     0.00%  multigrid  libc.so.6              [.] 0x0000ffff423677c7
+     0.00%     0.00%  multigrid  libc.so.6              [.] 0x0000ffff42367764
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121b70714
+     0.00%     0.00%  multigrid  libstdc++.so.6.0.30    [.] std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<unsigned long>
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa08120f71e14
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa0812236b378
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa0812236ad4c
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa08120f925b4
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa08120f92418
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa08120f9231c
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa081213f1018
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa081213f0d50
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa081213ef154
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa081213ef03c
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa081213ee3e0
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa081213edd28
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa08121489e80
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122055a58
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08122152da0
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08122152738
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812215253c
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081221523d4
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08122150600
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08122098010
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812208afe8
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812208ab98
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081195c2ab8
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812208b1fc
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa0812208890c
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa081221019b8
+     0.00%     0.00%  multigrid  [unknown]              [.] 0xffffa08122152f28
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa0812176ca0c
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa081213f166c
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa081213f10d8
+     0.00%     0.00%  multigrid  libc.so.6              [.] 0x000000000004cf10
+     0.00%     0.00%  multigrid  libc.so.6              [.] 0x0000ffff423624cb
+     0.00%     0.00%  multigrid  libc.so.6              [.] 0x0000ffff42350e17
+     0.00%     0.00%  multigrid  libc.so.6              [.] 0x0000ffff4233cf10
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08121021730
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210216ac
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081210213cc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0812104bf28
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213e6118
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa081213e5e48
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119b5c0bc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119b611f8
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119b5de04
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119c71804
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119c9d9bc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119c9d8ec
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119338bdc
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119c8445c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119330904
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0811932d180
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119c720a4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119c9c338
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119ca376c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119ca233c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119ca2198
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119c85b54
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119c84ce8
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119315a3c
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122373a48
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08119c844c4
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0811932c190
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa08122373c1c
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa081213f1644
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa081212a0890
+     0.00%     0.00%  multigrid  [unknown]              [k] 0xffffa0811932edc0
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa081212a0860
+     0.00%     0.00%  perf-exec  [unknown]              [k] 0xffffa081212a088c
+
+
+#
+# (Cannot load tips.txt file, please install perf!)
+#
