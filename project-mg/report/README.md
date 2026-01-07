@@ -99,8 +99,14 @@ To be able to differentiate the pre- from post-smoothing and the different multi
 
 With these we both annotated the calls to `solve`-methode on each Multigrid instance including the level of that instance and even provided ranges to differentiate between pre- and post-smoothing. Now the measured events and metrics could be associated with the correct multigrid level and the performed action:
 
-![nsys_annotation](nsys_annotation.png)
+![nsys_annotation](img/nsys_annotation.png)
+
+We can immediately see that the longest time is spend on the fine level grids and it gets progressively shorter as the grid get coarser. With that we see that the number of last level cache misses decreases which would be one reason for the increased smoothing times for the Jacobi iterator. This could be one thing to look into when trying to optimize the multigrid kernel.
+
+One limitation of the Nsight profiler is the limited sample rate. This makes it impossible to get precise measurements of metrics and event counts for the coarser levels. However as these are not the most immediate concern looking at the overall time distribution, we still think that it was worth it to investigate our program with the Nsight profiler. 
 
 **TODO: Add reference to NVTX branch**
+
+
 
 ### Linux Perf
