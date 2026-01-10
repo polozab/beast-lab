@@ -24,50 +24,33 @@ public:
 
   void injection(const FLOAT *const fineGrid, const FLOAT *const rhsFineGrid, FLOAT *const rhsCoarseGrid, FLOAT *const coarseGridValues1, FLOAT *const coarseGridValues2) const
   {
-    // set pointers for 4-point stencil to very first inner point on fine
-    // grid which is to be restricted (-> coordinates (2,2))
-    const FLOAT *fineVal_C = fineGrid + (2 * (_nxFineGrid + 2) + 2);
-    const FLOAT *fineVal_S = fineVal_C - (_nxFineGrid + 2);
-    const FLOAT *fineVal_W = fineVal_C - 1;
-    const FLOAT *fineVal_E = fineVal_C + 1;
-    const FLOAT *fineVal_N = fineVal_C + (_nxFineGrid + 2);
-    const FLOAT *fineRhs = rhsFineGrid + (2 * (_nxFineGrid + 2) + 2);
+    const unsigned int fineStride = _nxFineGrid + 2;
+    const unsigned int coarseStride = _nxCoarseGrid + 2;
 
-    // set pointer to coarse grid-rhs to first inner grid point (-> coordinates (1,1))
-    FLOAT *coarseRhs = rhsCoarseGrid + (_nxCoarseGrid + 3);
-    FLOAT *coarseVal1 = coarseGridValues1 + (_nxCoarseGrid + 3);
-    FLOAT *coarseVal2 = coarseGridValues2 + (_nxCoarseGrid + 3);
-
-    // use pos-values to always access the right values on fine and coarse grid
-    // and avoid any index computations (better directly update pointers?)
-    unsigned int coarsePos = 0;
-    unsigned int finePos = 0;
     for (unsigned int y = 1; y < _nyCoarseGrid + 1; y++)
     {
+      const unsigned int fineRow = (y << 1) * fineStride;
+      const unsigned int fineRowS = fineRow - fineStride;
+      const unsigned int fineRowN = fineRow + fineStride;
+      const unsigned int coarseRow = y * coarseStride;
+
       for (unsigned int x = 1; x < _nxCoarseGrid + 1; x++)
       {
         // do injection of error: therefore, compute residual on fine grid
         // and write the value into the coarse grid right hand side
-        coarseRhs[coarsePos] = fineRhs[finePos];
-        coarseRhs[coarsePos] -= (fineVal_W[finePos] - 2.0 * fineVal_C[finePos] + fineVal_E[finePos]) / _hxFineGrid2;
-        coarseRhs[coarsePos] -= (fineVal_S[finePos] - 2.0 * fineVal_C[finePos] + fineVal_N[finePos]) / _hyFineGrid2;
-        coarseVal1[coarsePos] = 0.0;
-        coarseVal2[coarsePos] = 0.0;
+        const unsigned int fineC = fineRow + (x << 1);
+        const unsigned int fineW = fineC - 1;
+        const unsigned int fineE = fineC + 1;
+        const unsigned int fineS = fineRowS + (x << 1);
+        const unsigned int fineN = fineRowN + (x << 1);
+        const unsigned int coarseI = coarseRow + x;
 
-        // update pos-values along x-axis
-        coarsePos++;
-        finePos += 2;
+        rhsCoarseGrid[coarseI] = rhsFineGrid[fineC];
+        rhsCoarseGrid[coarseI] -= (fineGrid[fineW] - 2.0 * fineGrid[fineC] + fineGrid[fineE]) / _hxFineGrid2;
+        rhsCoarseGrid[coarseI] -= (fineGrid[fineS] - 2.0 * fineGrid[fineC] + fineGrid[fineN]) / _hyFineGrid2;
+        coarseGridValues1[coarseI] = 0.0;
+        coarseGridValues2[coarseI] = 0.0;
       }
-
-      // update pos-values across y-axis:
-      // for "coarsePos", the loop for the x-direction will set coarsePos
-      // right onto the last point located on the right boundary.
-      //    -> To advance to the first inner grid point, we thus need to add 2.
-      // for finePos, we will also end on the point located on the right boundary.
-      // However, we need to go the second inner grid point (+3) AND
-      // jump over one line of fine grid points (+_nxFineGrid+2).
-      coarsePos += 2;
-      finePos += (_nxFineGrid + 5);
     }
   }
 
