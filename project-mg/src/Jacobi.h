@@ -15,13 +15,11 @@ public:
       : _nx(nx), _ny(ny), _X(getX(nx, ny)), _Y(getY(nx, ny)), _RHS(getRHS(nx, ny)) {}
   ~Jacobi() {}
 
-  template<unsigned int Level, JacobiType JacobiType>
   void iterate(const FLOAT *const readField, FLOAT *const writeField, const FLOAT *const rhs) const
   {
-
     const unsigned int stride = _nx + 2;
 
-    #pragma omp parallel for
+    #pragma omp parallel for collapse(2)
     for (unsigned int y = 1; y < _ny + 1; y++)
     {
       for (unsigned int x = 1; x < _nx + 1; x++)
@@ -32,7 +30,6 @@ public:
         writeField[i] += _Y * (readField[i - stride] + readField[i + stride]);
       }
     }
-
   }
 
 private:
