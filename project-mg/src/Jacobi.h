@@ -19,31 +19,17 @@ public:
   void iterate(const FLOAT *const readField, FLOAT *const writeField, const FLOAT *const rhs) const
   {
 
-    // set pointers of 5-point stencil (only neighbour values) to very first inner grid point
-    const FLOAT *readPtr_S = readField + 1;
-    const FLOAT *readPtr_W = readField + (_nx + 2);
-    const FLOAT *readPtr_E = readField + (_nx + 4);
-    const FLOAT *readPtr_N = readField + (2 * _nx + 5);
-
-    const FLOAT *rhsPtr = rhs + (_nx + 3);
-
-    FLOAT *writePtr = writeField + (_nx + 3);
-
-    // use pos to advance access through the whole grid without any expensive index computations
     const unsigned int stride = _nx + 2;
-    #pragma omp parallel for
+
+    #pragma omp parallel for schedule(static, 1)
     for (unsigned int y = 1; y < _ny + 1; y++)
     {
-      unsigned int pos = (y - 1) * stride;
       for (unsigned int x = 1; x < _nx + 1; x++)
       {
-        // do Jacobi update and write to writePtr
-        writePtr[pos] = _RHS * rhsPtr[pos];
-        writePtr[pos] += _X * (readPtr_W[pos] + readPtr_E[pos]);
-        writePtr[pos] += _Y * (readPtr_S[pos] + readPtr_N[pos]);
-
-        // update pos along x-axis
-        pos++;
+        const unsigned int i = y * stride + x;
+        writeField[i] = _RHS * rhs[i];
+        writeField[i] += _X * (readField[i - 1] + readField[i + 1]);
+        writeField[i] += _Y * (readField[i - stride] + readField[i + stride]);
       }
     }
 
