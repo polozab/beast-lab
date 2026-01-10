@@ -22,52 +22,37 @@ public:
 
   void interpolation(const FLOAT *const coarseGrid, FLOAT *const fineGrid) const
   {
-    // define pointers to all neighbouring grid points centered around the
-    // inner fine grid point at (2,2)
-    FLOAT *fine_SW = fineGrid + (_nxFineGrid + 3);
-    FLOAT *fine_S = fine_SW + 1;
-    FLOAT *fine_SE = fine_S + 1;
-    FLOAT *fine_W = fine_SW + (_nxFineGrid + 2);
-    FLOAT *fine_C = fine_W + 1;
-    FLOAT *fine_E = fine_C + 1;
-    FLOAT *fine_NW = fine_W + (_nxFineGrid + 2);
-    FLOAT *fine_N = fine_NW + 1;
-    FLOAT *fine_NE = fine_N + 1;
+    const unsigned int fineStride = _nxFineGrid + 2;
+    const unsigned int coarseStride = _nxCoarseGrid + 2;
 
-    // define pointer to coarse grid point at (1,1)
-    const FLOAT *coarse = coarseGrid + (_nxCoarseGrid + 3);
-
-    // use pos-values for direct access to fine and coarse grid point data
-    unsigned int finePos = 0;
-    unsigned int coarsePos = 0;
     for (unsigned int y = 1; y < _nyCoarseGrid + 1; y++)
     {
+      const unsigned int fineRow = y * 2 * fineStride;
+      const unsigned int coarseRow = y * coarseStride;
+
       for (unsigned int x = 1; x < _nxCoarseGrid + 1; x++)
       {
         // the points on the "diagonal" contribute to 0.25 to the error
         // interpolation (since 4 values are used for bilinear interpolation of the mid-point).
-        // for the central point (fine_C), we directly use the corresponding value.
+        // for the central point (fineI), we directly use the corresponding value.
         // for the other points, the bi-linear interpolation reduces to averaging
         // the two closest values (e.g. South- and North-values)
-        fine_SW[finePos] += 0.25 * coarse[coarsePos];
-        fine_S[finePos] += 0.5 * coarse[coarsePos];
-        fine_SE[finePos] += 0.25 * coarse[coarsePos];
-        fine_W[finePos] += 0.5 * coarse[coarsePos];
-        fine_C[finePos] += coarse[coarsePos];
-        fine_E[finePos] += 0.5 * coarse[coarsePos];
-        fine_NW[finePos] += 0.25 * coarse[coarsePos];
-        fine_N[finePos] += 0.5 * coarse[coarsePos];
-        fine_NE[finePos] += 0.25 * coarse[coarsePos];
 
-        // go to next coarse grid point to the right
-        coarsePos++;
-        // go to second fine grid point to the right
-        finePos += 2;
+        const unsigned int fineI = fineRow + x * 2;
+        const unsigned int coarseI = coarseRow + x;
+
+        const FLOAT coarseVal = coarseGrid[coarseI];
+
+        fineGrid[fineI - fineStride - 1] += 0.25 * coarseVal;
+        fineGrid[fineI - fineStride] += 0.5 * coarseVal;
+        fineGrid[fineI - fineStride + 1] += 0.25 * coarseVal;
+        fineGrid[fineI - 1] += 0.5 * coarseVal;
+        fineGrid[fineI] += coarseVal;
+        fineGrid[fineI + 1] += 0.5 * coarseVal;
+        fineGrid[fineI + fineStride - 1] += 0.25 * coarseVal;
+        fineGrid[fineI + fineStride] += 0.5 * coarseVal;
+        fineGrid[fineI + fineStride + 1] += 0.25 * coarseVal;
       }
-
-      // for index-updates, see Restriction.h
-      coarsePos += 2;
-      finePos += (_nxFineGrid + 5);
     }
   }
 
