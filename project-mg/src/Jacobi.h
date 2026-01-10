@@ -31,7 +31,7 @@ public:
 
     // use pos to advance access through the whole grid without any expensive index computations
     const unsigned int stride = _nx + 2;
-    #pragma omp parallel for if (useOpenMP(_nx, _ny))
+    #pragma omp parallel for
     for (unsigned int y = 1; y < _ny + 1; y++)
     {
       unsigned int pos = (y - 1) * stride;
