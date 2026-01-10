@@ -21,7 +21,7 @@ public:
 
     const unsigned int stride = _nx + 2;
 
-    #pragma omp parallel for
+    #pragma omp parallel for collapse(2)
     for (unsigned int y = 1; y < _ny + 1; y++)
     {
       for (unsigned int x = 1; x < _nx + 1; x++)
