@@ -31,7 +31,7 @@ public:
     // use pos to advance access through the whole grid without any expensive index computations
     unsigned int pos = 0;
 
-    #pragma omp parallel for
+    
     for (unsigned int y = 1; y < _ny + 1; y++)
     {
       for (unsigned int x = 1; x < _nx + 1; x++)
