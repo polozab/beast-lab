@@ -25,9 +25,11 @@ public:
     const unsigned int fineStride = _nxFineGrid + 2;
     const unsigned int coarseStride = _nxCoarseGrid + 2;
 
-    #pragma omp parallel for
     for (unsigned int y = 1; y < _nyCoarseGrid + 1; y++)
     {
+      
+      const unsigned int fineRow = y * 2 * fineStride;
+      const unsigned int coarseRow = y * coarseStride;
       
       for (unsigned int x = 1; x < _nxCoarseGrid + 1; x++)
       {
@@ -37,8 +39,6 @@ public:
         // for the other points, the bi-linear interpolation reduces to averaging
         // the two closest values (e.g. South- and North-values)
         
-        const unsigned int fineRow = y * 2 * fineStride;
-        const unsigned int coarseRow = y * coarseStride;
 
         const unsigned int fineI = fineRow + x * 2;
         const unsigned int coarseI = coarseRow + x;

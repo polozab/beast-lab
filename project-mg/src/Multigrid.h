@@ -132,15 +132,22 @@ public:
       writeField = swap;
     }
     NVTX_RANGE_END(presmoothing_range);
+
     // restriction done by injection
+    NVTX_RANGE_START(restriction_range, 0xFF7b3eab, "Restriction");
     _restriction.injection(readField, fineGridRhs, _coarseGridRhs, _coarseGridValues1, _coarseGridValues2);
+    NVTX_RANGE_END(restriction_range);
+
     // do recursive multigrid solving procedure; the returned pointer points to _coarseGridValues1 or _coarseGridValues2,
     // depending on which of those fields holds the current solution
     FLOAT *coarseSolutionField = _multigrid->solve(
         preSmoothing, postSmoothing, jacobiStepsCoarsestLevel,
         _coarseGridValues1, _coarseGridValues2, _coarseGridRhs);
+
     // prolongate error values to the fine grid
+    NVTX_RANGE_START(prolongation_range, 0xFF40bda6, "Prolongation");
     _prolongation.interpolation(coarseSolutionField, readField);
+    NVTX_RANGE_END(prolongation_range);
 
     // post-smoothing
     NVTX_RANGE_START(postsmoothing_range, 0xFF7cb82e, "Post-Smoothing");
