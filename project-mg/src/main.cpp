@@ -11,11 +11,11 @@
 
 int main(int argc, char *argv[])
 {
-  if (argc != 5)
+  if (argc != 6)
   {
     std::cout << "ERROR main: Please call program by"
               << std::endl
-              << " ./multigrid preSmoothingSteps postSmoothingSteps numberGridLevels numberMultigridIterations"
+              << " ./multigrid preSmoothingSteps postSmoothingSteps numberGridLevels numberMultigridIterations restrictionBlockSize"
               << std::endl;
     return -1;
   }
@@ -25,6 +25,7 @@ int main(int argc, char *argv[])
   const unsigned int jacobiStepsCoarsestLevel = 1;
   const unsigned int levels = (unsigned int)atoi(argv[3]);
   const unsigned int multigridCycles = (unsigned int)atoi(argv[4]);
+    const unsigned int restrictionBlockSize = (unsigned int)atoi(argv[5]);
 
   // determine resolution
   const unsigned int nx = ((unsigned int)(1 << levels)) - 1;
@@ -48,9 +49,6 @@ int main(int argc, char *argv[])
     std::cout << "ERROR rhs   ==NULL!" << std::endl;
     return -1;
   }
-
-  const char *envBlock = std::getenv("RES_BLOCK_SIZE");
-  const unsigned int restrictionBlockSize = (envBlock && *envBlock) ? static_cast<unsigned int>(std::strtoul(envBlock, nullptr, 10)) : 64;
 
   const SetBoundary setBoundary(nx, nx);
   for (unsigned int i = 0; i < (nx + 2) * (nx + 2); i++)
