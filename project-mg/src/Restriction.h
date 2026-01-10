@@ -27,18 +27,18 @@ public:
     const unsigned int fineStride = _nxFineGrid + 2;
     const unsigned int coarseStride = _nxCoarseGrid + 2;
 
-    #pragma omp parallel for schedule(static)
+    #pragma omp parallel for collapse(2) schedule(static)
     for (unsigned int y = 1; y < _nyCoarseGrid + 1; y++)
     {
-      const unsigned int fineRow = (y << 1) * fineStride;
-      const unsigned int fineRowS = fineRow - fineStride;
-      const unsigned int fineRowN = fineRow + fineStride;
-      const unsigned int coarseRow = y * coarseStride;
-
       for (unsigned int x = 1; x < _nxCoarseGrid + 1; x++)
       {
         // do injection of error: therefore, compute residual on fine grid
         // and write the value into the coarse grid right hand side
+        const unsigned int fineRow = (y << 1) * fineStride;
+        const unsigned int fineRowS = fineRow - fineStride;
+        const unsigned int fineRowN = fineRow + fineStride;
+        const unsigned int coarseRow = y * coarseStride;
+
         const unsigned int fineC = fineRow + (x << 1);
         const unsigned int fineW = fineC - 1;
         const unsigned int fineE = fineC + 1;
