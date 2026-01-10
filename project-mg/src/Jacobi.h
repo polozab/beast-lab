@@ -15,6 +15,7 @@ public:
       : _nx(nx), _ny(ny), _X(getX(nx, ny)), _Y(getY(nx, ny)), _RHS(getRHS(nx, ny)) {}
   ~Jacobi() {}
 
+  template<unsigned int Level, JacobiType JacobiType>
   void iterate(const FLOAT *const readField, FLOAT *const writeField, const FLOAT *const rhs) const
   {
     const unsigned int stride = _nx + 2;
