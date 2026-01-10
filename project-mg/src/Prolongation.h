@@ -58,7 +58,7 @@ public:
         const FLOAT t1 = wx0 * c01 + wx1 * c11;
         const FLOAT val = wy0 * t0 + wy1 * t1;
 
-        fRow[xf] += val;
+        fRow[xf] = val;
       }
     }
   }
