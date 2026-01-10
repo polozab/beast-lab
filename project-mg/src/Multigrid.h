@@ -25,7 +25,7 @@
  * objects for smoothing (Jacobi), restriction (Restriction) and
  * prolongation (Prolongation).
  */
-template<unsigned int Level>
+
 class Multigrid
 {
 public:
@@ -105,7 +105,7 @@ public:
     {
       for (unsigned int i = 0; i < jacobiStepsCoarsestLevel; i++)
       {
-        _jacobi.iterate<Level, LowestLevel>(readField, writeField, fineGridRhs);
+        _jacobi.iterate(readField, writeField, fineGridRhs);
         FLOAT *swap = readField;
         readField = writeField;
         writeField = swap;
@@ -118,7 +118,7 @@ public:
     // pre-smoothing
     for (unsigned int i = 0; i < preSmoothing; i++)
     {
-      _jacobi.iterate<Level, PreSmoothing>(readField, writeField, fineGridRhs);
+      _jacobi.iterate(readField, writeField, fineGridRhs);
       FLOAT *swap = readField;
       readField = writeField;
       writeField = swap;
@@ -160,51 +160,6 @@ private:
   const Jacobi _jacobi;
   const Restriction _restriction;
   const Prolongation _prolongation;
-};
-
-// Class to stop recursion
-
-template<>
-class Multigrid<10>
-{
-public:
-  // - recursion should be stopped for inner grid points <= 2.
-  // - _callRecursion must be initialised as very first one,
-  //    as we re-use it in the constructor.
-  // - nx/yCourseGrid must be initialised before the coarseGrid-fields are created
-  Multigrid(const unsigned int nxFine, const unsigned int nyFine)
-      :
-        _nxFineGrid(nxFine), _nyFineGrid(nyFine),
-        _jacobi(nxFine, nyFine)
-  {}
-
-  FLOAT *solve(
-      const unsigned int preSmoothing, const unsigned int postSmoothing,
-      const unsigned int jacobiStepsCoarsestLevel,
-      FLOAT *const fineGridValues1, FLOAT *const fineGridValues2,
-      const FLOAT *const fineGridRhs)
-  {
-
-    FLOAT *readField = fineGridValues1;
-    FLOAT *writeField = fineGridValues2;
-
-    // if we are on the coarsest level, just do Jacobi iterations and return (do swapping of read- and write fields correspondingly)
-    for (unsigned int i = 0; i < jacobiStepsCoarsestLevel; i++)
-    {
-      _jacobi.iterate<67, LowestLevel>(readField, writeField, fineGridRhs);
-      FLOAT *swap = readField;
-      readField = writeField;
-      writeField = swap;
-    }
-
-    // return pointer to current solution
-    return readField;
-  }
-
-private:
-  const unsigned int _nxFineGrid;
-  const unsigned int _nyFineGrid;
-  const Jacobi _jacobi;
 };
 
 
