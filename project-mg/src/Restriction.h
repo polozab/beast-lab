@@ -6,6 +6,7 @@
 #define _RESTRICTION_H_
 
 #include "Definitions.h"
+#include <cstdlib>
 
 // carries out restriction by injection; we assume looping over the coarse
 // grid and reading from the fine grid
@@ -27,30 +28,45 @@ public:
     const unsigned int fineStride = _nxFineGrid + 2;
     const unsigned int coarseStride = _nxCoarseGrid + 2;
 
-    #pragma omp parallel for collapse(2) schedule(static)
+    unsigned int xBlock = 64;
+    const char *envBlock = std::getenv("RES_BLOCK_SIZE");
+
+    if (envBlock && *envBlock) {
+      xBlock = static_cast<unsigned int>(std::strtoul(envBlock, nullptr, 10));
+    }
+
+    #pragma omp parallel for schedule(static)
     for (unsigned int y = 1; y < _nyCoarseGrid + 1; y++)
     {
-      for (unsigned int x = 1; x < _nxCoarseGrid + 1; x++)
+      const unsigned int fineRow = (y << 1) * fineStride;
+      const unsigned int fineRowS = fineRow - fineStride;
+      const unsigned int fineRowN = fineRow + fineStride;
+      const unsigned int coarseRow = y * coarseStride;
+
+      for (unsigned int x0 = 1; x0 < _nxCoarseGrid + 1; x0 += xBlock)
       {
-        // do injection of error: therefore, compute residual on fine grid
-        // and write the value into the coarse grid right hand side
-        const unsigned int fineRow = (y << 1) * fineStride;
-        const unsigned int fineRowS = fineRow - fineStride;
-        const unsigned int fineRowN = fineRow + fineStride;
-        const unsigned int coarseRow = y * coarseStride;
+        unsigned int xEnd = x0 + xBlock - 1;
+        if (xEnd > _nxCoarseGrid)
+        {
+          xEnd = _nxCoarseGrid;
+        }
+        for (unsigned int x = x0; x < xEnd + 1; x++)
+        {
+          // do injection of error: therefore, compute residual on fine grid
+          // and write the value into the coarse grid right hand side
+          const unsigned int fineC = fineRow + (x << 1);
+          const unsigned int fineW = fineC - 1;
+          const unsigned int fineE = fineC + 1;
+          const unsigned int fineS = fineRowS + (x << 1);
+          const unsigned int fineN = fineRowN + (x << 1);
+          const unsigned int coarseI = coarseRow + x;
 
-        const unsigned int fineC = fineRow + (x << 1);
-        const unsigned int fineW = fineC - 1;
-        const unsigned int fineE = fineC + 1;
-        const unsigned int fineS = fineRowS + (x << 1);
-        const unsigned int fineN = fineRowN + (x << 1);
-        const unsigned int coarseI = coarseRow + x;
-
-        rhsCoarseGrid[coarseI] = rhsFineGrid[fineC];
-        rhsCoarseGrid[coarseI] -= (fineGrid[fineW] - 2.0 * fineGrid[fineC] + fineGrid[fineE]) / _hxFineGrid2;
-        rhsCoarseGrid[coarseI] -= (fineGrid[fineS] - 2.0 * fineGrid[fineC] + fineGrid[fineN]) / _hyFineGrid2;
-        coarseGridValues1[coarseI] = 0.0;
-        coarseGridValues2[coarseI] = 0.0;
+          rhsCoarseGrid[coarseI] = rhsFineGrid[fineC];
+          rhsCoarseGrid[coarseI] -= (fineGrid[fineW] - 2.0 * fineGrid[fineC] + fineGrid[fineE]) / _hxFineGrid2;
+          rhsCoarseGrid[coarseI] -= (fineGrid[fineS] - 2.0 * fineGrid[fineC] + fineGrid[fineN]) / _hyFineGrid2;
+          coarseGridValues1[coarseI] = 0.0;
+          coarseGridValues2[coarseI] = 0.0;
+        }
       }
     }
   }
