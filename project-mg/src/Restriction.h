@@ -6,7 +6,6 @@
 #define _RESTRICTION_H_
 
 #include "Definitions.h"
-#include <cstdlib>
 
 // carries out restriction by injection; we assume looping over the coarse
 // grid and reading from the fine grid
@@ -23,17 +22,10 @@ public:
 
   ~Restriction() {}
 
-  void injection(const FLOAT *const fineGrid, const FLOAT *const rhsFineGrid, FLOAT *const rhsCoarseGrid, FLOAT *const coarseGridValues1, FLOAT *const coarseGridValues2) const
+  void injection(const FLOAT *const fineGrid, const FLOAT *const rhsFineGrid, FLOAT *const rhsCoarseGrid, FLOAT *const coarseGridValues1, FLOAT *const coarseGridValues2, const unsigned int xBlockSize) const
   {
     const unsigned int fineStride = _nxFineGrid + 2;
     const unsigned int coarseStride = _nxCoarseGrid + 2;
-
-    unsigned int xBlock = 64;
-    const char *envBlock = std::getenv("RES_BLOCK_SIZE");
-
-    if (envBlock && *envBlock) {
-      xBlock = static_cast<unsigned int>(std::strtoul(envBlock, nullptr, 10));
-    }
 
     #pragma omp parallel for schedule(static)
     for (unsigned int y = 1; y < _nyCoarseGrid + 1; y++)
@@ -43,9 +35,9 @@ public:
       const unsigned int fineRowN = fineRow + fineStride;
       const unsigned int coarseRow = y * coarseStride;
 
-      for (unsigned int x0 = 1; x0 < _nxCoarseGrid + 1; x0 += xBlock)
+      for (unsigned int x0 = 1; x0 < _nxCoarseGrid + 1; x0 += xBlockSize)
       {
-        unsigned int xEnd = x0 + xBlock - 1;
+        unsigned int xEnd = x0 + xBlockSize - 1;
         if (xEnd > _nxCoarseGrid)
         {
           xEnd = _nxCoarseGrid;

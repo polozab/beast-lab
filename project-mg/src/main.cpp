@@ -7,6 +7,7 @@
 
 #include "Multigrid.h"
 #include "ComputeError.h"
+#include <cstdlib>
 
 int main(int argc, char *argv[])
 {
@@ -48,6 +49,9 @@ int main(int argc, char *argv[])
     return -1;
   }
 
+  const char *envBlock = std::getenv("RES_BLOCK_SIZE");
+  const unsigned int restrictionBlockSize = (envBlock && *envBlock) ? static_cast<unsigned int>(std::strtoul(envBlock, nullptr, 10)) : 64;
+
   const SetBoundary setBoundary(nx, nx);
   for (unsigned int i = 0; i < (nx + 2) * (nx + 2); i++)
   {
@@ -58,7 +62,7 @@ int main(int argc, char *argv[])
   setBoundary.iterate(field1);
   setBoundary.iterate(field2);
 
-  Multigrid multigrid(nx, nx, levels);
+  Multigrid multigrid(nx, nx, restrictionBlockSize, levels);
   FLOAT *currentSolution = field1;
 
   ComputeError computeError(nx, nx);
