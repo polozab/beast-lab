@@ -25,23 +25,25 @@ public:
     const unsigned int fineStride   = _nxFineGrid + 2;
     const unsigned int coarseStride = _nxCoarseGrid + 2;
 
-    #pragma omp parallel for
+    #pragma omp parallel for collapse(2)
     for (unsigned int yf = 1; yf < _nyFineGrid + 1; ++yf)
     {
-      const unsigned int fineRow = yf * fineStride;
-
-      const unsigned int yc0 = yf / 2;
-      const unsigned int yc1 = yc0 + 1;
-      const bool yOdd = (yf & 1u) != 0u;
-
-      const FLOAT wy0 = yOdd ? (FLOAT)0.5 : (FLOAT)1.0;
-      const FLOAT wy1 = yOdd ? (FLOAT)0.5 : (FLOAT)0.0;
-
-      const unsigned int coarseRow0 = yc0 * coarseStride;
-      const unsigned int coarseRow1 = yc1 * coarseStride;
 
       for (unsigned int xf = 1; xf < _nxFineGrid + 1; ++xf)
       {
+
+        const unsigned int fineRow = yf * fineStride;
+
+        const unsigned int yc0 = yf / 2;
+        const unsigned int yc1 = yc0 + 1;
+        const bool yOdd = (yf & 1u) != 0u;
+
+        const FLOAT wy0 = yOdd ? (FLOAT)0.5 : (FLOAT)1.0;
+        const FLOAT wy1 = yOdd ? (FLOAT)0.5 : (FLOAT)0.0;
+
+        const unsigned int coarseRow0 = yc0 * coarseStride;
+        const unsigned int coarseRow1 = yc1 * coarseStride;
+
         const unsigned int fineI = fineRow + xf;
 
         const unsigned int xc0 = xf / 2;
