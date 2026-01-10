@@ -25,6 +25,7 @@ public:
     const unsigned int fineStride   = _nxFineGrid + 2;
     const unsigned int coarseStride = _nxCoarseGrid + 2;
 
+    #pragma omp parallel for
     for (unsigned int yf = 1; yf < _nyFineGrid + 1; ++yf)
     {
       const unsigned int fineRow = yf * fineStride;
