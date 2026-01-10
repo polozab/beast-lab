@@ -165,7 +165,7 @@ private:
 // Class to stop recursion
 
 template<>
-class Multigrid<67>
+class Multigrid<10>
 {
 public:
   // - recursion should be stopped for inner grid points <= 2.
