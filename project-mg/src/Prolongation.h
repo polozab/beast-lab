@@ -24,37 +24,91 @@ public:
   {
     const unsigned int fineStride = _nxFineGrid + 2;
     const unsigned int coarseStride = _nxCoarseGrid + 2;
+    const unsigned int lastFineX = (_nxCoarseGrid << 1) + 1;
+    const unsigned int lastFineY = (_nyCoarseGrid << 1) + 1;
 
-    #pragma omp parallel for
-    for (unsigned int y = 1; y < _nyCoarseGrid + 1; y++)
+    #pragma omp parallel
     {
-      
-      const unsigned int fineRow = y * 2 * fineStride;
-      const unsigned int coarseRow = y * coarseStride;
-      
+      #pragma omp for
+      for (unsigned int y = 1; y < _nyCoarseGrid + 1; y++)
+      {
+        const unsigned int fineRow = (y << 1) * fineStride;
+        const unsigned int coarseRow = y * coarseStride;
+        for (unsigned int x = 1; x < _nxCoarseGrid + 1; x++)
+        {
+          fineGrid[fineRow + (x << 1)] += coarseGrid[coarseRow + x];
+        }
+      }
+
+      #pragma omp for
+      for (unsigned int y = 1; y < _nyCoarseGrid + 1; y++)
+      {
+        const unsigned int fineRow = (y << 1) * fineStride;
+        const unsigned int coarseRow = y * coarseStride;
+        fineGrid[fineRow + 1] += 0.5 * coarseGrid[coarseRow + 1];
+        for (unsigned int x = 1; x < _nxCoarseGrid; x++)
+        {
+          const unsigned int coarseI = coarseRow + x;
+          fineGrid[fineRow + (x << 1) + 1] += 0.5 * (coarseGrid[coarseI] + coarseGrid[coarseI + 1]);
+        }
+        fineGrid[fineRow + lastFineX] += 0.5 * coarseGrid[coarseRow + _nxCoarseGrid];
+      }
+
+      #pragma omp for
+      for (unsigned int y = 1; y < _nyCoarseGrid; y++)
+      {
+        const unsigned int fineRow = ((y << 1) + 1) * fineStride;
+        const unsigned int coarseRow = y * coarseStride;
+        const unsigned int coarseRowN = (y + 1) * coarseStride;
+        for (unsigned int x = 1; x < _nxCoarseGrid + 1; x++)
+        {
+          const unsigned int coarseI = coarseRow + x;
+          fineGrid[fineRow + (x << 1)] += 0.5 * (coarseGrid[coarseI] + coarseGrid[coarseRowN + x]);
+        }
+      }
+
+      #pragma omp for
       for (unsigned int x = 1; x < _nxCoarseGrid + 1; x++)
       {
-        // the points on the "diagonal" contribute to 0.25 to the error
-        // interpolation (since 4 values are used for bilinear interpolation of the mid-point).
-        // for the central point (fineI), we directly use the corresponding value.
-        // for the other points, the bi-linear interpolation reduces to averaging
-        // the two closest values (e.g. South- and North-values)
-        
+        const unsigned int fineX = x << 1;
+        fineGrid[1 * fineStride + fineX] += 0.5 * coarseGrid[1 * coarseStride + x];
+        fineGrid[lastFineY * fineStride + fineX] += 0.5 * coarseGrid[_nyCoarseGrid * coarseStride + x];
+      }
 
-        const unsigned int fineI = fineRow + x * 2;
-        const unsigned int coarseI = coarseRow + x;
+      #pragma omp for
+      for (unsigned int y = 1; y < _nyCoarseGrid; y++)
+      {
+        const unsigned int fineRow = ((y << 1) + 1) * fineStride;
+        const unsigned int coarseRow = y * coarseStride;
+        const unsigned int coarseRowN = (y + 1) * coarseStride;
+        fineGrid[fineRow + 1] += 0.25 * (coarseGrid[coarseRow + 1] + coarseGrid[coarseRowN + 1]);
+        for (unsigned int x = 1; x < _nxCoarseGrid; x++)
+        {
+          const unsigned int coarseI = coarseRow + x;
+          fineGrid[fineRow + (x << 1) + 1] += 0.25 * (coarseGrid[coarseI] + coarseGrid[coarseI + 1] +
+                                                      coarseGrid[coarseRowN + x] + coarseGrid[coarseRowN + x + 1]);
+        }
+        fineGrid[fineRow + lastFineX] += 0.25 * (coarseGrid[coarseRow + _nxCoarseGrid] +
+                                                 coarseGrid[coarseRowN + _nxCoarseGrid]);
+      }
 
-        const FLOAT coarseVal = coarseGrid[coarseI];
+      #pragma omp for
+      for (unsigned int x = 1; x < _nxCoarseGrid; x++)
+      {
+        const unsigned int fineX = (x << 1) + 1;
+        fineGrid[1 * fineStride + fineX] += 0.25 * (coarseGrid[1 * coarseStride + x] +
+                                                    coarseGrid[1 * coarseStride + x + 1]);
+        fineGrid[lastFineY * fineStride + fineX] += 0.25 * (coarseGrid[_nyCoarseGrid * coarseStride + x] +
+                                                            coarseGrid[_nyCoarseGrid * coarseStride + x + 1]);
+      }
 
-        fineGrid[fineI - fineStride - 1] += 0.25 * coarseVal;
-        fineGrid[fineI - fineStride] += 0.5 * coarseVal;
-        fineGrid[fineI - fineStride + 1] += 0.25 * coarseVal;
-        fineGrid[fineI - 1] += 0.5 * coarseVal;
-        fineGrid[fineI] += coarseVal;
-        fineGrid[fineI + 1] += 0.5 * coarseVal;
-        fineGrid[fineI + fineStride - 1] += 0.25 * coarseVal;
-        fineGrid[fineI + fineStride] += 0.5 * coarseVal;
-        fineGrid[fineI + fineStride + 1] += 0.25 * coarseVal;
+      #pragma omp for
+      for (unsigned int edge = 0; edge < 2; edge++)
+      {
+        const unsigned int fineRow = edge == 0 ? 1 * fineStride : lastFineY * fineStride;
+        const unsigned int coarseRow = edge == 0 ? 1 * coarseStride : _nyCoarseGrid * coarseStride;
+        fineGrid[fineRow + 1] += 0.25 * coarseGrid[coarseRow + 1];
+        fineGrid[fineRow + lastFineX] += 0.25 * coarseGrid[coarseRow + _nxCoarseGrid];
       }
     }
   }
