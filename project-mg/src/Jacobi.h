@@ -21,7 +21,7 @@ public:
     const unsigned int stride = _nx + 2;
     const int blockSize = 32;
 
-    #pragma omp parallel for collapse(2) schedule(static)
+    #pragma omp parallel for if (_nx * _ny >= 196608) collapse(2) schedule(static)
     for (unsigned int yb = 1; yb < _ny + 1; yb += blockSize)
     {
       for (unsigned int xb = 1; xb < _nx + 1; xb += blockSize)
