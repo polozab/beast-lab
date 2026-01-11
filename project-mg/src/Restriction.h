@@ -35,15 +35,8 @@ public:
       const unsigned int fineRowN = fineRow + fineStride;
       const unsigned int coarseRow = y * coarseStride;
 
-      for (unsigned int x0 = 1; x0 < _nxCoarseGrid + 1; x0 += xBlockSize)
+      for (unsigned int x = 1; x < _nxCoarseGrid + 1; x++)
       {
-        unsigned int xEnd = x0 + xBlockSize - 1;
-        if (xEnd > _nxCoarseGrid)
-        {
-          xEnd = _nxCoarseGrid;
-        }
-        for (unsigned int x = x0; x < xEnd + 1; x++)
-        {
           // do injection of error: therefore, compute residual on fine grid
           // and write the value into the coarse grid right hand side
           const unsigned int fineC = fineRow + (x << 1);
@@ -58,7 +51,6 @@ public:
           rhsCoarseGrid[coarseI] -= (fineGrid[fineS] - 2.0 * fineGrid[fineC] + fineGrid[fineN]) / _hyFineGrid2;
           coarseGridValues1[coarseI] = 0.0;
           coarseGridValues2[coarseI] = 0.0;
-        }
       }
     }
   }
