@@ -19,26 +19,16 @@ public:
   void iterate(const FLOAT *const readField, FLOAT *const writeField, const FLOAT *const rhs) const
   {
     const unsigned int stride = _nx + 2;
-    const int blockSize = 1800;
 
-    #pragma omp parallel for if (_nx * _ny >= 196608) collapse(2) schedule(static)
-    for (unsigned int yb = 1; yb < _ny + 1; yb += blockSize)
+    #pragma omp parallel for if (_nx * _ny >= 196608) schedule(static) 
+    for (unsigned int y = 1; y < _ny + 1; y++)
     {
-      for (unsigned int xb = 1; xb < _nx + 1; xb += blockSize)
+      for (unsigned int x = 1; x < _nx + 1; x++)
       {
-        const unsigned int y_end = std::min(yb + blockSize, _ny + 1);
-        const unsigned int x_end = std::min(xb + blockSize, _nx + 1);
-
-        for (unsigned int y = yb; y < y_end; y++)
-        {
-          for (unsigned int x = xb; x < x_end; x++)
-          {
-            const unsigned int i = y * stride + x;
-            writeField[i] = _RHS * rhs[i];
-            writeField[i] += _X * (readField[i - 1] + readField[i + 1]);
-            writeField[i] += _Y * (readField[i - stride] + readField[i + stride]);
-          }
-        }
+        const unsigned int i = y * stride + x;
+        writeField[i] = _RHS * rhs[i];
+        writeField[i] += _X * (readField[i - 1] + readField[i + 1]);
+        writeField[i] += _Y * (readField[i - stride] + readField[i + stride]);
       }
     }
   }
