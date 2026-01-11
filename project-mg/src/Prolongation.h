@@ -26,42 +26,21 @@ public:
     const unsigned int coarseStride = _nxCoarseGrid + 2;
 
     #pragma omp parallel for if (_nxCoarseGrid * _nyCoarseGrid >= 196608) schedule(static)
-    for (unsigned int yf = 1; yf < _nyFineGrid + 1; ++yf)
+    for (unsigned int y = 1; y < _nyFineGrid + 1; ++y)
     {
-      for (unsigned int xf = 1; xf < _nxFineGrid + 1; ++xf)
+      for (unsigned int x = 1; x < _nxFineGrid + 1; ++x)
       {
-
-        const unsigned int fineRow = yf * fineStride;
-
-        const unsigned int yc0 = yf / 2;
-        const unsigned int yc1 = yc0 + 1;
-        const bool yOdd = (yf & 1u) != 0u;
-
-        const FLOAT wy0 = yOdd ? (FLOAT)0.5 : (FLOAT)1.0;
-        const FLOAT wy1 = yOdd ? (FLOAT)0.5 : (FLOAT)0.0;
-
-        const unsigned int coarseRow0 = yc0 * coarseStride;
-        const unsigned int coarseRow1 = yc1 * coarseStride;
-
-        const unsigned int fineI = fineRow + xf;
-
-        const unsigned int xc0 = xf / 2;
-        const unsigned int xc1 = xc0 + 1;
-        const bool xOdd = (xf & 1u) != 0u;
-
-        const FLOAT wx0 = xOdd ? (FLOAT)0.5 : (FLOAT)1.0;
-        const FLOAT wx1 = xOdd ? (FLOAT)0.5 : (FLOAT)0.0;
-
-        const FLOAT c00 = coarseGrid[coarseRow0 + xc0];
-        const FLOAT c10 = coarseGrid[coarseRow0 + xc1];
-        const FLOAT c01 = coarseGrid[coarseRow1 + xc0];
-        const FLOAT c11 = coarseGrid[coarseRow1 + xc1];
-
+        const unsigned int fineI = y * fineStride + x;
+        const unsigned int coarseI = y / 2 * coarseStride + x / 2;
+        
+        const FLOAT wy = (y & 1u) ? 0.5f : 1.0f;
+        const FLOAT wx = (x & 1u) ? 0.5f : 1.0f;
+        
         fineGrid[fineI] +=
-            wx0 * wy0 * c00 +
-            wx1 * wy0 * c10 +
-            wx0 * wy1 * c01 +
-            wx1 * wy1 * c11;
+            wx * wy * coarseGrid[coarseI] +
+            (1.0f - wx) * wy * coarseGrid[coarseI + 1] +
+            wx * (1.0f - wy) * coarseGrid[coarseI + coarseStride] +
+            (1.0f - wx) * (1.0f - wy) * coarseGrid[coarseI + coarseStride + 1];
       }
     }
   }

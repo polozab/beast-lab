@@ -34,7 +34,7 @@ public:
       {
           // do injection of error: therefore, compute residual on fine grid
           // and write the value into the coarse grid right hand side
-          const unsigned int fineI = 2 * y * fineStride + x * 2;
+          const unsigned int fineI = y * 2 * fineStride + x * 2;
           const unsigned int coarseI = y * coarseStride + x;
 
           rhsCoarseGrid[coarseI] = rhsFineGrid[fineI];
