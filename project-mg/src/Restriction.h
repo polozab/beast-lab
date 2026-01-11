@@ -22,12 +22,12 @@ public:
 
   ~Restriction() {}
 
-  void injection(const FLOAT *const fineGrid, const FLOAT *const rhsFineGrid, FLOAT *const rhsCoarseGrid, FLOAT *const coarseGridValues1, FLOAT *const coarseGridValues2, const unsigned int xBlockSize) const
+  void injection(const FLOAT *const fineGrid, const FLOAT *const rhsFineGrid, FLOAT *const rhsCoarseGrid, FLOAT *const coarseGridValues1, FLOAT *const coarseGridValues2) const
   {
     const unsigned int fineStride = _nxFineGrid + 2;
     const unsigned int coarseStride = _nxCoarseGrid + 2;
 
-    #pragma omp parallel for if (_nxCoarseGrid * _nyCoarseGrid >= 196608) schedule(static)
+    #pragma omp parallel for if (_nxCoarseGrid * _nyCoarseGrid >= 196608) collapse(2) schedule(static)
     for (unsigned int y = 1; y < _nyCoarseGrid + 1; y++)
     {
       for (unsigned int x = 1; x < _nxCoarseGrid + 1; x++)

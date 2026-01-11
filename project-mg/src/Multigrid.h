@@ -32,7 +32,7 @@ public:
   // - _callRecursion must be initialised as very first one,
   //    as we re-use it in the constructor.
   // - nx/yCourseGrid must be initialised before the coarseGrid-fields are created
-  Multigrid(const unsigned int nxFine, const unsigned int nyFine, const unsigned int restrictionBlockSize, const unsigned int level)
+  Multigrid(const unsigned int nxFine, const unsigned int nyFine, const unsigned int level)
       : _callRecursion((nxFine > 2) && (nyFine > 2)),
         _level(level),
         _nxFineGrid(nxFine), _nyFineGrid(nyFine),
@@ -40,8 +40,7 @@ public:
         _coarseGridValues1(_callRecursion ? new FLOAT[(_nxCoarseGrid + 2) * (_nyCoarseGrid + 2)] : NULL),
         _coarseGridValues2(_callRecursion ? new FLOAT[(_nxCoarseGrid + 2) * (_nyCoarseGrid + 2)] : NULL),
         _coarseGridRhs(_callRecursion ? new FLOAT[(_nxCoarseGrid + 2) * (_nyCoarseGrid + 2)] : NULL),
-        _restrictionBlockSize(restrictionBlockSize),
-        _multigrid(_callRecursion ? new Multigrid(_nxCoarseGrid, _nyCoarseGrid, _restrictionBlockSize, level - 1) : NULL),
+        _multigrid(_callRecursion ? new Multigrid(_nxCoarseGrid, _nyCoarseGrid, level - 1) : NULL),
         _jacobi(nxFine, nyFine),
         _restriction(_nxCoarseGrid, _nyCoarseGrid),
         _prolongation(_nxCoarseGrid, _nyCoarseGrid)
@@ -136,7 +135,7 @@ public:
 
     // restriction done by injection
     NVTX_RANGE_START(restriction_range, 0xFF7b3eab, "Restriction");
-    _restriction.injection(readField, fineGridRhs, _coarseGridRhs, _coarseGridValues1, _coarseGridValues2, _restrictionBlockSize);
+    _restriction.injection(readField, fineGridRhs, _coarseGridRhs, _coarseGridValues1, _coarseGridValues2);
     NVTX_RANGE_END(restriction_range);
 
     // do recursive multigrid solving procedure; the returned pointer points to _coarseGridValues1 or _coarseGridValues2,
@@ -174,7 +173,6 @@ private:
   const unsigned int _nyFineGrid;
   const unsigned int _nxCoarseGrid;
   const unsigned int _nyCoarseGrid;
-  const unsigned int _restrictionBlockSize;
   FLOAT *_coarseGridValues1;
   FLOAT *_coarseGridValues2;
   FLOAT *_coarseGridRhs;

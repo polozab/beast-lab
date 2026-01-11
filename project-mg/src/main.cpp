@@ -11,7 +11,7 @@
 
 int main(int argc, char *argv[])
 {
-  if (argc != 6)
+  if (argc != 5)
   {
     std::cout << "ERROR main: Please call program by"
               << std::endl
@@ -25,7 +25,6 @@ int main(int argc, char *argv[])
   const unsigned int jacobiStepsCoarsestLevel = 1;
   const unsigned int levels = (unsigned int)atoi(argv[3]);
   const unsigned int multigridCycles = (unsigned int)atoi(argv[4]);
-    const unsigned int restrictionBlockSize = (unsigned int)atoi(argv[5]);
 
   // determine resolution
   const unsigned int nx = ((unsigned int)(1 << levels)) - 1;
@@ -60,7 +59,7 @@ int main(int argc, char *argv[])
   setBoundary.iterate(field1);
   setBoundary.iterate(field2);
 
-  Multigrid multigrid(nx, nx, restrictionBlockSize, levels);
+  Multigrid multigrid(nx, nx, levels);
   FLOAT *currentSolution = field1;
 
   ComputeError computeError(nx, nx);
