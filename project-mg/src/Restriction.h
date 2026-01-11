@@ -31,34 +31,24 @@ public:
     for (unsigned int y = 1; y < _nyCoarseGrid + 1; y++)
     {
       const unsigned int fineRow = (y << 1) * fineStride;
-      const unsigned int fineRowS = fineRow - fineStride;
-      const unsigned int fineRowN = fineRow + fineStride;
       const unsigned int coarseRow = y * coarseStride;
 
-      for (unsigned int x0 = 1; x0 < _nxCoarseGrid + 1; x0 += xBlockSize)
+      for (unsigned int x = 1; x < _nxCoarseGrid + 1; x++)
       {
-        unsigned int xEnd = x0 + xBlockSize - 1;
-        if (xEnd > _nxCoarseGrid)
-        {
-          xEnd = _nxCoarseGrid;
-        }
-        for (unsigned int x = x0; x < xEnd + 1; x++)
-        {
           // do injection of error: therefore, compute residual on fine grid
           // and write the value into the coarse grid right hand side
-          const unsigned int fineC = fineRow + (x << 1);
-          const unsigned int fineW = fineC - 1;
-          const unsigned int fineE = fineC + 1;
-          const unsigned int fineS = fineRowS + (x << 1);
-          const unsigned int fineN = fineRowN + (x << 1);
+          const unsigned int fineI = fineRow + x * 2;
           const unsigned int coarseI = coarseRow + x;
 
-          rhsCoarseGrid[coarseI] = rhsFineGrid[fineC];
-          rhsCoarseGrid[coarseI] -= (fineGrid[fineW] - 2.0 * fineGrid[fineC] + fineGrid[fineE]) / _hxFineGrid2;
-          rhsCoarseGrid[coarseI] -= (fineGrid[fineS] - 2.0 * fineGrid[fineC] + fineGrid[fineN]) / _hyFineGrid2;
+          const unsigned int fineS = fineRow - fineStride + (x << 1);
+          const unsigned int fineN = fineRow + fineStride + (x << 1);
+
+          rhsCoarseGrid[coarseI] = rhsFineGrid[fineI];
+          rhsCoarseGrid[coarseI] -= (fineGrid[fineI - 1] - 2.0 * fineGrid[fineI] + fineGrid[fineI + 1]) / _hxFineGrid2;
+          rhsCoarseGrid[coarseI] -= (fineGrid[fineI - fineStride] - 2.0 * fineGrid[fineI] + fineGrid[fineI + fineStride]) / _hyFineGrid2;
+
           coarseGridValues1[coarseI] = 0.0;
           coarseGridValues2[coarseI] = 0.0;
-        }
       }
     }
   }
