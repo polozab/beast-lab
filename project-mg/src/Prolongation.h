@@ -25,7 +25,7 @@ public:
     const unsigned int fineStride = _nxFineGrid + 2;
     const unsigned int coarseStride = _nxCoarseGrid + 2;
 
-    #pragma omp parallel for if (_nx * _ny >= 196608) schedule(static)
+    #pragma omp parallel for if (_nxCoarseGrid * _nyCoarseGrid >= 196608) schedule(static)
     for (unsigned int yf = 1; yf < _nyFineGrid + 1; ++yf)
     {
       for (unsigned int xf = 1; xf < _nxFineGrid + 1; ++xf)
