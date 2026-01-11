@@ -30,15 +30,12 @@ public:
     #pragma omp parallel for if (_nxCoarseGrid * _nyCoarseGrid >= 196608) schedule(static)
     for (unsigned int y = 1; y < _nyCoarseGrid + 1; y++)
     {
-      const unsigned int fineRow = (y << 1) * fineStride;
-      const unsigned int coarseRow = y * coarseStride;
-
       for (unsigned int x = 1; x < _nxCoarseGrid + 1; x++)
       {
           // do injection of error: therefore, compute residual on fine grid
           // and write the value into the coarse grid right hand side
-          const unsigned int fineI = fineRow + x * 2;
-          const unsigned int coarseI = coarseRow + x;
+          const unsigned int fineI = 2 * y * fineStride + x * 2;
+          const unsigned int coarseI = y * coarseStride + x;
 
           rhsCoarseGrid[coarseI] = rhsFineGrid[fineI];
           rhsCoarseGrid[coarseI] -= (fineGrid[fineI - 1] - 2.0 * fineGrid[fineI] + fineGrid[fineI + 1]) / _hxFineGrid2;
