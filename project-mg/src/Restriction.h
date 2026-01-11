@@ -40,9 +40,6 @@ public:
           const unsigned int fineI = fineRow + x * 2;
           const unsigned int coarseI = coarseRow + x;
 
-          const unsigned int fineS = fineRow - fineStride + (x << 1);
-          const unsigned int fineN = fineRow + fineStride + (x << 1);
-
           rhsCoarseGrid[coarseI] = rhsFineGrid[fineI];
           rhsCoarseGrid[coarseI] -= (fineGrid[fineI - 1] - 2.0 * fineGrid[fineI] + fineGrid[fineI + 1]) / _hxFineGrid2;
           rhsCoarseGrid[coarseI] -= (fineGrid[fineI - fineStride] - 2.0 * fineGrid[fineI] + fineGrid[fineI + fineStride]) / _hyFineGrid2;
