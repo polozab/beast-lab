@@ -68,7 +68,14 @@ void iterate(const FLOAT *const readField, FLOAT *const writeField, const FLOAT 
   }
 ```
 
+And we got the following measurements in Nsight:
+
+
+Next we wanted to optimize either the prolongation or restriction part as both where now clearly the largest contributors to overall execution time.
+
 ## Prolongation
+
+We chose to the interpolation kernel of the prolongation first. Again, we converted the pointer based approach to an index based one, for the same two reasons we encountered optimizing the Jacobi iteration.
 
 ## Restriction
 
