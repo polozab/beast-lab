@@ -16,10 +16,10 @@ As a first step we just add the following OMP-clause to distribute the iteration
 
 ```cpp
 const unsigned int stride = _nx + 2;
-#pragma omp parallel for schedule(static) 
-for (unsigned int y = 1; y < _ny + 1; y++)
+#pragma omp parallel for
+for (unsigned int x = 1; x < _nx + 1; x++)
 {
-  for (unsigned int x = 1; x < _nx + 1; x++)
+  for (unsigned int y = 1; y < _ny + 1; y++)
   {
     const unsigned int i = y * stride + x;
     writeField[i] = _RHS * rhs[i];
@@ -29,9 +29,9 @@ for (unsigned int y = 1; y < _ny + 1; y++)
 }
 ```
 
-Adding `schedule(static)` to enforce almost overhead-free scheduling didn't make a huge difference and changing it to dynamic scheduling got us minimally slower performance. This is expected as we estimate the same computational latency for every different iteration which is why dynamic scheduling doesn't benefit us and only applies overhead from the scheduling.
+After tweaking the scheduling strategy for the threads we found out that dynamic scheduling actually benefited our application. Using non-static scheduling improved our performance. In addition we tried an optimization that would only parallelize the loop if the covered iterations where large enough. This also increased our performance as we would save the overhead of initiating all the threads with the distributed data if it would only run over a very limited amount of iterations.
 
-Collapsing also didn't make a significant difference. We think this is due to the vectorization that could be applied if only one level was distributed over different threads. Now the compiler was free to vectorize the inner loop
+We also tried collapsing both loops with OMP. This however made the performance worse as it would take away the possibility to 
 
 ## Prolongation
 
