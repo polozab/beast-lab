@@ -31,7 +31,42 @@ for (unsigned int x = 1; x < _nx + 1; x++)
 
 After tweaking the scheduling strategy for the threads we found out that dynamic scheduling actually benefited our application. Using non-static scheduling improved our performance. In addition we tried an optimization that would only parallelize the loop if the covered iterations where large enough. This also increased our performance as we would save the overhead of initiating all the threads with the distributed data if it would only run over a very limited amount of iterations.
 
-We also tried collapsing both loops with OMP. This however made the performance worse as it would take away the possibility to 
+We also tried collapsing both loops with OMP. This however made the performance worse as it would take away the possibility to vectorize the inner loop. This could be seen in the output while compiling:
+
+```
+Jacobi::iterate(double const*, double*, double const*) const:
+      8, include "Multigrid.h"
+           8, include "Jacobi.h"
+               24, Loop not vectorized/parallelized: contains call
+               26, Loop not vectorized: data dependency
+```
+
+Where as if we didn't collapsed the loops it would say that it generated vectorized code. We would suspect distributing over the y-axis could break data locality for some of the iteration leading to worse performance than just looping over vectorized lines that lay in cache sequentially. (At least for the East and West values.)
+
+Optimizing both the minimal number of iterations for parallization and the number of threads over which we distribute using `OMP_NUM_THREADS` gave us the following heatmap:
+
+>> Insert heatmap
+
+We there chose the number of minimal iterations to be `196608` and the number of threads to be `72` leaving us with the following kernel:
+
+```cpp
+void iterate(const FLOAT *const readField, FLOAT *const writeField, const FLOAT *const rhs) const
+  {
+    const unsigned int stride = _nx + 2;
+
+    #pragma omp parallel for if (_nx * _ny >= 196608) schedule(dynamic)
+    for (unsigned int y = 1; y < _ny + 1; y++)
+    {
+      for (unsigned int x = 1; x < _nx + 1; x++)
+      {
+        const unsigned int i = y * stride + x;
+        writeField[i] = _RHS * rhs[i];
+        writeField[i] += _X * (readField[i - 1] + readField[i + 1]);
+        writeField[i] += _Y * (readField[i - stride] + readField[i + stride]);
+      }
+    }
+  }
+```
 
 ## Prolongation
 
