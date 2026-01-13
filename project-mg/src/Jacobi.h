@@ -21,9 +21,9 @@ public:
     const unsigned int stride = _nx + 2;
 
     #pragma omp parallel for if (_nx * _ny >= 196608) schedule(dynamic)
-    for (unsigned int y = 1; y < _ny + 1; y++)
+    for (unsigned int x = 1; x < _nx + 1; x++)
     {
-      for (unsigned int x = 1; x < _nx + 1; x++)
+      for (unsigned int y = 1; y < _ny + 1; y++)
       {
         const unsigned int i = y * stride + x;
         writeField[i] = _RHS * rhs[i];
