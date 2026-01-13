@@ -70,12 +70,68 @@ void iterate(const FLOAT *const readField, FLOAT *const writeField, const FLOAT 
 
 And we got the following measurements in Nsight:
 
+>> insert image
 
 Next we wanted to optimize either the prolongation or restriction part as both where now clearly the largest contributors to overall execution time.
 
 ## Prolongation
 
-We chose to the interpolation kernel of the prolongation first. Again, we converted the pointer based approach to an index based one, for the same two reasons we encountered optimizing the Jacobi iteration.
+We chose to the interpolation kernel of the prolongation first. Again, we converted the pointer based approach to an index based one, for the same two reasons we encountered optimizing the Jacobi iteration. We also converted the scatter approach from the original kernel to an gather approach. This means that instead of iterating over each coarse grid cell and distributing (or scattering) this value to each fine grid cell, we go over every fine grid cell. With this method we fetch (or gather) in every iteration from the coarse grid values to set the according value for the fine grid cell. As a result we avoid any synchronization necessary when paralyzing the scatter approach to save overhead in that regard. This leaves us with the following interpolation kernel:
+
+```cpp
+for (unsigned int y = 1; y < _nyFineGrid + 1; ++y)
+{
+  for (unsigned int x = 1; x < _nxFineGrid + 1; ++x)
+  {
+    const unsigned int fineI = y * fineStride + x;
+    const unsigned int coarseI = y / 2 * coarseStride + x / 2;
+    
+    const FLOAT wy = (y & 1u) ? 0.5f : 1.0f;
+    const FLOAT wx = (x & 1u) ? 0.5f : 1.0f;
+    
+    fineGrid[fineI] +=
+        wx * wy * coarseGrid[coarseI] +
+        (1.0f - wx) * wy * coarseGrid[coarseI + 1] +
+        wx * (1.0f - wy) * coarseGrid[coarseI + coarseStride] +
+        (1.0f - wx) * (1.0f - wy) * coarseGrid[coarseI + coarseStride + 1];
+  }
+}
+```
+
+In addition we also applied dynamic scheduling and again gated small iteration counts from being parallelized at all. While this gave us improvements to our performance when trying to collapse both loops we worsened it like for the Jacobi iteration. Our final parallelized kernel looked like this:
+
+```cpp
+void interpolation(const FLOAT *const coarseGrid, FLOAT *const fineGrid) const
+{
+  const unsigned int fineStride = _nxFineGrid + 2;
+  const unsigned int coarseStride = _nxCoarseGrid + 2;
+
+  #pragma omp parallel for if (_nxFineGrid * _nyFineGrid >= 196608) schedule(dynamic)
+  for (unsigned int y = 1; y < _nyFineGrid + 1; ++y)
+  {
+    for (unsigned int x = 1; x < _nxFineGrid + 1; ++x)
+    {
+      const unsigned int fineI = y * fineStride + x;
+      const unsigned int coarseI = y / 2 * coarseStride + x / 2;
+      
+      const FLOAT wy = (y & 1u) ? 0.5f : 1.0f;
+      const FLOAT wx = (x & 1u) ? 0.5f : 1.0f;
+      
+      fineGrid[fineI] +=
+          wx * wy * coarseGrid[coarseI] +
+          (1.0f - wx) * wy * coarseGrid[coarseI + 1] +
+          wx * (1.0f - wy) * coarseGrid[coarseI + coarseStride] +
+          (1.0f - wx) * (1.0f - wy) * coarseGrid[coarseI + coarseStride + 1];
+    }
+  }
+}
+```
+
+When measuring performance we saw the following very substantial improvement using Nsight:
+
+>> Add image
+
+The next logical step was to take a look at the restriction kernel.
 
 ## Restriction
 
