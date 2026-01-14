@@ -198,7 +198,7 @@ void computePointwiseError(const FLOAT *const fineGrid)
 
 ## Boundary conditions
 
-Last but not least we also parallelized the setup of the boundary calculation. We left this for the end as it only runs once before the first multigrid iteration. For that we restructured the kernel so it could be parallelized more easily.
+Last but not least we also tried to parallelize the setup of the boundary calculation. However after trying different setups we found that the parallelization either didn't gain any performance or made it even worse. As the latency from the initialization is minimal anyway the parallelization didn't break even with the overhead from the distribution of the threads which is why we decided to leave the calculation of the boundary conditions sequential.
 
 ## Further improvements
 
