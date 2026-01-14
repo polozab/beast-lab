@@ -208,6 +208,6 @@ Another variable that could be tested for different values would be the number o
 
 And at last the number we chose as minimum iterations required to apply parallelization `196608` was also chosen at this time point and could be tested against other values to find the optimal threshold. Furthermore it could be individually set for every omg clause which would allow for a very fain grained control which possibly could increase performance even further.
 
-However going forward we tried to focus on several cache optimization schemes as they seemed promising at first.
+However going forward we tried to focus on several cache optimization schemes as they seemed promising at first, as there seemed to be quite a few cache misses especially in the Jacobi iteration which we tried to eliminate.
 Our current best measured performance was just shy of `3.222` seconds for a full run of `./multigrid 4 6 14 8` with the described parameters. And the average was around `3.262` seconds.
 
