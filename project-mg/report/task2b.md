@@ -133,7 +133,7 @@ When measuring performance we saw the following very substantial improvement usi
 
 ## Restriction
 
-The next logical step was to translate the restriction kernel in a similar fashion next. We again converted the pointer-based accesses into index-based ones and applied the same OMP directives. Experimenting with different scheduling strategies and collapsing both loops showed that the original setup we also used for the prolongation kernel was the fastest. With the final kernel looking like this:
+The next logical step was to translate the restriction kernel in a similar fashion next. We again converted the pointer-based accesses into index-based ones and applied the same OMP directives. Experimenting with different scheduling strategies and collapsing both loops showed that not specifying any additional parameters leads to the fastest performance. The final kernel looks like this:
 
 ```cpp
 void injection(const FLOAT *const fineGrid, const FLOAT *const rhsFineGrid, FLOAT *const rhsCoarseGrid, FLOAT *const coarseGridValues1, FLOAT *const coarseGridValues2) const
@@ -141,7 +141,7 @@ void injection(const FLOAT *const fineGrid, const FLOAT *const rhsFineGrid, FLOA
   const unsigned int fineStride = _nxFineGrid + 2;
   const unsigned int coarseStride = _nxCoarseGrid + 2;
 
-  #pragma omp parallel for if
+  #pragma omp parallel for
   for (unsigned int y = 1; y < _nyCoarseGrid + 1; y++)
   {
     for (unsigned int x = 1; x < _nxCoarseGrid + 1; x++)
