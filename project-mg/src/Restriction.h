@@ -27,22 +27,20 @@ public:
     const unsigned int fineStride = _nxFineGrid + 2;
     const unsigned int coarseStride = _nxCoarseGrid + 2;
 
-    #pragma omp parallel for if (_nxCoarseGrid * _nyCoarseGrid >= 196608) schedule(dynamic)
+    #pragma omp parallel for if 
     for (unsigned int y = 1; y < _nyCoarseGrid + 1; y++)
     {
       for (unsigned int x = 1; x < _nxCoarseGrid + 1; x++)
       {
-          // do injection of error: therefore, compute residual on fine grid
-          // and write the value into the coarse grid right hand side
-          const unsigned int fineI = y * 2 * fineStride + x * 2;
-          const unsigned int coarseI = y * coarseStride + x;
+        const unsigned int fineI = y * 2 * fineStride + x * 2;
+        const unsigned int coarseI = y * coarseStride + x;
 
-          rhsCoarseGrid[coarseI] = rhsFineGrid[fineI];
-          rhsCoarseGrid[coarseI] -= (fineGrid[fineI - 1] - 2.0 * fineGrid[fineI] + fineGrid[fineI + 1]) / _hxFineGrid2;
-          rhsCoarseGrid[coarseI] -= (fineGrid[fineI - fineStride] - 2.0 * fineGrid[fineI] + fineGrid[fineI + fineStride]) / _hyFineGrid2;
+        rhsCoarseGrid[coarseI] = rhsFineGrid[fineI];
+        rhsCoarseGrid[coarseI] -= (fineGrid[fineI - 1] - 2.0 * fineGrid[fineI] + fineGrid[fineI + 1]) / _hxFineGrid2;
+        rhsCoarseGrid[coarseI] -= (fineGrid[fineI - fineStride] - 2.0 * fineGrid[fineI] + fineGrid[fineI + fineStride]) / _hyFineGrid2;
 
-          coarseGridValues1[coarseI] = 0.0;
-          coarseGridValues2[coarseI] = 0.0;
+        coarseGridValues1[coarseI] = 0.0;
+        coarseGridValues2[coarseI] = 0.0;
       }
     }
   }

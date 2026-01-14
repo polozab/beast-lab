@@ -76,7 +76,7 @@ Next we wanted to optimize either the prolongation or restriction part as both w
 
 ## Prolongation
 
-We chose to the interpolation kernel of the prolongation first. Again, we converted the pointer based approach to an index based one, for the same two reasons we encountered optimizing the Jacobi iteration. We also converted the scatter approach from the original kernel to an gather approach. This means that instead of iterating over each coarse grid cell and distributing (or scattering) this value to each fine grid cell, we go over every fine grid cell. With this method we fetch (or gather) in every iteration from the coarse grid values to set the according value for the fine grid cell. As a result we avoid any synchronization necessary when paralyzing the scatter approach to save overhead in that regard. This leaves us with the following interpolation kernel:
+We chose to look at the interpolation kernel of the prolongation first. Again, we converted the pointer based approach to an index based one, for the same two reasons we encountered optimizing the Jacobi iteration. We also converted the scatter approach from the original kernel to an gather approach. This means that instead of iterating over each coarse grid cell and distributing (or scattering) this value to each fine grid cell, we go over every fine grid cell. With this method we fetch (or gather) in every iteration from the coarse grid values to set the according value for the fine grid cell. As a result we avoid any synchronization necessary when paralyzing the scatter approach to save overhead in that regard. This leaves us with the following interpolation kernel:
 
 ```cpp
 for (unsigned int y = 1; y < _nyFineGrid + 1; ++y)
@@ -131,12 +131,43 @@ When measuring performance we saw the following very substantial improvement usi
 
 >> Add image
 
-The next logical step was to take a look at the restriction kernel.
-
 ## Restriction
+
+The next logical step was to translate the restriction kernel in a similar fashion next. We again converted the pointer-based accesses into index-based ones and applied the same OMP directives. Experimenting with different scheduling strategies and collapsing both loops showed that the original setup we also used for the prolongation kernel was the fastest. With the final kernel looking like this:
+
+```cpp
+void injection(const FLOAT *const fineGrid, const FLOAT *const rhsFineGrid, FLOAT *const rhsCoarseGrid, FLOAT *const coarseGridValues1, FLOAT *const coarseGridValues2) const
+{
+  const unsigned int fineStride = _nxFineGrid + 2;
+  const unsigned int coarseStride = _nxCoarseGrid + 2;
+
+  #pragma omp parallel for if (_nxCoarseGrid * _nyCoarseGrid >= 196608) schedule(dynamic)
+  for (unsigned int y = 1; y < _nyCoarseGrid + 1; y++)
+  {
+    for (unsigned int x = 1; x < _nxCoarseGrid + 1; x++)
+    {
+      const unsigned int fineI = y * 2 * fineStride + x * 2;
+      const unsigned int coarseI = y * coarseStride + x;
+
+      rhsCoarseGrid[coarseI] = rhsFineGrid[fineI];
+      rhsCoarseGrid[coarseI] -= (fineGrid[fineI - 1] - 2.0 * fineGrid[fineI] + fineGrid[fineI + 1]) / _hxFineGrid2;
+      rhsCoarseGrid[coarseI] -= (fineGrid[fineI - fineStride] - 2.0 * fineGrid[fineI] + fineGrid[fineI + fineStride]) / _hyFineGrid2;
+
+      coarseGridValues1[coarseI] = 0.0;
+      coarseGridValues2[coarseI] = 0.0;
+    }
+  }
+}
+```
+
+Measuring the performance with Nsight 
+
+After measuring the performance again with Nsight we saw that there was a significant overhead after each iteration which idicates that the error calculation actually affects the runtime significantly:
 
 
 
 ## Error calculation
+
+
 
 > Still Bad cache behavior
