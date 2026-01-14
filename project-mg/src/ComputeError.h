@@ -38,7 +38,7 @@ public:
     // loop over all inner grid points and compute pointwise error
     const unsigned int stride = _nx + 2;
 
-    #pragma omp parallel for if (_nx * _ny >= 196608) reduction(max:maxErr)
+    #pragma omp parallel for if collapse(2) (_nx * _ny >= 196608) reduction(max:maxErr)
     for (unsigned int y = 1; y < _ny + 1; y++)
     {
       for (unsigned int x = 1; x < _nx + 1; x++)
