@@ -20,8 +20,8 @@ public:
   {
     const unsigned int stride = _nx + 2;
 
-    #pragma omp parallel if (_nx * _ny >= 196608) schedule(dynamic) 
-    #pragma omp for nowait
+    #pragma omp parallel if (_nx * _ny >= 196608) 
+    #pragma omp for nowait schedule(dynamic) 
     for (unsigned int y = 1; y < _ny + 1; y++)
     {
       for (unsigned int x = 1; x < _nx + 1; x++)
