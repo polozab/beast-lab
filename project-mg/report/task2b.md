@@ -160,13 +160,14 @@ void injection(const FLOAT *const fineGrid, const FLOAT *const rhsFineGrid, FLOA
 }
 ```
 
-Measuring the performance with Nsight 
+Measuring the performance with Nsight revealed the following time diagram:
 
-After measuring the performance again with Nsight we saw that there was a significant overhead after each iteration which idicates that the error calculation actually affects the runtime significantly:
-
+>> Insert image
 
 
 ## Error calculation
+
+Looking at the last image we noticed a substantial latency in between two iterations which would suggest that the error calculation takes a considerable amount of time. We decided to parallize this calulation next and hand to change the implementation slightly. We defined a specific local varaible for the maximal error and assign it at the end to the class variable. This allowed us to use a simple reduction scheme for the max value which made this calculation very efficient.
 
 
 
