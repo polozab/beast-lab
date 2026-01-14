@@ -202,6 +202,12 @@ Last but not least we also tried to parallelize the setup of the boundary calcul
 
 ## Further improvements
 
+Potential for further improvements would be to try different dynamic scheduling numbers. Currently we only specified 64 for the Jacobi iteration, as it made the greatest impact. Choosing other numbers there changed the performance in a measurable way, which was not the case for the other kernels. However 64 was not chosen for any particular besides that it gave us the fastest execution time consistently. This would also mean that trying different values for the other kernels could also improve performance. However this would be an immensely tedious task to optimize and due to our limited team size we wanted to focus on other optimizations. In the future a automated script could be written that test all different combinations to get the optimal one.
 
+Another variable that could be tested for different values would be the number of OMP threads via the environmental variable `OMP_NUM_THREADS`. Currently all testing was done using `72` threads as it was the fasted choice when we started tuning the OMP parameters after parallelizing the code.
 
-> Still Bad cache behavior
+And at last the number we chose as minimum iterations required to apply parallelization `196608` was also chosen at this time point and could be tested against other values to find the optimal threshold. Furthermore it could be individually set for every omg clause which would allow for a very fain grained control which possibly could increase performance even further.
+
+However going forward we tried to focus on several cache optimization schemes as they seemed promising at first.
+Our current best measured performance was just shy of `3.222` seconds for a full run of `./multigrid 4 6 14 8` with the described parameters. And the average was around `3.262` seconds.
+
