@@ -20,7 +20,7 @@ public:
     #pragma omp parallel
     {
       // init lower and upper boundary
-      #pragma omp for nowait
+      #pragma omp for simd nowait
       for (unsigned int x = 0; x < _nx + 2; x++)
       {
         field[x] = 0.0;
@@ -28,7 +28,7 @@ public:
       }
   
       // init left and right boundary
-      #pragma omp for nowait
+      #pragma omp for simd nowait
       for (unsigned int y = 1; y < _ny + 1; y++)
       {
         field[y * (_nx + 2)] = 0.0;
