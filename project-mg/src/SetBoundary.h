@@ -17,20 +17,23 @@ public:
 
   void iterate(FLOAT *const field) const
   {
-    unsigned int pos = 0;
-
-    // init lower and upper boundary
-    for (unsigned int x = 0; x < _nx + 2; x++)
+    #pragma omp parallel
     {
-      field[x] = 0.0;
-      field[x + (_nx + 2) * (_ny + 1)] = x * (_ny + 1) * _meshsize2;
-    }
-
-    // init left and right boundary
-    for (unsigned int y = 1; y < _ny + 1; y++)
-    {
-      field[y * (_nx + 2)] = 0.0;
-      field[y * (_nx + 2) + (_nx + 1)] = (_nx + 1) * y * _meshsize2;
+      // init lower and upper boundary
+      #pragma omp for simd nowait
+      for (unsigned int x = 0; x < _nx + 2; x++)
+      {
+        field[x] = 0.0;
+        field[x + (_nx + 2) * (_ny + 1)] = x * (_ny + 1) * _meshsize2;
+      }
+  
+      // init left and right boundary
+      #pragma omp for simd nowait
+      for (unsigned int y = 1; y < _ny + 1; y++)
+      {
+        field[y * (_nx + 2)] = 0.0;
+        field[y * (_nx + 2) + (_nx + 1)] = (_nx + 1) * y * _meshsize2;
+      }
     }
   }
 

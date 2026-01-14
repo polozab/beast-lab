@@ -167,7 +167,40 @@ Measuring the performance with Nsight revealed the following time diagram:
 
 ## Error calculation
 
-Looking at the last image we noticed a substantial latency in between two iterations which would suggest that the error calculation takes a considerable amount of time. We decided to parallize this calulation next and hand to change the implementation slightly. We defined a specific local varaible for the maximal error and assign it at the end to the class variable. This allowed us to use a simple reduction scheme for the max value which made this calculation very efficient.
+Looking at the last image we noticed a substantial latency in between two iterations which would suggest that the error calculation takes a considerable amount of time. We decided to parallize this calulation next and hand to change the implementation slightly. We defined a specific local varaible for the maximal error and assign it at the end to the class variable. This allowed us to use a simple reduction scheme for the max value which made this calculation very efficient. Without this optimization the error calculation would take much longer. The other OMP parameters include dynamic scheduling and gating low iteration counts which resulted in the fastest performance for us leaving us with the following code:
+
+```cpp
+void computePointwiseError(const FLOAT *const fineGrid)
+{
+  // reset error-norm
+  FLOAT maxErr = 0.0;
+
+  // loop over all inner grid points and compute pointwise error
+  const unsigned int stride = _nx + 2;
+
+  #pragma omp parallel for if (_nx * _ny >= 196608) schedule(dynamic) reduction(max:maxErr)
+  for (unsigned int y = 1; y < _ny + 1; y++)
+  {
+    for (unsigned int x = 1; x < _nx + 1; x++)
+    {
+      const unsigned int pos = y * stride + x;
+      const FLOAT err = fineGrid[pos] - (((FLOAT)x * y) / ((FLOAT)(_nx + 1) * (_ny + 1)));
+      _error[pos] = err;
+      if (fabs(err) > maxErr)
+      {
+        maxErr = fabs(err);
+      }
+    }
+  }
+  _errorMax = maxErr;
+}
+```
+
+## Boundary conditions
+
+Last but not least we also parallelized the setup of the boundary calculation. We left this for the end as it only runs once before the first multigrid iteration. For that we restructured the kernel so it could be parallelized more easily.
+
+## Further improvements
 
 
 
