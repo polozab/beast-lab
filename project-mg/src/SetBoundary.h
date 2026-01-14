@@ -16,26 +16,40 @@ public:
   ~SetBoundary() {}
 
   void iterate(FLOAT *const field) const
-  {
-    #pragma omp parallel
+{
+    const unsigned int stride = _nx + 2;
+    const unsigned int totalHeight = _ny + 1;
+    const unsigned int totalWidth = _nx + 1;
+    const FLOAT meshsize2 = _meshsize2;
+    
+    // Lower boundary
+    #pragma omp simd
+    for (unsigned int x = 0; x < stride; x++)
     {
-      // init lower and upper boundary
-      #pragma omp for simd nowait
-      for (unsigned int x = 0; x < _nx + 2; x++)
-      {
-        field[x] = 0.0;
-        field[x + (_nx + 2) * (_ny + 1)] = x * (_ny + 1) * _meshsize2;
-      }
-  
-      // init left and right boundary
-      #pragma omp for simd nowait
-      for (unsigned int y = 1; y < _ny + 1; y++)
-      {
-        field[y * (_nx + 2)] = 0.0;
-        field[y * (_nx + 2) + (_nx + 1)] = (_nx + 1) * y * _meshsize2;
-      }
+        field[x] = 0.0; 
     }
-  }
+    
+    // Upper boundary
+    FLOAT *upperRow = field + stride * totalHeight;
+    const FLOAT height_factor = totalHeight * meshsize2;
+    
+    #pragma omp simd
+    for (unsigned int x = 0; x < stride; x++)
+    {
+        upperRow[x] = x * height_factor;
+    }
+    
+    // Left and right boundaries - compute in parallel
+    #pragma omp parallel for if (_ny >= 1024)
+    for (unsigned int y = 1; y < totalHeight; y++)
+    {
+        const unsigned int rowStart = y * stride;
+        const FLOAT y_factor = y * meshsize2;
+        
+        field[rowStart] = 0.0;  // Left
+        field[rowStart + totalWidth] = totalWidth * y_factor;  // Right
+    }
+}
 
 private:
   const unsigned int _nx;
