@@ -135,6 +135,8 @@ The next logical step was to take a look at the restriction kernel.
 
 ## Restriction
 
+
+
 ## Error calculation
 
 > Still Bad cache behavior
