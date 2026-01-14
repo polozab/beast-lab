@@ -141,7 +141,7 @@ void injection(const FLOAT *const fineGrid, const FLOAT *const rhsFineGrid, FLOA
   const unsigned int fineStride = _nxFineGrid + 2;
   const unsigned int coarseStride = _nxCoarseGrid + 2;
 
-  #pragma omp parallel for if (_nxCoarseGrid * _nyCoarseGrid >= 196608) schedule(dynamic)
+  #pragma omp parallel for if
   for (unsigned int y = 1; y < _nyCoarseGrid + 1; y++)
   {
     for (unsigned int x = 1; x < _nxCoarseGrid + 1; x++)
