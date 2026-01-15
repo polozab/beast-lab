@@ -51,14 +51,18 @@ int main(int argc, char *argv[])
 
   NVTX_RANGE_START(init_range, 0xFFa84432, "Initialization");
   const SetBoundary setBoundary(nx, nx);
+  NVTX_RANGE_START(zeroing_range, 0xFFa84432, "Zeroing");
   for (unsigned int i = 0; i < (nx + 2) * (nx + 2); i++)
   {
     field1[i] = 0.0;
     field2[i] = 0.0;
     rhs[i] = 0.0;
   }
+  NVTX_RANGE_END(zeroing_range);
+  NVTX_RANGE_START(boundary_range, 0xFFa84432, "Boundary");
   setBoundary.iterate(field1);
   setBoundary.iterate(field2);
+  NVTX_RANGE_END(boundary_range);
   NVTX_RANGE_END(init_range);
 
 
