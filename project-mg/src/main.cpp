@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
   const SetBoundary setBoundary(nx, nx);
   NVTX_RANGE_START(zeroing_range, 0xFFa84432, "Zeroing");
 
-  #pragma omp parallel for nowait
+  #pragma omp parallel for simd schedule(static)
   for (unsigned int i = 0; i < (nx + 2) * (nx + 2); i++)
   {
     field1[i] = 0.0;
