@@ -7,7 +7,7 @@
 
 #include "Multigrid.h"
 #include "ComputeError.h"
-#include "Dispatch.h"
+#include <cstdlib>
 
 int main(int argc, char *argv[])
 {
@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
   {
     std::cout << "ERROR main: Please call program by"
               << std::endl
-              << " ./multigrid preSmoothingSteps postSmoothingSteps numberGridLevels numberMultigridIterations"
+              << " ./multigrid preSmoothingSteps postSmoothingSteps numberGridLevels numberMultigridIterations restrictionBlockSize"
               << std::endl;
     return -1;
   }
@@ -49,40 +49,66 @@ int main(int argc, char *argv[])
     return -1;
   }
 
+  NVTX_RANGE_START(init_range, 0xFFa84432, "Initialization");
   const SetBoundary setBoundary(nx, nx);
+  NVTX_RANGE_START(zeroing_range, 0xFFa84432, "Zeroing");
+
+  #pragma omp parallel for simd schedule(static)
   for (unsigned int i = 0; i < (nx + 2) * (nx + 2); i++)
   {
     field1[i] = 0.0;
     field2[i] = 0.0;
     rhs[i] = 0.0;
   }
+  NVTX_RANGE_END(zeroing_range);
+  NVTX_RANGE_START(boundary_range, 0xFFa84432, "Boundary");
   setBoundary.iterate(field1);
   setBoundary.iterate(field2);
+  NVTX_RANGE_END(boundary_range);
+  NVTX_RANGE_END(init_range);
 
-  // Template dispatch so we can distinguish different calls
 
-  switch (levels) {
-    case 1:  { dispatch<1>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); break; }
-    case 2:  { dispatch<2>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); break; }
-    case 3:  { dispatch<3>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); break; }
-    case 4:  { dispatch<4>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); break; }
-    case 5:  { dispatch<5>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); break; }
-    case 6:  { dispatch<6>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); break; }
-    case 7:  { dispatch<7>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); break; }
-    case 8:  { dispatch<8>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); break; }
-    case 9:  { dispatch<9>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); break; }
-    case 10: { dispatch<10>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); break; }
-    case 11: { dispatch<11>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); break; }
-    case 12: { dispatch<12>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); break; }
-    case 13: { dispatch<13>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); break; }
-    case 14: { dispatch<14>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); break; }
-    case 15: { dispatch<15>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); break; }
-    case 16: { dispatch<16>(nx, preSmoothing, postSmoothing, jacobiStepsCoarsestLevel, levels, multigridCycles, field1, field2, rhs); break; }
-    default: {
-      std::cout << "ERROR unhandled level (allowed: 1-16)";
-      exit(EXIT_FAILURE);
+  Multigrid multigrid(nx, nx, levels);
+  FLOAT *currentSolution = field1;
+
+  ComputeError computeError(nx, nx);
+  const VTKPlotter vtkPlotter;
+
+  for (unsigned int i = 0; i < multigridCycles; i++)
+  {
+    
+    char msg[64];
+    std::snprintf(msg, sizeof(msg), "Iteration %d", i);
+    NVTX_RANGE_START(i_range, 0xFF51555C, msg);
+    
+    // always work on the correct field (either field1 or field2);
+    // this switch is required due to the Jacobi method
+    if (currentSolution == field1)
+    {
+      currentSolution = multigrid.solve(
+          preSmoothing, postSmoothing, jacobiStepsCoarsestLevel,
+          field1, field2, rhs);
     }
+    else
+    {
+      currentSolution = multigrid.solve(
+          preSmoothing, postSmoothing, jacobiStepsCoarsestLevel,
+          field2, field1, rhs);
+    }
+
+    NVTX_RANGE_START(error_range, 0xFFa83267, "Error calculation");
+    computeError.computePointwiseError(currentSolution);
+    NVTX_RANGE_END(error_range);
+
+    std::cout << "Iteration " << i << ", Max-error: " << computeError.getMaxError() << std::endl;
+
+    NVTX_RANGE_END(i_range);
+
   }
+
+  // commented out: result not interesting here
+  //computeError.plotPointwiseError();
+  //vtkPlotter.writeFieldData(currentSolution,nx,nx,"result.vtk");
 
   return 0;
 }

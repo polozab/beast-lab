@@ -17,8 +17,6 @@ public:
 
   void iterate(FLOAT *const field) const
   {
-    unsigned int pos = 0;
-
     // init lower and upper boundary
     for (unsigned int x = 0; x < _nx + 2; x++)
     {

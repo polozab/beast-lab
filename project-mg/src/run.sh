@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+
+#OMP_PROC_BIND=true
+#NVCOMPILER_OMP_LAZY_PROC_BIND=true
+
+OMP_TARGET_OFFLOAD=DISABLED time ./multigrid 4 6 14 8

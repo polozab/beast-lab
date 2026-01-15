@@ -1,8 +1,7 @@
-# Report
-Group: TODO
+# Task 2b - Parallelization
 
-**TODO@Students: Write your report in this folder using Markdown.**
+## Jacobi
 
-### Compiler setting
+## Prolongation
 
-Added several compiler settings according to [NVIDIA developer manual](https://docs.nvidia.com/hpc-sdk/compilers/hpc-compilers-user-guide/index.html#frequently-used-options)
+## Restriction

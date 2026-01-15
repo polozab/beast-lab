@@ -33,23 +33,26 @@ public:
   void computePointwiseError(const FLOAT *const fineGrid)
   {
     // reset error-norm
-    _errorMax = 0.0;
+    FLOAT maxErr = 0.0;
 
     // loop over all inner grid points and compute pointwise error
-    unsigned int pos = _nx + 3;
+    const unsigned int stride = _nx + 2;
+
+    #pragma omp parallel for if (_nx * _ny >= 196608) schedule(dynamic) reduction(max:maxErr)
     for (unsigned int y = 1; y < _ny + 1; y++)
     {
       for (unsigned int x = 1; x < _nx + 1; x++)
       {
-        _error[pos] = fineGrid[pos] - (((FLOAT)x * y) / ((FLOAT)(_nx + 1) * (_ny + 1)));
-        if (fabs(_error[pos]) > _errorMax)
+        const unsigned int pos = y * stride + x;
+        const FLOAT err = fineGrid[pos] - (((FLOAT)x * y) / ((FLOAT)(_nx + 1) * (_ny + 1)));
+        _error[pos] = err;
+        if (fabs(err) > maxErr)
         {
-          _errorMax = fabs(_error[pos]);
+          maxErr = fabs(err);
         }
-        pos++;
       }
-      pos += 2;
     }
+    _errorMax = maxErr;
   }
 
   // returns the error
