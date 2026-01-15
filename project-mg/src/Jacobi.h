@@ -7,8 +7,8 @@
 
 #include "Definitions.h"
 #include <algorithm>
+#include <algorithm>
 
-// carries out a jacobi step, reading from val and writing to _writeGrid.
 class Jacobi
 {
 public:
@@ -35,21 +35,17 @@ public:
   }
 
 private:
-  // returns the prefactor for the Jacobi stencil in x-direction
   FLOAT getX(const unsigned int nx, const unsigned int ny) const
   {
     const FLOAT hx = 1.0 / (nx + 1);
     const FLOAT hy = 1.0 / (ny + 1);
-    return hy * hy / (2.0 * (hx * hx + hy * hy));
-  }
-  // returns the prefactor for the Jacobi stencil in y-direction
+    return hy * hy / (2.0 * (hx * hx + hy * hy));}
   FLOAT getY(const unsigned int nx, const unsigned int ny) const
   {
     const FLOAT hx = 1.0 / (nx + 1);
     const FLOAT hy = 1.0 / (ny + 1);
     return hx * hx / (2.0 * (hx * hx + hy * hy));
   }
-  // returns the prefactor for the right hand side in Jacobi computation
   FLOAT getRHS(const unsigned int nx, const unsigned int ny) const
   {
     const FLOAT hx = 1.0 / (nx + 1);
@@ -57,10 +53,8 @@ private:
     return -1.0 / (2.0 / hx / hx + 2.0 / hy / hy);
   }
 
-  // number of inner grid points
   const unsigned int _nx;
   const unsigned int _ny;
-  // prefactors in Jacobi computations
   const FLOAT _X;
   const FLOAT _Y;
   const FLOAT _RHS;
