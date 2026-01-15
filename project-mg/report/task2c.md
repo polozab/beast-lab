@@ -98,4 +98,4 @@ The error always stayed the same as in the original version, since we didn't cha
 
 Due to the group size limitation we were unable to further test more configurations, other cach optimization techniques and we were unable to go in a deeper analysis of the results.
 
-All Data can be found [here](/data)
+All Data can be found [here](data)
