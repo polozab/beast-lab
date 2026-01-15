@@ -49,6 +49,7 @@ int main(int argc, char *argv[])
     return -1;
   }
 
+  NVTX_RANGE_START(init_range, 0xFFa84432, "Initialization");
   const SetBoundary setBoundary(nx, nx);
   for (unsigned int i = 0; i < (nx + 2) * (nx + 2); i++)
   {
@@ -58,6 +59,8 @@ int main(int argc, char *argv[])
   }
   setBoundary.iterate(field1);
   setBoundary.iterate(field2);
+  NVTX_RANGE_END(init_range);
+
 
   Multigrid multigrid(nx, nx, levels);
   FLOAT *currentSolution = field1;
@@ -87,7 +90,10 @@ int main(int argc, char *argv[])
           field2, field1, rhs);
     }
 
+    NVTX_RANGE_START(error_range, 0xFFa83267, "Error calculation");
     computeError.computePointwiseError(currentSolution);
+    NVTX_RANGE_END(error_range);
+
     std::cout << "Iteration " << i << ", Max-error: " << computeError.getMaxError() << std::endl;
 
     NVTX_RANGE_END(i_range);

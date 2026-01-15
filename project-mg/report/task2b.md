@@ -210,15 +210,20 @@ void computePointwiseError(const FLOAT *const fineGrid)
 }
 ```
 
-## Boundary conditions
+## Initialization and setting boundary conditions
 
 Last but not least we also tried to parallelize the setup of the boundary calculation. However after trying different setups we found that the parallelization either didn't gain any performance or made it even worse. As the latency from the initialization is minimal anyway the parallelization didn't break even with the overhead from the distribution of the threads which is why we decided to leave the calculation of the boundary conditions sequential. This is unfortunate as in comparison to the runtime of the rest of the kernel saving time from the boundary condition could really make a difference.
 
 ## Final results of parallelization
 
-Our current best measured performance was just shy of `3.222` seconds for a full run of `./multigrid 4 6 14 8` with the described parameters. And the average was around `3.262` seconds. With Nsight we got the following profiling results:
+Our current best measured performance was just shy of `3.222` seconds for a full run of `./multigrid 4 6 14 8` with the described parameters. And the average was around `3.262` seconds. This includes all the mentioned tweaks to OMP parameters and gives us the following profiling results with Nsight:
 
-> **Note**: Due to the profiling with high sample rate and a few different events it is not as fast as our reported time values. These got calculated by using the `time` Linux utility and referring to the real-time measurement.
+![Final profiling measurements](img/nsys_final.png)
+[Taken from final.nsys-rep](../src/final.nsys-rep)
+
+As we see the iteration time (including error calculation) is around `410ms` and tends to be faster for later iterations.
+
+> **Note**: Due to the profiling with high sample rate and a few different events it is not as fast as our reported time values (About `3.8` seconds). These got calculated by using the `time` Linux utility and referring to the real-time measurement.
 
 ## Further improvements to parallelization
 
