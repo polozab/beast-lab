@@ -1,1 +1,0 @@
-Note that everthing for task 3 is also included in the report for the task 2.
