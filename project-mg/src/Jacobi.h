@@ -6,8 +6,8 @@
 #define _JACOBI_H_
 
 #include "Definitions.h"
+#include <algorithm>
 
-// carries out a jacobi step, reading from val and writing to _writeGrid.
 class Jacobi
 {
 public:
@@ -15,54 +15,83 @@ public:
       : _nx(nx), _ny(ny), _X(getX(nx, ny)), _Y(getY(nx, ny)), _RHS(getRHS(nx, ny)) {}
   ~Jacobi() {}
 
-  void iterate(const FLOAT *const readField, FLOAT *const writeField, const FLOAT *const rhs) const
+  
+  void iterate(const FLOAT *const __restrict readField,
+             FLOAT *const __restrict writeField,
+             const FLOAT *const __restrict rhs) const
+{
+
+  const unsigned int TILE_X = 512;
+  const unsigned int stride = _nx + 2;
+
+  const unsigned long long work = (unsigned long long)_nx * (unsigned long long)_ny;
+
+  const FLOAT X   = _X;
+  const FLOAT Y   = _Y;
+  const FLOAT RHS = _RHS;
+
+  
+    #pragma omp parallel for if (_nx * _ny >= 196608) schedule(dynamic, 64)
+  for (int yi = 1; yi <= (int)_ny; yi += 2)
   {
-    // set pointers of 5-point stencil (only neighbour values) to very first inner grid point
-    const FLOAT *readPtr_S = readField + 1;
-    const FLOAT *readPtr_W = readField + (_nx + 2);
-    const FLOAT *readPtr_E = readField + (_nx + 4);
-    const FLOAT *readPtr_N = readField + (2 * _nx + 5);
-
-    const FLOAT *rhsPtr = rhs + (_nx + 3);
-
-    FLOAT *writePtr = writeField + (_nx + 3);
-
-    // use pos to advance access through the whole grid without any expensive index computations
-    unsigned int pos = 0;
-    for (unsigned int y = 1; y < _ny + 1; y++)
+    const unsigned int y = (unsigned int)yi;
+    const bool hasRow2 = (y + 1u <= _ny);
+    for (unsigned int xBlock = 1; xBlock <= _nx; xBlock += TILE_X)
     {
-      for (unsigned int x = 1; x < _nx + 1; x++)
-      {
-        // do Jacobi update and write to writePtr
-        writePtr[pos] = _RHS * rhsPtr[pos];
-        writePtr[pos] += _X * (readPtr_W[pos] + readPtr_E[pos]);
-        writePtr[pos] += _Y * (readPtr_S[pos] + readPtr_N[pos]);
+      const unsigned int xEnd = std::min(_nx, xBlock + TILE_X - 1);
 
-        // update pos along x-axis
-        pos++;
+      {
+        const FLOAT *c   = readField   + y * stride + xBlock;
+        const FLOAT *s   = c - stride;                 // y-1
+        const FLOAT *n   = c + stride;                 // y+1
+        const FLOAT *r   = rhs        + y * stride + xBlock;
+        FLOAT *out       = writeField + y * stride + xBlock;
+
+        #pragma omp simd
+        for (unsigned int x = xBlock; x <= xEnd; ++x)
+        {
+          *out = RHS * (*r)
+               + X * (c[-1] + c[1])
+               + Y * (s[0]  + n[0]);
+          ++c; ++s; ++n; ++r; ++out;
+        }
       }
 
-      // update pos along y-axis; therefore just jump over the two boundary values
-      pos += 2;
+      if (hasRow2)
+      {
+        const unsigned int y2 = y + 1u;
+
+        const FLOAT *c   = readField   + y2 * stride + xBlock;
+        const FLOAT *s   = c - stride;                // y
+        const FLOAT *n   = c + stride;                // y+2
+        const FLOAT *r   = rhs        + y2 * stride + xBlock;
+        FLOAT *out       = writeField + y2 * stride + xBlock;
+
+        #pragma omp simd
+        for (unsigned int x = xBlock; x <= xEnd; ++x)
+        {
+          *out = RHS * (*r)
+               + X * (c[-1] + c[1])
+               + Y * (s[0]  + n[0]);
+          ++c; ++s; ++n; ++r; ++out;
+        }
+      }
     }
   }
+}
 
 private:
-  // returns the prefactor for the Jacobi stencil in x-direction
   FLOAT getX(const unsigned int nx, const unsigned int ny) const
   {
     const FLOAT hx = 1.0 / (nx + 1);
     const FLOAT hy = 1.0 / (ny + 1);
-    return hy * hy / (2.0 * (hx * hx + hy * hy));
-  }
-  // returns the prefactor for the Jacobi stencil in y-direction
+    return hy * hy / (2.0 * (hx * hx + hy * hy));}
   FLOAT getY(const unsigned int nx, const unsigned int ny) const
   {
     const FLOAT hx = 1.0 / (nx + 1);
     const FLOAT hy = 1.0 / (ny + 1);
     return hx * hx / (2.0 * (hx * hx + hy * hy));
   }
-  // returns the prefactor for the right hand side in Jacobi computation
   FLOAT getRHS(const unsigned int nx, const unsigned int ny) const
   {
     const FLOAT hx = 1.0 / (nx + 1);
@@ -70,10 +99,8 @@ private:
     return -1.0 / (2.0 / hx / hx + 2.0 / hy / hy);
   }
 
-  // number of inner grid points
   const unsigned int _nx;
   const unsigned int _ny;
-  // prefactors in Jacobi computations
   const FLOAT _X;
   const FLOAT _Y;
   const FLOAT _RHS;
