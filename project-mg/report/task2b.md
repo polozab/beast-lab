@@ -1,10 +1,13 @@
 # Task 2b - Parallelization
 
-To optimize our current performance of `` we looked at the result being given by Nsight. For the following we wanted to node that we both used Linux Perf and Nsight simultaneously, however as Nsight delivered clearer visual results we chose to base this report the measurements and graphics provided by Nsight. In addition the source code using NVTX was much simpler to adopt as it didn't depend on any templating. In the following we show the unmodified kernel with just adding the NVTX calls to allow measuring the time of the individual stages:
+To optimize our current performance of `39,59` we looked at the result being given by Nsight. For the following we wanted to node that we both used Linux Perf and Nsight simultaneously, however as Nsight delivered clearer visual results we chose to base this report the measurements and graphics provided by Nsight. In addition the source code using NVTX was much simpler to adopt as it didn't depend on any templating. In the following we show the unmodified kernel with just adding the NVTX calls to allow measuring the time of the individual stages:
 
->> Insert image
+![Base profiling results](img/nsys_base.png)
+[Taken from base.nsys-rep](../src/base.nsys-rep)
 
-As we can clearly see most time is spend on the Jacobi iteration, which is why we chose to parallize it first.
+For the sake of simplification we run the test only with the cache miss events as they provided the most imminent information we needed for optimization together with the runtime ranges of the individual stages. In addition until now we used `taskset` to pin the execution to a specific core we could easily identify in Nsight.
+
+Looking at the runtime ranges we can clearly see most time is spend on the Jacobi iteration, which is why we chose to parallize it first.
 
 ## Jacobi Iteration
 
@@ -45,7 +48,8 @@ Where as if we didn't collapsed the loops it would say that it generated vectori
 
 Optimizing both the minimal number of iterations for parallization and the number of threads over which we distribute using `OMP_NUM_THREADS` gave us the following heatmap:
 
->> Insert heatmap
+![Zoomed Heatmap comparing execution time against number of threads and minimum number of iterations for parallelization](img/heatmap_time_elapsedcloseup.png)
+Heatmap with all measured ranges can be found [here](img/heatmap_time_elapsed.png)
 
 We there chose the number of minimal iterations to be `196608` and the number of threads to be `72` leaving us with the following kernel:
 
@@ -70,9 +74,14 @@ void iterate(const FLOAT *const readField, FLOAT *const writeField, const FLOAT 
 
 And we got the following measurements in Nsight:
 
->> insert image
+![Jacobi parallelized](img/nsys_jacobi_first.png)
+[Taken from jacobi.nsys-rep](../src/jacobi.nsys-rep)
 
-Next we wanted to optimize either the prolongation or restriction part as both where now clearly the largest contributors to overall execution time.
+We have zoomed in into one iteration to make the distribution among the individual phase clearer to distinguish. We see that this got us a significant improvement to the pre- and post-smoothing phases which brought down the iteration time (without error correction) just below one second. Which means that our total execution time was right around `14` seconds.
+
+> **Note**: This measurement didn't yet include the gating of the low-number iterations, which we will later see at the final measurements increases the performance even further. The same applies for the number of threads used for OpenMP, which was not set while recording this profiling data.
+
+Next we wanted to optimize either the prolongation or restriction part as both where now clearly the largest contributors to overall execution time. These two ranges we added only in this step to the source code for profiling as they didn't appear significant beforehand when the Jacobi iteration did take much longer.
 
 ## Prolongation
 
@@ -129,7 +138,10 @@ void interpolation(const FLOAT *const coarseGrid, FLOAT *const fineGrid) const
 
 When measuring performance we saw the following very substantial improvement using Nsight:
 
->> Add image
+![Prolongation parallelized](img/nsys_prolongation.png)
+[Taken from prolongation.nsys-rep](../src/prolongation.nsys-rep)
+
+We see that now the prolongation face is unrecognizably small and out iteration time (without error calculation) is around `0.75` seconds. The total runtime is about `11.7` seconds.
 
 ## Restriction
 
@@ -160,10 +172,12 @@ void injection(const FLOAT *const fineGrid, const FLOAT *const rhsFineGrid, FLOA
 }
 ```
 
-Measuring the performance with Nsight revealed the following time diagram:
+Measuring the performance with Nsight revealed the following profiling results:
 
->> Insert image
+![Restriction parallelized](img/nsys_restriction.png)
+[Taken from restriction.nsys-rep](../src/restriction.nsys-rep)
 
+Again we see that this helped a lot to bring down the time spend for restriction. This lead to an iteration time (without error calculation) of just under half a second and a total runtime of `9.82` seconds.
 
 ## Error calculation
 
@@ -198,16 +212,23 @@ void computePointwiseError(const FLOAT *const fineGrid)
 
 ## Boundary conditions
 
-Last but not least we also tried to parallelize the setup of the boundary calculation. However after trying different setups we found that the parallelization either didn't gain any performance or made it even worse. As the latency from the initialization is minimal anyway the parallelization didn't break even with the overhead from the distribution of the threads which is why we decided to leave the calculation of the boundary conditions sequential.
+Last but not least we also tried to parallelize the setup of the boundary calculation. However after trying different setups we found that the parallelization either didn't gain any performance or made it even worse. As the latency from the initialization is minimal anyway the parallelization didn't break even with the overhead from the distribution of the threads which is why we decided to leave the calculation of the boundary conditions sequential. This is unfortunate as in comparison to the runtime of the rest of the kernel saving time from the boundary condition could really make a difference.
 
-## Further improvements
+## Final results of parallelization
 
-Potential for further improvements would be to try different dynamic scheduling numbers. Currently we only specified 64 for the Jacobi iteration, as it made the greatest impact. Choosing other numbers there changed the performance in a measurable way, which was not the case for the other kernels. However 64 was not chosen for any particular besides that it gave us the fastest execution time consistently. This would also mean that trying different values for the other kernels could also improve performance. However this would be an immensely tedious task to optimize and due to our limited team size we wanted to focus on other optimizations. In the future a automated script could be written that test all different combinations to get the optimal one.
+Our current best measured performance was just shy of `3.222` seconds for a full run of `./multigrid 4 6 14 8` with the described parameters. And the average was around `3.262` seconds. With Nsight we got the following profiling results:
 
-Another variable that could be tested for different values would be the number of OMP threads via the environmental variable `OMP_NUM_THREADS`. Currently all testing was done using `72` threads as it was the fasted choice when we started tuning the OMP parameters after parallelizing the code.
+> **Note**: Due to the profiling with high sample rate and a few different events it is not as fast as our reported time values. These got calculated by using the `time` Linux utility and referring to the real-time measurement.
+
+## Further improvements to parallelization
+
+A potential for further improvement would be to look at the parallelization of the initial boundary condition iteration as it takes a considerable part in the total runtime. Until now we only tried different basic setups keeping the original code mostly in place. Maybe completely rewriting this code would make it much more feasible for parallelization.
+
+Another improvement would be to try different dynamic scheduling numbers. Currently we only specified 64 for the Jacobi iteration, as it made the greatest impact. Choosing other numbers there changed the performance in a measurable way, which was not the case for the other kernels. However 64 was not chosen for any particular besides that it gave us the fastest execution time consistently. This would also mean that trying different values for the other kernels could also improve performance. However this would be an immensely tedious task to optimize and due to our limited team size we wanted to focus on other optimizations. In the future a automated script could be written that test all different combinations to get the optimal one.
+
+In addition the number of OMP threads could be tested for different values via the environmental variable `OMP_NUM_THREADS`. Currently all testing was done using `72` threads as it was the fasted choice when we started tuning the OMP parameters after parallelizing the code. Going back to this and trying further tuning by automating the testing over various values could reveal an even better choice that archives higher performance.
 
 And at last the number we chose as minimum iterations required to apply parallelization `196608` was also chosen at this time point and could be tested against other values to find the optimal threshold. Furthermore it could be individually set for every omg clause which would allow for a very fain grained control which possibly could increase performance even further.
 
 However going forward we tried to focus on several cache optimization schemes as they seemed promising at first, as there seemed to be quite a few cache misses especially in the Jacobi iteration which we tried to eliminate.
-Our current best measured performance was just shy of `3.222` seconds for a full run of `./multigrid 4 6 14 8` with the described parameters. And the average was around `3.262` seconds.
 
