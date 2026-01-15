@@ -210,9 +210,28 @@ void computePointwiseError(const FLOAT *const fineGrid)
 }
 ```
 
+For the next Nsight measurement we added another range that tracks the time spent for error calculation at the end of each calculation. This time was cut to `16ms` which left us with an iteration time (including error calculation) of `412ms` and total runtime of `3.83` seconds.
+
 ## Initialization and setting boundary conditions
 
-Last but not least we also tried to parallelize the setup of the boundary calculation. However after trying different setups we found that the parallelization either didn't gain any performance or made it even worse. As the latency from the initialization is minimal anyway the parallelization didn't break even with the overhead from the distribution of the threads which is why we decided to leave the calculation of the boundary conditions sequential. This is unfortunate as in comparison to the runtime of the rest of the kernel saving time from the boundary condition could really make a difference.
+Last but not least we also tried to parallelize the setup of the boundary calculation. However we quickly realized after adding new profiling ranges for the initialization loop and the boundary condition loops that most of the time was spent on the zeroing loop.
+
+As the loops that iterate over the boundaries were already vectorized if possible we didn't bother parallelizing these as they would probably would perform worse due to the overhead caused by the parallelization. Instead we focused on the zeroing loop which was easy to optimize and took up most of the runtime from the initialization anyways. Applying the simple loop parallelization brought down the execution time by a lot and resulted in the following code:
+
+```cpp
+#pragma omp parallel for simd schedule(static)
+  for (unsigned int i = 0; i < (nx + 2) * (nx + 2); i++)
+  {
+    field1[i] = 0.0;
+    field2[i] = 0.0;
+    rhs[i] = 0.0;
+  }
+```
+
+Looking at the Nsights results for this shows that the zeroing loop now only amounts in a runtime of `40ms` down from `260ms`. It still is the majority of the initialization wich further confirms that the optimization of the boundary conditions would not lead to an substantial increase in performance:
+
+![Initialization parallelized](img/nsys_init.png)
+[Taken from final.nsys-rep](../src/final.nsys-rep)
 
 ## Final results of parallelization
 
@@ -223,11 +242,11 @@ Our current best measured performance was just shy of `3.098` seconds for a full
 
 As we see the iteration time (including error calculation) is around `410ms` and tends to be faster for later iterations.
 
-> **Note**: Due to the profiling with high sample rate and a few different events it is not as fast as our reported time values (About `3.8` seconds). These got calculated by using the `time` Linux utility and referring to the real-time measurement.
+> **Note**: Due to the profiling with high sample rate and a few different events it is not as fast as our reported time values (about `3.6` seconds). These got calculated by using the `time` Linux utility and referring to the real-time measurement.
 
 ## Further improvements to parallelization
 
-A potential for further improvement would be to look at the parallelization of the initial boundary condition iteration as it takes a considerable part in the total runtime. Until now we only tried different basic setups keeping the original code mostly in place. Maybe completely rewriting this code would make it much more feasible for parallelization.
+A potential for further improvement would be to look at the initialization of the different multigrid instances as it is one of the phases that still takes a considerable part in the total runtime. We would suggest a substantial overhaul of the program would be necessary to cut down initialization time. Furthermore it would probably mean giving up flexibility and custom tailoring it to our currently tested example.
 
 Another improvement would be to try different dynamic scheduling numbers. Currently we only specified 64 for the Jacobi iteration, as it made the greatest impact. Choosing other numbers there changed the performance in a measurable way, which was not the case for the other kernels. However 64 was not chosen for any particular besides that it gave us the fastest execution time consistently. This would also mean that trying different values for the other kernels could also improve performance. However this would be an immensely tedious task to optimize and due to our limited team size we wanted to focus on other optimizations. In the future a automated script could be written that test all different combinations to get the optimal one.
 
@@ -236,4 +255,3 @@ In addition the number of OMP threads could be tested for different values via t
 And at last the number we chose as minimum iterations required to apply parallelization `196608` was also chosen at this time point and could be tested against other values to find the optimal threshold. Furthermore it could be individually set for every omg clause which would allow for a very fain grained control which possibly could increase performance even further.
 
 However going forward we tried to focus on several cache optimization schemes as they seemed promising at first, as there seemed to be quite a few cache misses especially in the Jacobi iteration which we tried to eliminate.
-
