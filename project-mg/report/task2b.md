@@ -216,7 +216,7 @@ Last but not least we also tried to parallelize the setup of the boundary calcul
 
 ## Final results of parallelization
 
-Our current best measured performance was just shy of `3.222` seconds for a full run of `./multigrid 4 6 14 8` with the described parameters. And the average was around `3.262` seconds. This includes all the mentioned tweaks to OMP parameters and gives us the following profiling results with Nsight:
+Our current best measured performance was just shy of `3.098` seconds for a full run of `./multigrid 4 6 14 8` with the described parameters. And the average was around `3.071` seconds. This includes all the mentioned tweaks to OMP parameters and gives us the following profiling results with Nsight:
 
 ![Final profiling measurements](img/nsys_final.png)
 [Taken from final.nsys-rep](../src/final.nsys-rep)
