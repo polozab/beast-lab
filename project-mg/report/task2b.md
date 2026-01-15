@@ -210,7 +210,10 @@ void computePointwiseError(const FLOAT *const fineGrid)
 }
 ```
 
-For the next Nsight measurement we added another range that tracks the time spent for error calculation at the end of each calculation. This time was cut to `16ms` which left us with an iteration time (including error calculation) of `412ms` and total runtime of `3.83` seconds.
+For the next Nsight measurement we added another range that tracks the time spent for error calculation at the end of each calculation. This time was cut to `16ms` which left us with an iteration time (including error calculation) of `424ms` and total runtime of `3.83` seconds:
+
+![Error calculation parallelized](img/nsys_error_calc.png)
+[Taken from error_calc.nsys-rep](../src/error_calc.nsys-rep)
 
 ## Initialization and setting boundary conditions
 
@@ -243,6 +246,16 @@ Our current best measured performance was just shy of `3.098` seconds for a full
 As we see the iteration time (including error calculation) is around `410ms` and tends to be faster for later iterations.
 
 > **Note**: Due to the profiling with high sample rate and a few different events it is not as fast as our reported time values (about `3.6` seconds). These got calculated by using the `time` Linux utility and referring to the real-time measurement.
+
+|                                                          | Total runtime | Iteration time (first) |
+|----------------------------------------------------------|---------------|------------------------|
+| Base version                                             | 39.59s        | 4.83s                  |
+| Jacobi parallelized                                      | 14.23s        | 1.61s                  |
+| Prolongation parallelized                                | 11.7s         | 1.40s                  |
+| Restriction parallelized                                 | 9.28s         | 1.14s                  |
+| Error correction parallelized & further parameter tuning | 3.83s         | 444ms                  |
+| Initialization parallelized                              | 3.09s         | 440ms                  |
+| **Final**                                                | **3.09**      | **440ms**              |
 
 ## Further improvements to parallelization
 
