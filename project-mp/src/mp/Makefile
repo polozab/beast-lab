@@ -18,7 +18,7 @@ prepare:
 compile:
 	$(CXX) $(MAIN) -o $(BIN)/$(EXE) -lm
 
-compile_debug:
+debug:
 	$(CXX) $(MAIN) -o $(BIN)/$(EXE) -lm -DDEB
 
 run:
