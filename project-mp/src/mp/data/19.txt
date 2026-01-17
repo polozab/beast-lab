@@ -1,21 +1,21 @@
 
  Performance counter stats for 'bin/mp input/randomlist25.txt 19 10':
 
-        146,179.93 msec task-clock                       #    0.998 CPUs utilized          
-            15,238      context-switches                 #  104.241 /sec                   
-                25      cpu-migrations                   #    0.171 /sec                   
-            17,660      page-faults                      #  120.810 /sec                   
-   513,737,446,563      cycles                           #    3.514 GHz                      (83.34%)
-       230,983,120      stalled-cycles-frontend          #    0.04% frontend cycles idle     (83.33%)
-       623,610,348      stalled-cycles-backend           #    0.12% backend cycles idle      (83.33%)
- 2,615,257,372,770      instructions                     #    5.09  insn per cycle         
-                                                  #    0.00  stalled cycles per insn  (83.34%)
-   413,159,125,768      branches                         #    2.826 G/sec                    (83.33%)
-        47,642,758      branch-misses                    #    0.01% of all branches          (83.34%)
+        335,358.65 msec task-clock                       #    1.137 CPUs utilized          
+         1,220,819      context-switches                 #    3.640 K/sec                  
+               975      cpu-migrations                   #    2.907 /sec                   
+            62,524      page-faults                      #  186.439 /sec                   
+ 1,157,165,236,167      cycles                           #    3.451 GHz                      (83.30%)
+     1,669,709,626      stalled-cycles-frontend          #    0.14% frontend cycles idle     (83.31%)
+     8,351,361,570      stalled-cycles-backend           #    0.72% backend cycles idle      (83.34%)
+ 3,657,300,353,262      instructions                     #    3.16  insn per cycle         
+                                                  #    0.00  stalled cycles per insn  (83.36%)
+   439,312,902,865      branches                         #    1.310 G/sec                    (83.37%)
+       351,374,608      branch-misses                    #    0.08% of all branches          (83.34%)
 
-     146.525243535 seconds time elapsed
+     294.921220787 seconds time elapsed
 
-     145.850903000 seconds user
-       0.291653000 seconds sys
+     327.229157000 seconds user
+       8.064676000 seconds sys
 
 
