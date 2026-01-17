@@ -1,0 +1,22 @@
+bin/mp: Segmentation fault
+
+ Performance counter stats for 'bin/mp input/randomlist25.txt {20} 10':
+
+          1,977.26 msec task-clock                       #    0.657 CPUs utilized          
+               411      context-switches                 #  207.863 /sec                   
+                26      cpu-migrations                   #   13.149 /sec                   
+             3,777      page-faults                      #    1.910 K/sec                  
+     6,587,933,055      cycles                           #    3.332 GHz                      (83.33%)
+        21,716,473      stalled-cycles-frontend          #    0.33% frontend cycles idle     (83.41%)
+       371,284,129      stalled-cycles-backend           #    5.64% backend cycles idle      (82.92%)
+     3,780,278,194      instructions                     #    0.57  insn per cycle         
+                                                  #    0.10  stalled cycles per insn  (83.47%)
+       876,286,468      branches                         #  443.182 M/sec                    (83.69%)
+        61,459,185      branch-misses                    #    7.01% of all branches          (83.19%)
+
+       3.011024271 seconds time elapsed
+
+       0.027320000 seconds user
+       1.912423000 seconds sys
+
+
