@@ -1,0 +1,1 @@
+amdclang++ -O3 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx90a main.cpp -o bin/mp -lm

@@ -1,0 +1,1 @@
+OMP_TARGET_OFFLOAD=MANDATORY perf stat ./bin/mp input/randomlist25.txt 17 10 4096 512
