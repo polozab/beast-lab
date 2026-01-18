@@ -1,0 +1,21 @@
+
+ Performance counter stats for 'bin/mp input/randomlist25.txt 15 10':
+
+            910.19 msec task-clock                       #    0.939 CPUs utilized          
+               193      context-switches                 #  212.044 /sec                   
+                 2      cpu-migrations                   #    2.197 /sec                   
+             4,262      page-faults                      #    4.683 K/sec                  
+     3,100,892,789      cycles                           #    3.407 GHz                      (83.34%)
+        10,746,531      stalled-cycles-frontend          #    0.35% frontend cycles idle     (83.13%)
+       143,868,037      stalled-cycles-backend           #    4.64% backend cycles idle      (83.23%)
+    11,366,815,516      instructions                     #    3.67  insn per cycle         
+                                                  #    0.01  stalled cycles per insn  (83.60%)
+     1,890,105,826      branches                         #    2.077 G/sec                    (83.52%)
+        24,062,662      branch-misses                    #    1.27% of all branches          (83.25%)
+
+       0.969138901 seconds time elapsed
+
+       0.611074000 seconds user
+       0.283854000 seconds sys
+
+

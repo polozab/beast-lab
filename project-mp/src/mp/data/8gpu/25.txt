@@ -1,0 +1,19 @@
+
+ Performance counter stats for 'bin/mp Group-101/project-mp/src/mp/input/randomlist25.txt 25 10':
+
+      5,352,116.87 msec task-clock                       #    0.999 CPUs utilized             
+             3,816      context-switches                 #    0.713 /sec                      
+             1,627      cpu-migrations                   #    0.304 /sec                      
+            17,487      page-faults                      #    3.267 /sec                      
+18,838,197,282,098      cycles                           #    3.520 GHz                         (83.33%)
+    29,803,529,607      stalled-cycles-frontend          #    0.16% frontend cycles idle        (83.33%)
+ 1,021,813,869,567      stalled-cycles-backend           #    5.42% backend cycles idle         (83.33%)
+28,489,800,511,118      instructions                     #    1.51  insn per cycle            
+                                                  #    0.04  stalled cycles per insn     (83.33%)
+ 6,118,599,562,790      branches                         #    1.143 G/sec                       (83.33%)
+    65,914,117,916      branch-misses                    #    1.08% of all branches             (83.33%)
+
+    5355.599917411 seconds time elapsed
+
+    2047.119911000 seconds user
+    3305.038650000 seconds sys
