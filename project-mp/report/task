@@ -1,0 +1,12 @@
+To better test we have randomlist65536 (of which the first 128 values are identical to randomlist128)
+
+The default implemntation results:
+```
+c++ main.cpp -o bin/mp -lm -O4 -Ofast
+```
+```
+make run
+time bin/mp input/randomlist65536.txt 65536 10
+3.10user 0.00system 0:03.14elapsed 98%CPU (0avgtext+0avgdata 7532maxresident)k
+1064inputs+1904outputs (1major+1122minor)pagefaults 0swaps
+```

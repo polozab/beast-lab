@@ -8,3 +8,4 @@ Group: TODO
 ```bash 
 ./perf_time.sh < command eg. bin/mp input/randomlist128.txt 128 10 > 
 ```
+./perf_time.sh bin/mp input/randomlist16384.txt 128 10
