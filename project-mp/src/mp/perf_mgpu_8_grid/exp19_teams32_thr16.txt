@@ -1,0 +1,29 @@
+=== CMD ===
+bin/mp_gpu input/randomlist25.txt 19 10 0 8 32 16
+=== PERF EVENTS ===
+cycles,instructions,branches,branch-misses,cache-references,cache-misses,task-clock,context-switches,cpu-migrations,page-faults
+=== OUTPUT (program stdout + perf stat) ===
+fopen: No such file or directory
+len=524288 (2^19) sublen=10 mlen=524279 | devices_total=8 | using devices [0..7]
+requested launch: num_teams=32 threads_per_team=16
+
+ Performance counter stats for 'bin/mp_gpu input/randomlist25.txt 19 10 0 8 32 16':
+
+        1023927643      cycles                           #    3.360 GHz                      (82.51%)
+        1072604821      instructions                     #    1.05  insn per cycle           (82.67%)
+         248140611      branches                         #  814.323 M/sec                    (84.36%)
+          23686571      branch-misses                    #    9.55% of all branches          (84.24%)
+          29771918      cache-references                 #   97.703 M/sec                    (82.98%)
+           2688596      cache-misses                     #    9.031 % of all cache refs      (83.37%)
+            304.72 msec task-clock                       #    0.933 CPUs utilized          
+               116      context-switches                 #  380.677 /sec                   
+                 0      cpu-migrations                   #    0.000 /sec                   
+              3780      page-faults                      #   12.405 K/sec                  
+
+       0.326728254 seconds time elapsed
+
+       0.042145000 seconds user
+       0.245207000 seconds sys
+
+
+=== EXIT CODE: 1 ===

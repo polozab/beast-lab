@@ -1,0 +1,36 @@
+=== CMD ===
+bin/mp_gpu input/randomlist25.txt 19 10 0 8 256 128
+=== PERF EVENTS ===
+cycles,instructions,branches,branch-misses,cache-references,cache-misses,task-clock,context-switches,cpu-migrations,page-faults
+=== OUTPUT (program stdout + perf stat) ===
+len=524288 (2^19) sublen=10 mlen=524279 | devices_total=8 | using devices [0..7]
+requested launch: num_teams=256 threads_per_team=128
+[DEVICE 0] actual: teams=256 threads=128 | slice=[0,65534)
+[DEVICE 4] actual: teams=256 threads=128 | slice=[262139,327674)
+[DEVICE 1] actual: teams=256 threads=128 | slice=[65534,131069)
+[DEVICE 2] actual: teams=256 threads=128 | slice=[131069,196604)
+[DEVICE 3] actual: teams=256 threads=128 | slice=[196604,262139)
+[DEVICE 6] actual: teams=256 threads=128 | slice=[393209,458744)
+[DEVICE 7] actual: teams=256 threads=128 | slice=[458744,524279)
+[DEVICE 5] actual: teams=256 threads=128 | slice=[327674,393209)
+
+ Performance counter stats for 'bin/mp_gpu input/randomlist25.txt 19 10 0 8 256 128':
+
+       18447196812      cycles                           #    3.390 GHz                      (83.35%)
+       16224954456      instructions                     #    0.88  insn per cycle           (83.50%)
+        4294549725      branches                         #  789.245 M/sec                    (83.44%)
+         222153705      branch-misses                    #    5.17% of all branches          (83.18%)
+          81882775      cache-references                 #   15.048 M/sec                    (83.27%)
+           9333389      cache-misses                     #   11.398 % of all cache refs      (83.29%)
+           5441.34 msec task-clock                       #    1.657 CPUs utilized          
+              1816      context-switches                 #  333.741 /sec                   
+               285      cpu-migrations                   #   52.377 /sec                   
+             10067      page-faults                      #    1.850 K/sec                  
+
+       3.283492863 seconds time elapsed
+
+       2.885063000 seconds user
+       2.524430000 seconds sys
+
+
+=== EXIT CODE: 0 ===

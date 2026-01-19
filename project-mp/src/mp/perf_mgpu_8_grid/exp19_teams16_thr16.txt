@@ -1,0 +1,27 @@
+=== CMD ===
+bin/mp_gpu input/randomlist25.txt 19 10 0 8 16 16
+=== PERF EVENTS ===
+cycles,instructions,branches,branch-misses,cache-references,cache-misses,task-clock,context-switches,cpu-migrations,page-faults
+=== OUTPUT (program stdout + perf stat) ===
+bin/mp_gpu: Interrupt
+
+ Performance counter stats for 'bin/mp_gpu input/randomlist25.txt 19 10 0 8 16 16':
+
+        5360093173      cycles                           #    3.339 GHz                      (83.40%)
+        5115748731      instructions                     #    0.95  insn per cycle           (83.02%)
+        1231920317      branches                         #  767.361 M/sec                    (82.80%)
+          91994363      branch-misses                    #    7.47% of all branches          (82.85%)
+          59508533      cache-references                 #   37.068 M/sec                    (83.44%)
+           7385178      cache-misses                     #   12.410 % of all cache refs      (84.72%)
+           1605.40 msec task-clock                       #    1.151 CPUs utilized          
+              1180      context-switches                 #  735.020 /sec                   
+               280      cpu-migrations                   #  174.412 /sec                   
+              9655      page-faults                      #    6.014 K/sec                  
+
+       1.395246036 seconds time elapsed
+
+       0.384340000 seconds user
+       1.196605000 seconds sys
+
+
+=== EXIT CODE: 0 ===

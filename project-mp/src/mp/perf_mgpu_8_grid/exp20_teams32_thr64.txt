@@ -1,0 +1,5 @@
+=== CMD ===
+bin/mp_gpu input/randomlist25.txt 20 10 0 8 32 64
+=== PERF EVENTS ===
+cycles,instructions,branches,branch-misses,cache-references,cache-misses,task-clock,context-switches,cpu-migrations,page-faults
+=== OUTPUT (program stdout + perf stat) ===
