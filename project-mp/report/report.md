@@ -785,9 +785,11 @@ We split contiguous chunks across devices and each device onyl accesses its own 
 It is possible to offload the precomputation steps to the device as well, however either the full precom needs to be computed on every device or the precomputed values of the slice given to the devices would need to be transfered to the other devices. When implementing we found that the performance decreases when trying to offload the precomputation steps due to the overhead of data transfer (e.g. for N=20 we went from 6.9 to 7.0 secods). Thus we kept them on the host (given their small size they aren't worth to further optimize).
 ### Different Teams and Threads per team
 Importantly, the runtime often disregarded the requested number of threads, so it was possible to set a lower number of threads than the runtime determiend however we could not go beyond the runtime determined maximum. The number of maximal Threads is different for every number of Teams. The number of teams was always as requested. 
+
 ![alt text](plots/heatmap_n18.svg)
 ![alt text](plots/heatmap_n19.svg)
 ![alt text](plots/heatmap_n20.svg)
+
 
 Too low number of Teams and Threads per team lead to underutilization of the GPU resources and thus poor performance. It is impossible (runtime) to get more than the suggested amout of threads allthough more threads usualyl is better. Having many Teams is also beneficial.
 
@@ -796,3 +798,6 @@ The template has many other loops (e.g.precom_mu) that can be parallelized with 
 ### Optimized Version
 performance results for the optimized version are by far worse simple due to the overhead of thread creation. Leading to ~60000(@N=18) CPU migrations. This is because of the reductions which are less performant than simple sequential code for small loops.
 
+![alt text](plots/problem_size_vs_time.svg)
+
+![alt text](plots/problem_size_vs_time_v2.svg)
