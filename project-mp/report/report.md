@@ -34,59 +34,63 @@ if (cr > mp[i]){
 ```
 What would be possible is to use OMP reduction clauses to find the maximum value in parallel and then update the arrays outside of the parallel region.
 Alternatively it would be possible to use temporary arrays to store the intermediate maximum values and indices for each thread and then reduce these after the parallel region. However this would lead to overhead. This bascially creates a two loop Kernel:
-```cpp
-int start = 0;
-  for(int i=sublen; i<mlen; i++){
-    double acc = 0.0;
-    for(int j=0; j<sublen; j++){
-      acc += (ts[start + j] - mu[start]) * (ts[i + j] - mu[i]);
-    }
-    QT[i - sublen] = acc;
-  }
+<details>
+  <summary><strong>Click to expand code</strong> </summary>
 
-  // ------------------------------------------------------------
-  // Two-phase kernel with SIMD on Phase 1:
-  // Phase 1: SIMD compute/store cr into tmp[]
-  // Phase 2: scalar update mp/mpi using tmp[]
-  // ------------------------------------------------------------
-  for (int i=0; i<mlen-sublen; i++){
-
-    int klen = mlen - (i + sublen); // number of js for this i
-    const double dfi = df[i];
-    const double dgi = dg[i];
-    const double ni  = norm[i];
-
-    // Phase 1 (SIMD): compute QT[k] update + cr and store into tmp[k]
-    // Note: this is vectorizable because each iteration writes tmp[k]
-    // and uses independent k (unique QT[k]).
-    #pragma omp simd
-    for (int k=0; k<klen; k++){
-      int j = i + sublen + k;
-
-      double q = QT[k];
-      if (i != 0){
-        q = q + dfi * dg[j] + df[j] * dgi;
-        QT[k] = q;  // keep streaming update
+  ```cpp
+  int start = 0;
+    for(int i=sublen; i<mlen; i++){
+      double acc = 0.0;
+      for(int j=0; j<sublen; j++){
+        acc += (ts[start + j] - mu[start]) * (ts[i + j] - mu[i]);
       }
-
-      tmp[k] = q * ni * norm[j];
+      QT[i - sublen] = acc;
     }
 
-    // Phase 2: update mp/mpi (scalar, branchy)
-    for (int k=0; k<klen; k++){
-      int j = i + sublen + k;
-      double cr = tmp[k];
+    // ------------------------------------------------------------
+    // Two-phase kernel with SIMD on Phase 1:
+    // Phase 1: SIMD compute/store cr into tmp[]
+    // Phase 2: scalar update mp/mpi using tmp[]
+    // ------------------------------------------------------------
+    for (int i=0; i<mlen-sublen; i++){
 
-      if (cr > mp[i]){
-        mp[i]  = cr;
-        mpi[i] = j;
+      int klen = mlen - (i + sublen); // number of js for this i
+      const double dfi = df[i];
+      const double dgi = dg[i];
+      const double ni  = norm[i];
+
+      // Phase 1 (SIMD): compute QT[k] update + cr and store into tmp[k]
+      // Note: this is vectorizable because each iteration writes tmp[k]
+      // and uses independent k (unique QT[k]).
+      #pragma omp simd
+      for (int k=0; k<klen; k++){
+        int j = i + sublen + k;
+
+        double q = QT[k];
+        if (i != 0){
+          q = q + dfi * dg[j] + df[j] * dgi;
+          QT[k] = q;  // keep streaming update
+        }
+
+        tmp[k] = q * ni * norm[j];
       }
-      if (cr > mp[j]){
-        mp[j]  = cr;
-        mpi[j] = i;
+
+      // Phase 2: update mp/mpi (scalar, branchy)
+      for (int k=0; k<klen; k++){
+        int j = i + sublen + k;
+        double cr = tmp[k];
+
+        if (cr > mp[i]){
+          mp[i]  = cr;
+          mpi[i] = j;
+        }
+        if (cr > mp[j]){
+          mp[j]  = cr;
+          mpi[j] = i;
+        }
       }
-    }
 ```
+</details>
 However this result is slower than the default N=17 default 9sec this 12sec.
 #### With parallelized outer loop
 <details>
