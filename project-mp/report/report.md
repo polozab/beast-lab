@@ -573,7 +573,11 @@ export OMP_PLACES=cores
 ```
 ## 3c solution
 With parallelized outer loop in the above basically nothing new done
+## Task 4 is not for us
 ## 5a
+
+Im code arbeiten wir mit thread_limit und nicht immer mit num_thread, das würde erklären warum runtime manchmal uns nicht die amount of threads gibt die wir erwarten.
+
 <details>
   <summary><strong>Click to expand code</strong> (OpenMP offload)</summary>
 
@@ -786,7 +790,6 @@ It is possible to offload the precomputation steps to the device as well, howeve
 ### Different Teams and Threads per team
 Importantly, the runtime often disregarded the requested number of threads, so it was possible to set a lower number of threads than the runtime determiend however we could not go beyond the runtime determined maximum. The number of maximal Threads is different for every number of Teams. The number of teams was always as requested. 
 
-![alt text](plots/heatmap_n18.svg)
 ![alt text](plots/heatmap_n19.svg)
 ![alt text](plots/heatmap_n20.svg)
 
