@@ -1,0 +1,20 @@
+
+ Performance counter stats for 'bin/mp_gpu input/randomlist25.txt 19 10 0 8 612 128':
+
+       16999649893      cycles                           #    3.385 GHz                      (83.11%)
+       14933100294      instructions                     #    0.88  insn per cycle           (83.07%)
+        3941801761      branches                         #  784.935 M/sec                    (83.44%)
+         190985503      branch-misses                    #    4.85% of all branches          (83.32%)
+          75715187      cache-references                 #   15.077 M/sec                    (83.39%)
+           9393018      cache-misses                     #   12.406 % of all cache refs      (83.69%)
+           5021.82 msec task-clock                       #    1.798 CPUs utilized          
+              1669      context-switches                 #  332.350 /sec                   
+               290      cpu-migrations                   #   57.748 /sec                   
+             10050      page-faults                      #    2.001 K/sec                  
+
+       2.793316100 seconds time elapsed
+
+       2.775006000 seconds user
+       2.204854000 seconds sys
+
+
