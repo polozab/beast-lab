@@ -804,3 +804,14 @@ performance results for the optimized version are by far worse simple due to the
 ![alt text](plots/problem_size_vs_time.svg)
 
 ![alt text](plots/problem_size_vs_time_v2.svg)
+#### Some prifiling
+```
+gpu=10  total=1672.025 ms  calls=1  avg=1672.025 ms
+gpu=11  total=1645.148 ms  calls=1  avg=1645.148 ms
+gpu=12  total=1671.610 ms  calls=1  avg=1671.610 ms
+gpu=13  total=1619.251 ms  calls=1  avg=1619.251 ms
+gpu=14  total=1600.732 ms  calls=1  avg=1600.732 ms
+gpu=15  total=1575.351 ms  calls=1  avg=1575.351 ms
+gpu=8  total=1670.233 ms  calls=1  avg=1670.233 ms
+gpu=9  total=1623.929 ms  calls=1  avg=1623.929 ms
+```
