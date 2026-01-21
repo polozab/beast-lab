@@ -819,3 +819,6 @@ gpu=9  total=1623.929 ms  calls=1  avg=1623.929 ms
 ![alt text](plots/hsa_overhead_pie_legend.png) 
 ![alt text](plots/kernel_vs_runtime.png) 
 ![alt text](plots/roofline_N17_with_lines.png)
+Meant it arithmetic intensity (not operational (just typo))
+
+on the GPU runtime usuall went for 624 Teams and 256 Threads per team
