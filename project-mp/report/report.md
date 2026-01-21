@@ -815,3 +815,7 @@ gpu=15  total=1575.351 ms  calls=1  avg=1575.351 ms
 gpu=8  total=1670.233 ms  calls=1  avg=1670.233 ms
 gpu=9  total=1623.929 ms  calls=1  avg=1623.929 ms
 ```
+
+![alt text](plots/hsa_overhead_pie_legend.png) 
+![alt text](plots/kernel_vs_runtime.png) 
+![alt text](plots/roofline_N17_with_lines.png)
