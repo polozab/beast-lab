@@ -1,4 +1,9 @@
-# Task 1a
+# Report - Project MP
+System: AMD MI210 GPU 
+# Approaches for Optimization (Task 3a)
+```cpp
+amdclang++ -O3 -fopenmp   -fopenmp-targets=amdgcn-amd-amdhsa   -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx90a   main.cpp -o bin/mp -lm
+```
 ## Dependecies
 ### Loop-Carried Dependencies
 ```cpp
@@ -25,7 +30,7 @@ for (int i=0;i<mlen-sublen;i++){
   }
 ```
 #### Inner Loop
-In theory the inner loop contains arithmetic coputations that could be parallelized using SIMD calculations, however due to the comparisons in the loop this is not tatively possible:
+In theory the inner loop contains arithmetic coputations that could be parallelized using SIMD calculations, however due to the comparisons in the loop this is not easily possible: 
 ```cpp
 if (cr > mp[i]){
 		    mp[i]=cr;
@@ -35,7 +40,7 @@ if (cr > mp[i]){
 What would be possible is to use OMP reduction clauses to find the maximum value in parallel and then update the arrays outside of the parallel region.
 Alternatively it would be possible to use temporary arrays to store the intermediate maximum values and indices for each thread and then reduce these after the parallel region. However this would lead to overhead. This bascially creates a two loop Kernel:
 <details>
-  <summary><strong>Click to expand code</strong> </summary>
+  <summary><strong>Click to expand code (honestly idk. to which grpah this belongs it should be sid but it is too fast sry)</strong> </summary>
 
   ```cpp
   int start = 0;
@@ -94,7 +99,7 @@ Alternatively it would be possible to use temporary arrays to store the intermed
 However this result is slower than the default N=17 default 9sec this 12sec.
 #### With parallelized outer loop
 <details>
-  <summary><strong>Click to expand code</strong> </summary>
+  <summary><strong>Click to expand code (similar problem)</strong> </summary>
 
   ```cpp
   #include <cstdio>
@@ -329,7 +334,7 @@ However this result is slower than the default N=17 default 9sec this 12sec.
 Still slower than 3b solution but very very close
 ## 3b solution
 <details>
-  <summary><strong>Click to expand code</strong> </summary>
+  <summary><strong>Click to expand code (should be solution for 3b graph)</strong> </summary>
 
   ```cpp
   #include <cstdio>
@@ -798,13 +803,18 @@ Too low number of Teams and Threads per team lead to underutilization of the GPU
 
 ## Parallelization other loops
 The template has many other loops (e.g.precom_mu) that can be parallelized with OMP directives. We strontgly suggest to avoid this. For reasonable problemsizes for the sequential and even partial parallelized version these loops are so small that the overhead of thread creation and management is far higher than the gain of parallelization (see amount of CPU context switches). In theory for very large problemsizes this could be beneficial, however the main computation time is spent elsewhere and thus the overall gain would be neglectable.
-### Optimized Version
-performance results for the optimized version are by far worse simple due to the overhead of thread creation. Leading to ~60000(@N=18) CPU migrations. This is because of the reductions which are less performant than simple sequential code for small loops.
+### Performance comparison [Data](../src/mp/data)
+>**Note**: Due to the high runtimes of some implementations we ran each version only for reasonable problem sizes. From the results gained we than used a linear fit on the last 4 measured points to extrapolate the performance for larger problem sizes (This approach gave us reliable estimates).
+
+>**Note 2**: To gain insight into the behavior of the different implementations we used `perf`.
+
 
 ![alt text](plots/problem_size_vs_time.svg)
 
 ![alt text](plots/problem_size_vs_time_v2.svg)
-#### Some prifiling
+
+### Some profiling
+>**Note**: Apart from perf we also used rocprof to profile the GPU code.
 ```
 gpu=10  total=1672.025 ms  calls=1  avg=1672.025 ms
 gpu=11  total=1645.148 ms  calls=1  avg=1645.148 ms
@@ -817,8 +827,11 @@ gpu=9  total=1623.929 ms  calls=1  avg=1623.929 ms
 ```
 
 ![alt text](plots/hsa_overhead_pie_legend.png) 
+
 ![alt text](plots/kernel_vs_runtime.png) 
+
 ![alt text](plots/roofline_N17_with_lines.png)
+
 Meant it arithmetic intensity (not operational (just typo))
 
 on the GPU runtime usuall went for 624 Teams and 256 Threads per team
