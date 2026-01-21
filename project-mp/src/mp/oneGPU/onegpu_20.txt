@@ -1,0 +1,13 @@
+
+ Performance counter stats for './bin/mp_gpu input/randomlist25.txt 20 10 0 1':
+
+     1,803,194,067      fp_ret_sse_avx_ops.all                                                
+   151,016,307,143      cycles                                                                
+   142,902,114,739      instructions                     #    0.95  insn per cycle            
+
+      42.806198023 seconds time elapsed
+
+      15.563028000 seconds user
+      27.365057000 seconds sys
+
+
