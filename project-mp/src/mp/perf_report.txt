@@ -1,0 +1,719 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 348  of event 'cycles'
+# Event count (approx.): 1037839128
+#
+# Overhead  Command   Shared Object                     Symbol                                  
+# ........  ........  ................................  ........................................
+#
+     3.65%  mp_debug  libc-2.31.so                      [.] __vfscanf_internal
+            |
+            ---__vfscanf_internal
+               __isoc99_sscanf
+               |          
+               |--1.99%--0x25006c7525006e25
+               |          
+                --1.66%--0x64252f7325006e25
+
+     2.83%  mp_debug  [vdso]                            [.] __vdso_clock_gettime
+            |
+            ---__vdso_clock_gettime
+               |          
+                --2.50%--clock_gettime
+
+     1.35%  mp_debug  [unknown]                         [k] 0xffffffff917456d2
+            |
+            ---0xffffffff917456d2
+               0xffffffff9174779c
+               0xffffffff9173103a
+               0xffffffffc0bd5322
+               0xffffffffc0bd0f66
+               0xffffffffc0b9f959
+               0xffffffff917766c2
+               0xffffffff91e652db
+               0xffffffff920000d9
+               ioctl
+               0x3cb1000
+
+     1.29%  mp_debug  [unknown]                         [k] 0xffffffff9154da68
+            |
+            ---0xffffffff9154da68
+
+     1.29%  mp_debug  [unknown]                         [k] 0xffffffff91544f65
+            |
+            ---0xffffffff91544f65
+               |          
+                --0.63%--0xffffffff9175659e
+                          0xffffffff916cd2dd
+                          0xffffffff916cdd14
+                          0xffffffff916d7768
+                          0xffffffff916d99c4
+                          0xffffffff916d9d3b
+                          0xffffffff916d9e27
+                          0xffffffff91e652db
+                          0xffffffff920000d9
+                          munmap
+                          0x8d226df000000000
+
+     1.03%  mp_debug  [unknown]                         [k] 0xffffffff919b9dd7
+            |
+            ---0xffffffff919b9dd7
+               |          
+                --0.68%--0xffffffff916cb322
+                          0xffffffff916d4533
+                          0xffffffff91732a4b
+                          0xffffffff916d2e17
+                          0xffffffff916d3765
+
+     1.02%  mp_debug  [unknown]                         [k] 0xffffffffc0ba41f0
+            |
+            ---0xffffffffc0ba41f0
+               0xffffffff9182253b
+               0xffffffff9178d227
+               0xffffffff9175c62c
+               0xffffffff9175ec1f
+               0xffffffff9175ef65
+               0xffffffff91e652db
+               0xffffffff920000d9
+               read
+               0
+
+     1.00%  mp_debug  [unknown]                         [k] 0xffffffff91544f5e
+            |
+            ---0xffffffff91544f5e
+
+     1.00%  mp_debug  [unknown]                         [k] 0xffffffff92104104
+            |
+            ---0xffffffff92104104
+               0xffffffff91e7c5c5
+
+     0.96%  mp_debug  [unknown]                         [k] 0xffffffff919bab86
+            |
+            ---0xffffffff919bab86
+               0xffffffff919bacfb
+               0xffffffffc097fa62
+               0xffffffffc09b4cd4
+               0xffffffffc099fac0
+               0xffffffffc0ba2c7f
+               0xffffffffc0b9f959
+               0xffffffff917766c2
+               0xffffffff91e652db
+               0xffffffff920000d9
+               ioctl
+
+     0.96%  mp_debug  [unknown]                         [k] 0xffffffff916cd282
+            |
+            ---0xffffffff916cd282
+               0xffffffff916cdd14
+               0xffffffff916d7768
+               0xffffffff916d99c4
+               0xffffffff916d9d3b
+               0xffffffff916d9e27
+               0xffffffff91e652db
+               0xffffffff920000d9
+               munmap
+               0x8d226df000000000
+
+     0.96%  mp_debug  [unknown]                         [k] 0xffffffff91744126
+            |
+            ---0xffffffff91744126
+               0xffffffff917479b6
+               0xffffffff9175655c
+               0xffffffff916cd2dd
+               0xffffffff916cdd14
+               0xffffffff916d7768
+               0xffffffff916d99c4
+               0xffffffff916d9d3b
+               0xffffffff916d9e27
+               0xffffffff91e652db
+               0xffffffff920000d9
+               munmap
+               0x8d226df000000000
+
+     0.75%  mp_debug  libhsa-runtime64.so.1.14.60304    [.] hsa_amd_image_get_info_max_dim
+            |
+            ---hsa_amd_image_get_info_max_dim
+
+     0.68%  mp_debug  [unknown]                         [k] 0xffffffff917477d6
+            |
+            ---0xffffffff917477d6
+               0xffffffff9173103a
+               0xffffffffc0bd5322
+               0xffffffffc0bd0f66
+               0xffffffffc0b9f959
+               0xffffffff917766c2
+               0xffffffff91e652db
+               0xffffffff920000d9
+               ioctl
+               0x3cb1000
+
+     0.68%  mp_debug  [unknown]                         [k] 0xffffffff917559f7
+            |
+            ---0xffffffff917559f7
+               0xffffffffc0bd48bd
+               0xffffffffc0bd5311
+               0xffffffffc0bd0f66
+               0xffffffffc0b9f959
+               0xffffffff917766c2
+               0xffffffff91e652db
+               0xffffffff920000d9
+               ioctl
+               0x3cb1000
+
+     0.68%  mp_debug  [unknown]                         [k] 0xffffffff91731549
+            |
+            ---0xffffffff91731549
+               0xffffffffc0bd5322
+               0xffffffffc0bd0f66
+               0xffffffffc0b9f959
+               0xffffffff917766c2
+               0xffffffff91e652db
+               0xffffffff920000d9
+               ioctl
+               0x3cb1000
+
+     0.68%  mp_debug  [unknown]                         [k] 0xffffffff917456a0
+            |
+            ---0xffffffff917456a0
+               0xffffffff9174779c
+               0xffffffff9173103a
+               0xffffffffc0bd5322
+               0xffffffffc0bd0f66
+               0xffffffffc0b9f959
+               0xffffffff917766c2
+               0xffffffff91e652db
+               0xffffffff920000d9
+               ioctl
+               0x3cb1000
+
+     0.67%  mp_debug  [unknown]                         [k] 0xffffffff917477a0
+            |
+            ---0xffffffff917477a0
+               0xffffffff9173103a
+               0xffffffffc0bd5322
+               0xffffffffc0bd0f66
+               0xffffffffc0b9f959
+               0xffffffff917766c2
+               0xffffffff91e652db
+               0xffffffff920000d9
+               ioctl
+               0x3cb1000
+
+     0.67%  mp_debug  [unknown]                         [k] 0xffffffff919b59f8
+            |
+            ---0xffffffff919b59f8
+               0xffffffff919b5f85
+
+     0.67%  mp_debug  [unknown]                         [k] 0xffffffff9154da40
+            |
+            ---0xffffffff9154da40
+               0xffffffff91741023
+               0xffffffff9174778b
+               0xffffffff9173103a
+               0xffffffffc0bd5322
+               0xffffffffc0bd0f66
+               0xffffffffc0b9f959
+               0xffffffff917766c2
+               0xffffffff91e652db
+               0xffffffff920000d9
+               ioctl
+               0x3cb1000
+
+     0.67%  mp_debug  [unknown]                         [k] 0xffffffff91731040
+            |
+            ---0xffffffff91731040
+               0xffffffffc0bd5322
+               0xffffffffc0bd0f66
+               0xffffffffc0b9f959
+               0xffffffff917766c2
+               0xffffffff91e652db
+               0xffffffff920000d9
+               ioctl
+               0x3cb1000
+
+     0.67%  mp_debug  [unknown]                         [k] 0xffffffff917314d9
+            |
+            ---0xffffffff917314d9
+               0xffffffffc0bd5322
+               0xffffffffc0bd0f66
+               0xffffffffc0b9f959
+               0xffffffff917766c2
+               0xffffffff91e652db
+               0xffffffff920000d9
+               ioctl
+               0x3cb1000
+
+     0.67%  mp_debug  [unknown]                         [k] 0xffffffff916e163d
+            |
+            ---0xffffffff916e163d
+               0xffffffff9172b9af
+               0xffffffff916e3912
+
+     0.67%  mp_debug  [unknown]                         [k] 0xffffffff91730fe0
+            |
+            ---0xffffffff91730fe0
+               0xffffffffc0bd5322
+               0xffffffffc0bd0f66
+               0xffffffffc0b9f959
+               0xffffffff917766c2
+               0xffffffff91e652db
+               0xffffffff920000d9
+               ioctl
+               0x3cb1000
+
+     0.67%  mp_debug  libc-2.31.so                      [.] _int_malloc
+            |
+            ---_int_malloc
+
+     0.67%  mp_debug  [unknown]                         [k] 0xffffffff91743ab0
+            |
+            ---0xffffffff91743ab0
+               0xffffffff916e477b
+               0xffffffff917314d6
+               0xffffffffc0bd5322
+               0xffffffffc0bd0f66
+               0xffffffffc0b9f959
+               0xffffffff917766c2
+               0xffffffff91e652db
+               0xffffffff920000d9
+               ioctl
+               0x3cb1000
+
+     0.67%  mp_debug  [unknown]                         [k] 0xffffffff9173e291
+            |
+            ---0xffffffff9173e291
+
+     0.67%  mp_debug  [unknown]                         [k] 0xffffffff91742bcf
+            |
+            ---0xffffffff91742bcf
+
+     0.66%  mp_debug  [unknown]                         [k] 0xffffffff9181dfff
+            |
+            ---0xffffffff9181dfff
+               0xffffffff9176c064
+               0xffffffff9176f99a
+               0xffffffff91770057
+               0xffffffff91771f75
+               0xffffffff9175a6ae
+               0xffffffff9175bd37
+               0xffffffff91e652db
+               0xffffffff920000d9
+               open
+
+     0.66%  mp_debug  [unknown]                         [k] 0xffffffff91743aa3
+            |
+            ---0xffffffff91743aa3
+
+     0.66%  mp_debug  [unknown]                         [k] 0xffffffff9154da5b
+            |
+            ---0xffffffff9154da5b
+
+     0.65%  mp_debug  [unknown]                         [k] 0xffffffff91744048
+            |
+            ---0xffffffff91744048
+               0xffffffff917479be
+               0xffffffff9175655c
+               0xffffffff916cd2dd
+               0xffffffff916cdd14
+               0xffffffff916d7768
+               0xffffffff916d99c4
+               0xffffffff916d9d3b
+               0xffffffff916d9e27
+               0xffffffff91e652db
+               0xffffffff920000d9
+               munmap
+               0x8d226df000000000
+
+     0.65%  mp_debug  [unknown]                         [k] 0xffffffff917441ae
+            |
+            ---0xffffffff917441ae
+               0xffffffff917479b6
+               0xffffffff9175655c
+               0xffffffff916cd2dd
+               0xffffffff916cdd14
+               0xffffffff916d7768
+               0xffffffff916d99c4
+               0xffffffff916d9d3b
+               0xffffffff916d9e27
+               0xffffffff91e652db
+               0xffffffff920000d9
+               munmap
+               0x8d226df000000000
+
+     0.65%  mp_debug  [unknown]                         [k] 0xffffffff91743fab
+            |
+            ---0xffffffff91743fab
+               0xffffffff917479be
+               0xffffffff9175655c
+               0xffffffff916cd2dd
+               0xffffffff916cdd14
+               0xffffffff916d7768
+               0xffffffff916d99c4
+               0xffffffff916d9d3b
+               0xffffffff916d9e27
+               0xffffffff91e652db
+               0xffffffff920000d9
+               munmap
+               0x8d226df000000000
+
+     0.64%  mp_debug  [unknown]                         [k] 0xffffffff9175657b
+            |
+            ---0xffffffff9175657b
+               0xffffffff916cd2dd
+               0xffffffff916cdd14
+               0xffffffff916d7768
+               0xffffffff916d99c4
+               0xffffffff916d9d3b
+               0xffffffff916d9e27
+               0xffffffff91e652db
+               0xffffffff920000d9
+               munmap
+               0x8d226df000000000
+
+     0.64%  mp_debug  [unknown]                         [k] 0xffffffff9173e0f0
+            |
+            ---0xffffffff9173e0f0
+               0xffffffff9173e28d
+               0xffffffff91744001
+               0xffffffff917479be
+               0xffffffff9175655c
+               0xffffffff916cd2dd
+               0xffffffff916cdd14
+               0xffffffff916d7768
+               0xffffffff916d99c4
+               0xffffffff916d9d3b
+               0xffffffff916d9e27
+               0xffffffff91e652db
+               0xffffffff920000d9
+               munmap
+               0x8d226df000000000
+
+     0.64%  mp_debug  [unknown]                         [k] 0xffffffff91743f75
+            |
+            ---0xffffffff91743f75
+               0xffffffff917479be
+               0xffffffff9175655c
+               0xffffffff916cd2dd
+               0xffffffff916cdd14
+               0xffffffff916d7768
+               0xffffffff916d99c4
+               0xffffffff916d9d3b
+               0xffffffff916d9e27
+               0xffffffff91e652db
+               0xffffffff920000d9
+               munmap
+               0x8d226df000000000
+
+     0.64%  mp_debug  [unknown]                         [k] 0xffffffff91744029
+            |
+            ---0xffffffff91744029
+               0xffffffff917479be
+               0xffffffff9175655c
+               0xffffffff916cd2dd
+               0xffffffff916cdd14
+               0xffffffff916d7768
+               0xffffffff916d99c4
+               0xffffffff916d9d3b
+               0xffffffff916d9e27
+               0xffffffff91e652db
+               0xffffffff920000d9
+               munmap
+               0x8d226df000000000
+
+     0.64%  mp_debug  [unknown]                         [k] 0xffffffff9169b082
+            |
+            ---0xffffffff9169b082
+               0xffffffff916cd2dd
+               0xffffffff916cdd14
+               0xffffffff916d7768
+               0xffffffff916d99c4
+               0xffffffff916d9d3b
+               0xffffffff916d9e27
+               0xffffffff91e652db
+               0xffffffff920000d9
+               munmap
+               0x8d226df000000000
+
+     0.63%  mp_debug  [unknown]                         [k] 0xffffffff91e754de
+            |
+            ---0xffffffff91e754de
+
+     0.63%  mp_debug  [unknown]                         [k] 0xffffffffc0bd42a5
+            |
+            ---0xffffffffc0bd42a5
+               0xffffffff91756577
+               0xffffffff916cd2dd
+               0xffffffff916cdd14
+               0xffffffff916d7768
+               0xffffffff916d99c4
+               0xffffffff916d9d3b
+               0xffffffff916d9e27
+               0xffffffff91e652db
+               0xffffffff920000d9
+               munmap
+               0x8d226df000000000
+
+     0.63%  mp_debug  [unknown]                         [k] 0xffffffff9173e107
+            |
+            ---0xffffffff9173e107
+               0xffffffff9173e28d
+               0xffffffff91744001
+               0xffffffff917479be
+               0xffffffff9175655c
+               0xffffffff916cd2dd
+               0xffffffff916cdd14
+               0xffffffff916d7768
+               0xffffffff916d99c4
+               0xffffffff916d9d3b
+               0xffffffff916d9e27
+               0xffffffff91e652db
+               0xffffffff920000d9
+               munmap
+               0x8d226df000000000
+
+     0.63%  mp_debug  libhsa-runtime64.so.1.14.60304    [.] hsa_amd_enable_logging
+            |
+            ---hsa_amd_enable_logging
+
+     0.63%  mp_debug  [unknown]                         [k] 0xffffffff91544f50
+            |
+            ---0xffffffff91544f50
+
+     0.62%  mp_debug  libgcc_s.so.1                     [.] _Unwind_Backtrace
+            |
+            ---_Unwind_Backtrace
+               0x110780100527a01
+
+     0.58%  mp_debug  [unknown]                         [k] 0xffffffff918224bc
+            |
+            ---0xffffffff918224bc
+               0xffffffff9178d227
+               0xffffffff9175c62c
+               0xffffffff9175ec1f
+               0xffffffff9175ef65
+               0xffffffff91e652db
+               0xffffffff920000d9
+               read
+               0
+
+     0.56%  mp_debug  [unknown]                         [k] 0xffffffff915950dc
+            |
+            ---0xffffffff915950dc
+               0xffffffff91742bcd
+
+     0.55%  mp_debug  [unknown]                         [k] 0xffffffff919b2030
+            |
+            ---0xffffffff919b2030
+               0xffffffff919b59f5
+               0xffffffff9178c2b4
+               0xffffffff9178c31e
+               0xffffffff91458948
+               0xffffffff9178d227
+               0xffffffff9175c62c
+               0xffffffff9175ec1f
+               0xffffffff9175ef65
+               0xffffffff91e652db
+               0xffffffff920000d9
+               read
+               0
+
+     0.53%  mp_debug  [unknown]                         [k] 0xffffffff920000e3
+            |
+            ---0xffffffff920000e3
+               __close_nocancel
+               0
+
+     0.40%  mp_debug  [unknown]                         [k] 0xffffffff919ba2d7
+     0.40%  mp_debug  [unknown]                         [k] 0xffffffff9173ef38
+     0.38%  mp_debug  [unknown]                         [k] 0xffffffff91671373
+     0.37%  mp_debug  [unknown]                         [k] 0xffffffff9176bfb9
+     0.37%  mp_debug  ld-2.31.so                        [.] strcmp
+     0.37%  mp_debug  [unknown]                         [k] 0xffffffff91e69bb9
+     0.36%  mp_debug  [unknown]                         [k] 0xffffffff92000005
+     0.35%  mp_debug  [unknown]                         [k] 0xffffffffc09a2646
+     0.35%  mp_debug  libc-2.31.so                      [.] __memcpy_avx_unaligned_erms
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91e75a5e
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91723177
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff919bd1fa
+     0.34%  mp_debug  libc-2.31.so                      [.] _IO_no_init
+     0.34%  mp_debug  libc-2.31.so                      [.] __strchr_avx2
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91949462
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff919b5a9e
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91e69bb5
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9181ede2
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91745769
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff918a311c
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9177ae57
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9176eb41
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9181dffd
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9154da54
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9176eb0d
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91e69800
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91822520
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9176f861
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff920000de
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff918208b9
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9173118e
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91856845
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9175759e
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9172ff19
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff916f180a
+     0.34%  mp_debug  libstdc++.so.6.0.33               [.] operator delete
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91502d66
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9172b935
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffffc09bfc2a
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9176afc3
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9173eff8
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91741013
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9175767c
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9154da47
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff916d8095
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91744992
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff919b0a63
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91943eb8
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff916efb99
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91745660
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9174567f
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9154da65
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91740fd5
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff919b20d9
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff917456a2
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91743a5d
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9154da5d
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9173105a
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff92104109
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff917456a8
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffffc0776045
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffffc0bd488a
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91717143
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91743a6d
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff917311c0
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff917456c3
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91744790
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91742b91
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9176ac61
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff917448fc
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffffc0bd488f
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9175c632
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffffc0bd48cf
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff916e4785
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff916713a3
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffffc09a26b9
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9175eefb
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff917477bc
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff919bd20a
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff917314b7
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9173153b
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91e698e9
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9173efaa
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91741026
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff916e1ad2
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff916894e8
+     0.34%  mp_debug  libc-2.31.so                      [.] @plt
+     0.34%  mp_debug  libc-2.31.so                      [.] _IO_str_init_static_internal
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9176f8ab
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91730ef8
+     0.34%  mp_debug  [unknown]                         [k] 0xffffffff917456b0
+     0.34%  mp_debug  libc-2.31.so                      [.] _IO_old_init
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff914f0c23
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff9176bcb1
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91759aa6
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff916e38a7
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91731540
+     0.33%  mp_debug  libomptarget.rtl.amdgpu.so.18git  [.] llvm::StringMapImpl::LookupBucketFor
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff919b5f80
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91822381
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff916e17f1
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91671397
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff92001560
+     0.33%  mp_debug  libstdc++.so.6.0.33               [.] std::_Rb_tree_insert_and_rebalance
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff9168c982
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff9154da4b
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff917559ee
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff919acf32
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff92000ea0
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91e7c5c0
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff918219f5
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff9173e270
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91e7c540
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff9177de87
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff919ba4b8
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91742bcd
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91b92be6
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff92000040
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91723240
+     0.33%  mp_debug  libhsa-runtime64.so.1.14.60304    [.] 0x0000000000022cf6
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff916cd2cf
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff919b1a8d
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91e65281
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91744103
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91743fd8
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff917565aa
+     0.33%  mp_debug  libhsa-runtime64.so.1.14.60304    [.] 0x000000000002191d
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff9176bc7b
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffffc09b3fee
+     0.33%  mp_debug  [unknown]                         [k] 0xffffffff919b5da4
+     0.32%  mp_debug  [unknown]                         [k] 0xffffffff91743a76
+     0.32%  mp_debug  [unknown]                         [k] 0xffffffff91743f60
+     0.32%  mp_debug  [unknown]                         [k] 0xffffffff91756560
+     0.32%  mp_debug  [unknown]                         [k] 0xffffffff917440a4
+     0.32%  mp_debug  [unknown]                         [k] 0xffffffff91756548
+     0.32%  mp_debug  [unknown]                         [k] 0xffffffff9168a8dd
+     0.32%  mp_debug  [unknown]                         [k] 0xffffffff916e4945
+     0.32%  mp_debug  [unknown]                         [k] 0xffffffff91744143
+     0.32%  mp_debug  [unknown]                         [k] 0xffffffffc0982205
+     0.32%  mp_debug  [unknown]                         [k] 0xffffffff919bab6d
+     0.32%  mp_debug  [unknown]                         [k] 0xffffffff915596d6
+     0.32%  mp_debug  [unknown]                         [k] 0xffffffffc09a37be
+     0.32%  mp_debug  [unknown]                         [k] 0xffffffff916cd2bb
+     0.32%  mp_debug  [unknown]                         [k] 0xffffffff916cd295
+     0.32%  mp_debug  [unknown]                         [k] 0xffffffff91743fda
+     0.32%  mp_debug  [unknown]                         [k] 0xffffffffc0bceb10
+     0.32%  mp_debug  [unknown]                         [k] 0xffffffff916cd2c6
+     0.32%  mp_debug  libc-2.31.so                      [.] _IO_file_close
+     0.32%  mp_debug  [unknown]                         [k] 0xffffffff916b151f
+     0.32%  mp_debug  [unknown]                         [k] 0xffffffffc0967c71
+     0.31%  mp_debug  [unknown]                         [k] 0xffffffff915738dd
+     0.31%  mp_debug  [unknown]                         [k] 0xffffffff9173faa1
+     0.31%  mp_debug  [unknown]                         [k] 0xffffffff91787bf9
+     0.31%  mp_debug  [unknown]                         [k] 0xffffffff917441a6
+     0.31%  mp_debug  [unknown]                         [k] 0xffffffff916cd2b7
+     0.31%  mp_debug  [unknown]                         [k] 0xffffffff9173e28d
+     0.31%  mp_debug  [unknown]                         [k] 0xffffffff9174414b
+     0.31%  mp_debug  [unknown]                         [k] 0xffffffff919bd1f6
+     0.31%  mp_debug  [unknown]                         [k] 0xffffffff916b1537
+     0.31%  mp_debug  [unknown]                         [k] 0xffffffff916cd286
+     0.31%  mp_debug  [unknown]                         [k] 0xffffffff9173e294
+     0.31%  mp_debug  [unknown]                         [k] 0xffffffff919b1fdf
+     0.31%  mp_debug  [unknown]                         [k] 0xffffffff9181ed84
+     0.30%  mp_debug  [unknown]                         [k] 0xffffffffc098e02c
+     0.30%  mp_debug  [unknown]                         [k] 0xffffffff9181ed96
+     0.29%  mp_debug  [unknown]                         [k] 0xffffffff916fe84b
+     0.29%  mp_debug  [unknown]                         [k] 0xffffffff916c23d5
+     0.28%  mp_debug  [unknown]                         [k] 0xffffffff916cd19e
+     0.28%  mp_debug  [unknown]                         [k] 0xffffffff916e4a51
+     0.28%  mp_debug  [unknown]                         [k] 0xffffffff919b207a
+     0.27%  mp_debug  [unknown]                         [k] 0xffffffff91820dbd
+     0.26%  mp_debug  [unknown]                         [k] 0xffffffff916cd32b
+     0.26%  mp_debug  [unknown]                         [k] 0xffffffff91e652a2
+     0.23%  mp_debug  [unknown]                         [k] 0xffffffff919b59a7
+     0.22%  mp_debug  [unknown]                         [k] 0xffffffff920000d4
+     0.21%  mp_debug  [unknown]                         [k] 0xffffffff919b5da7
+     0.20%  mp_debug  [unknown]                         [k] 0xffffffff9176f5be
+     0.20%  mp_debug  [unknown]                         [k] 0xffffffff920000d9
+     0.14%  mp_debug  [unknown]                         [k] 0xffffffff914e5d78
+     0.09%  mp_debug  [unknown]                         [k] 0xffffffff91501e25
+     0.08%  mp_debug  [unknown]                         [k] 0xffffffff91500dd2
+     0.03%  mp_debug  [unknown]                         [k] 0xffffffff91498e67
+     0.03%  perf-exe  [unknown]                         [k] 0xffffffff9167ce80
+     0.01%  mp_debug  [unknown]                         [k] 0xffffffff9144d022
+     0.01%  mp_debug  [unknown]                         [k] 0xffffffff9144d0bf
+     0.01%  mp_debug  [unknown]                         [k] 0xffffffff91e7b2fe
+
+
+#
+# (Tip: check path of tips.txt or get more memory! ;-p)
+#
