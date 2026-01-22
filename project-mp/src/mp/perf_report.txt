@@ -3,715 +3,365 @@
 #
 # Total Lost Samples: 0
 #
-# Samples: 348  of event 'cycles'
-# Event count (approx.): 1037839128
+# Samples: 61K of event 'cycles'
+# Event count (approx.): 216184235447
 #
-# Overhead  Command   Shared Object                     Symbol                                  
-# ........  ........  ................................  ........................................
+# Overhead  Command  Shared Object                   Symbol                                                                                        
+# ........  .......  ..............................  ..............................................................................................
 #
-     3.65%  mp_debug  libc-2.31.so                      [.] __vfscanf_internal
+    99.23%  mp_perf  mp_perf                         [.] main_kernel
             |
-            ---__vfscanf_internal
-               __isoc99_sscanf
-               |          
-               |--1.99%--0x25006c7525006e25
-               |          
-                --1.66%--0x64252f7325006e25
+            ---main_kernel
+               main
+               __libc_start_main
+               0x258d4c54415541d7
 
-     2.83%  mp_debug  [vdso]                            [.] __vdso_clock_gettime
-            |
-            ---__vdso_clock_gettime
-               |          
-                --2.50%--clock_gettime
-
-     1.35%  mp_debug  [unknown]                         [k] 0xffffffff917456d2
-            |
-            ---0xffffffff917456d2
-               0xffffffff9174779c
-               0xffffffff9173103a
-               0xffffffffc0bd5322
-               0xffffffffc0bd0f66
-               0xffffffffc0b9f959
-               0xffffffff917766c2
-               0xffffffff91e652db
-               0xffffffff920000d9
-               ioctl
-               0x3cb1000
-
-     1.29%  mp_debug  [unknown]                         [k] 0xffffffff9154da68
-            |
-            ---0xffffffff9154da68
-
-     1.29%  mp_debug  [unknown]                         [k] 0xffffffff91544f65
-            |
-            ---0xffffffff91544f65
-               |          
-                --0.63%--0xffffffff9175659e
-                          0xffffffff916cd2dd
-                          0xffffffff916cdd14
-                          0xffffffff916d7768
-                          0xffffffff916d99c4
-                          0xffffffff916d9d3b
-                          0xffffffff916d9e27
-                          0xffffffff91e652db
-                          0xffffffff920000d9
-                          munmap
-                          0x8d226df000000000
-
-     1.03%  mp_debug  [unknown]                         [k] 0xffffffff919b9dd7
-            |
-            ---0xffffffff919b9dd7
-               |          
-                --0.68%--0xffffffff916cb322
-                          0xffffffff916d4533
-                          0xffffffff91732a4b
-                          0xffffffff916d2e17
-                          0xffffffff916d3765
-
-     1.02%  mp_debug  [unknown]                         [k] 0xffffffffc0ba41f0
-            |
-            ---0xffffffffc0ba41f0
-               0xffffffff9182253b
-               0xffffffff9178d227
-               0xffffffff9175c62c
-               0xffffffff9175ec1f
-               0xffffffff9175ef65
-               0xffffffff91e652db
-               0xffffffff920000d9
-               read
-               0
-
-     1.00%  mp_debug  [unknown]                         [k] 0xffffffff91544f5e
-            |
-            ---0xffffffff91544f5e
-
-     1.00%  mp_debug  [unknown]                         [k] 0xffffffff92104104
-            |
-            ---0xffffffff92104104
-               0xffffffff91e7c5c5
-
-     0.96%  mp_debug  [unknown]                         [k] 0xffffffff919bab86
-            |
-            ---0xffffffff919bab86
-               0xffffffff919bacfb
-               0xffffffffc097fa62
-               0xffffffffc09b4cd4
-               0xffffffffc099fac0
-               0xffffffffc0ba2c7f
-               0xffffffffc0b9f959
-               0xffffffff917766c2
-               0xffffffff91e652db
-               0xffffffff920000d9
-               ioctl
-
-     0.96%  mp_debug  [unknown]                         [k] 0xffffffff916cd282
-            |
-            ---0xffffffff916cd282
-               0xffffffff916cdd14
-               0xffffffff916d7768
-               0xffffffff916d99c4
-               0xffffffff916d9d3b
-               0xffffffff916d9e27
-               0xffffffff91e652db
-               0xffffffff920000d9
-               munmap
-               0x8d226df000000000
-
-     0.96%  mp_debug  [unknown]                         [k] 0xffffffff91744126
-            |
-            ---0xffffffff91744126
-               0xffffffff917479b6
-               0xffffffff9175655c
-               0xffffffff916cd2dd
-               0xffffffff916cdd14
-               0xffffffff916d7768
-               0xffffffff916d99c4
-               0xffffffff916d9d3b
-               0xffffffff916d9e27
-               0xffffffff91e652db
-               0xffffffff920000d9
-               munmap
-               0x8d226df000000000
-
-     0.75%  mp_debug  libhsa-runtime64.so.1.14.60304    [.] hsa_amd_image_get_info_max_dim
-            |
-            ---hsa_amd_image_get_info_max_dim
-
-     0.68%  mp_debug  [unknown]                         [k] 0xffffffff917477d6
-            |
-            ---0xffffffff917477d6
-               0xffffffff9173103a
-               0xffffffffc0bd5322
-               0xffffffffc0bd0f66
-               0xffffffffc0b9f959
-               0xffffffff917766c2
-               0xffffffff91e652db
-               0xffffffff920000d9
-               ioctl
-               0x3cb1000
-
-     0.68%  mp_debug  [unknown]                         [k] 0xffffffff917559f7
-            |
-            ---0xffffffff917559f7
-               0xffffffffc0bd48bd
-               0xffffffffc0bd5311
-               0xffffffffc0bd0f66
-               0xffffffffc0b9f959
-               0xffffffff917766c2
-               0xffffffff91e652db
-               0xffffffff920000d9
-               ioctl
-               0x3cb1000
-
-     0.68%  mp_debug  [unknown]                         [k] 0xffffffff91731549
-            |
-            ---0xffffffff91731549
-               0xffffffffc0bd5322
-               0xffffffffc0bd0f66
-               0xffffffffc0b9f959
-               0xffffffff917766c2
-               0xffffffff91e652db
-               0xffffffff920000d9
-               ioctl
-               0x3cb1000
-
-     0.68%  mp_debug  [unknown]                         [k] 0xffffffff917456a0
-            |
-            ---0xffffffff917456a0
-               0xffffffff9174779c
-               0xffffffff9173103a
-               0xffffffffc0bd5322
-               0xffffffffc0bd0f66
-               0xffffffffc0b9f959
-               0xffffffff917766c2
-               0xffffffff91e652db
-               0xffffffff920000d9
-               ioctl
-               0x3cb1000
-
-     0.67%  mp_debug  [unknown]                         [k] 0xffffffff917477a0
-            |
-            ---0xffffffff917477a0
-               0xffffffff9173103a
-               0xffffffffc0bd5322
-               0xffffffffc0bd0f66
-               0xffffffffc0b9f959
-               0xffffffff917766c2
-               0xffffffff91e652db
-               0xffffffff920000d9
-               ioctl
-               0x3cb1000
-
-     0.67%  mp_debug  [unknown]                         [k] 0xffffffff919b59f8
-            |
-            ---0xffffffff919b59f8
-               0xffffffff919b5f85
-
-     0.67%  mp_debug  [unknown]                         [k] 0xffffffff9154da40
-            |
-            ---0xffffffff9154da40
-               0xffffffff91741023
-               0xffffffff9174778b
-               0xffffffff9173103a
-               0xffffffffc0bd5322
-               0xffffffffc0bd0f66
-               0xffffffffc0b9f959
-               0xffffffff917766c2
-               0xffffffff91e652db
-               0xffffffff920000d9
-               ioctl
-               0x3cb1000
-
-     0.67%  mp_debug  [unknown]                         [k] 0xffffffff91731040
-            |
-            ---0xffffffff91731040
-               0xffffffffc0bd5322
-               0xffffffffc0bd0f66
-               0xffffffffc0b9f959
-               0xffffffff917766c2
-               0xffffffff91e652db
-               0xffffffff920000d9
-               ioctl
-               0x3cb1000
-
-     0.67%  mp_debug  [unknown]                         [k] 0xffffffff917314d9
-            |
-            ---0xffffffff917314d9
-               0xffffffffc0bd5322
-               0xffffffffc0bd0f66
-               0xffffffffc0b9f959
-               0xffffffff917766c2
-               0xffffffff91e652db
-               0xffffffff920000d9
-               ioctl
-               0x3cb1000
-
-     0.67%  mp_debug  [unknown]                         [k] 0xffffffff916e163d
-            |
-            ---0xffffffff916e163d
-               0xffffffff9172b9af
-               0xffffffff916e3912
-
-     0.67%  mp_debug  [unknown]                         [k] 0xffffffff91730fe0
-            |
-            ---0xffffffff91730fe0
-               0xffffffffc0bd5322
-               0xffffffffc0bd0f66
-               0xffffffffc0b9f959
-               0xffffffff917766c2
-               0xffffffff91e652db
-               0xffffffff920000d9
-               ioctl
-               0x3cb1000
-
-     0.67%  mp_debug  libc-2.31.so                      [.] _int_malloc
-            |
-            ---_int_malloc
-
-     0.67%  mp_debug  [unknown]                         [k] 0xffffffff91743ab0
-            |
-            ---0xffffffff91743ab0
-               0xffffffff916e477b
-               0xffffffff917314d6
-               0xffffffffc0bd5322
-               0xffffffffc0bd0f66
-               0xffffffffc0b9f959
-               0xffffffff917766c2
-               0xffffffff91e652db
-               0xffffffff920000d9
-               ioctl
-               0x3cb1000
-
-     0.67%  mp_debug  [unknown]                         [k] 0xffffffff9173e291
-            |
-            ---0xffffffff9173e291
-
-     0.67%  mp_debug  [unknown]                         [k] 0xffffffff91742bcf
-            |
-            ---0xffffffff91742bcf
-
-     0.66%  mp_debug  [unknown]                         [k] 0xffffffff9181dfff
-            |
-            ---0xffffffff9181dfff
-               0xffffffff9176c064
-               0xffffffff9176f99a
-               0xffffffff91770057
-               0xffffffff91771f75
-               0xffffffff9175a6ae
-               0xffffffff9175bd37
-               0xffffffff91e652db
-               0xffffffff920000d9
-               open
-
-     0.66%  mp_debug  [unknown]                         [k] 0xffffffff91743aa3
-            |
-            ---0xffffffff91743aa3
-
-     0.66%  mp_debug  [unknown]                         [k] 0xffffffff9154da5b
-            |
-            ---0xffffffff9154da5b
-
-     0.65%  mp_debug  [unknown]                         [k] 0xffffffff91744048
-            |
-            ---0xffffffff91744048
-               0xffffffff917479be
-               0xffffffff9175655c
-               0xffffffff916cd2dd
-               0xffffffff916cdd14
-               0xffffffff916d7768
-               0xffffffff916d99c4
-               0xffffffff916d9d3b
-               0xffffffff916d9e27
-               0xffffffff91e652db
-               0xffffffff920000d9
-               munmap
-               0x8d226df000000000
-
-     0.65%  mp_debug  [unknown]                         [k] 0xffffffff917441ae
-            |
-            ---0xffffffff917441ae
-               0xffffffff917479b6
-               0xffffffff9175655c
-               0xffffffff916cd2dd
-               0xffffffff916cdd14
-               0xffffffff916d7768
-               0xffffffff916d99c4
-               0xffffffff916d9d3b
-               0xffffffff916d9e27
-               0xffffffff91e652db
-               0xffffffff920000d9
-               munmap
-               0x8d226df000000000
-
-     0.65%  mp_debug  [unknown]                         [k] 0xffffffff91743fab
-            |
-            ---0xffffffff91743fab
-               0xffffffff917479be
-               0xffffffff9175655c
-               0xffffffff916cd2dd
-               0xffffffff916cdd14
-               0xffffffff916d7768
-               0xffffffff916d99c4
-               0xffffffff916d9d3b
-               0xffffffff916d9e27
-               0xffffffff91e652db
-               0xffffffff920000d9
-               munmap
-               0x8d226df000000000
-
-     0.64%  mp_debug  [unknown]                         [k] 0xffffffff9175657b
-            |
-            ---0xffffffff9175657b
-               0xffffffff916cd2dd
-               0xffffffff916cdd14
-               0xffffffff916d7768
-               0xffffffff916d99c4
-               0xffffffff916d9d3b
-               0xffffffff916d9e27
-               0xffffffff91e652db
-               0xffffffff920000d9
-               munmap
-               0x8d226df000000000
-
-     0.64%  mp_debug  [unknown]                         [k] 0xffffffff9173e0f0
-            |
-            ---0xffffffff9173e0f0
-               0xffffffff9173e28d
-               0xffffffff91744001
-               0xffffffff917479be
-               0xffffffff9175655c
-               0xffffffff916cd2dd
-               0xffffffff916cdd14
-               0xffffffff916d7768
-               0xffffffff916d99c4
-               0xffffffff916d9d3b
-               0xffffffff916d9e27
-               0xffffffff91e652db
-               0xffffffff920000d9
-               munmap
-               0x8d226df000000000
-
-     0.64%  mp_debug  [unknown]                         [k] 0xffffffff91743f75
-            |
-            ---0xffffffff91743f75
-               0xffffffff917479be
-               0xffffffff9175655c
-               0xffffffff916cd2dd
-               0xffffffff916cdd14
-               0xffffffff916d7768
-               0xffffffff916d99c4
-               0xffffffff916d9d3b
-               0xffffffff916d9e27
-               0xffffffff91e652db
-               0xffffffff920000d9
-               munmap
-               0x8d226df000000000
-
-     0.64%  mp_debug  [unknown]                         [k] 0xffffffff91744029
-            |
-            ---0xffffffff91744029
-               0xffffffff917479be
-               0xffffffff9175655c
-               0xffffffff916cd2dd
-               0xffffffff916cdd14
-               0xffffffff916d7768
-               0xffffffff916d99c4
-               0xffffffff916d9d3b
-               0xffffffff916d9e27
-               0xffffffff91e652db
-               0xffffffff920000d9
-               munmap
-               0x8d226df000000000
-
-     0.64%  mp_debug  [unknown]                         [k] 0xffffffff9169b082
-            |
-            ---0xffffffff9169b082
-               0xffffffff916cd2dd
-               0xffffffff916cdd14
-               0xffffffff916d7768
-               0xffffffff916d99c4
-               0xffffffff916d9d3b
-               0xffffffff916d9e27
-               0xffffffff91e652db
-               0xffffffff920000d9
-               munmap
-               0x8d226df000000000
-
-     0.63%  mp_debug  [unknown]                         [k] 0xffffffff91e754de
-            |
-            ---0xffffffff91e754de
-
-     0.63%  mp_debug  [unknown]                         [k] 0xffffffffc0bd42a5
-            |
-            ---0xffffffffc0bd42a5
-               0xffffffff91756577
-               0xffffffff916cd2dd
-               0xffffffff916cdd14
-               0xffffffff916d7768
-               0xffffffff916d99c4
-               0xffffffff916d9d3b
-               0xffffffff916d9e27
-               0xffffffff91e652db
-               0xffffffff920000d9
-               munmap
-               0x8d226df000000000
-
-     0.63%  mp_debug  [unknown]                         [k] 0xffffffff9173e107
-            |
-            ---0xffffffff9173e107
-               0xffffffff9173e28d
-               0xffffffff91744001
-               0xffffffff917479be
-               0xffffffff9175655c
-               0xffffffff916cd2dd
-               0xffffffff916cdd14
-               0xffffffff916d7768
-               0xffffffff916d99c4
-               0xffffffff916d9d3b
-               0xffffffff916d9e27
-               0xffffffff91e652db
-               0xffffffff920000d9
-               munmap
-               0x8d226df000000000
-
-     0.63%  mp_debug  libhsa-runtime64.so.1.14.60304    [.] hsa_amd_enable_logging
-            |
-            ---hsa_amd_enable_logging
-
-     0.63%  mp_debug  [unknown]                         [k] 0xffffffff91544f50
-            |
-            ---0xffffffff91544f50
-
-     0.62%  mp_debug  libgcc_s.so.1                     [.] _Unwind_Backtrace
-            |
-            ---_Unwind_Backtrace
-               0x110780100527a01
-
-     0.58%  mp_debug  [unknown]                         [k] 0xffffffff918224bc
-            |
-            ---0xffffffff918224bc
-               0xffffffff9178d227
-               0xffffffff9175c62c
-               0xffffffff9175ec1f
-               0xffffffff9175ef65
-               0xffffffff91e652db
-               0xffffffff920000d9
-               read
-               0
-
-     0.56%  mp_debug  [unknown]                         [k] 0xffffffff915950dc
-            |
-            ---0xffffffff915950dc
-               0xffffffff91742bcd
-
-     0.55%  mp_debug  [unknown]                         [k] 0xffffffff919b2030
-            |
-            ---0xffffffff919b2030
-               0xffffffff919b59f5
-               0xffffffff9178c2b4
-               0xffffffff9178c31e
-               0xffffffff91458948
-               0xffffffff9178d227
-               0xffffffff9175c62c
-               0xffffffff9175ec1f
-               0xffffffff9175ef65
-               0xffffffff91e652db
-               0xffffffff920000d9
-               read
-               0
-
-     0.53%  mp_debug  [unknown]                         [k] 0xffffffff920000e3
-            |
-            ---0xffffffff920000e3
-               __close_nocancel
-               0
-
-     0.40%  mp_debug  [unknown]                         [k] 0xffffffff919ba2d7
-     0.40%  mp_debug  [unknown]                         [k] 0xffffffff9173ef38
-     0.38%  mp_debug  [unknown]                         [k] 0xffffffff91671373
-     0.37%  mp_debug  [unknown]                         [k] 0xffffffff9176bfb9
-     0.37%  mp_debug  ld-2.31.so                        [.] strcmp
-     0.37%  mp_debug  [unknown]                         [k] 0xffffffff91e69bb9
-     0.36%  mp_debug  [unknown]                         [k] 0xffffffff92000005
-     0.35%  mp_debug  [unknown]                         [k] 0xffffffffc09a2646
-     0.35%  mp_debug  libc-2.31.so                      [.] __memcpy_avx_unaligned_erms
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91e75a5e
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91723177
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff919bd1fa
-     0.34%  mp_debug  libc-2.31.so                      [.] _IO_no_init
-     0.34%  mp_debug  libc-2.31.so                      [.] __strchr_avx2
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91949462
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff919b5a9e
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91e69bb5
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9181ede2
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91745769
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff918a311c
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9177ae57
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9176eb41
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9181dffd
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9154da54
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9176eb0d
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91e69800
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91822520
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9176f861
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff920000de
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff918208b9
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9173118e
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91856845
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9175759e
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9172ff19
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff916f180a
-     0.34%  mp_debug  libstdc++.so.6.0.33               [.] operator delete
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91502d66
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9172b935
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffffc09bfc2a
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9176afc3
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9173eff8
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91741013
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9175767c
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9154da47
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff916d8095
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91744992
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff919b0a63
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91943eb8
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff916efb99
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91745660
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9174567f
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9154da65
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91740fd5
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff919b20d9
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff917456a2
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91743a5d
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9154da5d
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9173105a
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff92104109
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff917456a8
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffffc0776045
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffffc0bd488a
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91717143
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91743a6d
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff917311c0
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff917456c3
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91744790
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91742b91
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9176ac61
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff917448fc
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffffc0bd488f
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9175c632
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffffc0bd48cf
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff916e4785
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff916713a3
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffffc09a26b9
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9175eefb
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff917477bc
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff919bd20a
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff917314b7
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9173153b
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91e698e9
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9173efaa
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91741026
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff916e1ad2
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff916894e8
-     0.34%  mp_debug  libc-2.31.so                      [.] @plt
-     0.34%  mp_debug  libc-2.31.so                      [.] _IO_str_init_static_internal
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff9176f8ab
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff91730ef8
-     0.34%  mp_debug  [unknown]                         [k] 0xffffffff917456b0
-     0.34%  mp_debug  libc-2.31.so                      [.] _IO_old_init
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff914f0c23
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff9176bcb1
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91759aa6
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff916e38a7
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91731540
-     0.33%  mp_debug  libomptarget.rtl.amdgpu.so.18git  [.] llvm::StringMapImpl::LookupBucketFor
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff919b5f80
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91822381
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff916e17f1
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91671397
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff92001560
-     0.33%  mp_debug  libstdc++.so.6.0.33               [.] std::_Rb_tree_insert_and_rebalance
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff9168c982
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff9154da4b
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff917559ee
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff919acf32
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff92000ea0
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91e7c5c0
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff918219f5
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff9173e270
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91e7c540
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff9177de87
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff919ba4b8
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91742bcd
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91b92be6
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff92000040
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91723240
-     0.33%  mp_debug  libhsa-runtime64.so.1.14.60304    [.] 0x0000000000022cf6
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff916cd2cf
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff919b1a8d
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91e65281
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91744103
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff91743fd8
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff917565aa
-     0.33%  mp_debug  libhsa-runtime64.so.1.14.60304    [.] 0x000000000002191d
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff9176bc7b
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffffc09b3fee
-     0.33%  mp_debug  [unknown]                         [k] 0xffffffff919b5da4
-     0.32%  mp_debug  [unknown]                         [k] 0xffffffff91743a76
-     0.32%  mp_debug  [unknown]                         [k] 0xffffffff91743f60
-     0.32%  mp_debug  [unknown]                         [k] 0xffffffff91756560
-     0.32%  mp_debug  [unknown]                         [k] 0xffffffff917440a4
-     0.32%  mp_debug  [unknown]                         [k] 0xffffffff91756548
-     0.32%  mp_debug  [unknown]                         [k] 0xffffffff9168a8dd
-     0.32%  mp_debug  [unknown]                         [k] 0xffffffff916e4945
-     0.32%  mp_debug  [unknown]                         [k] 0xffffffff91744143
-     0.32%  mp_debug  [unknown]                         [k] 0xffffffffc0982205
-     0.32%  mp_debug  [unknown]                         [k] 0xffffffff919bab6d
-     0.32%  mp_debug  [unknown]                         [k] 0xffffffff915596d6
-     0.32%  mp_debug  [unknown]                         [k] 0xffffffffc09a37be
-     0.32%  mp_debug  [unknown]                         [k] 0xffffffff916cd2bb
-     0.32%  mp_debug  [unknown]                         [k] 0xffffffff916cd295
-     0.32%  mp_debug  [unknown]                         [k] 0xffffffff91743fda
-     0.32%  mp_debug  [unknown]                         [k] 0xffffffffc0bceb10
-     0.32%  mp_debug  [unknown]                         [k] 0xffffffff916cd2c6
-     0.32%  mp_debug  libc-2.31.so                      [.] _IO_file_close
-     0.32%  mp_debug  [unknown]                         [k] 0xffffffff916b151f
-     0.32%  mp_debug  [unknown]                         [k] 0xffffffffc0967c71
-     0.31%  mp_debug  [unknown]                         [k] 0xffffffff915738dd
-     0.31%  mp_debug  [unknown]                         [k] 0xffffffff9173faa1
-     0.31%  mp_debug  [unknown]                         [k] 0xffffffff91787bf9
-     0.31%  mp_debug  [unknown]                         [k] 0xffffffff917441a6
-     0.31%  mp_debug  [unknown]                         [k] 0xffffffff916cd2b7
-     0.31%  mp_debug  [unknown]                         [k] 0xffffffff9173e28d
-     0.31%  mp_debug  [unknown]                         [k] 0xffffffff9174414b
-     0.31%  mp_debug  [unknown]                         [k] 0xffffffff919bd1f6
-     0.31%  mp_debug  [unknown]                         [k] 0xffffffff916b1537
-     0.31%  mp_debug  [unknown]                         [k] 0xffffffff916cd286
-     0.31%  mp_debug  [unknown]                         [k] 0xffffffff9173e294
-     0.31%  mp_debug  [unknown]                         [k] 0xffffffff919b1fdf
-     0.31%  mp_debug  [unknown]                         [k] 0xffffffff9181ed84
-     0.30%  mp_debug  [unknown]                         [k] 0xffffffffc098e02c
-     0.30%  mp_debug  [unknown]                         [k] 0xffffffff9181ed96
-     0.29%  mp_debug  [unknown]                         [k] 0xffffffff916fe84b
-     0.29%  mp_debug  [unknown]                         [k] 0xffffffff916c23d5
-     0.28%  mp_debug  [unknown]                         [k] 0xffffffff916cd19e
-     0.28%  mp_debug  [unknown]                         [k] 0xffffffff916e4a51
-     0.28%  mp_debug  [unknown]                         [k] 0xffffffff919b207a
-     0.27%  mp_debug  [unknown]                         [k] 0xffffffff91820dbd
-     0.26%  mp_debug  [unknown]                         [k] 0xffffffff916cd32b
-     0.26%  mp_debug  [unknown]                         [k] 0xffffffff91e652a2
-     0.23%  mp_debug  [unknown]                         [k] 0xffffffff919b59a7
-     0.22%  mp_debug  [unknown]                         [k] 0xffffffff920000d4
-     0.21%  mp_debug  [unknown]                         [k] 0xffffffff919b5da7
-     0.20%  mp_debug  [unknown]                         [k] 0xffffffff9176f5be
-     0.20%  mp_debug  [unknown]                         [k] 0xffffffff920000d9
-     0.14%  mp_debug  [unknown]                         [k] 0xffffffff914e5d78
-     0.09%  mp_debug  [unknown]                         [k] 0xffffffff91501e25
-     0.08%  mp_debug  [unknown]                         [k] 0xffffffff91500dd2
-     0.03%  mp_debug  [unknown]                         [k] 0xffffffff91498e67
-     0.03%  perf-exe  [unknown]                         [k] 0xffffffff9167ce80
-     0.01%  mp_debug  [unknown]                         [k] 0xffffffff9144d022
-     0.01%  mp_debug  [unknown]                         [k] 0xffffffff9144d0bf
-     0.01%  mp_debug  [unknown]                         [k] 0xffffffff91e7b2fe
+     0.02%  mp_perf  libc-2.31.so                    [.] __vfscanf_internal
+     0.02%  mp_perf  libc-2.31.so                    [.] __printf_fp_l
+     0.01%  mp_perf  [unknown]                       [k] 0xffffffff92104104
+     0.01%  mp_perf  [vdso]                          [.] __vdso_clock_gettime
+     0.01%  mp_perf  [unknown]                       [k] 0xffffffff9173e291
+     0.01%  mp_perf  [unknown]                       [k] 0xffffffff919bab86
+     0.01%  mp_perf  [unknown]                       [k] 0xffffffff9148cbd6
+     0.01%  mp_perf  libc-2.31.so                    [.] __GI_____strtod_l_internal
+     0.01%  mp_perf  libc-2.31.so                    [.] __vfprintf_internal
+     0.01%  mp_perf  [unknown]                       [k] 0xffffffff9148ca88
+     0.01%  mp_perf  [unknown]                       [k] 0xffffffff91e7b167
+     0.01%  mp_perf  [unknown]                       [k] 0xffffffff9173e107
+     0.01%  mp_perf  [unknown]                       [k] 0xffffffff916ddce8
+     0.01%  mp_perf  libhsa-runtime64.so.1.14.60304  [.] hsa_amd_enable_logging
+     0.01%  mp_perf  [unknown]                       [k] 0xffffffff917477a0
+     0.01%  mp_perf  mp_perf                         [.] init_QT
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916ddd38
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91563686
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91945d0b
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff92000ea0
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917456a2
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917456a8
+     0.00%  mp_perf  libm-2.31.so                    [.] __sqrt_finite
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9154da68
+     0.00%  mp_perf  mp_perf                         [.] precom_norm
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9154da5b
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91e7b2fe
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff919bab6d
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916ddd4c
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91573907
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff914e9795
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff914fe415
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff919babbd
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916ddd34
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff915738dd
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91544f65
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9177de87
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91743b09
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917456af
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc0bd488f
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917314f2
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9181ed96
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9181ee17
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9176bf92
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff919b9dd7
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc09bfc2a
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff915950dc
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc0bd4856
+     0.00%  mp_perf  mp_perf                         [.] main
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91743ab0
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9174778e
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9176c3fa
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9168c3d6
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91726e3c
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9173efff
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9173e0f9
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91743a2e
+     0.00%  mp_perf  libc-2.31.so                    [.] clock_gettime
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916cd19e
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91949462
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91744126
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91744030
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc0bd42a6
+     0.00%  mp_perf  libc-2.31.so                    [.] __mempcpy_avx_unaligned
+     0.00%  mp_perf  libgcc_s.so.1                   [.] _Unwind_Backtrace
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916cd1a3
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91743fbd
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9173efaa
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91e7c5c0
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916e4b3b
+     0.00%  mp_perf  ld-2.31.so                      [.] strcmp
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91e690c4
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff92001920
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916ddcf1
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff914fe1c6
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff914b7f00
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9154d2d5
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9144452c
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff914f8cec
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff915651bb
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91544d20
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91502e14
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91512b66
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91408e7b
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff914f9a3d
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916ddd6c
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff914ee875
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9140d150
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91501046
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff92001965
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916ddd2d
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91e6909f
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9140b9f5
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9175bda5
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91e7b402
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91c05421
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff92001563
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff914f89c9
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff914fe2cd
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff914fe8d5
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916ddd1f
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff915739b5
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91561059
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9151288b
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff919bacd2
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91518d75
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916ddd45
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9154f3f4
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91512aa1
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9140b422
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916d33a3
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91573b01
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc0bb3d2f
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91764827
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9159539c
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9177c371
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91408d95
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9147a16c
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91518dac
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9154f3dd
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff914f0299
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff914497b3
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9174574b
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91574c5b
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91562187
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9181dfc5
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916ca760
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9148c803
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91e7c6f0
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff914fd5c7
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91571097
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff92104109
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9156464d
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91481b32
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91821355
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff919babb5
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9176f99d
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff914f0213
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916c249b
+     0.00%  mp_perf  libc-2.31.so                    [.] __strcspn_sse42
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916cf25d
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91496b34
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91912100
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff918a3af5
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc2d04ba2
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917263f8
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9176bc84
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91496b12
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff915a07ca
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91408e22
+     0.00%  mp_perf  libc-2.31.so                    [.] __GI_____strtol_l_internal
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9181dfe6
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91449ac7
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9177de74
+     0.00%  mp_perf  libc-2.31.so                    [.] __mpn_mul_1
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916e4954
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91408e83
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9170a200
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9172ff24
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91e730e0
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff92000180
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9172ffbb
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916d8ecd
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91743aa3
+     0.00%  mp_perf  libc-2.31.so                    [.] malloc
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916e38a7
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91741027
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91b91ee5
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917233eb
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9173118e
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916e477e
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9173153b
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc0bd8460
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91730eef
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91741006
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91744a5b
+     0.00%  mp_perf  libdrm_amdgpu.so.1.123.0        [.] amdgpu_parse_asic_ids
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc0967c71
+     0.00%  mp_perf  libc-2.31.so                    [.] free
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917314d9
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91740fed
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917477d6
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc0bd48c1
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91745660
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9174575a
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917448ff
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916e478a
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917456aa
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91544f5e
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc08bf69f
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9174025a
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc0bd48c4
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9174567f
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916f21a0
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91821ae6
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9177d8fe
+     0.00%  mp_perf  ld-2.31.so                      [.] _dl_relocate_object
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9172fbc1
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91744a74
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916e283b
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916dcd49
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff919b1b9d
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916f2821
+     0.00%  mp_perf  libc-2.31.so                    [.] hack_digit
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91e7b15e
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916b1499
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff914ff445
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91731000
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91787abc
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff914f8abd
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91741013
+     0.00%  mp_perf  libc-2.31.so                    [.] _IO_sputbackc
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917477c9
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9181dfff
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917456e6
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916bbedd
+     0.00%  mp_perf  libc-2.31.so                    [.] __mpn_rshift
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916ce345
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916e4761
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91558fb4
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916d7815
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917777b9
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91743b4e
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91742b99
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff919bd1dc
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91730cc4
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc08bf975
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc2d06a1d
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc09a9b17
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9154da5d
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9172fbae
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff914d6785
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917646e2
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91e754e5
+     0.00%  mp_perf  libstdc++.so.6.0.33             [.] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_create
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91e69bb5
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91756c35
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc0ba41f0
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff919ad71a
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc0adec85
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91855d49
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91e7cc68
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91741026
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9178c1fd
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917456a0
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9168a84d
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff919b5a9e
+     0.00%  mp_perf  mp_perf                         [.] precom_dg
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91821072
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff92000043
+     0.00%  mp_perf  libomptarget.rtl.cuda.so.18git  [.] llvm::xxh3_64bits
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9176bc95
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91559803
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91744727
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff919b259c
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff919b1bb4
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917456b0
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff919b1b03
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9177de66
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc0bd6ab6
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916e4941
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff92000040
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff919b24c4
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff919b59e6
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9173e10d
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9176f829
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9172b9af
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91743a9c
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff919a0506
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916cd282
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9176bfcc
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff919b5a97
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff919b0d6f
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91747950
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916cefff
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff918224bc
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91722de5
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9173e0a8
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916cd117
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9195063a
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9173eee6
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91743f7e
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917565aa
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc0bd6ae3
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91742beb
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916cd1ef
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917440fd
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91e652d6
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916e4945
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9174413a
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916e4a82
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917441a6
+     0.00%  mp_perf  libc-2.31.so                    [.] _itoa_word
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9173e1e3
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91744019
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9145892e
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91727acb
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916ceff5
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917233ef
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc2cf1add
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917479c3
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc098e180
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9173e10a
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916f0294
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91742be7
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91743f75
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc09a9a57
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917441ae
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91743a49
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff919b22e1
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91743fd8
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91743ff5
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917479b9
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff919b5a46
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff917383d4
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff919b255a
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916cbf5d
+     0.00%  mp_perf  libhsa-runtime64.so.1.14.60304  [.] 0x0000000000022cf0
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9173ef3b
+     0.00%  mp_perf  ld-2.31.so                      [.] _dl_sort_maps
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91756572
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916fe756
+     0.00%  mp_perf  libc-2.31.so                    [.] _IO_file_xsputn
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91740262
+     0.00%  mp_perf  libhsa-runtime64.so.1.14.60304  [.] hsa_amd_image_get_info_max_dim
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91744001
+     0.00%  mp_perf  libc-2.31.so                    [.] __strchrnul_avx2
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91743a2b
+     0.00%  mp_perf  libpthread-2.31.so              [.] _pthread_cleanup_pop_restore
+     0.00%  mp_perf  libc-2.31.so                    [.] __run_exit_handlers
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9173e28d
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9173e278
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc0bceb10
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff916cd2d5
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91742c18
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91742bc5
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffffc09a379c
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91742bcf
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff9167138d
+     0.00%  mp_perf  libc-2.31.so                    [.] calloc
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91501114
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91e7725a
+     0.00%  perf-ex  [unknown]                       [k] 0xffffffff91e7b3f5
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff91498e5f
+     0.00%  mp_perf  [unknown]                       [k] 0xffffffff914e99cf
+     0.00%  perf-ex  [unknown]                       [k] 0xffffffff9167ce4f
 
 
 #
