@@ -1,29 +1,13 @@
-CXX=c++
+CXX=amdclang++
+CXXFLAGS=-O3 -Wall -Rpass -target x86_64-linux-gnu -fopenmp --offload-arch=gfx90a
 
-MAIN=main.cpp
-BIN=bin
-EXE=mp
-OUT=output
+SRC=main.cpp
+OUT=main
 
-DATA=input/randomlist128.txt
-LEN=128
-SUBLEN=10
+all: $(OUT)
 
-all: prepare compile
-
-prepare:
-	mkdir -p $(BIN) 
-	mkdir -p $(OUT)
-
-compile:
-	$(CXX) $(MAIN) -o $(BIN)/$(EXE) -lm
-
-debug:
-	$(CXX) $(MAIN) -o $(BIN)/$(EXE) -lm -DDEB
-
-run:
-	$(BIN)/$(EXE) $(DATA) $(LEN) $(SUBLEN)
+$(OUT):
+	$(CXX) $(CXXFLAGS) $(SRC) -o $(OUT) -lm
 
 clean:
-	rm -rf $(BIN)/$(EXE)
-	rm -rf $(BIN) $(OUT)
+	rm $(OUT)
