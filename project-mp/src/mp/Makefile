@@ -1,13 +1,19 @@
 CXX=amdclang++
 CXXFLAGS=-O3 -Wall -Rpass -target x86_64-linux-gnu -fopenmp --offload-arch=gfx90a
+CPPFLAGS=
 
-SRC=main.cpp
-OUT=main
+ROCM_ROOT=/opt/rocm
 
-all: $(OUT)
+CPPFLAGS+=-I$(ROCM_ROOT)/include/rocprofiler-sdk-roctx
+LDFLAGS=-Wl,-rpath,$(ROCM_ROOT)/lib
+LDLIBS=-L$(ROCM_ROOT)/lib -lroctx64 -lm
 
-$(OUT):
-	$(CXX) $(CXXFLAGS) $(SRC) -o $(OUT) -lm
+OBJS = main.o
+
+all: mp
+
+mp: $(OBJS)
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) $(SRC) -o mp $(LDLIBS)
 
 clean:
 	rm $(OUT)
