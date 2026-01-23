@@ -1,0 +1,16 @@
+"Name","Calls","TotalDurationNs","AverageNs","Percentage"
+"hsa_amd_memory_fill",8,45217300,5652162,34.919251629421694
+"hsa_queue_create",8,41888964,5236120,32.34893004252325
+"hsa_queue_destroy",8,41132296,5141537,31.764589971534246
+"hsa_amd_signal_create",512,542268,1059,0.4187687620132835
+"hsa_amd_memory_pool_allocate",8,407038,50879,0.3143368211887164
+"hsa_agent_iterate_isas",8,81870,10233,0.06322445459814616
+"hsa_isa_get_info_alt",16,75200,4700,0.058073518819843545
+"hsa_signal_destroy",512,73469,143,0.05673674673105167
+"hsa_amd_agents_allow_access",8,19199,2399,0.014826509146571491
+"hsa_agent_get_info",120,14670,122,0.011328969695307244
+"hsa_iterate_agents",1,13960,13960,0.010780669185173083
+"hsa_amd_agent_iterate_memory_pools",24,11070,461,0.00854885443265516
+"hsa_amd_memory_pool_get_info",128,10640,83,0.00821678510961616
+"hsa_amd_register_system_event_handler",1,1620,1620,0.001251051868193438
+"hsa_amd_agent_memory_pool_get_info",8,1470,183,0.0011352137322496012
