@@ -13,7 +13,7 @@ OBJS = main.o
 all: mp
 
 mp: $(OBJS)
-	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) $(SRC) -o mp $(LDLIBS)
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) $(OBJS) -o mp $(LDLIBS)
 
 clean:
-	rm $(OUT)
+	rm mp mp.o
