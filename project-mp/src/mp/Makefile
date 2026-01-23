@@ -4,9 +4,9 @@ CPPFLAGS=
 
 ROCM_ROOT=/opt/rocm
 
-CPPFLAGS+=-I$(ROCM_ROOT)/include/rocprofiler-sdk-roctx
+CPPFLAGS+=-I$(ROCM_ROOT)/include
 LDFLAGS=-Wl,-rpath,$(ROCM_ROOT)/lib
-LDLIBS=-L$(ROCM_ROOT)/lib -lroctx64 -lm
+LDLIBS=-L$(ROCM_ROOT)/lib -l:libroctx64.so.4 -lm
 
 OBJS = main.o
 
@@ -16,4 +16,4 @@ mp: $(OBJS)
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) $(OBJS) -o mp $(LDLIBS)
 
 clean:
-	rm mp mp.o
+	rm mp main.o
