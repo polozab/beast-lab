@@ -19,6 +19,10 @@ We modified the Makefile to also link the ROCTracer API to ease the profiling pr
 - `fopenmp`: Enable OpenMP compiler support
 - `offload-arch`: Shortcut defining the offloading (GPU) target architecture (AMD specific)
 
+## Profiling
+
+> **TODO**
+
 ## GFLOP calculation
 
 To be able to compare different results of our code we had to use a unified measurement that could be evaluated easily. For that we measured the offloaded kernel runtime to calculate the archived FLOPS per second:
@@ -117,7 +121,39 @@ The data transfer between host and offloading device is handled via OpenMP `targ
 We used the `map(to : ...)` directive to copy the precomputed data and the intermediate buffer `QT` to the offloading device. As these don't get changed by the computational kernel we wouldn't have to copy them back to host.
 For the result buffers `mp`, `mpi` we also had to copy them back after finishing the computation, hence the usage of the `map(tofrom : ...)` directive.
 
-We also tried to initialize the result and intermediate buffers only on the GPU to save copy time, however as this didn't matter for our GFLOPS anyways and every task done instead on the GPU would only worsen our results we kept it on the host side. In addition we examined the time it took for the initialized data to be transferred and it only took a few fractions of a second, which wouldn't make a real life difference in our case. Moreover did we also tested the changes in performance for our different approaches and in every one 
+We also tried to initialize the result and intermediate buffers only on the GPU to save copy time, however as this didn't matter for our GFLOPS anyways and every task done instead on the GPU would only worsen our results we kept it on the host side. In addition we examined the time it took for the initialized data to be transferred and it only took a few fractions of a second, which wouldn't make a real life difference in our case. Moreover we also did test changes in performance for our different approaches and in every one doing the initialization had no or a negative impact on the performance of that kernel.
 
+Finally as the buffers are dynamically allocated memory regions we had to specifically tell OpenMP how long the buffer was to circumvent buffer overflows and incomplete copying of the buffers. This was done by stating the length on the variable name using `var[start:end]`.
+
+The final data offloading clause looked like this:
+
+```cpp
+#pragma omp target data \
+map(to: ts[:len], mu[:mlen], df[:mlen], dg[:mlen], norm[:mlen]) \
+map(from: mp[:mlen], mpi[:mlen])
+{
+  tb = omp_get_wtime();
+  kernel(mp, mpi, QT, df, dg, norm, mlen, sublen);
+  te = omp_get_wtime();
+}
+```
 
 ### Computational kernel offload
+
+The offload of the actual computational kernel is simple enough in OpenMP we just had to enclouse the entire code into a OMP `target` structure.
+This would offload the kernel to the default offloading device, which was in our case the `GPU-8`.
+
+
+In addition as usual we could instntiate teams of threads and threads itself using the `teams` and `parallel` directives. Loops iteration could than be distributed among teams and threads using `distribute` and `for` respectively. We will go into the specifics for any used offloading directive when we take a closer look at our different approaches.
+
+As a baseline we executed the given kernel without any distributed or parallelized execution of the loop. However this took so long that we only took a measurement for a reduced matrix size:
+
+```
+h039y10@milan2:~/beastlab/project-mp/src/mp> ./mp input/randomlist65536.txt 10 10
+Runtime: 0.312443
+GFLOP/S: 0.010
+```
+
+As we can see on the GPU the performance is significantly worse due to the fact that it doesn't support any of the dynamic scheduling and out-of-order execution tricks done by the CPU. To be able to archive reasonable performance with a GPU we have to exploit it massive parallelism potential. However, before we could start parallelizing the kernel with our different approaches first we have to analyze the potential data races and with that we take a closer look at the loop dependencies next.
+
+## Loop dependencies
