@@ -234,6 +234,9 @@ for (int i=0;i<mlen-sublen;i++){
       QT[j-i-sublen] +=  df[i]*dg[j] + df[j]*dg[i];
 
     double cr = QT[j-i-sublen] * norm[i] * norm[j];
+    ...
+  }
+}
 ```
 
 For example in the previous code lets say `sublen=2`. If we visualize the indices of `QT[j-i-sublen]` for each pair `(i,j)` according to the loop variables we see that  almost all offsets within `QT` are accessed multiple times. However we also see that there is a certain diagonal pattern that could be exploited by letting a single thread own such an diagonal. In that case no race conditions would occur which we will also employ in one of our approaches:
