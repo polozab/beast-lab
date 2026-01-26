@@ -21,7 +21,73 @@ We modified the Makefile to also link the ROCTracer API to ease the profiling pr
 
 ## Profiling
 
-> **TODO**
+For profiling our applications we used the ROCProfiler[*](https://rocm.docs.amd.com/projects/rocprofiler/en/latest/index.html) in combination with the ROCTracer API[*](https://rocm.docs.amd.com/projects/roctracer/en/latest/doxygen/html/index.html).
+
+This allowed us to define custom execution ranges similar to our last project with Nsight. In Addition we also collected counters and events. For that the  [`rocprof`](https://rocm.docs.amd.com/projects/rocprofiler/en/latest/how-to/using-rocprof.html#) command line tool is used.
+
+### RocTX Annotations
+
+To be able to use the `--roctx-trace` option effectively and allow the API to show us concrete time ranges we first had to annotate our source code by using the `roctxRangePush` and `roctxRangePop` methods that we include using the provided shared library. We used this to annotate the different phases of the application: initialization, calculate precomputed buffers, mapping data to offloaded device, execution of the computational kernel, and transferring the data back.
+This allowed us to precisely check the individual execution times of certain ranges and decide what we should focus on.
+
+In the following we see an example were we captured the individual calculations of the precomputed fields using RocTX annotation:
+
+```cpp
+// prepare statistics, initialization (some needed for the first row of matrix)
+roctxRangePush("MU");
+precom_mu(ts,mu,mlen,sublen);
+roctxRangePop();
+roctxRangePush("NORM");
+precom_norm(ts,norm,mu,mlen,sublen);
+roctxRangePop();
+roctxRangePush("DF");
+precom_df(ts,df,mlen,sublen);
+roctxRangePop();
+roctxRangePush("DG");
+precom_dg(ts,mu,dg,mlen,sublen);
+roctxRangePop();
+```
+
+To run the tracer we issued the following command:
+
+```sh
+rocprof --roctx-trace ./mp input/randomlist65536.txt 16 10
+```
+
+And the following results showing that as expected calculating the norm takes the longest time among those methods:
+
+> **TODO**: Image of precomputations
+
+### Collecting system counters
+
+The other part useful for optimizing the matrix profile kernel is the ability for RocProf to record system counter like cache misses and used memory bandwidth. For this we had to supply the `rocprof` CLI tool with an input file defining several counters we want to measure and limitations to the context we want to capture. With the later one it was possible to specifically only measure the offloaded part we were interested in. 
+
+To obtain the list of collectable counter the `rocprof` CLI can be used with the `--list-basic` and `--list-derived` option. After checking the available counter we decided to capture the following ones:
+
+- `GPUBusy`: Shows if the GPU is actually utilized
+- `VALUBusy`: Check whether the functional units actually process something or are bottlenecked by e.g. memory
+- `OccupancyPercent`: Similar check for occupancy to determine bottlenecks
+- `BANDWIDTH_EA`: Check whether we are bandwidth limited
+- `MemUnitStalled`: Shows if the memory units are fully utilized or stalled due to some reason
+- `TOTAL_64_OPS`: As a comparison to check whether the GFLOP approximation done in the next part is representative
+- `L2CacheHit`: Analyze how good the cache reuse for the executed code is 
+
+The finished input file only capturing the main computational kernel (named `kernel` in the source code) looked like this:
+
+```
+pmc: GPUBusy, VALUBusy, OccupancyPercent, BANDWIDTH_EA, MemUnitStalled, TOTAL_64_OPS, L2CacheHit
+kernel:kernel
+```
+
+The profiler could be issued with following command including the previous input file and mentioned options:
+
+```sh
+rocprof --stats -i ./input.txt ./mp input/randomlist65536.txt 16 10
+```
+
+The result could be views on the following website[*](https://ui.perfetto.dev/) by uploading the created `results.json` file.
+
+In the future it would also be helpful to capture the `HIP` trace to be able to see the individual kernels on the GPU and also allow to use annotations within offloaded methods. However this was not possible with OpenMP offload instead and we would have to use actual `HIP` kernels to be able to archive this.
 
 ## GFLOP calculation
 
