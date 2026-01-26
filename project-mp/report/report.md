@@ -245,7 +245,7 @@ For example in the previous code lets say `sublen=2`. If we visualize the indice
         j
         →
         0 1 2 3 4 5 6 7
-i ↓  0  . . 0 1 2 3 4 5
+i ↓  0  . . . . . . . .
      1  . . . 0 1 2 3 4
      2  . . . . 0 1 2 3
      3  . . . . . 0 1 2
