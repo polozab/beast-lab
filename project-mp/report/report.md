@@ -223,3 +223,53 @@ GFLOP/S: 0.010
 As we can see on the GPU the performance is significantly worse due to the fact that it doesn't support any of the dynamic scheduling and out-of-order execution tricks done by the CPU. To be able to archive reasonable performance with a GPU we have to exploit it massive parallelism potential. However, before we could start parallelizing the kernel with our different approaches first we have to analyze the potential data races and with that we take a closer look at the loop dependencies next.
 
 ## Loop dependencies
+
+In the main computational kernel there are two dependencies present. The first one is connected to the accumalation of the intermediate `QT` buffer. It holds the diagonal state of the matrix which is currently being processed. Due to the iteration variables it gets visited by multiple unique `(i,j)` pairs. In the approaches we propose different methods of circumventing this dependency.
+
+```cpp
+for (int i=0;i<mlen-sublen;i++){
+  for (int j=i+sublen;j<mlen ;j++){
+
+    if (i!=0)
+      QT[j-i-sublen] +=  df[i]*dg[j] + df[j]*dg[i];
+
+    double cr = QT[j-i-sublen] * norm[i] * norm[j];
+```
+
+For example in the previous code lets say `sublen=2`. If we visualize the indices of `QT[j-i-sublen]` for each pair `(i,j)` according to the loop variables we see that  almost all offsets within `QT` are accessed multiple times. However we also see that there is a certain diagonal pattern that could be exploited by letting a single thread own such an diagonal. In that case no race conditions would occur which we will also employ in one of our approaches:
+
+```
+        j
+        →
+        0 1 2 3 4 5 6 7
+i ↓  0  . . 0 1 2 3 4 5
+     1  . . . 0 1 2 3 4
+     2  . . . . 0 1 2 3
+     3  . . . . . 0 1 2
+     4  . . . . . . 0 1
+     5  . . . . . . . 0
+     6  . . . . . . . .
+     7  . . . . . . . .
+```
+
+The second dependency is caused by the updates to the result fields `mp` and `mpi`. This is due to the non-atomicity of the conditional updated which causes a race conditions if multiple threads passed the max-check based on an outdated values and than write their own value into the field. This could most definitely not be the actual maximum value considering all present threads that checked the max-check. We will also explain solutions for this problem in the individual approaches we tried.
+
+```cpp
+if (cr > mp[i]){
+  mp[i]=cr;
+  mpi[i]=j;
+}
+
+if (cr > mp[j]){
+  mp[j]=cr;
+  mpi[j]=i;
+}
+
+```
+
+As an example let `mp[i] = 67.3`. Now a thread could pass the max-test with the value `69.3`. Now simultaneously a separate thread could pass the max-test with `67.8`, and depending on which thread now writes last the later thread could actually persist in the result field although it was not the maximum value.
+
+## Different approaches to parallelization 
+
+In the last two weeks we tried out several different approaches. Each can be found in a separate files:
+
