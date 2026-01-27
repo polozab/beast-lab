@@ -1,4 +1,4 @@
-## Approach 1 - Parallelization over the diagonals
+## Approach 1 - Parallelization over diagonals
 
 ### Solving QT access
 
