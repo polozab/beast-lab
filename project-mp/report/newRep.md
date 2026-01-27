@@ -245,4 +245,4 @@ gpu=9  total=1623.929 ms  calls=1  avg=1623.929 ms
 # Result
 Best achieved result for N=20: 600Gflops
 The achieved amount of GFLOP is direct proportional to the problem size for n=15 we achieved 10 GFLOP. 
-And fo N=25 to be seen
+The performance flatens at aroun 630GFLOP for larger problem sizes (N>22) which is likely due to a reasonn?..
