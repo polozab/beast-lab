@@ -141,7 +141,7 @@ int main(int argc, char* argv[]){
 
   // argument handling
   if(argc < 7){
-    printf("Usage: exe <input file> <len> <sublen> <blocks> <tiles_k> <tiles_i>\n");
+    printf("Usage: exe <input file> <len> <sublen> <num_teams> <tiles_k> <tiles_i>\n");
     exit(0);
   }
 
