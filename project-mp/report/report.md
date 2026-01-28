@@ -274,5 +274,8 @@ As an example let `mp[i] = 67.3`. Now a thread could pass the max-test with the 
 
 ## Different approaches to parallelization 
 
-In the last two weeks we tried out several different approaches. Each can be found in a separate files:
+In the last two weeks we tried out two different main approaches. Each can be found in a separate files:
 
+**[Approach 1](approach1.md)** (includes `main_1a.cpp` and `main_1b.cpp`)
+
+**[Approach 2](approach2.md)** (includes `main_2.cpp`)
