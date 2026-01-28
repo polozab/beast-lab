@@ -1,3 +1,4 @@
-mp/output
+mp/output/mp.txt
+mp/output/mpi.txt
 mp/mp
 mp/*.o
