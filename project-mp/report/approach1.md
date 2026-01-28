@@ -133,8 +133,6 @@ First of all we suspect that the parallelism by only distributing over teams is 
 
 Another limiting factor we would suspected for the computational kernel on a theoretical level is that the work distribution to the teams is not uniform as every diagonal has a different length. This internally means that the team scheduler has the difficult task to manage all the distribution efficiently, which is definitely possible, however unlikely to happen without further hints or a more predictable loop pattern. This we did not confirm in reality however is likely one issue causing this barely faster performance by the GPU.
 
-For these reasons we concluded this approach would not be feasible to optimize efficiently with our limited time. However we did have some thoughts on improving this approach that we could explore in the future.
-
 ## Approach 1b - Two level parallelism & Tiling
 
 ### Two-level parallelism
@@ -171,7 +169,6 @@ for (int i = 0; i < mlen; i++) {
 However our current loop setup doesn't fully utilize the hierarchy of the GPU yet. To be able to do this we opted to implement tiling for both the range of visited `k` and `i`, which get assigned to different teams. Thus we would get blocks of the matrix distributed to different computing units reducing the overall problem size that they have to work on. The implementation utilizes the OpenMP `collapse` directive to distribute both block-tile loops:
 
 ```cpp
-...
 #pragma omp distribute parallel for collapse(2)
 for (int kt = 0; kt < rows; kt += tiles_k) {
   for (int it = 0; it < rows; it += tiles_i) {
@@ -223,14 +220,40 @@ for (int k = kt; k < min(kt+tiles_k, rows); k++) {
 
 The inside of the `k`-tiles was iterated over by the outer loop which visited every the individual diagonals. For every diagonal we also calculated the correct starting `QT` using the same method provided by the assignment however only for the specific diagonal instead of the whole first line. This allowed us to completely get rid of the allocation of the `QT` buffer on both the host and device. This improved our usage of memory slightly as we only allocate so many private `QT` elements as we create team which are are less compared to the matrix size. The update of the result buffers were not affected by this change only the pointers now point at the thread-private buffers instead of the team-private ones.
 
-### Redistributing parallelism
+### Performance evaluation
 
+After measuring some initial performance measurements we saw an significant improvement over our first version of this kernel. Tweaking the parameters for some time brought us to about `20 GFLOPS/s`. As we can see this still is for from the expected performance, however we were glad to at least reach a reasonable performance with the following parameters:
 
+```sh
+#./mp <len> <sublen> <teams> <threads> <tiles_k> <tiles_i> 
+./mp input/randomlist65536.txt 16 10 512 64 128 128
+```
 
-In addition we further instantiate a number of threads to handle different blocks of diagonals within the block of the team. 
-
+However as we can see the high number of teams and threads reduces the overall size limit for the matrix to `2^16` which shows us that ou largest bottleneck still is the memory of a single GPU. For that reasons we concluded this approach would not be feasible to optimize efficiently with our limited time. However we did have some thoughts on improving this approach that we could explore in the future.
 
 ## Future improvements
+
+One thing we would try is to adapt the parallel distribution. This means changing the tiling in such a way that instead of distributing the block-tiles across both team and threads they only get applied to different teams. Thus we could use the thread distribution on the inner `k`-loop that iterates over individual diagonals. This was a positive change to our overall performance and was easily implemented. The kernel itself would untouched from this change as we only had to rewrite the OpenMP directives:
+
+```cpp
+#pragma omp distribute collapse(2)
+for (int kt = 0; kt < rows; kt += tiles_k) {
+  for (int it = 0; it < rows; it += tiles_i) {
+
+    #pragma omp parallel
+    {
+      const int thread = omp_get_thread_num();
+      double *local_mp = block_mp + (team*num_threads + thread)*mlen;
+      int *local_mpi = block_mpi + (team*num_threads + thread)*mlen;
+
+      #pragma omp for
+      for (int k = kt; k < min(kt+tiles_k, rows); k++) {
+        ...
+      }
+    }
+  }
+}
+```
 
 In addition to doing parallelism on two-level we could also distribute different tiles of the matrix to separate devices. This would not only be yet another level of parallelism but would also increase the amount of available GPU memory. With that two-level parallelism with thread-private result buffers could become feasibly even at huge matrix sizes like `2^20`. We think that this improvement would be the next step trying to get this approach to a reasonable performance and we would be very interested to try this out if we have the time.
 
