@@ -58,7 +58,7 @@ void precom_dg(double* ts, double* mu, double* dg, int mlen, int sublen){
   return;
 }
 
-void kernel(double *QT, double *df, double *dg, double *norm, double *team_mp, int *team_mpi, int mlen, int sublen, int num_teams, int tile_size_k) {
+void kernel(double *QT, double *df, double *dg, double *norm, double *team_mp, int *team_mpi, int mlen, int sublen, int num_teams) {
 
   #pragma omp target teams num_teams(num_teams) is_device_ptr(team_mp, team_mpi)
   {
@@ -111,8 +111,8 @@ void reduce_team_buffers(double *mp, int *mpi, const double *team_mp, const int 
 int main(int argc, char* argv[]){
 
   // argument handling
-  if(argc < 6){
-    printf("Usage: exe <input file> <len> <sublen> <teams> <tile_size>\n");
+  if(argc < 5){
+    printf("Usage: exe <input file> <len> <sublen> <teams>\n");
     exit(0);
   }
 
@@ -121,7 +121,6 @@ int main(int argc, char* argv[]){
   int sublen = atoi(argv[3]);
   int mlen = len - sublen + 1;
   int num_teams = atoi(argv[4]);
-  int tile_size = atoi(argv[5]);
 
   if(f == NULL){
     perror("fopen");
@@ -207,7 +206,7 @@ int main(int argc, char* argv[]){
     tb = omp_get_wtime();
   
     roctxRangePush("Kernel");
-    kernel(QT, df, dg, norm, team_mp, team_mpi, mlen, sublen, num_teams, tile_size);
+    kernel(QT, df, dg, norm, team_mp, team_mpi, mlen, sublen, num_teams);
     roctxRangePop();
   
     roctxRangePush("Reduction");

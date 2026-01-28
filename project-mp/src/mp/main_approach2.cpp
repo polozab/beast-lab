@@ -58,31 +58,43 @@ void precom_dg(double* ts, double* mu, double* dg, int mlen, int sublen){
   return;
 }
 
-void kernel(double *mp, int *mpi, const double *ts, const double *mu,
-            const double *df, const double *dg, const double *norm,
-            int mlen, int sublen, int num_blocks,
-            double *mp_block, int *mpi_block, double *QT_block) {
+void precom_QT(double* ts, double* mu, double* block_QT, int mlen, int sublen, int num_blocks) {
 
   const int rows = mlen - sublen;
 
-  #pragma omp target teams distribute num_teams(num_blocks)
+  #pragma omp target teams distribute num_teams(num_blocks) is_device_ptr(block_QT)
+  for (int b = 0; b < num_blocks; b++) {
+
+    const int i0 = (rows * b) / num_blocks;
+
+    const int offset = b * mlen;
+    double *QT_local = block_QT + offset;
+
+    for (int d = 0; d < rows - i0; ++d) {
+      int j = i0 + sublen + d;
+      double acc = 0.0;
+      for (int t = 0; t < sublen; ++t) {
+        acc += (ts[i0 + t] - mu[i0]) * (ts[j + t] - mu[j]);
+      }
+      QT_local[d] = acc;
+    }
+  }
+}
+
+void kernel(double *df, double *dg, double *norm, double *block_mp, int *block_mpi, double* block_QT, int mlen, int sublen, int num_blocks) {
+
+  const int rows = mlen - sublen;
+
+  #pragma omp target teams distribute num_teams(num_blocks) is_device_ptr(block_mp, block_mpi, block_QT)
   for (int b = 0; b < num_blocks; b++) {
 
     const int i0 = ((rows * b) / num_blocks);
     const int i1 = ((rows * (b + 1)) / num_blocks);
 
     const int offset = b * mlen;
-    double *mp_local = mp_block + offset;
-    int *mpi_local = mpi_block + offset;
-    double *QT_local = QT_block + offset;
-
-    int start = i0;
-    for(int i = 0; i < i1; i++){
-      for (int j = 0; j < sublen; j++){
-        if (i-sublen >=0)
-        QT_local[i-sublen] += (ts[start + j] - mu[start] )*(ts[i+j]- mu[i]);
-      }
-    }
+    double *mp_local = block_mp + offset;
+    int *mpi_local = block_mpi + offset;
+    double *QT_local = block_QT + offset;
 
     for (int i = i0; i < i1; i++) {
       for (int j = i + sublen; j < mlen; j++) {
@@ -106,21 +118,23 @@ void kernel(double *mp, int *mpi, const double *ts, const double *mu,
       }
     }
   }
+}
 
-  #pragma omp target teams distribute parallel for
+void reduce_block_buffers(double *mp, int *mpi, const double *block_mp, const int *block_mpi, int mlen, int num_blocks) {
+  #pragma omp target teams distribute parallel for is_device_ptr(block_mp, block_mpi)
   for (int i = 0; i < mlen; i++) {
-    double best = -1.0;
-    int best_j = -1;
-    for (int b = 0; b < num_blocks; b++) {
-      const int idx = b * mlen + i;
-      const double val = mp_block[idx];
-      if (val > best) {
-        best = val;
-        best_j = mpi_block[idx];
-      }
+
+    double best_val = -1;
+    int best_idx = -1;
+
+    for (int t = 0; t < num_blocks; t++) {
+      size_t offset = (size_t)t * mlen + i;
+      double v = block_mp[offset];
+      if (v > best_val) { best_val = v; best_idx = block_mpi[offset]; }
     }
-    mp[i] = best;
-    mpi[i] = best_j;
+
+    mp[i]  = best_val;
+    mpi[i] = best_idx;
   }
 }
 
@@ -135,9 +149,8 @@ int main(int argc, char* argv[]){
   int len = 1 << atoi(argv[2]);
   FILE* f = fopen(argv[1],"r");
   int sublen = atoi(argv[3]);
-  int num_blocks = atoi(argv[4]);
-
   int mlen = len - sublen + 1;
+  int num_blocks = atoi(argv[4]);
 
   if(f == NULL){
     perror("fopen");
@@ -148,8 +161,7 @@ int main(int argc, char* argv[]){
   double *ts, *mp;
   int* mpi;
   double *mu, *df, *dg, *norm;
-  double *mp_block, *QT_block;
-  int *mpi_block;
+  double *tmp;
 
   // allocation
   ts = (double*) malloc(len * sizeof(double) );
@@ -161,10 +173,7 @@ int main(int argc, char* argv[]){
   df = (double*) malloc(mlen * sizeof(double) );
   dg = (double*) malloc(mlen * sizeof(double) );
 
-  const size_t block_elems = (size_t)num_blocks * (size_t)mlen;
-  mp_block = (double*) malloc(block_elems * sizeof(double));
-  mpi_block = (int*) malloc(block_elems * sizeof(int));
-  QT_block = (double*) malloc(block_elems * sizeof(double));
+  tmp= (double*) malloc(mlen * sizeof(double) );
 
   for(int i = 0; i < len; i++){
     fscanf(f, "%lf\n", ts+i);
@@ -177,42 +186,65 @@ int main(int argc, char* argv[]){
     mpi[i]=-1;
   }
 
-  for (int i = 0; i < block_elems; i++) {
-      mp_block[i] = -1.0;
-      mpi_block[i] = -1;
-      QT_block[i] = 0.0;
-    }
-
+  roctxRangePush("Init");
   // prepare statistics, initialization (some needed for the first row of matrix)
-  roctxRangePush("MU");
   precom_mu(ts,mu,mlen,sublen);
-  roctxRangePop();
-  roctxRangePush("NORM");
   precom_norm(ts,norm,mu,mlen,sublen);
-  roctxRangePop();
-  roctxRangePush("DF");
   precom_df(ts,df,mlen,sublen);
-  roctxRangePop();
-  roctxRangePush("DG");
   precom_dg(ts,mu,dg,mlen,sublen);
+
   roctxRangePop();
 
   double tb, te;
+  roctxRangePush("Data");
+
+  const int dev  = omp_get_default_device();
+  const int block_mlen = num_blocks * mlen;
+
+  double *block_mp = (double*) omp_target_alloc(block_mlen * sizeof(double), dev);
+  int *block_mpi = (int*) omp_target_alloc(block_mlen * sizeof(int), dev);
+  double *block_QT = (double*) omp_target_alloc(block_mlen * sizeof(double), dev);
+
+  if (!block_mp || !block_mpi || !block_QT) {
+    exit(1);
+  }
+  
+  #pragma omp target teams distribute parallel for is_device_ptr(block_mp, block_mpi, block_QT)
+  for (int idx = 0; idx < block_mlen; ++idx) {
+    block_mp[idx]  = -1.0;
+    block_mpi[idx] = -1;
+    block_QT[idx] = 0.0;
+  }
 
   #pragma omp target data \
-    map(to: ts[:len], mu[:mlen], df[:mlen], dg[:mlen], norm[:mlen]) \
-    map(from: mp[:mlen], mpi[:mlen]) \
-    map(alloc: mp_block[:block_elems], mpi_block[:block_elems], QT_block[:block_elems])
+  map(to : df[:mlen], dg[:mlen], norm[:mlen], ts[:len], mu[:mlen]) \
+  map(tofrom : mp[:mlen], mpi[:mlen])
   {
+
+    roctxRangePush("QT init");
+    precom_QT(ts, mu, block_QT, mlen, sublen, num_blocks);
+    roctxRangePop();
+
     roctxRangePush("Computation");
     tb = omp_get_wtime();
-
-    kernel(mp, mpi, ts, mu, df, dg, norm, mlen, sublen, num_blocks,
-           mp_block, mpi_block, QT_block);
-           
+  
+    roctxRangePush("Kernel");
+    kernel(df, dg, norm, block_mp, block_mpi, block_QT, mlen, sublen, num_blocks);
+    roctxRangePop();
+  
+    roctxRangePush("Reduction");
+    reduce_block_buffers(mp, mpi, block_mp, block_mpi, mlen, num_blocks);
+    roctxRangePop();
+  
     te = omp_get_wtime();
     roctxRangePop();
   }
+
+  omp_target_free(block_mp, dev);
+  omp_target_free(block_mpi, dev);
+  omp_target_free(block_QT, dev);
+
+  roctxRangePop();
 
   const double t = te - tb;
   const uint64_t M = (uint64_t)mlen;
@@ -240,7 +272,6 @@ int main(int argc, char* argv[]){
   fclose(f);
 
   // deallocation
-  free (ts); free(mp); free(mpi); free(mu); free(norm); free(df); free(dg);
-  free (mp_block); free(mpi_block); free(QT_block);
+  free (ts); free(mp); free(mpi); free(mu); free(norm); free(df); free(dg); free(tmp);
   return 0;
 }
