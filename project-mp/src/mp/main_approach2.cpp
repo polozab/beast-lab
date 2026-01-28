@@ -58,77 +58,78 @@ void precom_dg(double* ts, double* mu, double* dg, int mlen, int sublen){
   return;
 }
 
-void precom_QT(double* ts, double* mu, double* block_QT, int mlen, int sublen, int num_blocks) {
+void kernel(
+  const double *ts, const double *mu,
+  const double *df, const double *dg, const double *norm,
+  double *team_mp, int *team_mpi,
+  int mlen, int sublen,
+  int num_teams, int tile_k, int tile_i)
+{
+  const int K = mlen - sublen;
 
-  const int rows = mlen - sublen;
+  #pragma omp target teams num_teams(num_teams) is_device_ptr(block_mp, block_mpi)
+  {
+    const int team = omp_get_team_num();
+    double *local_mp  = team_mp  + team * mlen;
+    int    *local_mpi = team_mpi + team * mlen;
 
-  #pragma omp target teams distribute num_teams(num_blocks) is_device_ptr(block_QT)
-  for (int b = 0; b < num_blocks; b++) {
+    #pragma omp distribute parallel for
+    for (int x=0; x<mlen; x++) {
+      local_mp[x] = -1.0;
+      local_mpi[x] = -1;
+    }
 
-    const int i0 = (rows * b) / num_blocks;
+    #pragma omp distribute collapse(2)
+    for (int kt = 0; kt < K; kt += tile_k) {
+      for (int it = 0; it < K; it += tile_i) {
 
-    const int offset = b * mlen;
-    double *QT_local = block_QT + offset;
+        #pragma omp parallel for
+        for (int k = kt; k < min(kt+tile_k, K); k++) {
 
-    for (int d = 0; d < rows - i0; ++d) {
-      int j = i0 + sublen + d;
-      double acc = 0.0;
-      for (int t = 0; t < sublen; ++t) {
-        acc += (ts[i0 + t] - mu[i0]) * (ts[j + t] - mu[j]);
+          int i0 = it;
+          int i1 = min(it + tile_i, K - k);
+          if (i0 >= i1) continue;
+
+          int j0 = i0 + sublen + k;
+
+          double QTk = 0.0;
+          for (int t=0; t<sublen; t++){
+            QTk += (ts[i0+t]-mu[i0]) * (ts[j0+t]-mu[j0]);
+          }
+
+          for (int i = i0; i < i1; i++) {
+            int j = i + sublen + k;
+
+            if (i != i0) 
+              QTk += df[i]*dg[j] + df[j]*dg[i];
+
+            double cr = QTk * norm[i] * norm[j];
+
+            if (cr > local_mp[i]) {
+              local_mp[i]=cr;
+              local_mpi[i]=j;
+            }
+            if (cr > local_mp[j]) {
+              local_mp[j]=cr;
+              local_mpi[j]=i;
+            }
+
+          }
+        }
       }
-      QT_local[d] = acc;
     }
   }
 }
 
-void kernel(double *df, double *dg, double *norm, double *block_mp, int *block_mpi, double* block_QT, int mlen, int sublen, int num_blocks) {
-
-  const int rows = mlen - sublen;
-
-  #pragma omp target teams distribute num_teams(num_blocks) is_device_ptr(block_mp, block_mpi, block_QT)
-  for (int b = 0; b < num_blocks; b++) {
-
-    const int i0 = ((rows * b) / num_blocks);
-    const int i1 = ((rows * (b + 1)) / num_blocks);
-
-    const int offset = b * mlen;
-    double *mp_local = block_mp + offset;
-    int *mpi_local = block_mpi + offset;
-    double *QT_local = block_QT + offset;
-
-    for (int i = i0; i < i1; i++) {
-      for (int j = i + sublen; j < mlen; j++) {
-
-        const int d = j - i - sublen;
-        if (i != i0) {
-          QT_local[d] += df[i] * dg[j] + df[j] * dg[i];
-        }
-
-        const double cr = QT_local[d] * norm[i] * norm[j];
-
-        if (cr > mp_local[i]) {
-          mp_local[i] = cr;
-          mpi_local[i] = j;
-        }
-
-        if (cr > mp_local[j]) {
-          mp_local[j] = cr;
-          mpi_local[j] = i;
-        }
-      }
-    }
-  }
-}
-
-void reduce_block_buffers(double *mp, int *mpi, const double *block_mp, const int *block_mpi, int mlen, int num_blocks) {
+void reduce_block_buffers(double *mp, int *mpi, const double *block_mp, const int *block_mpi, int mlen, int num_teams) {
   #pragma omp target teams distribute parallel for is_device_ptr(block_mp, block_mpi)
   for (int i = 0; i < mlen; i++) {
 
     double best_val = -1;
     int best_idx = -1;
 
-    for (int t = 0; t < num_blocks; t++) {
-      size_t offset = (size_t)t * mlen + i;
+    for (int t = 0; t < num_teams; t++) {
+      int offset = t * mlen + i;
       double v = block_mp[offset];
       if (v > best_val) { best_val = v; best_idx = block_mpi[offset]; }
     }
@@ -150,7 +151,7 @@ int main(int argc, char* argv[]){
   FILE* f = fopen(argv[1],"r");
   int sublen = atoi(argv[3]);
   int mlen = len - sublen + 1;
-  int num_blocks = atoi(argv[4]);
+  int num_teams = atoi(argv[4]);
 
   if(f == NULL){
     perror("fopen");
@@ -199,21 +200,19 @@ int main(int argc, char* argv[]){
   roctxRangePush("Data");
 
   const int dev  = omp_get_default_device();
-  const int block_mlen = num_blocks * mlen;
+  const int block_mlen = num_teams * mlen;
 
   double *block_mp = (double*) omp_target_alloc(block_mlen * sizeof(double), dev);
   int *block_mpi = (int*) omp_target_alloc(block_mlen * sizeof(int), dev);
-  double *block_QT = (double*) omp_target_alloc(block_mlen * sizeof(double), dev);
 
-  if (!block_mp || !block_mpi || !block_QT) {
+  if (!block_mp || !block_mpi) {
     exit(1);
   }
   
-  #pragma omp target teams distribute parallel for is_device_ptr(block_mp, block_mpi, block_QT)
+  #pragma omp target teams distribute parallel for is_device_ptr(block_mp, block_mpi)
   for (int idx = 0; idx < block_mlen; ++idx) {
     block_mp[idx]  = -1.0;
     block_mpi[idx] = -1;
-    block_QT[idx] = 0.0;
   }
 
   #pragma omp target data \
@@ -221,19 +220,15 @@ int main(int argc, char* argv[]){
   map(tofrom : mp[:mlen], mpi[:mlen])
   {
 
-    roctxRangePush("QT init");
-    precom_QT(ts, mu, block_QT, mlen, sublen, num_blocks);
-    roctxRangePop();
-
     roctxRangePush("Computation");
     tb = omp_get_wtime();
   
     roctxRangePush("Kernel");
-    kernel(df, dg, norm, block_mp, block_mpi, block_QT, mlen, sublen, num_blocks);
+    kernel(ts, mu, df, dg, norm, block_mp, block_mpi, mlen, sublen, num_teams, );
     roctxRangePop();
   
     roctxRangePush("Reduction");
-    reduce_block_buffers(mp, mpi, block_mp, block_mpi, mlen, num_blocks);
+    reduce_block_buffers(mp, mpi, block_mp, block_mpi, mlen, num_teams);
     roctxRangePop();
   
     te = omp_get_wtime();
@@ -242,7 +237,6 @@ int main(int argc, char* argv[]){
 
   omp_target_free(block_mp, dev);
   omp_target_free(block_mpi, dev);
-  omp_target_free(block_QT, dev);
 
   roctxRangePop();
 
