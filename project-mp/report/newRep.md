@@ -246,7 +246,6 @@ Given our multiple approaches to solve the problem we created theses plots to co
 
 ![alt text](plots/problem_size_vs_time_v2.svg)
 
-The dotted black line indicates a perofrmance of over 200 GFLOP/s (everything below that line is more than 200 GFLOP/s, due to scaling it only starts for N=17).
 ### explaination of other optimization ideas
 - 3b: Parallelize outer i with private QT
   - each thread gets a contiguous i-range
@@ -513,3 +512,6 @@ The dotted black line indicates a perofrmance of over 200 GFLOP/s (everything be
     }}
   ```
 </details>
+
+## Future optimization attempt
+This [Paper](../../../../../../../Downloads/Matrix_Profile_II_Exploiting_a_Novel_Algorithm_and_GPUs_to_Break_the_One_Hundred_Million_Barrier_for_Time_Series_Motifs_and_Joins-2.pdf) promises enourmous speedups by using a different algorithm. However when trying to implemnt this we were unable to achieve consistant results and thus we could not include this in our report. However we used ideas from this paper in some of our apporaches. We managed to implment a CPU multi-threaded version of the algorithm described in the paper, however it was slower by a factor of 10x compared to our best implementation.
