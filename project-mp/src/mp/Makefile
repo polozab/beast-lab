@@ -8,7 +8,7 @@ CPPFLAGS+=-I$(ROCM_ROOT)/include
 LDFLAGS=-Wl,-rpath,$(ROCM_ROOT)/lib
 LDLIBS=-L$(ROCM_ROOT)/lib -l:libroctx64.so.4 -lm
 
-OBJS = main_approach2.o
+OBJS = main_approach2a.o
 
 all: mp
 

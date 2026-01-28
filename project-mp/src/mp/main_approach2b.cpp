@@ -58,62 +58,57 @@ void precom_dg(double* ts, double* mu, double* dg, int mlen, int sublen){
   return;
 }
 
-void kernel(
-  const double *ts, const double *mu,
-  const double *df, const double *dg, const double *norm,
-  double *team_mp, int *team_mpi,
-  int mlen, int sublen,
-  int num_teams, int tiles_k, int tiles_i)
+void kernel(const double *ts, const double *mu, const double *df, const double *dg, const double *norm, double *block_mp, int *block_mpi, int mlen, int sublen, int num_teams, int num_threads, int tiles_k, int tiles_i)
 {
   const int K = mlen - sublen;
 
-  #pragma omp target teams num_teams(num_teams) is_device_ptr(block_mp, block_mpi)
+  #pragma omp target teams num_teams(num_teams) thread_limit(num_threads) is_device_ptr(block_mp, block_mpi)
   {
     const int team = omp_get_team_num();
-    double *local_mp  = team_mp  + team * mlen;
-    int    *local_mpi = team_mpi + team * mlen;
-
-    #pragma omp distribute parallel for
-    for (int x=0; x<mlen; x++) {
-      local_mp[x] = -1.0;
-      local_mpi[x] = -1;
-    }
 
     #pragma omp distribute collapse(2)
     for (int kt = 0; kt < K; kt += tiles_k) {
       for (int it = 0; it < K; it += tiles_i) {
 
-        #pragma omp parallel for
-        for (int k = kt; k < min(kt+tiles_k, K); k++) {
+        #pragma omp parallel
+        {
 
-          int i0 = it;
-          int i1 = min(it + tiles_i, K - k);
-          if (i0 >= i1) continue;
+          const int thread = omp_get_thread_num();
+          double *local_mp = block_mp + (team*num_threads + thread)*mlen;
+          int *local_mpi = block_mpi + (team*num_threads + thread)*mlen;
 
-          int j0 = i0 + sublen + k;
-
-          double QTk = 0.0;
-          for (int t=0; t<sublen; t++){
-            QTk += (ts[i0+t]-mu[i0]) * (ts[j0+t]-mu[j0]);
-          }
-
-          for (int i = i0; i < i1; i++) {
-            int j = i + sublen + k;
-
-            if (i != i0) 
-              QTk += df[i]*dg[j] + df[j]*dg[i];
-
-            double cr = QTk * norm[i] * norm[j];
-
-            if (cr > local_mp[i]) {
-              local_mp[i]=cr;
-              local_mpi[i]=j;
+          #pragma omp for
+          for (int k = kt; k < min(kt+tiles_k, K); k++) {
+  
+            int i0 = it;
+            int i1 = min(it + tiles_i, K - k);
+            if (i0 >= i1) continue;
+  
+            int j0 = i0 + sublen + k;
+  
+            double QTk = 0.0;
+            for (int t=0; t<sublen; t++){
+              QTk += (ts[i0+t]-mu[i0]) * (ts[j0+t]-mu[j0]);
             }
-            if (cr > local_mp[j]) {
-              local_mp[j]=cr;
-              local_mpi[j]=i;
+  
+            for (int i = i0; i < i1; i++) {
+              int j = i + sublen + k;
+  
+              if (i != i0) 
+                QTk += df[i]*dg[j] + df[j]*dg[i];
+  
+              double cr = QTk * norm[i] * norm[j];
+  
+              if (cr > local_mp[i]) {
+                local_mp[i]=cr;
+                local_mpi[i]=j;
+              }
+              if (cr > local_mp[j]) {
+                local_mp[j]=cr;
+                local_mpi[j]=i;
+              }
+  
             }
-
           }
         }
       }
@@ -121,17 +116,22 @@ void kernel(
   }
 }
 
-void reduce_block_buffers(double *mp, int *mpi, const double *block_mp, const int *block_mpi, int mlen, int num_teams) {
+void reduce_block_buffers(double *mp, int *mpi, const double *block_mp, const int *block_mpi, int mlen, int num_teams, int num_threads) {
   #pragma omp target teams distribute parallel for is_device_ptr(block_mp, block_mpi)
   for (int i = 0; i < mlen; i++) {
 
     double best_val = -1;
     int best_idx = -1;
 
-    for (int t = 0; t < num_teams; t++) {
-      int offset = t * mlen + i;
-      double v = block_mp[offset];
-      if (v > best_val) { best_val = v; best_idx = block_mpi[offset]; }
+    for (int team = 0; team < num_teams; team++) {
+      for (int thread = 0; thread < num_threads; thread++) {
+        int offset = (team * num_threads + thread) * mlen + i;
+        double v = block_mp[offset];
+        if (v > best_val) {
+          best_val = v;
+          best_idx = block_mpi[offset];
+        }
+      }
     }
 
     mp[i]  = best_val;
@@ -142,8 +142,8 @@ void reduce_block_buffers(double *mp, int *mpi, const double *block_mp, const in
 int main(int argc, char* argv[]){
 
   // argument handling
-  if(argc < 7){
-    printf("Usage: exe <input file> <len> <sublen> <blocks> <tiles_k> <tiles_i>\n");
+  if(argc < 8){
+    printf("Usage: exe <input file> <len> <sublen> <teams> <threads> <tiles_k> <tiles_i>\n");
     exit(0);
   }
 
@@ -152,8 +152,9 @@ int main(int argc, char* argv[]){
   int sublen = atoi(argv[3]);
   int mlen = len - sublen + 1;
   int num_teams = atoi(argv[4]);
-  int tiles_k = atoi(argv[5]);
-  int tiles_i = atoi(argv[6]);
+  int num_threads = atoi(argv[5]);
+  int tiles_k = atoi(argv[6]);
+  int tiles_i = atoi(argv[7]);
 
   if(f == NULL){
     perror("fopen");
@@ -202,7 +203,7 @@ int main(int argc, char* argv[]){
   roctxRangePush("Data");
 
   const int dev  = omp_get_default_device();
-  const int block_mlen = num_teams * mlen;
+  const int block_mlen = num_threads * num_teams * mlen;
 
   double *block_mp = (double*) omp_target_alloc(block_mlen * sizeof(double), dev);
   int *block_mpi = (int*) omp_target_alloc(block_mlen * sizeof(int), dev);
@@ -218,7 +219,7 @@ int main(int argc, char* argv[]){
   }
 
   #pragma omp target data \
-  map(to : df[:mlen], dg[:mlen], norm[:mlen], ts[:len], mu[:mlen], mlen, sublen, num_teams, tiles_k, tiles_i) \
+  map(to : df[:mlen], dg[:mlen], norm[:mlen], ts[:len], mu[:mlen], mlen, sublen, num_teams, num_threads, tiles_k, tiles_i) \
   map(tofrom : mp[:mlen], mpi[:mlen])
   {
 
@@ -226,11 +227,11 @@ int main(int argc, char* argv[]){
     tb = omp_get_wtime();
   
     roctxRangePush("Kernel");
-    kernel(ts, mu, df, dg, norm, block_mp, block_mpi, mlen, sublen, num_teams, tiles_k, tiles_i);
+    kernel(ts, mu, df, dg, norm, block_mp, block_mpi, mlen, sublen, num_teams, num_threads, tiles_k, tiles_i);
     roctxRangePop();
   
     roctxRangePush("Reduction");
-    reduce_block_buffers(mp, mpi, block_mp, block_mpi, mlen, num_teams);
+    reduce_block_buffers(mp, mpi, block_mp, block_mpi, mlen, num_teams, num_threads);
     roctxRangePop();
   
     te = omp_get_wtime();
