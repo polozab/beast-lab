@@ -63,7 +63,7 @@ void kernel(
   const double *df, const double *dg, const double *norm,
   double *team_mp, int *team_mpi,
   int mlen, int sublen,
-  int num_teams, int tile_k, int tile_i)
+  int num_teams, int tiles_k, int tiles_i)
 {
   const int K = mlen - sublen;
 
@@ -80,14 +80,14 @@ void kernel(
     }
 
     #pragma omp distribute collapse(2)
-    for (int kt = 0; kt < K; kt += tile_k) {
-      for (int it = 0; it < K; it += tile_i) {
+    for (int kt = 0; kt < K; kt += tiles_k) {
+      for (int it = 0; it < K; it += tiles_i) {
 
         #pragma omp parallel for
-        for (int k = kt; k < min(kt+tile_k, K); k++) {
+        for (int k = kt; k < min(kt+tiles_k, K); k++) {
 
           int i0 = it;
-          int i1 = min(it + tile_i, K - k);
+          int i1 = min(it + tiles_i, K - k);
           if (i0 >= i1) continue;
 
           int j0 = i0 + sublen + k;
@@ -142,8 +142,8 @@ void reduce_block_buffers(double *mp, int *mpi, const double *block_mp, const in
 int main(int argc, char* argv[]){
 
   // argument handling
-  if(argc < 5){
-    printf("Usage: exe <input file> <len> <sublen> <blocks>\n");
+  if(argc < 7){
+    printf("Usage: exe <input file> <len> <sublen> <blocks> <tiles_k> <tiles_i>\n");
     exit(0);
   }
 
@@ -152,6 +152,8 @@ int main(int argc, char* argv[]){
   int sublen = atoi(argv[3]);
   int mlen = len - sublen + 1;
   int num_teams = atoi(argv[4]);
+  int tiles_k = atoi(argv[5]);
+  int tiles_i = atoi(argv[6]);
 
   if(f == NULL){
     perror("fopen");
@@ -216,7 +218,7 @@ int main(int argc, char* argv[]){
   }
 
   #pragma omp target data \
-  map(to : df[:mlen], dg[:mlen], norm[:mlen], ts[:len], mu[:mlen]) \
+  map(to : df[:mlen], dg[:mlen], norm[:mlen], ts[:len], mu[:mlen], mlen, sublen, num_teams, tiles_k, tiles_i) \
   map(tofrom : mp[:mlen], mpi[:mlen])
   {
 
@@ -224,7 +226,7 @@ int main(int argc, char* argv[]){
     tb = omp_get_wtime();
   
     roctxRangePush("Kernel");
-    kernel(ts, mu, df, dg, norm, block_mp, block_mpi, mlen, sublen, num_teams, );
+    kernel(ts, mu, df, dg, norm, block_mp, block_mpi, mlen, sublen, num_teams, tiles_k, tiles_i);
     roctxRangePop();
   
     roctxRangePush("Reduction");
