@@ -60,28 +60,27 @@ void precom_dg(double* ts, double* mu, double* dg, int mlen, int sublen){
 
 void kernel(const double *ts, const double *mu, const double *df, const double *dg, const double *norm, double *block_mp, int *block_mpi, int mlen, int sublen, int num_teams, int num_threads, int tiles_k, int tiles_i)
 {
-  const int K = mlen - sublen;
+  const int rows = mlen - sublen;
 
   #pragma omp target teams num_teams(num_teams) thread_limit(num_threads) is_device_ptr(block_mp, block_mpi)
   {
     const int team = omp_get_team_num();
 
     #pragma omp distribute collapse(2)
-    for (int kt = 0; kt < K; kt += tiles_k) {
-      for (int it = 0; it < K; it += tiles_i) {
+    for (int kt = 0; kt < rows; kt += tiles_k) {
+      for (int it = 0; it < rows; it += tiles_i) {
 
         #pragma omp parallel
         {
-
           const int thread = omp_get_thread_num();
           double *local_mp = block_mp + (team*num_threads + thread)*mlen;
           int *local_mpi = block_mpi + (team*num_threads + thread)*mlen;
 
           #pragma omp for
-          for (int k = kt; k < min(kt+tiles_k, K); k++) {
+          for (int k = kt; k < min(kt+tiles_k, rows); k++) {
   
             int i0 = it;
-            int i1 = min(it + tiles_i, K - k);
+            int i1 = min(it + tiles_i, rows - k);
             if (i0 >= i1) continue;
   
             int j0 = i0 + sublen + k;

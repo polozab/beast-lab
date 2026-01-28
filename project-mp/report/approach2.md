@@ -1,1 +1,0 @@
-## Approach 2 - Splitting over independent blocks

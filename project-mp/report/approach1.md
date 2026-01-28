@@ -1,4 +1,4 @@
-## Approach 1 - Parallelization over diagonals
+## Approach 1a - Parallelization over diagonals
 
 ### Solving QT access
 
@@ -135,10 +135,103 @@ Another limiting factor we would suspected for the computational kernel on a the
 
 For these reasons we concluded this approach would not be feasible to optimize efficiently with our limited time. However we did have some thoughts on improving this approach that we could explore in the future.
 
-### Future Improvements
+## Approach 1b - Two level parallelism & Tiling
 
-The first idea we would like to try is to just do a double-reduction and distribute over teams and threads. We would have to reduce the number of team overall but this may help to use the hierarchy of the provided GPU architecture more effectively. As we concluded that doing the reduction operation has no significant impact doing it over both threads and teams would not severely affect the performance. 
+### Two-level parallelism
 
-> Note: This improvement was tested however after some initial experiments lead to similar performance. This was also one possibility we suspected as the amount of parallelism didn't change instead we only split it up over two levels. But we thought of another improvement to this two-level parallelism. Instead of parallelizing the threads on the `k` loop we could also try to cut the `i` loop over multiple threads. We unfortunately didn't had time left to try this out.
+The first idea we would like to try is to just do a double-reduction and distribute over teams and threads. We would have to reduce the number of team overall but this may help to use the hierarchy of the provided GPU architecture more effectively. As we concluded that doing the reduction operation has no significant impact doing it over both threads and teams would not severely affect the performance.
+
+To implement this we first of all had to allocate memory according to every possible thread of every team. We say possible, as we only use the OpenMP `max_threads` directive to determine an upper limit. If the runtime chooses to lower the number of threads due to some reason it was possible. We also tried specifying a fixed number of threads but this made no significant difference in performance. The allocation was as follows:
+
+```cpp
+const int dev  = omp_get_default_device();
+const int block_mlen = num_threads * num_teams * mlen;
+double *block_mp = (double*) omp_target_alloc(block_mlen * sizeof(double), dev);
+int *block_mpi = (int*) omp_target_alloc(block_mlen * sizeof(int), dev);
+```
+
+We also had to adapt the reduction kernel to go over every thread in every team instead, which was a quick thing to implement:
+
+```cpp
+#pragma omp target teams distribute parallel for is_device_ptr(block_mp, block_mpi)
+for (int i = 0; i < mlen; i++) {
+  ...
+
+  for (int team = 0; team < num_teams; team++) {
+    for (int thread = 0; thread < num_threads; thread++) {
+      int offset = (team * num_threads + thread) * mlen + i;
+      ...
+    }
+  }
+}
+```
+
+### Tiling of matrix into blocks
+
+However our current loop setup doesn't fully utilize the hierarchy of the GPU yet. To be able to do this we opted to implement tiling for both the range of visited `k` and `i`, which get assigned to different teams. Thus we would get blocks of the matrix distributed to different computing units reducing the overall problem size that they have to work on. The implementation utilizes the OpenMP `collapse` directive to distribute both block-tile loops:
+
+```cpp
+...
+#pragma omp distribute parallel for collapse(2)
+for (int kt = 0; kt < rows; kt += tiles_k) {
+  for (int it = 0; it < rows; it += tiles_i) {
+    ...
+  }
+}
+```
+
+The inner block is semantically mostly identical to our previous kernel with the addition of using the block-tile indexes instead. To circumvent overflows we also made sure to check if the index of a tile overflows the actual matrix dimensions by using `min` statements:
+
+```cpp
+const int thread = omp_get_thread_num();
+double *local_mp = block_mp + (team*num_threads + thread)*mlen;
+int *local_mpi = block_mpi + (team*num_threads + thread)*mlen;
+
+for (int k = kt; k < min(kt+tiles_k, rows); k++) {
+
+  int i0 = it;
+  int i1 = min(it + tiles_i, rows - k);
+  if (i0 >= i1) continue;
+
+  int j0 = i0 + sublen + k;
+
+  double QTk = 0.0;
+  for (int t=0; t<sublen; t++){
+    QTk += (ts[i0+t]-mu[i0]) * (ts[j0+t]-mu[j0]);
+  }
+
+  for (int i = i0; i < i1; i++) {
+    int j = i + sublen + k;
+
+    if (i != i0) 
+      QTk += df[i]*dg[j] + df[j]*dg[i];
+
+    double cr = QTk * norm[i] * norm[j];
+
+    if (cr > local_mp[i]) {
+      local_mp[i]=cr;
+      local_mpi[i]=j;
+    }
+    if (cr > local_mp[j]) {
+      local_mp[j]=cr;
+      local_mpi[j]=i;
+    }
+
+  }
+}
+```
+
+The inside of the `k`-tiles was iterated over by the outer loop which visited every the individual diagonals. For every diagonal we also calculated the correct starting `QT` using the same method provided by the assignment however only for the specific diagonal instead of the whole first line. This allowed us to completely get rid of the allocation of the `QT` buffer on both the host and device. This improved our usage of memory slightly as we only allocate so many private `QT` elements as we create team which are are less compared to the matrix size. The update of the result buffers were not affected by this change only the pointers now point at the thread-private buffers instead of the team-private ones.
+
+### Redistributing parallelism
+
+
+
+In addition we further instantiate a number of threads to handle different blocks of diagonals within the block of the team. 
+
+
+## Future improvements
 
 In addition to doing parallelism on two-level we could also distribute different tiles of the matrix to separate devices. This would not only be yet another level of parallelism but would also increase the amount of available GPU memory. With that two-level parallelism with thread-private result buffers could become feasibly even at huge matrix sizes like `2^20`. We think that this improvement would be the next step trying to get this approach to a reasonable performance and we would be very interested to try this out if we have the time.
+
+Another possible improvement to our current kernel would be to putting even more effort and time into tuning the parameters of the kernel. Unfortunately we didn't quite finish our complete testing until the deadline and if we had additional time it might be possible to archive an even better performance. As we saw these have a significant impact on the kernel and would be worth to investigate further.
