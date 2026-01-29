@@ -1,29 +1,19 @@
-CXX=c++
+CXX=amdclang++
+CXXFLAGS=-O3 -Wall -target x86_64-linux-gnu -fopenmp --offload-arch=gfx90a
+CPPFLAGS=
 
-MAIN=main.cpp
-BIN=bin
-EXE=mp
-OUT=output
+ROCM_ROOT=/opt/rocm
 
-DATA=input/randomlist128.txt
-LEN=128
-SUBLEN=10
+CPPFLAGS+=-I$(ROCM_ROOT)/include
+LDFLAGS=-Wl,-rpath,$(ROCM_ROOT)/lib
+LDLIBS=-L$(ROCM_ROOT)/lib -l:libroctx64.so.4 -lm
 
-all: prepare compile
+OBJS = main_approach2a.o
 
-prepare:
-	mkdir -p $(BIN) 
-	mkdir -p $(OUT)
+all: mp
 
-compile:
-	$(CXX) $(MAIN) -o $(BIN)/$(EXE) -lm
-
-debug:
-	$(CXX) $(MAIN) -o $(BIN)/$(EXE) -lm -DDEB
-
-run:
-	$(BIN)/$(EXE) $(DATA) $(LEN) $(SUBLEN)
+mp: $(OBJS)
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) $(OBJS) -o mp $(LDLIBS)
 
 clean:
-	rm -rf $(BIN)/$(EXE)
-	rm -rf $(BIN) $(OUT)
+	rm mp main.o
