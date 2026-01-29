@@ -154,6 +154,8 @@ int main(int argc, char *argv[])
       mpi[i] = bestj;
     }
   }
+  te = omp_get_wtime();
+
   const double t = te - tb;
   const uint64_t M = (uint64_t)mlen;
   const uint64_t S = (uint64_t)sublen;
