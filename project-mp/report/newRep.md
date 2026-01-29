@@ -212,6 +212,8 @@ Code explainaition:
 - Each GPU computes mp and mpi only for its slice of i.
 - Each i gets handeled by a thread on the GPU
 - Furthermore mp and mpi are only updated once at the end for every i, which reduces memory traffic.
+- Further omp directives using schedule(dynamic) lead to worse performance, likely due to overhead.
+- We confirmed the correctness of our implementation by comparing the output files to the sequential CPU.
 This code was also used for the one GPU implementation, with only minor changes. 
 
 ## Teams and Threads per team
@@ -223,7 +225,7 @@ For both tries the runtime picked 612 Teams and 256 Threads per team. We also an
 >Note: We used the average of multiple runs for the heatmap to reduce noise. 
 
 From the heatmap we can see that the optimal number of teams and threads depends on the problem size, but generally the runtime picked a good configuration. We also ran it for hiher problem sizes, but due to the runtime being very long we did no full heatmap analysis however our findings from N=19 and N=20 also seem to hold for higher problem sizes.
-Our alogiuthm also splits its work evenly across the GPUs, so each GPU gets the same amount of work. Which we could see by using rocprof:
+Our algorithm also splits its work evenly across the GPUs, so each GPU gets the same amount of work. Which we could see by using rocprof:
 ```
 gpu=10  total=1672.025 ms  calls=1  avg=1672.025 ms
 gpu=11  total=1645.148 ms  calls=1  avg=1645.148 ms
@@ -234,8 +236,28 @@ gpu=15  total=1575.351 ms  calls=1  avg=1575.351 ms
 gpu=8  total=1670.233 ms  calls=1  avg=1670.233 ms
 gpu=9  total=1623.929 ms  calls=1  avg=1623.929 ms
 ```
+Perf statistics for N=20 with 8 GPUs:
+```
+        28,139.49 msec task-clock                       #    4.319 CPUs utilized          
+           601,696      context-switches                 #   21.383 K/sec                  
+               726      cpu-migrations                   #   25.800 /sec                   
+            11,882      page-faults                      #  422.254 /sec                   
+    85,283,077,531      cycles                           #    3.031 GHz                      (83.61%)
+       568,212,918      stalled-cycles-frontend          #    0.67% frontend cycles idle     (83.39%)
+     4,792,133,241      stalled-cycles-backend           #    5.62% backend cycles idle      (83.15%)
+    55,751,427,636      instructions                     #    0.65  insn per cycle         
+                                                  #    0.09  stalled cycles per insn  (83.14%)
+    16,885,132,611      branches                         #  600.051 M/sec                    (83.21%)
+       225,218,901      branch-misses                    #    1.33% of all branches          (83.53%)
+
+       6.515548941 seconds time elapsed
+
+      23.093991000 seconds user
+       4.998578000 seconds sys
+```
+
 ## Analysis
-For N=20 we achieved a performance of `600 GFLOP/s`. For larger problem sizes the performance flattens at around `630 GFLOP/s`. 
+For N=20 we achieved a performance of `625 GFLOP/s`. For larger problem sizes the performance flattens at around `630 GFLOP/s`. The amount of GPU used lead to directly proportional speedups without increasing overhead.
 With rocprof we generated this roofline model (note: we estimated the AI, and tried to use rocprof's output to get a better estimate, however the results were inconclusive):
 
 ![alt text](image.png)
