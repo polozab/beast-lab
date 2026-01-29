@@ -206,10 +206,12 @@
 </details>
 
 Code explainaition:
-- mu and norrm are computed on host
-- For the GPU: We split the subsequence start indices i into contiguous “slices” across GPUs (row-wise partition of the matrix):
-	-	GPU g gets i ∈ [i0, i1) where i0 = mlen*g/ndev, i1 = mlen*(g+1)/ndev.
-  - Each i gets handeled by a thread on the GPU
+- Our testing has shown that it is most efficnet to compute norm and mu on the host withouth any parallelizm and with optimized array access.
+- For the GPU: We split the indice i into contiguous “slices” equally across GPUs (row wise partition of the matrix):
+-	GPU g gets i ∈ [i0, i1) where i0 = mlen*g/ndev, i1 = mlen*(g+1)/ndev. With ndev being the number of used devices.
+- Each GPU computes mp and mpi only for its slice of i.
+- Each i gets handeled by a thread on the GPU
+- Furthermore mp and mpi are only updated once at the end for every i, which reduces memory traffic.
 This code was also used for the one GPU implementation, with only minor changes. 
 
 ## Teams and Threads per team
