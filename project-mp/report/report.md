@@ -56,8 +56,6 @@ rocprof --roctx-trace ./mp input/randomlist65536.txt 16 10
 
 And the following results showing that as expected calculating the norm takes the longest time among those methods:
 
-> **TODO**: Image of precomputations
-
 ### Collecting system counters
 
 The other part useful for optimizing the matrix profile kernel is the ability for RocProf to record system counter like cache misses and used memory bandwidth. For this we had to supply the `rocprof` CLI tool with an input file defining several counters we want to measure and limitations to the context we want to capture. With the later one it was possible to specifically only measure the offloaded part we were interested in. 
