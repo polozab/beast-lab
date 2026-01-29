@@ -206,7 +206,7 @@
 </details>
 
 Code explainaition:
-- Our testing has shown that it is most efficnet to compute norm and mu on the host withouth any parallelizm and with optimized array access.
+- Our testing has shown that it is most efficient to compute norm and mu on the host withouth any parallelizm and with optimized array access.
 - For the GPU: We split the indice i into contiguous “slices” equally across GPUs (row wise partition of the matrix):
 -	GPU g gets i ∈ [i0, i1) where i0 = mlen*g/ndev, i1 = mlen*(g+1)/ndev. With ndev being the number of used devices.
 - Each GPU computes mp and mpi only for its slice of i.
