@@ -1,0 +1,114 @@
+/********************************************************************
+ * Simple multigrid solver on unit square, using Jacobi smoother
+ * (c) 2014 Philipp Neumann, TUM I-5
+ *
+ * With explicit permission to use in the BEAST lab WS 20/21
+ *******************************************************************/
+
+#include "Multigrid.h"
+#include "ComputeError.h"
+#include <cstdlib>
+
+int main(int argc, char *argv[])
+{
+  if (argc != 5)
+  {
+    std::cout << "ERROR main: Please call program by"
+              << std::endl
+              << " ./multigrid preSmoothingSteps postSmoothingSteps numberGridLevels numberMultigridIterations restrictionBlockSize"
+              << std::endl;
+    return -1;
+  }
+
+  const unsigned int preSmoothing = (unsigned int)atoi(argv[1]);
+  const unsigned int postSmoothing = (unsigned int)atoi(argv[2]);
+  const unsigned int jacobiStepsCoarsestLevel = 1;
+  const unsigned int levels = (unsigned int)atoi(argv[3]);
+  const unsigned int multigridCycles = (unsigned int)atoi(argv[4]);
+
+  // determine resolution
+  const unsigned int nx = ((unsigned int)(1 << levels)) - 1;
+
+  // initialise fields and set boundary values
+  FLOAT *field1 = new FLOAT[(nx + 2) * (nx + 2)];
+  if (field1 == NULL)
+  {
+    std::cout << "ERROR field1==NULL!" << std::endl;
+    return -1;
+  }
+  FLOAT *field2 = new FLOAT[(nx + 2) * (nx + 2)];
+  if (field2 == NULL)
+  {
+    std::cout << "ERROR field2==NULL!" << std::endl;
+    return -1;
+  }
+  FLOAT *rhs = new FLOAT[(nx + 2) * (nx + 2)];
+  if (rhs == NULL)
+  {
+    std::cout << "ERROR rhs   ==NULL!" << std::endl;
+    return -1;
+  }
+
+  NVTX_RANGE_START(init_range, 0xFFa84432, "Initialization");
+  const SetBoundary setBoundary(nx, nx);
+  NVTX_RANGE_START(zeroing_range, 0xFFa84432, "Zeroing");
+
+  #pragma omp parallel for simd schedule(static)
+  for (unsigned int i = 0; i < (nx + 2) * (nx + 2); i++)
+  {
+    field1[i] = 0.0;
+    field2[i] = 0.0;
+    rhs[i] = 0.0;
+  }
+  NVTX_RANGE_END(zeroing_range);
+  NVTX_RANGE_START(boundary_range, 0xFFa84432, "Boundary");
+  setBoundary.iterate(field1);
+  setBoundary.iterate(field2);
+  NVTX_RANGE_END(boundary_range);
+  NVTX_RANGE_END(init_range);
+
+
+  Multigrid multigrid(nx, nx, levels);
+  FLOAT *currentSolution = field1;
+
+  ComputeError computeError(nx, nx);
+  const VTKPlotter vtkPlotter;
+
+  for (unsigned int i = 0; i < multigridCycles; i++)
+  {
+    
+    char msg[64];
+    std::snprintf(msg, sizeof(msg), "Iteration %d", i);
+    NVTX_RANGE_START(i_range, 0xFF51555C, msg);
+    
+    // always work on the correct field (either field1 or field2);
+    // this switch is required due to the Jacobi method
+    if (currentSolution == field1)
+    {
+      currentSolution = multigrid.solve(
+          preSmoothing, postSmoothing, jacobiStepsCoarsestLevel,
+          field1, field2, rhs);
+    }
+    else
+    {
+      currentSolution = multigrid.solve(
+          preSmoothing, postSmoothing, jacobiStepsCoarsestLevel,
+          field2, field1, rhs);
+    }
+
+    NVTX_RANGE_START(error_range, 0xFFa83267, "Error calculation");
+    computeError.computePointwiseError(currentSolution);
+    NVTX_RANGE_END(error_range);
+
+    std::cout << "Iteration " << i << ", Max-error: " << computeError.getMaxError() << std::endl;
+
+    NVTX_RANGE_END(i_range);
+
+  }
+
+  // commented out: result not interesting here
+  //computeError.plotPointwiseError();
+  //vtkPlotter.writeFieldData(currentSolution,nx,nx,"result.vtk");
+
+  return 0;
+}
