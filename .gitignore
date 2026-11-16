@@ -64,9 +64,15 @@ slurm-*.out
 *.qdrep
 *.ncu-rep
 *.sqlite
-perf.data
-perf.data.old
+perf*.data
+perf*.data.old
 *.vtk
+
+# Large generated inputs / results
+randomlist*.txt
+!/project-mp/src/mp/input/randomlist128.txt
+/project-mp/src/mp/results/results.json
+/project-mp/src/mp/results/results.db
 
 # =============================================================================
 # Python (plotting scripts)
