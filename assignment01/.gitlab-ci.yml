@@ -1,5 +1,0 @@
-Assignment1:
-  stage: test
-  script:
-    - 'echo -e "This assignment no longer makes use of CI. This CI script is a placeholder and does nothing useful."'
-  when: manual
